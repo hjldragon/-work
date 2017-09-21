@@ -1,0 +1,171 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/main.css?1494609357" type="text/css">
+<title>xxx</title>
+<script type="text/javascript" src="./js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/jquery.md5.js"></script>
+<script type="text/javascript" src="./js/cfg.js"></script>
+<script type="text/javascript" src="./js/jquery.query.js"></script>
+<script type="text/javascript" src="./js/util.js?1454301113"></script>
+<script type="text/javascript" src="./js/public.js?1461295407"></script>
+<script type="text/javascript" src="./js/encrypt.js?1412787720"></script>
+<script type="text/javascript" src="./js/PageStore.js?1418317466"></script>
+<script type="text/javascript" src="./js/toast.js?1494520361"></script>
+<script type="text/javascript" src="./js/global.js?1418273744"></script>
+<body> -->
+
+<!-- ---------------------------特定类别打印设置--------------------------- -->
+<script type="text/javascript">
+$(function() {
+    console.log("menu.customer_num_box.html");
+    var CustomerNumBox = new function()
+    {
+        var THIS = this;
+        var box = $.FloatBox($("#id_customer_num_1497175957"));
+        var click_callback = null;
+
+        // 点击checkbox中回调callback
+        function Open(num, callback)
+        {
+            click_callback = callback;
+            box.Open();
+
+            if(0 != num)
+            {
+                $("#id_customer_num_1497175957 .customer_num .item").each(function(){
+                    var $this = $(this);
+                    if($this.Int() == num)
+                    {
+                        $this.SetBgColor("#549118");
+                    }
+                    else
+                    {
+                        $this.SetBgColor("");
+                    }
+                });
+            }
+        }
+        THIS.Open = Open;
+
+        function Init()
+        {
+            $("#id_customer_num_1497175957 .customer_num .item").click(function(){
+                var $this = $(this);
+                var num = 0;
+                var $value = $this.find(".value");
+                if($value.Value() == "...")
+                {
+                    num = window.prompt("请填写用餐人数(0表示不确定)", "0");
+                }
+                else
+                {
+                    num = $value.Int();
+                }
+                if($.isFunction(click_callback))
+                {
+                    click_callback(num);
+                }
+                box.Close();
+            });
+        }
+
+        Init();
+    }//end of var CustomerNumBox = new function(){...
+    window.CustomerNumBox = CustomerNumBox;
+});
+</script>
+<style type="text/css">
+#id_customer_num_1497175957 {
+    display: none;
+    background-color: #e6e6e6;
+    padding: 0.4053423rem;
+}
+#id_customer_num_1497175957 .customer_num {
+    float: left;
+    border: 1px solid #DEDEDE;
+    background: #e6e6e6;
+    padding: 0.42832rem;
+}
+#id_customer_num_1497175957 .customer_num .item {
+    display: block;
+    float: left;
+    white-space: nowrap;
+    background: #abd485;
+    width: 3.88248rem;
+    height: 3.01234rem;
+    line-height: 3.01234rem;
+    margin: 0.20234rem;
+    text-align: center;
+    font-size: 2.104832rem;
+    cursor: pointer;
+}
+#id_customer_num_1497175957 .customer_num .other {
+    width: 6.61234rem;
+    margin: 0.20234rem;
+}
+</style>
+<div id="id_customer_num_1497175957">
+请选用餐人数：
+    <div style="clear:both"></div>
+    <div class="customer_num">
+
+        <div class="item line">
+            <span class="value">1</span>
+        </div>
+        <div class="item line">
+            <span class="value">2</span>
+        </div>
+        <div class="item line">
+            <span class="value">3</span>
+        </div>
+        <div class="item line">
+            <span class="value">4</span>
+        </div>
+        <div style="clear:both"></div>
+
+        <div class="item line">
+            <span class="value">5</span>
+        </div>
+        <div class="item line">
+            <span class="value">6</span>
+        </div>
+        <div class="item line">
+            <span class="value">7</span>
+        </div>
+        <div class="item line">
+            <span class="value">8</span>
+        </div>
+        <div style="clear:both"></div>
+
+        <div class="item line">
+            <span class="value">9</span>
+        </div>
+        <div class="item line">
+            <span class="value">10</span>
+        </div>
+        <div class="item line">
+            <span class="value">11</span>
+        </div>
+        <div class="item line">
+            <span class="value">12</span>
+        </div>
+        <div style="clear:both"></div>
+
+        <div class="item line">
+            <span class="value">13</span>
+        </div>
+        <div class="item line">
+            <span class="value">14</span>
+        </div>
+        <div class="item line">
+            <span class="value">15</span>
+        </div>
+        <div class="item line">
+            <span class="value">...</span>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>

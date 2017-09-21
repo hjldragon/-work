@@ -1,0 +1,312 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/main.css?1494609357" type="text/css">
+<title>xxx</title>
+<script type="text/javascript" src="./js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/jquery.md5.js"></script>
+<script type="text/javascript" src="./js/cfg.js"></script>
+<script type="text/javascript" src="./js/jquery.query.js"></script>
+<script type="text/javascript" src="./js/util.js?1454301113"></script>
+<script type="text/javascript" src="./js/public.js?1461295407"></script>
+<script type="text/javascript" src="./js/encrypt.js?1412787720"></script>
+<script type="text/javascript" src="./js/PageStore.js?1418317466"></script>
+<script type="text/javascript" src="./js/toast.js?1494520361"></script>
+<script type="text/javascript" src="./js/global.js?1418273744"></script>
+<script type="text/javascript">
+    setTimeout(function(){
+        window.FoodDetail.Open();
+    }, 100)
+</script>
+<body> -->
+
+<!-- ---------------------------餐品详情--------------------------- -->
+<script type="text/javascript">
+$(function() {
+    console.log("menu.food_detail.html");
+
+    var FoodDetail = new function()
+    {
+        var THIS = this;
+        var box = $.FloatBox($("#id_food_detail_1498716242"));
+        var $food_id = $("#id_food_detail_1498716242 .food_id .value");
+        var $food_name = $("#id_food_detail_1498716242 .food_name");
+        var $food_img = $("#id_food_detail_1498716242 .food_img .value");
+        var $food_price = $("#id_food_detail_1498716242 .food_price .value");
+        var $food_intro = $("#id_food_detail_1498716242 .food_intro");
+        var $food_attach = $("#id_food_detail_1498716242 .food_attach");
+        var $num_value = $("#id_food_detail_1498716242 .num_value");
+        var $food_unit = $(".food_unit_1499511591 .food_unit");
+        var click_callback = null;
+
+        // 点击checkbox中回调callback
+        function Open(food_info, other_info, callback)
+        {
+            click_callback = callback;
+            $food_name.Value(food_info.food_name);
+
+            $food_img.attr("src", food_info.food_img_url).load(function(){
+                // 再次打开，以调整位置
+                box.Open();
+            });;
+
+            $food_price.Value(food_info.food_price);
+
+            if(food_info.food_intro)
+            {
+                $food_intro.Value(food_info.food_intro).show();
+            }
+            else
+            {
+                $food_intro.hide();
+            }
+
+            if(!food_info.food_unit)
+            {
+                $(".food_unit_1499511591").hide();
+            }
+            else
+            {
+                $(".food_unit_1499511591").show();
+            }
+            $food_unit.Value(food_info.food_unit||"");
+
+            var data = {
+                'list' : []
+            };
+            var food_attach_list = food_info.food_attach_list||[];
+            for(var i in food_attach_list||[])
+            {
+                var item = food_attach_list[i];
+                var checked = false;
+                if(other_info.selected_food_attach_list.indexOf(item) != -1)
+                {
+                    checked = true;
+                }
+                data.list.push({
+                    food_attach : item,
+                    checked : checked,
+                });
+            }
+            var html = template('tp_food_attach_list_1498717301', data);
+            $("#id_food_detail_1498716242 .food_attach .item").remove();
+            $(html).insertBefore("#tp_food_attach_list_1498717301");
+
+            $("#id_food_detail_1498716242 .food_attach .item").click(function(){
+                click_callback({
+                    opr : "attach",
+                    food_attach_list : $("#id_food_detail_1498716242 .food_attach .item input:checked").GetCheckBoxVal(),
+                })
+            });
+            $num_value.Int(other_info.food_num);
+
+            SetAttachEditStstus();
+
+            if(data.list.length == 0)
+            {
+                $("#id_food_detail_1498716242 .food_attach").hide();
+            }
+            else
+            {
+                $("#id_food_detail_1498716242 .food_attach").show();
+            }
+
+            box.Open();
+        }
+        THIS.Open = Open;
+
+        function SetAttachEditStstus()
+        {
+            // if($num_value.Int() > 0)
+            // {
+            //     $("#id_food_detail_1498716242 .food_attach .item input").Disabled(false);
+            // }
+            // else
+            // {
+            //     $("#id_food_detail_1498716242 .food_attach .item input").Disabled(true);
+            // }
+        }
+
+        function Add()
+        {
+            $num_value.Value($num_value.Int() + 1);
+            click_callback({
+                opr : "add"
+            })
+            SetAttachEditStstus();
+        }
+        function Sub()
+        {
+            num = $num_value.Int() - 1;
+            if(num < 0)
+            {
+                return;
+            }
+            $num_value.Value(num);
+            click_callback({
+                opr : "sub"
+            })
+            SetAttachEditStstus();
+        }
+
+        function Init()
+        {
+        }
+
+        $("#id_food_detail_1498716242 .ctrl .ok").click(function(){
+            box.Close();
+        });
+
+        $("#id_food_detail_1498716242 .food_num .num_add").click(function(){
+            Add();
+        });
+
+        $("#id_food_detail_1498716242 .food_num .num_sub").click(function(){
+            Sub();
+        });
+
+        Init();
+    }//end of var FoodDetail = new function(){...
+    window.FoodDetail = FoodDetail;
+});
+</script>
+<style type="text/css">
+#id_food_detail_1498716242 {
+    display: none;
+    background-color: white;
+    padding: 0.4053423rem;
+    width: 80%;
+    font-size: 1.8rem;
+}
+#id_food_detail_1498716242 .line {
+    margin: 0.4086544rem 0;
+}
+#id_food_detail_1498716242 .food_img {
+    width: 28rem;
+    height: 28rem;
+    margin: 0 auto;
+}
+#id_food_detail_1498716242 .food_img div {
+    width: 26rem;
+    height: 26rem;
+    overflow: auto;
+    margin: 0 auto;
+}
+#id_food_detail_1498716242 .food_img .value {
+    width: 26rem;
+    height: 26rem;
+    margin: 0 auto;
+    display: block;
+}
+#id_food_detail_1498716242 .food_name {
+    float: left;
+    margin: 0 1rem;
+}
+#id_food_detail_1498716242 .food_price {
+    float: right;
+    margin: 0 1rem;
+}
+#id_food_detail_1498716242 .food_intro {
+    padding: 0.2rem;
+    color: gray;
+    font-style: italic;
+    font-size: 1.4rem;
+}
+#id_food_detail_1498716242 .food_attach {
+    /*border: 1px solid #ebf7e4;*/
+    margin: 0 auto;
+    background: #f7f7f7;
+    padding: 0.307435rem;
+}
+#id_food_detail_1498716242 .food_attach .item {
+    float: left;
+    white-space: nowrap;
+    background: #abd485;
+    margin: 0.20234rem;
+    padding: 0.010425rem 0.10425rem;
+    cursor: pointer;
+}
+.bg_color1 {
+    background-color: #f7f7f7;
+}
+</style>
+<div id="id_food_detail_1498716242">
+    <div class="food_img line">
+        <img class="value" src="img/none.png"/>
+    </div>
+
+    <div class="line bg_color1">
+        <div class="food_name">--</div>
+        <div class="food_price">
+            ￥<span class="value">0</span>
+            <span class="food_unit_1499511591">(<span class="food_unit"></span>)</span>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+    <div class="line food_intro bg_color1"></div>
+
+    <div class="food_attach">
+        <script id="tp_food_attach_list_1498717301" type="text/html">
+        {{each list as item i}}
+        <div class="item line">
+        <label class="line_not_break" >
+            <input type="checkbox" value="{{item.food_attach}}" {{item.checked?"checked":""}}>{{item.food_attach}}
+        </label>
+        </div>
+        {{/each}}
+        </script>
+        <div style="clear:both"></div>
+    </div>
+    <style type="text/css">
+#id_food_detail_1498716242 .food_num {
+    text-align: center;
+    float: left;
+    padding-left: 1rem;
+}
+#id_food_detail_1498716242 .food_num .img {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 0.5rem;
+}
+#id_food_detail_1498716242 .food_num .num_value {
+    display: inline-block;
+    font-size: 2.8rem;
+    vertical-align: middle;
+    padding: 0 0.2rem;
+    /*margin-left: 2.08647rem;*/
+}
+#id_food_detail_1498716242 .food_num .num_add,
+#id_food_detail_1498716242 .food_num .num_sub {
+    width: 2.8rem;
+}
+#id_food_detail_1498716242 .ctrl {
+    margin: 0 auto;
+    text-align: center;
+    float: right;
+}
+#id_food_detail_1498716242 .ctrl .ok {
+    margin: 0.5rem;
+    margin-top: 0.8rem;
+    width: 6.6rem;
+    height: 3rem;
+}
+.food_unit_1499511591 {
+    color: gray;
+    font-size: 1.4rem;
+}
+</style>
+    <div class="food_num line">
+        <div class="img"><img src="img/add.png" class="num_add hand "></div>
+        <!-- <span class="num_value hand" contentEditable="true">0</span> -->
+        <span class="num_value">0</span>
+        <div class="img"><img src="img/sub.png" class="num_sub hand "></div>
+    </div>
+
+    <div class="ctrl line">
+        <button class="ok" id="id_ok_1498719102">确定</button>
+    </div>
+    <div style="clear:both"></div>
+</div>

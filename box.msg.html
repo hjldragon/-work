@@ -1,0 +1,65 @@
+<script type="text/javascript">
+$(function() {
+    var msg = new function(){
+        var THIS = this;
+        var $doing = $("#id_msg_box_1495370745 .doing");
+        var box = $.FloatBox($("#id_msg_box_1495370745")).Open();
+        var $msg = $("#id_msg_box_1495370745 .msg");
+        var $bt_ok = $("#id_msg_box_1495370745 .ok");
+        var $bt_close = $("#id_msg_box_1495370745 .close");
+
+        function Show(msg, opt)
+        {
+            opt = opt||{};
+            $msg.html(msg);
+            (true === opt.bt_close) ? $bt_close.show() : $bt_close.hide();
+            (true === opt.bt_ok) ? $bt_ok.show() : $bt_ok.hide();
+            box.Open();
+        }
+        THIS.Show = Show;
+
+        $bt_ok.click(function(){
+        });
+
+        $bt_close.click(function(){
+            box.Close();
+        });
+    };
+    window.MsgBox = msg;
+});
+</script>
+<style type="text/css">
+#id_msg_box_1495370745 {
+    padding: 3px;
+    background-color: white;
+}
+#id_msg_box_1495370745 .ok,
+#id_msg_box_1495370745 .close {
+    display: none;
+}
+#id_msg_box_1495370745 .doing {
+    float:left;
+    font-style:italic;
+    margin:5px 0 0 0;
+}
+</style>
+<div id="id_msg_box_1495370745" class="popup_box">
+<fieldset>
+<legend>提示</legend>
+
+
+<div>
+    <div>
+        <div class="msg"></div>
+    </div>
+
+    <div style="text-align:right; border:0px dashed #000; margin-top:10px;">
+        <span class="doing"></span>
+        <input type="button" class="ok" value="确定" />
+        <input type="button" class="close" value="关闭" />
+    </div>
+</div>
+
+
+</fieldset>
+</div>

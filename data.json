@@ -1,0 +1,60 @@
+/*
+说明 hjl对接吴江可能需要用的参数
+表下面：
+是前端需要对应的字段 后面是字段类型
+*/
+user://user表
+userid //登录用户id int
+
+bannar: //首页轮播图表
+img //轮播图片地址 string
+info //图片信息  string
+
+shop://表店铺表
+news //店铺促销信息 string
+shop_id //店鋪ID int
+
+seat://餐桌表
+seat_name //餐桌号 string
+
+//菜单名中展示需要customer表，判断登录用户是否是vip
+menu_category://菜单表
+category_name //菜单名 string
+
+
+customer: //customer表
+is_vip //是否是vip int类型 1或0  int
+//通过顾客表来店铺是否是该店铺的会员
+
+//如果是会员就有cateory表中  买过 分类名
+menu_category://菜单分类表
+category_name //分类名 string
+
+//根据菜单栏给与每个菜单下面对应的菜
+foodinfo://菜品表
+food_id   //菜品ID  int
+food_price  //普通价格  int
+food_img //商品图 片 string
+food_vip_price //vip价格 int
+parise  //点赞 int
+//month_sale //月售 int
+spec [   //规格  待定中先定义为大中小
+    big       //大
+    medium   //中
+    small    //小
+]
+stat_food_bymonth
+ food_id //菜品id
+ shop_id //商店id
+ sold_num //月售数量 这里就是月售
+ month //月份
+
+/*//HJL规格设计
+spec: //规格表
+id  //规格id
+food_id //菜品id
+name [ //规格名称
+        name_choice //规格子名称
+        price   //子名称普通价格
+        vip_price //子名称会员价格
+    ]*/

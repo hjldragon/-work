@@ -1,0 +1,7 @@
+/**
+ * Layout
+ * ------------------------------ */
+fieldset{margin:1em 0;padding:10px 20px;border:1px solid #ccc;border-radius:5px;}
+fieldset legend{font:bold 14px/2 "\5fae\8f6f\96c5\9ed1";}
+fieldset p + p{margin-top:0.5em;}
+fieldset .cxbtn_group{display:block;margin-top:10px;}

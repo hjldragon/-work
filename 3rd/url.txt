@@ -1,0 +1,7 @@
+date:
+http://jqueryui.com/download/all/
+
+php 二维码
+http://blog.csdn.net/luoshengkim/article/details/46517479
+下载：https://sourceforge.net/projects/phpqrcode/
+

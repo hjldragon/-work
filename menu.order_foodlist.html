@@ -1,0 +1,372 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/main.css?1494609357" type="text/css">
+<title>xxx</title>
+<script type="text/javascript" src="./js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/jquery.md5.js"></script>
+<script type="text/javascript" src="./js/cfg.js"></script>
+<script type="text/javascript" src="./js/jquery.query.js"></script>
+<script type="text/javascript" src="./js/util.js?1454301113"></script>
+<script type="text/javascript" src="./js/public.js?1461295407"></script>
+<script type="text/javascript" src="./js/encrypt.js?1412787720"></script>
+<script type="text/javascript" src="./js/PageStore.js?1418317466"></script>
+<script type="text/javascript" src="./js/toast.js?1494520361"></script>
+<script type="text/javascript" src="./js/global.js?1418273744"></script>
+<script src="3rd/artTemplate/template.js"></script>
+<body>
+<script type="text/javascript">
+setTimeout(function(){
+}, 300);
+</script> -->
+
+<script type="text/javascript">
+$(function(){
+    console.log("menu.order_foodlist.html");
+
+    // 订单详细信息窗口
+    var OrderDetail = new function(){
+        var THIS = this;
+        // var $doing = $("#id_order_detail_box .doing");
+        var $doing = $("#id_doing_1498213101");
+        var box = $.FloatBox($("#id_order_detail_box"), {is_top:true});
+        var cur_order_info = {};
+        var close_callback_func = null;
+        // var order_brief_box = $.FloatBox($("#id_order_1494523635"), {is_top:true});
+        // var $seat_name = $("#id_order_1494523635 .seat_name .value");
+        // var $customer_num = $("#id_order_1494523635 .customer_num .value");
+        // var $order_time = $("#id_order_1494523635 .order_time .value");
+        // var $order_id = $("#id_order_1494523635 .order_id .value");
+        // var $order_status = $("#id_order_1494523635 .order_status_txt");
+        var $order_fee = $("#id_order_fee_1497446627");
+        // var $order_waiver_fee = $("#id_order_waiver_fee_1497541300");
+        // var $order_payable = $("#id_order_payable_1497541311");
+
+        function Open(order_info, close_callback)
+        {
+            // console.trace();
+            close_callback_func = close_callback;
+
+            $doing.html("");
+
+            if(!order_info
+                ||!order_info.food_list
+                || 0 == order_info.food_list.length)
+            {
+                window.Toast.Show("<font color=red>请先择餐品</font>");
+                return;
+            }
+
+            cur_order_info = order_info;
+
+            // 餐品信息列表
+            CreateFoodList();
+
+            box.Open();
+            $("#id_order_detail_box").css({
+                top   : 0,
+                left  : 0
+            });
+        }
+        THIS.Open = Open;
+
+        function Close()
+        {
+            SyncFromUi();
+            box.Close();
+        }
+        THIS.Close = Close;
+
+        function CreateFoodList()
+        {
+            var order_info = cur_order_info;
+            if(!order_info.food_list
+                || !order_info.food_list
+                || 0 == order_info.food_list.length)
+            {
+                return;
+            }
+            var data = {
+                list : order_info.food_list
+            }
+            for(var i in order_info.food_list)
+            {
+                var item = order_info.food_list[i];
+                item.food_price = Util.Float(item.food_price);
+                item.food_price_sum = Util.Float(item.food_price_sum);
+            }
+
+            var html = template('tp_order_food_list', data);
+            $("#tp_order_food_list").prevAll(".line").remove();
+            $(html).insertBefore("#tp_order_food_list");
+
+            // 餐品数量、总价
+            $("#id_food_num_all_1497374266").html(order_info.food_num_all);
+            $("#id_food_price_all_1497374266").html(Util.Float(order_info.food_price_all));
+
+            // 如在其它费用，下面会再计算
+            cur_order_info.order_fee = cur_order_info.food_price_all;
+        }
+
+        // 记下用户输入值，以便下次打开时直接显示
+        function SyncFromUi()
+        {
+        }
+
+        // 订单结算窗口
+        function OpenOrderSummaryBox()
+        {
+            if(window.OrderSummary && window.OrderSummary.Open)
+            {
+                window.OrderSummary.Open(cur_order_info, close_callback_func);
+                return;
+            }
+        }
+
+        function NextStep()
+        {
+            OpenOrderSummaryBox();
+        }
+
+        function Init()
+        {
+        }
+        // THIS.Init = Init;
+
+        // $("#id_order_1494498145 .ctrl .ok").click(function(){
+        $("#id_nextstep_1498212735").click(function(){
+            NextStep();
+        })
+
+        // $("#id_order_1494498145 .ctrl .close").click(function(){
+        $("#id_back_1498212725").click(function(){
+            Close();
+        })
+
+        Init();
+    }//end of var OrderDetail = new function(...
+    window.OrderDetail = OrderDetail;
+});
+</script>
+
+
+<style type="text/css">
+#id_order_detail_box {
+    display: none;
+    background-color: white;
+    font-size: 1.601rem;
+    width: 100%;
+    height: 100%;
+}
+#id_order_detail_box .box {
+    /*padding: 1rem;
+    border: 0.3rem solid #BDDD60;*/
+    height: 100%;
+}
+
+#id_order_detail_box .split_line {
+    background: gray;
+    height: 0.1rem;
+    margin: 0.50342rem 0;
+}
+</style>
+<div id="id_order_detail_box">
+<div class="box">
+
+
+<style type="text/css">
+#id_order_1494498145 {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+#id_order_1494498145 .order_list_all {
+    height: 82.58631%;
+}
+#id_order_1494498145 .order_list_all .order_food_list {
+    padding: 1.00864rem;
+    overflow-y: auto;
+    height: 91%;
+}
+#id_order_1494498145 .split_line_dashed {
+    border-top: 0.1rem dashed gray;
+    margin: 0.3rem 0;
+}
+#id_order_1494498145 td {
+    padding: 0.2rem;
+    text-align: left;
+}
+#id_order_1494498145 .line {
+    color: #2B8106;
+}
+#id_order_1494498145 .food_name {
+    font-size: 1.8rem;
+}
+#id_order_1494498145 .remark_1499668541 {
+    color: gray;
+    font-style: italic;
+    font-size: 1.40983rem;
+}
+#id_order_1494498145 .food_price {
+    font-size: 1.4rem;
+}
+#id_order_1494498145 .food_num .value {
+    margin-left: 0.1rem;
+}
+
+#id_order_1494498145 .seat_name,
+#id_order_1494498145 .customer_num {
+    font-size: 1.4rem;
+}
+#id_order_1494498145 fieldset {
+    border-width: 0.2rem;
+    border-style: dashed;
+    padding: 0 0.50073rem;
+    height: 100%;
+    overflow-y: auto;
+}
+#id_order_1494498145 fieldset legend {
+    font-size: 1.60037rem;
+    padding: 0.20075rem;
+    font-weight: bold;
+}
+#id_order_1494498145 .food_attach_list .attach_box {
+    background-color: #d7d8d6;
+}
+#id_order_1494498145 .food_attach_list .attach_item {
+    font-size: 1.2086534rem;
+    margin-left: 0.1rem;
+    background-color: #b5bfaf;
+    color: #727275;
+}
+</style>
+<div id="id_order_1494498145">
+
+<style type="text/css">
+#id_order_setting_1498555616 {
+    background-color: #BDDD60;
+    padding: 0.2rem;
+}
+</style>
+<div id="id_order_setting_1498555616">
+餐品信息
+</div>
+
+<div class="order_list_all">
+<fieldset>
+<legend>已点餐品</legend>
+<div class="order_food_list">
+<table border="0" width="100%">
+    <!-- 模板 -->
+    <script id="tp_order_food_list" type="text/html">
+    {{each list as item i}}
+    {{if i > 0}}
+    <tr class="line">
+        <td colspan="3">
+            <div class="split_line_dashed"></div>
+        </td>
+    </tr>
+    {{/if}}
+    <tr class="line">
+        <td width="71.55%">
+            <div class="food_name">
+                <span class="value">{{item.food_name}}</span>
+                {{if item.unit_num}}
+                    <span class="remark_1499668541">({{item.unit_num}}{{item.food_unit||"份"}})</span>
+                {{/if}}
+            </div>
+            <div class="food_price hide">
+                ￥<span class="value">{{item.food_price}}</span>
+            </div>
+            <div class="food_attach_list">
+                <span class="attach_box">
+                {{each item.food_attach_list as food_attach i}}
+                <span class="value attach_item">{{food_attach}}</span>
+                {{/each}}
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="food_num">
+                ×<span class="value">{{item.food_num}}</span>
+            </div>
+        </td>
+        <td width="5%">
+            <div class="food_price_all">
+                ￥<span class="value">{{item.food_price_sum}}</span>
+            </div>
+        </td>
+    </tr>
+    {{/each}}
+    </script>
+</table>
+</div>
+</fieldset>
+</div><!-- <div class="order_list_all"> -->
+<div style="clear:both;"></div>
+
+<style type="text/css">
+#id_order_detail_box .order_sum {
+    margin-top: 0.3031rem;
+}
+#id_order_detail_box .order_sum .title {
+    margin-left: 2.073rem;
+}
+</style>
+<div class="order_sum">
+    <span class="title">数量: </span><span id="id_food_num_all_1497374266">0</span>份,
+    <span class="title">合计: </span><span id="id_food_price_all_1497374266">0</span>元
+</div>
+<div style="clear:both"></div>
+
+<style type="text/css">
+#id_1498366734 {
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    width: 100%;
+    margin: 1.0748rem auto;
+    text-align: center;
+}
+#id_doing_1498213101 {
+    background-color: #c8d8c7;
+}
+#id_back_1498212725,
+#id_nextstep_1498212735 {
+    width: 40%;
+    margin: 0 0.508765rem;
+}
+#id_1498366734 .btn {
+    display: inline-block;
+    min-width: 6rem;
+    height: 4rem;
+    line-height: 4rem;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 1.8rem;
+    text-decoration: none;
+    border-width: 1px;
+    border-style: solid;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    background: #44b549;
+    border-color: #44b549;
+    color: #ffffff;
+}
+</style>
+<div id="id_1498366734">
+<a href="#" id="id_back_1498212725" class="btn">返回</a>
+<a href="#" id="id_nextstep_1498212735" class="btn">下一步</a>
+</div>
+<div style="clear:both"></div>
+<div id="id_doing_1498213101" class="doing txt_center"></div>
+<div style="clear:both"></div>
+
+</div><!-- <div class="box"> -->
+<div style="clear:both"></div>
+</div><!-- id="id_order_detail_box" -->
+
