@@ -23,6 +23,7 @@ function SaveCustomer(&$resp)
     $customer_name = $_['customer_name'];
     $weixin_account = $_['weixin_account'];
     $vip_level = $_['vip_level'];
+    $userid    = $_['userid'];
     //获取店铺id<<<<<<<<现在在创建数据
     $shop_id = 4; //\Cache\Login::GetShopId();
     //链接mongodb数据库
@@ -35,9 +36,10 @@ function SaveCustomer(&$resp)
     $entry->customer_name = $customer_name;
     $entry->openid = $openid;
     $entry->ctime = time();
-    $entry->delete = 1;
+    $entry->delete = 0;
     $entry->weixin_account = $weixin_account;
     $entry->vip_level = $vip_level;
+    $entry->userid = $userid;
     $ret = $mongodb->Save($entry);
     if (0 != $ret)
     {

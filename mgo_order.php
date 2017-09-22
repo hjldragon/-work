@@ -113,9 +113,10 @@ class OrderEntry
     public $customer_num     = null;    // 顾客人数
     public $seat_id          = null;    // 餐桌座位
     public $food_list        = null;    // 餐品列表
-    public $order_status     = null;    // 订单状态(0:待处理,1:已确认,2:已支付,3:已完成)
+    public $order_status     = null;    // 订单状态(0:不确定,1:待付款,2:交易完成,3:退款中,4:退款成功,5:退款失败,6:待评价)
+    public $drawback_reason  = null;    //退款原因
     public $order_time       = null;    // 下单时间(时间戳)
-    public $lastmodtime      = null;    //
+    public $lastmodtime      = null;    //最后修改时间
     public $delete           = null;    // 0:未删除; 1:已删除
     public $food_num_all     = null;    // 菜总数
     public $food_price_all   = null;    // 餐品总价
@@ -148,6 +149,7 @@ class OrderEntry
         $this->seat_id          = $cursor['seat_id'];
         $this->food_list        = OrderFoodInfo::ToList($cursor['food_list']);
         $this->order_status     = $cursor['order_status'];
+        $this->drawback_reason  = $cursor['drawback_reason'];
         $this->order_time       = $cursor['order_time'];
         $this->lastmodtime      = $cursor['lastmodtime'];
         $this->delete           = $cursor['delete'];
@@ -244,6 +246,10 @@ class Order
         if(null !== $info->order_status)
         {
             $set["order_status"] = (int)$info->order_status;
+        }
+        if(null !== $info->drawback_reason)
+        {
+            $set["drawback_reason"] = (string)$info->drawback_reason;
         }
         if(null !== $info->order_time)
         {
@@ -374,7 +380,7 @@ class Order
         return new OrderEntry($cursor);
     }
 
-    public function GetOrderList($filter=null, $field=[], $sortby=[])
+    public function GetOrderList($filter, $field=[], $sortby=[])
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
@@ -386,6 +392,11 @@ class Order
             if(!empty($order_id))
             {
                 $cond['order_id'] = (string)$order_id;
+            }
+            $order_status = $filter['order_status'];
+            if(!empty($order_status))
+            {
+                $cond['order_status'] = (int)$order_status;
             }
             $customer_id = $filter['customer_id'];
             if(!empty($customer_id))
@@ -412,6 +423,7 @@ class Order
                 ];
             }
             $order_status_list = $filter['order_status_list'];
+
             if(!empty($order_status_list))
             {
                 foreach($order_status_list as $i => &$item)
@@ -421,6 +433,7 @@ class Order
                 $cond["order_status"] = ['$in' => $order_status_list];
             }
         }
+
         if(empty($sortby))
         {
             $sortby['_id'] = -1;

@@ -111,7 +111,8 @@ class Category
             // 'shop_id' => ['$in' => [0, (string)$shop_id]],
             'shop_id' => (string)$shop_id,
         ];
-        $cursor = $table->find($cond, ["_id" => 0])->sort(["_id" => 1]);
+
+        $cursor = $table->find($cond, ["_id" => 0])->sort(["category_name"=>1]);
         LogDebug(iterator_to_array($cursor));
 
         return CategoryEntry::ToList($cursor);

@@ -26,6 +26,8 @@ class UserEntry
     public $phone = null;           // 手机号
     public $usernick = null;        //用户昵称
     public $user_avater = null;     //用户头像
+    public $birthday  = null;       //用户生日
+    public $sex     = null;         //性别(1:不确定,2:男,3:女)
 
 
     // // 具体业务数据
@@ -54,6 +56,8 @@ class UserEntry
         $this->delete = $cursor['delete'];
         $this->usernick = $cursor['usernick'];
         $this->user_avater = $cursor['user_avater'];
+        $this->birthday = $cursor['birthday'];
+        $this->sex = $cursor['sex'];
     }
 
     public static function ToList($cursor)
@@ -139,6 +143,12 @@ class User
         }
         if (null !== $info->user_avater) {
             $set["user_avater"] = (string)$info->user_avater;
+        }
+        if (null !== $info->birthday) {
+            $set["birthday"] = (string)$info->birthday;
+        }
+        if (null !== $info->sex) {
+            $set["sex"] = (string)$info->sex;
         }
         // LogDebug($set);
 
@@ -297,7 +307,14 @@ class User
             'multiple' => true
         );
 
-        $info = $table->update($cond, $value, $opt);
+        try
+        {
+            $ret = $table->update($cond, $value, $opt);
+            LogDebug("ret:" . $ret["ok"]);
+        } catch (\MongoCursorException $e) {
+            LogErr($e->getMessage());
+            return \errcode::DB_OPR_ERR;
+        }
         return 0;
     }
 }

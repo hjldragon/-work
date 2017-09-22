@@ -16,7 +16,6 @@ require_once("mgo_spec.php");
 require_once("mgo_shop.php");
 require_once("mgo_evaluation.php");
 //Permission::PageCheck();
-//$_=$_REQUEST;
 //$_ = PageUtil::DecSubmitData();
 //获取登陆客户信息
 function GetCustomerInfo()
@@ -28,11 +27,11 @@ function GetCustomerInfo()
         return errcode::PARAM_ERR;
     }
     $shop_id = $_['shop_id'];
-    $openid = $_['openid'];
+    $openid  = $_['openid'];
     $custominfo = [];
-    $customer_info = \Cache\Customer::GetInfoByOpenidShopid($openid, $shop_id);
+    $customer_info = \Cache\Customer::GetInfoByOpenidShopid($openid,$shop_id);
     //根据user表获取登录用户信息
-    $userid = $customer_info->customer_id;
+    $userid = $customer_info->userid;
     $user_info = \Cache\User::Get($userid);
     //获取用户表的信息
     $custominfo['customer_name'] = $user_info->usernick;
@@ -42,11 +41,11 @@ function GetCustomerInfo()
     $custominfo['is_vip'] = $customer_info->is_vip;
     $custominfo['weixin_account'] = $customer_info->weixin_account;
     $custominfo['vip_level'] = $customer_info->vip_level;
-
+    $custominfo['birthday'] = $user_info->birthday;
+    $custominfo['sex'] = $user_info->sex;
     LogInfo("--ok--");
     return $custominfo;
 }
-
 // 当日取餐品已售数
 function GetTodayFoodSoldNum($food_id)
 {
@@ -56,7 +55,6 @@ function GetTodayFoodSoldNum($food_id)
     LogDebug($info);
     return $info->sold_num ?: 0;
 }
-
 //获取轮播信息
 function GetBroadcastList($shop_id)
 {
@@ -90,7 +88,6 @@ function GetBroadcastList($shop_id)
     }
     return $content;
 }
-
 //好评率
 function GetRate($food_id)
 {
@@ -263,7 +260,7 @@ function GetMenuInfo(&$resp)
                 $customer_list = \Cache\Customer::Get($e_list->customer_id);
                 $customer_info = [];
                 $customer_info['customer_id'] = $customer_list->customer_id;
-                $user_info = \Cache\User::Get($customer_list->customer_id);
+                $user_info = \Cache\User::Get($customer_list->userid);
                 $customer_info['customer_name'] = $user_info->usernick;
                 $customer_info['customer_portrait'] = $user_info->user_avater;
 
@@ -297,6 +294,7 @@ function GetMenuInfo(&$resp)
             {// 普通价
                 $name[] = 'original_price';
             }
+
             $specs = Cache\Food::GetSpecInfo($food_id);
             if (!$specs)
             {
@@ -321,11 +319,11 @@ function GetMenuInfo(&$resp)
                 $specs[$i]->list = $s;
             }
             $price = [];
-            $p = $k->food_price;
             //通过using来选取没有规格的价格
-            $price['type'] = $p->type;
+            $price['type'] = $k->food_price->type;
             foreach ($name as $value)
             {
+
                 $price[$value] = $k->food_price->$value;
             }
             $food_list['food_id'] = $k->food_id;
@@ -336,10 +334,11 @@ function GetMenuInfo(&$resp)
             $food_list['food_img_list'] = $k->food_img_list;
             $food_list['food_unit'] = $k->food_unit;
             $food_list['food_price'] = $price;
+
             //通过id来获取配件价格
             if (null != $k->accessory)
             {
-                $ac_price = \Cache\Food::Get($food_id);
+                $ac_price = \Cache\Food::Get($k->accessory);
                 $p1 = $ac_price->food_price->original_price;
                 $food_list['accessory'] = $p1;
             } else

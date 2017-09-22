@@ -247,7 +247,7 @@ class ShopEntry
     public $food_unit_list = null;        // 店铺餐品可选单位list（份、碗、斤等）
     public $suspend = null;               // 店铺是否暂停（0:正常使用, 1:被系统管理员暂停, 2:被店铺管理员暂停，参见const.php::ShopSuspend)
     public $is_seat_enable = null;        // 店铺餐位费是否启用(0:不启用,1启用)
-    public $opening_time = null;          //营业时间
+    public $opening_time = null;          //菜单营业时间
 
     function __construct($cursor = null)
     {

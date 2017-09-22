@@ -12,11 +12,11 @@ require_once("const.php");
 class FoodSaleTime
 {
 
-    public $type = null;          // 1:按时间段展示（即从A时间戳到B时间戳），使用time_range_stamp中的数据
-    // 2:按周展示，使用time_range_week中的数据（注：0～6对应周一到周日）
-
+    public $type = null;              // 1:按时间段展示（即从A时间戳到B时间戳），使用time_range_stamp中的数据
+                                      // 2:按周展示，使用time_range_week中的数据（注：0～6对应周一到周日）
+                                      // 3:包含时间段也包含时间周
     public $time_range_stamp = null;  //时间段
-    public $time_range_week = null;  //时间周
+    public $time_range_week = null;   //时间周
 
     function __construct($cursor = null)
     {

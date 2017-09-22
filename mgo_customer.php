@@ -10,18 +10,20 @@ require_once("const.php");
 
 class CustomerEntry
 {
-    public $customer_id = null;        // 顾客用户id
-    public $shop_id = null;            // 餐馆店铺id
-    public $phone = null;              // 手机号(用户名)
-    public $is_vip = null;             // 是否会员(0:未知,1:是)
-    public $openid = null;             // 微信openid
-    //public $property      = null;    // 用户属性(位字段，1bit:管理员)
-    public $ctime = null;              // 创建时间
-    public $mtime = null;              // 修改时间
-    public $lastmodtime = null;        //最后修改的时间
-    public $delete = null;             //是否删除(0:未删除; 1:已删除)
-    public $weixin_account = null;     //微信账号
-    public $vip_level = null;          //会员等级（暂未开放)
+    public $customer_id = null;           // 顾客用户id
+    public $userid      = null;           //用户id
+    public $shop_id     = null;           // 餐馆店铺id
+    public $phone       = null;           // 手机号(用户名)
+    public $is_vip      = null;           // 是否会员(0:未知,1:是)
+    public $openid      = null;           // 微信openid
+    //public $property      = null;       // 用户属性(位字段，1bit:管理员)
+    public $ctime       = null;           // 创建时间
+    public $mtime       = null;           // 修改时间
+    public $lastmodtime = null;           //最后修改的时间
+    public $delete      = null;           //是否删除(0:未删除; 1:已删除)
+    public $weixin_account = null;        //微信账号
+    public $vip_level    = null;          //会员等级（暂未开放)
+
 
 
     function __construct($cursor = null)
@@ -36,16 +38,17 @@ class CustomerEntry
             return;
         }
         $this->customer_id = $cursor['customer_id'];
-        $this->shop_id = $cursor['shop_id'];
-        $this->phone = $cursor['phone'];
-        $this->is_vip = $cursor['is_vip'];
-        $this->openid = $cursor['openid'];
+        $this->userid      = $cursor['userid'];
+        $this->shop_id     = $cursor['shop_id'];
+        $this->phone       = $cursor['phone'];
+        $this->is_vip      = $cursor['is_vip'];
+        $this->openid      = $cursor['openid'];
         //$this->property    = $cursor['property'];
-        $this->ctime = $cursor['ctime'];
-        $this->mtime = $cursor['mtime'];
-        $this->delete = $cursor['delete'];
+        $this->ctime       = $cursor['ctime'];
+        $this->mtime       = $cursor['mtime'];
+        $this->delete      = $cursor['delete'];
         $this->weixin_account = $cursor['weixin_account'];
-        $this->vip_level = $cursor['vip_level'];
+        $this->vip_level   = $cursor['vip_level'];
 
     }
 
@@ -71,7 +74,8 @@ class Customer
 
     public function Save(&$info)
     {
-        if (!$info->customer_id || !$info->openid) {
+        if (!$info->customer_id || !$info->openid)
+        {
             LogErr("param err:" . json_encode($info));
             return \errcode::PARAM_ERR;
         }
@@ -84,9 +88,11 @@ class Customer
 
         $set = array(
             "customer_id" => (int)$info->customer_id,
-            'lastmodtime' => time(),
             "mtime" => time()
         );
+        if (null !== $info->userid) {
+            $set["userid"] = (int)$info->userid;
+        }
         if (null !== $info->phone) {
             $set["phone"] = (string)$info->phone;
         }
@@ -118,7 +124,6 @@ class Customer
             $set["vip_level"] = (int)$info->vip_level;
         }
         //LogDebug($set);
-
         $value = array(
             '$set' => $set
         );
@@ -126,7 +131,8 @@ class Customer
         try {
             $ret = $table->update($cond, $value, ['safe' => true, 'upsert' => true]);
             LogDebug("ret:" . $ret['ok']);
-        } catch (MongoCursorException $e) {
+        } catch (\MongoCursorException $e) {
+
             LogErr($e->getMessage());
             return \errcode::DB_OPR_ERR;
         }
@@ -197,6 +203,5 @@ class Customer
         return 0;
     }
 }
-
 
 ?>

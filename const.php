@@ -52,6 +52,7 @@ class errcode
     const NOT_GROUP_FILE        = -20033;       // 没有组文件
     const NAME_IS_EXIST         = -20034;       // 名称已存在
     const HOTEL_NOT_EXIST       = -20035;       // 酒店不存在
+    const SHOP_ID_NOT           = -20036;       // 店铺id没有
 
                                   // 2017-05-02
     const FOOD_IMG_TOOMANY        = -30010;       // 图片过多
