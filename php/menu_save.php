@@ -30,7 +30,7 @@ function SaveFoodinfo(&$resp)
     $entry_type          = $_['entry_type'];
     $shop_id             = $_['shop_id'];
     $food_sale_time      = json_decode($_['food_sale_time']);
-    $food_sale_week      = $_['food_sale_week'];
+    $food_sale_week      = json_decode($_['food_sale_week']);
     $sale_off            = $_['sale_off'];
     $food_attach_list    = json_decode($_['food_attach_list']);
     $food_unit           = $_['food_unit'];
@@ -38,7 +38,7 @@ function SaveFoodinfo(&$resp)
     $food_num_day        = $_['food_num_day'];
     $is_draft            = $_['is_draft'];
     $type                = $_['type'];
-    $sale_way            = $_['sale_way'];
+    $sale_way            = json_decode($_['sale_way']);
     $sale_num            = $_['sale_num'];
     $sale_off_way        = $_['sale_off_way'];
     
@@ -83,6 +83,7 @@ function SaveFoodinfo(&$resp)
     $now = time();
     $entry->food_id             = $food_id;
     $entry->shop_id             = $shop_id;
+    $entry->category_id         = $category_id;
     $entry->food_name           = $food_name;
     $entry->food_num_day        = $food_num_day;
     $entry->food_price          = $food_price;

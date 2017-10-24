@@ -110,10 +110,11 @@ function GetShopEditInfo(&$resp)
         LogErr("shop_id err or maybe not login");
         return errcode::SEAT_NOT_EXIST;
     }
-    //$shop_id = (string)$_['shop_id'];//<<<<<<<<<<<<<<<<<测试用的
 
+    //$shop_id = (string)$_['shop_id'];//<<<<<<<<<<<<<<<<<测试用的
     $mgo = new \DaoMongodb\Shop;
     $info = $mgo->GetShopById($shop_id);
+    LogDebug($info->opening_time);
     $shopinfo = [];
     $shopinfo['shop_pay_way']   = $info->shop_pay_way;
     $shopinfo['pay_time']       = $info->pay_time;

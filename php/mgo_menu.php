@@ -42,6 +42,39 @@ class FoodSaleTime
     }
 }
 
+class Attach
+{
+    public $title  = null;   //开始时间
+    public $list   = null;   //结束时间
+
+    function __construct($cursor = null)
+    {
+
+        $this->FromMgo($cursor);
+    }
+
+    // mongodb查询结果转为结构体
+    public function FromMgo($cursor)
+    {
+        if (!$cursor) {
+            return;
+        }
+        $this->title  = $cursor['title'];
+        $this->list   = $cursor['list'];
+
+    }
+
+    public static function ToList($cursor)
+    {
+        $list = array();
+        foreach ($cursor as $item) {
+            $entry = new self($item);
+            array_push($list, $entry);
+        }
+        return $list;
+    }
+}
+
 
 class Price
 {
@@ -103,7 +136,7 @@ class FoodPrice
         }
         $this->type  = $cursor['type'];
         $this->using = $cursor['using'];
-        $this->price = $cursor['price'];
+        $this->price = Price::ToList($cursor['price']);
     }
 
     public static function ToList($cursor)
@@ -173,7 +206,7 @@ class MenuInfoEntry
         $this->food_img_list       = $cursor['food_img_list'];
         $this->entry_time          = $cursor['entry_time'];
         $this->lastmodtime         = $cursor['lastmodtime'];
-        $this->food_attach_list    = $cursor['food_attach_list'];
+        $this->food_attach_list    = new Attach($cursor['food_attach_list']);
         $this->food_unit           = $cursor['food_unit'];
         $this->need_waiter_confirm = $cursor['need_waiter_confirm'];
         $this->sale_off            = $cursor['sale_off'];
@@ -238,22 +271,22 @@ class MenuInfo
         }
 
         if (null !== $info->food_price) {
-            $price = [];
-            foreach ($info->food_price->price as $value) {
-                array_push($price, new Price([
-                    "title"            => (string)$value->title,
-                    "original_price"   => (float)$value->original_price,
-                    "discount_price"   => (float)$value->discount_price,
-                    "vip_price"        => (float)$value->vip_price,
-                    "festival_price"   => (float)$value->festival_price,
-                    "is_use"           => (int)$value->is_use
-                ]));
+            $price_list = [];
+            foreach ($info->food_price->price as $val) {
+                $p = new Price();
+                $p->title = (string)$val->title;
+                $p->original_price = (float)$val->original_price;
+                $p->discount_price = (float)$val->discount_price;
+                $p->vip_price      = (float)$val->vip_price;
+                $p->festival_price = (float)$val->festival_price;
+                $p->is_use         = (int)$val->is_use;
+                $price_list[] = $p;
             }
-            $set["food_price"] = new FoodPrice([
-                'type'  => (int)$info->food_price->type,
-                'price' => $price,
-                'using' => (int)$info->food_price->using,
-            ]);
+            $p = new FoodPrice();
+            $p->type  = (int)$info->food_price->type;
+            $p->price = $price_list;
+            $p->using = (int)$info->food_price->using;
+            $set["food_price"] = $p;
         }
         // if (null !== $info->food_num_mon) {
         //     $set["food_num_mon"] = (int)$info->food_num_mon;
@@ -271,7 +304,14 @@ class MenuInfo
             $set["entry_time"] = (int)$info->entry_time;
         }
         if (null !== $info->food_attach_list) {
-            $set["food_attach_list"] = (string)$info->food_attach_list;
+            $attach = [];
+            foreach ($info->food_attach_list as $v) {
+                array_push($attach, new Attach([
+                    "title"  => (string)$v->title,
+                    "list"   => (array)$v->list
+                ]));
+            }
+            $set["food_attach_list"] = $attach;
         }
         if (null !== $info->food_unit) {
             $set["food_unit"] = $info->food_unit;
@@ -301,7 +341,7 @@ class MenuInfo
             $time = [];
             foreach ($info->food_sale_time as $item) {
                 array_push($time, new FoodSaleTime([
-                    "start_time"            => (int)$item->starttime,
+                    "start_time" => (int)$item->start_time,
                     "end_time"   => (int)$item->end_time
                 ]));
             }

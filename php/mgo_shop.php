@@ -290,8 +290,9 @@ class OpenTime
             return;
         }
         $this->type = $cursor['type'];
-        $this->from = $cursor['from'];
-        $this->to   = $cursor['to'];
+        $this->from = new Time($cursor['from']);
+        $this->to   = new Time($cursor['to']);
+
     }
 
     public static function ToList($cursor)
@@ -451,7 +452,7 @@ class ShopEntry
         $this->food_unit_list      = $cursor['food_unit_list'];
         $this->suspend             = $cursor['suspend'];
         $this->is_seat_enable      = $cursor['is_seat_enable'];
-        $this->opening_time        = new OpenTime($cursor['opening_time']);
+        $this->opening_time        = OpenTime::ToList($cursor['opening_time']);
         $this->shop_pay_way        = $cursor['shop_pay_way'];
         $this->pay_time            = $cursor['pay_time'];
         $this->sale_way            = $cursor['sale_way'];
@@ -543,23 +544,19 @@ class Shop
         if (null !== $info->opening_time){
             $time = [];
             foreach ($info->opening_time as $v) {
-                $fromtime = [];
-                $totime =[];
-                array_push($fromtime, new Time([
-                    "hh"   => (string)$v->from->hh,
-                    "mm"   => (string)$v->from->mm,
-                    "ss"   => (string)$v->from->ss,
-                ]));
-                array_push($totime, new Time([
-                    "hh"   => (string)$v->to->hh,
-                    "mm"   => (string)$v->to->mm,
-                    "ss"   => (string)$v->to->ss,
-                ]));
-                array_push($time, new OpenTime([
-                    'type'  => (int)$v->type,
-                    'from' => $fromtime,
-                    'to' => $totime,
-                ]));
+                $from     = new Time();
+                $from->hh = (string)$v->from->hh;
+                $from->mm = (string)$v->from->mm;
+                $from->ss = (string)$v->from->ss;
+                $to       = new Time();
+                $to->hh   = (string)$v->to->hh;
+                $to->mm   = (string)$v->to->mm;
+                $to->ss   = (string)$v->to->ss;
+                $p        = new OpenTime();
+                $p->type  = (int)$v->type;
+                $p->from  = $from;
+                $p->to    = $to;
+                $time[]   = $p;
             }
             $set["opening_time"] = $time;
         }
