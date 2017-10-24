@@ -11,12 +11,8 @@ require_once("const.php");
 
 class FoodSaleTime
 {
-
-    public $type = null;              // 1:按时间段展示（即从A时间戳到B时间戳），使用time_range_stamp中的数据
-                                      // 2:按周展示，使用time_range_week中的数据（注：0～6对应周一到周日）
-                                      // 3:包含时间段也包含时间周
-    public $time_range_stamp = null;  //时间段
-    public $time_range_week = null;   //时间周
+    public $start_time = null;   //开始时间
+    public $end_time   = null;   //结束时间
 
     function __construct($cursor = null)
     {
@@ -30,9 +26,8 @@ class FoodSaleTime
         if (!$cursor) {
             return;
         }
-        $this->type             = $cursor['type'];
-        $this->time_range_stamp = $cursor['time_range_stamp'];
-        $this->time_range_week  = $cursor['time_range_week'];
+        $this->start_time = $cursor['start_time'];
+        $this->end_time   = $cursor['end_time'];
 
     }
 
@@ -150,7 +145,8 @@ class MenuInfoEntry
     public $sale_way            = null;             // 1预定在店吃 2.非预定在店吃 3.预定自提 4.外卖 5打包外带
     public $sale_num            = null;             // 起售数量
     public $sale_off_way        = null;             // 0 不设置 1自定义 2按周期
-    public $food_sale_time      = null;             // food出售时间
+    public $food_sale_time      = null;             // food出售时间段
+    public $food_sale_week      = null;             // food出售时间周
     public $type                = null;             // 餐品类别的类型(1:一般类品分类，2:配件,3:酒水)
     public $is_draft            = null;             // 是否是草稿(0:不是,1:是草稿)
 
@@ -189,6 +185,7 @@ class MenuInfoEntry
         $this->is_draft            = $cursor['is_draft'];
         $this->type                = $cursor['type'];
         $this->food_sale_time      = FoodSaleTime::ToList($cursor['food_sale_time']);
+        $this->food_sale_week      = $cursor['food_sale_week'];
         $this->sale_way            = $cursor['sale_way'];
         $this->sale_off_way        = $cursor['sale_off_way'];
         $this->sale_num            = $cursor['sale_num'];
@@ -301,7 +298,17 @@ class MenuInfo
             $set["feature"] = (array)$info->feature;
         }
         if (null !== $info->food_sale_time) {
-            $set["food_sale_time"] = $info->food_sale_time;
+            $time = [];
+            foreach ($info->food_sale_time as $item) {
+                array_push($time, new FoodSaleTime([
+                    "start_time"            => (int)$item->starttime,
+                    "end_time"   => (int)$item->end_time
+                ]));
+            }
+            $set["food_sale_time"] = $time;
+        }
+        if (null !== $info->food_sale_week) {
+            $set["food_sale_week"] = $info->food_sale_week;
         }
         if (null !== $info->is_draft) {
             $set["is_draft"] = (int)$info->is_draft;
@@ -509,3 +516,4 @@ class MenuInfo
 
 
 ?>
+

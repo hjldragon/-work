@@ -160,6 +160,7 @@ function GetCoke(&$resp){
     $db         = new \DaoRedis\Login;
     $redis      = $db->Get($token);
     $radis_code = $redis->page_code;
+
     //验证验证码
     if ($radis_code != $page_code)
     {
@@ -178,7 +179,6 @@ function GetCoke(&$resp){
         return errcode::PHONE_IS_EXIST;
     }
     $code  = rand(100000,999999);
-
     $right = Cfg::SendCheckCode($code,$phone);
     if($right != 0)
     {
@@ -191,7 +191,6 @@ function GetCoke(&$resp){
     $data->phone_code = $code;
     $data->code_time  = time()+5*60*1000;
     LogDebug($data);
-
     $redis->Save($data);
     $resp = (object)array(
         'phone_code' => $code

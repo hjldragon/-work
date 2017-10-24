@@ -156,13 +156,15 @@ function GetSeatListAll(&$resp)
     $seat_list = $mgo->GetList($shop_id);
     $seatlist  = [];
     foreach ($seat_list as $list) {
-        $listall['seat_id']     = $list->seat_id;
-        $listall['seat_name']   = $list->seat_name;
-        $listall['seat_region'] = $list->seat_region;
-        $listall['seat_type']   = $list->seat_type;
-        $listall['seat_shape']  = $list->seat_shape;
-        $listall['seat_size']   = $list->seat_size;
-        $listall['price']       = $list->price;
+        $listall['seat_id']      = $list->seat_id;
+        $listall['seat_name']    = $list->seat_name;
+        $listall['seat_region']  = $list->seat_region;
+        $listall['seat_type']    = $list->seat_type;
+        $listall['seat_shape']   = $list->seat_shape;
+        $listall['seat_size']    = $list->seat_size;
+        $listall['price']        = $list->price;
+        $listall['price_type']   = $list->price_type;
+        $listall['consume_min']  = $list->consume_min;
         //$seatlist['qr_code']     = $list->qr_code;
         array_push($seatlist, $listall);
     }

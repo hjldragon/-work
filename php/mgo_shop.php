@@ -290,8 +290,51 @@ class OpenTime
             return;
         }
         $this->type = $cursor['type'];
-        $this->from = new Time($cursor['from']);
-        $this->to   = new Time($cursor['to']);
+        $this->from = $cursor['from'];
+        $this->to   = $cursor['to'];
+    }
+
+    public static function ToList($cursor)
+    {
+        $list = array();
+        foreach ($cursor as $item) {
+            $entry = new self($item);
+            array_push($list, $entry);
+        }
+        return $list;
+    }
+}
+
+class ShopBusinessStatus
+{
+    public $bs_code = null;    //（int）企业营业认证状态（00:认证通过;98:认证未通过;
+                               //01:营业执照全称格式校验不通过;(company_name)
+                               //02:营业执照注册号格式校验不通过;(business_num)
+                               //03:营业执照期限校验不通过;(business_date)
+                               //04:营业执照期照片限校验不通过;(business_photo)
+    public $id_code = null;    //（int）身份认证状态（00:认证通过;98:认证未通过;
+                               //01:真实姓名效验不通过;(legal_person)
+                               //02:身份证号效验不通过;(legal_card)
+                               //03:身份证照片效验不通过;(legal_card_photo)
+    public $rs_code = null;    //（int）餐饮认证状态（00:认证通过;98:认证未通过;
+                               //01:餐饮许可编号效验不通过;(repast_permit_identity,repast_permit_year,repast_permit_num)
+                               //02:餐饮服务许可证照片效验不通过;(repast_permit_photo)
+                               //03:确认书照片效验不通过;(confirmation)
+                               //04:经营范围效验不通过;(business_scope)
+    function __construct($cursor = null)
+    {
+        $this->FromMgo($cursor);
+    }
+
+    // mongodb查询结果转为结构体
+    public function FromMgo($cursor)
+    {
+        if (!$cursor) {
+            return;
+        }
+        $this->bs_code = $cursor['bs_code'];
+        $this->id_code = $cursor['id_code'];
+        $this->rs_code = $cursor['rs_code'];
     }
 
     public static function ToList($cursor)
@@ -356,18 +399,19 @@ class ShopEntry
     public $suspend           = null;               // 店铺是否暂停（0:正常使用, 1:被系统管理员暂停, 2:被店铺管理员暂停，参见const.php::ShopSuspend)
     public $is_seat_enable    = null;               // 店铺餐位费是否启用(0:不启用,1启用)
     public $opening_time      = null;               // 营业时间
-    public $shop_pay_way      = null;               //店铺启用支付方式 1.现金支付 2:刷卡支付 3:微信支付 4:支付宝支付
-    public $pay_time          = null;               //付款时间 1：餐前 2:餐后
-    public $sale_way          = null;               //销售方式 1:在店吃 2:外卖 3:打包 4:自提
-    public $shop_label        = null;               //店铺标签
-    public $invoice_remark    = null;               //发票备注消息
-    public $shop_seat_region  = null;               //店铺餐桌区域标签
-    public $shop_seat_type    = null;               //店铺餐桌类型标签
-    public $shop_seat_shape   = null;               //店铺餐桌桌型标签
-    public $shop_composition  = null;               //店铺食材标签
-    public $shop_feature      = null;               //店铺特色标签
-    public $shop_business     = null;               //店铺工商信息
-    public $mail_vali         = null;               //邮箱验证
+    public $shop_pay_way      = null;               // 店铺启用支付方式 1.现金支付 2:刷卡支付 3:微信支付 4:支付宝支付
+    public $pay_time          = null;               // 付款时间 1：餐前 2:餐后
+    public $sale_way          = null;               // 销售方式 1:在店吃 2:外卖 3:打包 4:自提
+    public $shop_label        = null;               // 店铺标签
+    public $invoice_remark    = null;               // 发票备注消息
+    public $shop_seat_region  = null;               // 店铺餐桌区域标签
+    public $shop_seat_type    = null;               // 店铺餐桌类型标签
+    public $shop_seat_shape   = null;               // 店铺餐桌桌型标签
+    public $shop_composition  = null;               // 店铺食材标签
+    public $shop_feature      = null;               // 店铺特色标签
+    public $shop_business     = null;               // 店铺工商信息
+    public $mail_vali         = null;               // 邮箱验证
+    public $shop_bs_status    = null;               //店铺工商信息认证状态
 
 
 
@@ -420,6 +464,7 @@ class ShopEntry
         $this->shop_feature        = $cursor['shop_feature'];
         $this->shop_business       = new ShopBusiness($cursor['shop_business']);
         $this->mail_vali           = new MailVail($cursor['mail_vali']);
+        $this->shop_bs_status      = new ShopBusinessStatus($cursor['shop_bs_status']);
     }
 
     public static function ToList($cursor)
@@ -496,7 +541,27 @@ class Shop
             }
         }
         if (null !== $info->opening_time){
-            $set["opening_time"] = $info->opening_time;
+            $time = [];
+            foreach ($info->opening_time as $v) {
+                $fromtime = [];
+                $totime =[];
+                array_push($fromtime, new Time([
+                    "hh"   => (string)$v->from->hh,
+                    "mm"   => (string)$v->from->mm,
+                    "ss"   => (string)$v->from->ss,
+                ]));
+                array_push($totime, new Time([
+                    "hh"   => (string)$v->to->hh,
+                    "mm"   => (string)$v->to->mm,
+                    "ss"   => (string)$v->to->ss,
+                ]));
+                array_push($time, new OpenTime([
+                    'type'  => (int)$v->type,
+                    'from' => $fromtime,
+                    'to' => $totime,
+                ]));
+            }
+            $set["opening_time"] = $time;
         }
         if (null !== $info->img_list){
             $set["img_list"] = $info->img_list;
@@ -505,7 +570,15 @@ class Shop
             $set["broadcast_content"] = (string)$info->broadcast_content;
         }
         if (null !== $info->is_invoice_vat){
-            $set["is_invoice_vat"] = $info->is_invoice_vat;
+            if (null !== $info->is_invoice_vat->is_invoice) {
+                $set["is_invoice_vat.is_invoice"] = (int)$info->is_invoice_vat->is_invoice;
+            }
+            if(null !== $info->is_invoice_vat->invoice_type){
+                foreach ($info->is_invoice_vat->invoice_type as &$v){
+                    $v = (int)$v;
+                }
+                $set["is_invoice_vat.invoice_type"] = $info->is_invoice_vat->invoice_type;
+            }
         }
         if (null !== $info->is_seat_enable){
             $set["is_seat_enable"] =$info->is_seat_enable;
@@ -547,14 +620,41 @@ class Shop
             $set["shop_feature"] = $info->shop_feature;
         }
         if (null !== $info->shop_business){
-            $set["shop_business"] = $info->shop_business;
+            $set["shop_business"] = new ShopBusiness([
+                'company_name'           => (string)$info->shop_business->company_name,
+                'legal_person'           => (string)$info->shop_business->legal_person,
+                'legal_phone'            => (string)$info->shop_business->legal_phone,
+                'legal_card'             => (string)$info->shop_business->legal_card,
+                'legal_card_photo'       => $info->shop_business->legal_card_photo,
+                'business_date'          => $info->shop_business->business_date,
+                'business_num'           => (string)$info->shop_business->business_num,
+                'business_photo'         => (string)$info->shop_business->business_photo,
+                'repast_permit_identity' => (string)$info->shop_business->repast_permit_identity,
+                'repast_permit_year'     => (int)$info->shop_business->repast_permit_year,
+                'repast_permit_num'      => (string)$info->shop_business->repast_permit_num,
+                'repast_permit_photo'    => (string)$info->shop_business->repast_permit_photo,
+                'confirmation'           => (string)$info->shop_business->confirmation,
+                'business_scope'         => (string)$info->shop_business->business_scope,
+            ]);
         }
         if (null !== $info->mail_vali){
             $set["mail_vali"] = $info->mail_vali;
         }
+        if (null !== $info->shop_bs_status){
+            if (null !== $info->shop_bs_status->bs_code) {
+                $set["shop_bs_status.bs_code"] = (int)$info->shop_bs_status->bs_code;
+            }
+            if (null !== $info->shop_bs_status->id_code) {
+                $set["shop_bs_status.id_code"] = (int)$info->shop_bs_status->id_code;
+            }
+            if (null !== $info->shop_bs_status->bs_code) {
+                $set["shop_bs_status.rs_code"] = (int)$info->shop_bs_status->rs_code;
+            }
+        }
         $value = array(
             '$set' => $set
         );
+
         try {
             $ret = $table->update($cond, $value, ['upsert' => true]);
             LogDebug("ret:" . json_encode($ret));

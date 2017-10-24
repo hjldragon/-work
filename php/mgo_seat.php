@@ -114,7 +114,7 @@ class Seat
             $set["consume_min"] = (float)$info->consume_min;
         }
         if (null !== $info->qr_code) {
-            $set["consume_min"] = (string)$info->qr_code;
+            $set["qr_code"] = (string)$info->qr_code;
         }
         $value = array(
             '$set' => $set

@@ -46,16 +46,16 @@ function GetFoodInfo(&$resp)
         array_push($info->category, $data);
         $using = $info->food_price->using;
         $price = array();
-        if(0 != $using & PriceType::ORIGINAL){
+        if($using & PriceType::ORIGINAL){
             array_push($price, PriceType::ORIGINAL);
         }
-        if(0 != $using & PriceType::DISCOUNT){
+        if($using & PriceType::DISCOUNT){
             array_push($price, PriceType::DISCOUNT);
         }
-        if(0 != $using & PriceType::VIP){
+        if($using & PriceType::VIP){
             array_push($price, PriceType::VIP);
         }
-        if(0 != $using & PriceType::FESTIVAL){
+        if($using & PriceType::FESTIVAL){
             array_push($price, PriceType::FESTIVAL);
         }
         $info->food_price->using = $price;
@@ -161,7 +161,7 @@ function GetFoodList(&$resp)
     LogInfo("--ok--");
     return 0;
 }
-//$_=$_REQUEST;
+
 $ret = -1;
 $resp = (object)array();
 if(isset($_["foodinfo"]))

@@ -285,6 +285,10 @@ function PhoneBind(&$resp)
     }
     $token      = $_['token'];
     $phone      = $_['phone'];
+    if(!preg_match('/^1([0-9]{9})/',$phone)){
+        LogErr("phone err");
+        return errcode::PHONE_ERR;
+    }
     $mgo   = new \DaoMongodb\User;
     $mgo2  = new \DaoMongodb\Shop;
     $userinfo = $mgo->QueryById($userid);
@@ -303,12 +307,7 @@ function PhoneBind(&$resp)
     }
     $code             = $_['phone_code'];//手机验证码
     $redis            = new \DaoRedis\Login();
-    $data             = new \DaoRedis\LoginEntry();
-    $data->token      = $token;
-    $data->phone_code = $code;
-    $data->code_time  = time() + 5 * 60 * 1000;
-    $redis->Save($data);
-
+    $data             = $redis->Get($token);//获取手机号上面的验证码
     if ($code != $data->phone_code)
     {
         LogErr("phone_code is err");
@@ -450,12 +449,7 @@ function UnBindPhone(&$resp)
 
     $code             = $_['phone_code'];//手机验证码
     $redis            = new \DaoRedis\Login();
-    $data             = new \DaoRedis\LoginEntry();
-    $data->token      = $token;
-    $data->phone_code = $code;
-    $data->code_time  = time() + 5 * 60 * 1000;
-    $redis->Save($data);
-
+    $data             = $redis->Get($token);//获取手机号上面的验证码
     if ($code != $data->phone_code)
     {
         LogErr("phone_code is err");

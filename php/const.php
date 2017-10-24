@@ -61,6 +61,7 @@ class errcode
     const SHOP_LABEL_ERR        = -20041;       // 标签名为空
     const PHONE_COKE_ERR        = -20042;       // 手机验证不正确
     const PHONE_SEND_FAIL       = -20043;       // 手机发送失败
+    const PARAM_ALL_GET         = -20044;       // 参数不齐全
 
 
                                   // 2017-05-02

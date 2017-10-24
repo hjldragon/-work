@@ -123,6 +123,8 @@ function ExportSeatQrcode(&$resp)
         }
         $seat_qrcode_img = PageUtil::GetSeatQrcodeImg($shop_id, $seat_id);
         LogDebug("seat_name:[$seat_name], seat_qrcode_img:[$seat_qrcode_img]");
+        // 转码
+        $seat_name = iconv("UTF-8", "GB2312//IGNORE", $seat_name);
         $zip->addFile($seat_qrcode_img, "{$seat_name}.png");
     }
     $zip->close();

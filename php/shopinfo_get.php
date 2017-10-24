@@ -164,6 +164,34 @@ function GetShopBusinessInfo(&$resp)
     LogInfo("--ok--");
     return 0;
 }
+//获取工商状态信息
+function GetShopBusinessStatus(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $shop_id = Cache\Login::GetShopId();
+    if (!$shop_id)
+    {
+        LogErr("shop_id err or maybe not login");
+        return errcode::SEAT_NOT_EXIST;
+    }
+    //$shop_id = (string)$_['shop_id'];//<<<<<<<<<<<<<<<<<测试用的
+
+    $mgo                       = new \DaoMongodb\Shop;
+    $info                      = $mgo->GetShopById($shop_id);
+    $shopinfo = $info->shop_bs_status;
+
+    $resp = (object)[
+        'shop_bs_status' => $shopinfo,
+    ];
+    LogDebug($resp);
+    LogInfo("--ok--");
+    return 0;
+}
 //获取餐店所有标签
 function GetShopLabel(&$resp)
 {
@@ -242,6 +270,9 @@ elseif(isset($_["shoplist"]))
 }elseif (isset($_['get_shop_label']))
 {
     $ret = GetShopLabel($resp);
+}elseif (isset($_['get_shop_bs_status']))
+{
+    $ret = GetShopBusinessStatus($resp);
 }
 
 $html = json_encode((object)array(

@@ -6,8 +6,8 @@
 require_once("current_dir_env.php");
 require_once("mgo_shop.php");
 require_once("permission.php");
-//Permission::PageCheck();
-$_=$_REQUEST;
+Permission::PageCheck();
+//$_=$_REQUEST;
 //编辑店铺设置
 function SaveShopInfo(&$resp)
 {
@@ -25,13 +25,13 @@ function SaveShopInfo(&$resp)
 //        LogErr("permission err, username:" . \Cache\Login::GetUsername());
 //        return $ret;
 //    }
-//    $shop_id = \Cache\Login::GetShopId();
-//    if (!$shop_id) {
-//        LogErr("shop_id err or maybe not login");
-//        return errcode::USER_NOLOGIN;
-//    }
+    $shop_id = \Cache\Login::GetShopId();
+    if (!$shop_id) {
+        LogErr("shop_id err or maybe not login");
+        return errcode::USER_NOLOGIN;
+    }
 
-    $shop_id             = (string)$_['shop_id'];//<<<<<<<<<<<<<这里是测试数据
+    //$shop_id             = (string)$_['shop_id'];//<<<<<<<<<<<<<这里是测试数据
     $shop_name           = $_['shop_name'];
     $shop_logo           = $_['shop_logo'];
     $shop_area           = $_['shop_area'];
@@ -42,24 +42,14 @@ function SaveShopInfo(&$resp)
     $shop_pay_way        = json_decode($_['shop_pay_way']);
     //$shop_pay_way        = explode(',',$_['shop_pay_way']);//<<<<<<<<后端测试用的
     $pay_time            = json_decode($_['pay_time']);
-    //$pay_time            = explode(',',$_['pay_time']);//<<<<<<<<后端测试用的
     $sale_way            = json_decode($_['sale_way']);
-    //$sale_way            = explode(',',$_['sale_way']);//<<<<<<<<后端测试用的
     $shop_label          = json_decode($_['shop_label']);
-    //$shop_label          = explode(',',$_['shop_label']);//<<<<<<<<后端测试用的
     $open_time           = json_decode($_['open_time']);
-    //$open_time          = explode(',',$_['open_time']);//<<<<<<<<后端测试用的
-   // $is_invoice_vat      = json_decode($_['is_invoice_vat']);
-    $is_invoice_vat->is_invoice = (int)$_['is_invoice'];
-    $is_invoice_vat->invoce_type = json_decode($_['invoice_type']);
-    //$is_invoice_vat->invoce_type = explode(',',$_['invoice_type']);
-    for ($i = 0; $i < count($is_invoice_vat->invoce_type); $i++) {
-        $is_invoice_vat->invoce_type[$i] = (int)$is_invoice_vat->invoce_type[$i];
-    }
+    $is_invoice_vat      = json_decode($_['is_invoice_vat']);
     $invoice_remark      = $_['invoice_remark'];
     $opening_time        = json_decode($_['opening_time']);
     $img_list            = json_decode($_['img_list']);
-    //$img_list            = explode(',',$_['img_list']);//<<<<<<<后端测试用的
+    $shop_bs_status      = json_decode($_['shop_bs_status']);
     $mgo                 = new \DaoMongodb\Shop;
     $entry               = new \DaoMongodb\ShopEntry;
     $entry->shop_id        = $shop_id;
@@ -79,7 +69,8 @@ function SaveShopInfo(&$resp)
     $entry->open_time      = $open_time;
     $entry->is_invoice_vat = $is_invoice_vat;
     $entry->invoice_remark = $invoice_remark;
-    var_dump($is_invoice_vat);die;
+    $entry->shop_bs_status = $shop_bs_status;
+
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
         LogErr("Save err");
@@ -95,7 +86,6 @@ function SaveShopInfo(&$resp)
 function SaveShopBusiness(&$resp)
 {
     $_ = $GLOBALS["_"];
-
     LogDebug($_);
     if (!$_) {
         LogErr("param err");
@@ -115,20 +105,78 @@ function SaveShopBusiness(&$resp)
         return errcode::SEAT_NOT_EXIST;
     }
     //$shop_id                               = (string)$_['shop_id'];//<<<<<<<<<<<<<这里是测试数据
-    $company_name                          = (string)$_['company_name'];
-    $legal_person                          = (string)$_['legal_person'];
-    $legal_phone                           = (string)$_['legal_phone'];
-    $legal_card                            = (string)$_['legal_card'];
+    $company_name                          = $_['company_name'];
+    if (!$company_name) {
+        LogErr("$company_name  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $legal_person                          = $_['legal_person'];
+    if (!$legal_person) {
+        LogErr("$legal_person  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $legal_phone                           = $_['legal_phone'];
+    if (!$legal_phone) {
+        LogErr("$legal_phone  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $legal_card                            = $_['legal_card'];
+    if (!$legal_card) {
+        LogErr("$legal_card  err");
+        return errcode::PARAM_ALL_GET;
+    }
     $legal_card_photo                      = json_decode($_['legal_card_photo']);
-    $business_num                          = (string)$_['business_num'];
+    //$legal_card_photo                      = explode(',',$_['legal_card_photo']);
+    if (!$legal_card_photo) {
+        LogErr("$legal_card_photo  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $business_num                          = $_['business_num'];
+    if (!$business_num) {
+        LogErr("$business_num  err");
+        return errcode::PARAM_ALL_GET;
+    }
     $business_date                         = $_['business_date'];
-    $business_photo                        = (string)$_['business_photo'];
-    $repast_permit_identity                = (string)$_['repast_permit_identity'];
-    $repast_permit_year                    = (int)$_['repast_permit_year'];
-    $repast_permit_num                     = (string)$_['repast_permit_num'];
-    $repast_permit_photo                   = (string)$_['repast_permit_photo'];
-    $confirmation                          = (string)$_['confirmation'];
-    $business_scope                        = (string)$_['business_scope'];
+    //$business_date                         = explode(',',$_['business_date']);
+    if (!$business_date) {
+        LogErr("$business_date  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $business_photo                        = $_['business_photo'];
+    if (!$business_photo) {
+        LogErr("$business_photo  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $repast_permit_identity                = $_['repast_permit_identity'];
+    if (!$repast_permit_identity) {
+        LogErr("$repast_permit_identity  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $repast_permit_year                    = $_['repast_permit_year'];
+    if (!$repast_permit_year) {
+        LogErr("$repast_permit_year  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $repast_permit_num                     = $_['repast_permit_num'];
+    if (!$repast_permit_num) {
+        LogErr("$repast_permit_num  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $repast_permit_photo                   = $_['repast_permit_photo'];
+    if (!$repast_permit_photo) {
+        LogErr("$repast_permit_photo  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $confirmation                          = $_['confirmation'];
+    if (!$confirmation) {
+        LogErr("$confirmation  err");
+        return errcode::PARAM_ALL_GET;
+    }
+    $business_scope                        = $_['business_scope'];
+    if (!$business_scope) {
+        LogErr("$business_scope  err");
+        return errcode::PARAM_ALL_GET;
+    }
 
     $shop_business->company_name           = $company_name;
     $shop_business->legal_person           = $legal_person;

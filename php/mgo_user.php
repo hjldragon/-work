@@ -27,8 +27,8 @@ class UserEntry
     public $user_avater   = null;   // 用户头像
     public $birthday      = null;   // 用户生日
     public $sex           = null;   // 用户性别(1:不确定,2:男,3:女)
-    public $email         = null;   //用户邮箱
-    public $is_weixin     = null;   //是否绑定微信(0:没绑定,1:绑定)
+    public $email         = null;   // 用户邮箱
+    public $is_weixin     = null;   // 是否绑定微信(0:没绑定,1:绑定)
 
     // // 具体业务数据
     // public $shop_id = null;     // 当前用户所属的店 （注，此这段分出到员工表）
@@ -78,6 +78,11 @@ class UserEntry
     public function IsShopUser()
     {
         return ($this->property & \UserProperty::SHOP_USER) != 0;
+    }
+
+    public function IsShopAdmin()
+    {
+        return ($this->property & \UserProperty::SYS_ADMIN) != 0;
     }
 };
 
@@ -254,7 +259,7 @@ class User
 
     // 返回 UserEntry
     public function QueryById($userid)
-    {
+    {  
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
 

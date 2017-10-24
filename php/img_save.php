@@ -9,7 +9,7 @@ require_once("const.php");
 
 
 //Permission::PageCheck();
- $_=$_REQUEST;
+$_=$_REQUEST;
 
 
 // 调整数片大小

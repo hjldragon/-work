@@ -59,7 +59,7 @@ function Login(&$resp)
 
     $shopinfo = (object)array();
     $employee = (object)array();
-    if($userinfo->IsShopUser())
+    if($userinfo->IsShopAdmin())
     {
         // 再查员工表，看这个用户是不是某个店的员工
         $employee = \Cache\Employee::Get($userinfo->userid);

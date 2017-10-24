@@ -30,6 +30,7 @@ function SaveFoodinfo(&$resp)
     $entry_type          = $_['entry_type'];
     $shop_id             = $_['shop_id'];
     $food_sale_time      = json_decode($_['food_sale_time']);
+    $food_sale_week      = $_['food_sale_week'];
     $sale_off            = $_['sale_off'];
     $food_attach_list    = json_decode($_['food_attach_list']);
     $food_unit           = $_['food_unit'];
@@ -40,6 +41,7 @@ function SaveFoodinfo(&$resp)
     $sale_way            = $_['sale_way'];
     $sale_num            = $_['sale_num'];
     $sale_off_way        = $_['sale_off_way'];
+    
     
     if(count($food_img_list) > MAX_FOODIMG_NUM)
     {
@@ -99,6 +101,7 @@ function SaveFoodinfo(&$resp)
     $entry->praise_num          = $praise_num;
     $entry->is_draft            = $is_draft;
     $entry->food_sale_time      = $food_sale_time;
+    $entry->food_sale_week      = $food_sale_week;
     $entry->type                = $type;
     $entry->sale_way            = $sale_way;
     $entry->sale_num            = $sale_num;
@@ -170,7 +173,7 @@ function SetSaleOff(&$resp)
     LogInfo("set sale_off:[{$is_sale_off}] ok: ");
     return 0;
 }
-
+//$_=$_REQUEST;
 $ret = -1;
 $resp = (object)array();
 if(isset($_['save']))

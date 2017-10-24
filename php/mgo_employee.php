@@ -9,7 +9,7 @@ require_once("db_pool.php");
 
 class EmployeeEntry
 {
-    // public $employee_id = null;     // 员工id
+    public $employee_id        = null;     // 员工id
     public $userid             = null;     // 用户id(同用户表)
     public $shop_id            = null;     // 餐馆店铺id
     public $real_name          = null;     // 员工姓名
@@ -37,7 +37,7 @@ class EmployeeEntry
             return;
         }
 
-        // $this->employee_id = $cursor['employee_id'];
+        $this->employee_id        = $cursor['employee_id'];
         $this->userid             = $cursor['userid'];
         $this->shop_id            = $cursor['shop_id'];
         $this->real_name          = $cursor['real_name'];
@@ -78,10 +78,11 @@ class Employee
         $table = $db->selectCollection($this->Tablename());
 
         $cond = array(
-            'userid' => (int)$info->userid
+            'employee_id' => (string)$info->employee_id
         );
 
         $set = array(
+            'employee_id' => (string)$info->employee_id,
             "lastmodtime" => (null !== $info->lastmodtime) ? $info->lastmodtime : time()
         );
 
