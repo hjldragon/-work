@@ -1,0 +1,994 @@
+========= 登录接口 ==============
+=== 登录 ===
+url = login_save.php
+req ={
+    login : 1,
+    username :"admin",      //登录账号
+    password_md5 : "admin", // 登录密码
+    page_code : "1234"      // 页面验证码
+}
+resp ={
+  "ret": 0,
+  "data": {
+    "logininfo": {},
+    "userinfo": { // 用户信息
+      "userid": 1,
+      "username": "admin",
+      "password": null,
+      "question": null,
+      "answer": null,
+      "passwd_prompt": ".....[@]1",
+      "property": 2,
+      "ctime": 1494757164,
+      "mtime": 1508319661,
+      "delete": 0,
+      "phone": "12212345678",
+      "usernick": "老大哥哥",
+      "user_avater": "610a0b14f5c74256a028ed6c2a2596a2.jpg",
+      "birthday": null,
+      "sex": null,
+      "email": "18720114512@163.com",
+      "is_weixin": 1
+    },
+    "shopinfo": {  // 店铺信息
+      "shop_id": "4",
+      "shop_name": "湘菜馆1",
+      "shop_logo": "fde33fbacd6972f700f7f49388d286f3.jpg",
+      "classify_name": "kfc",
+      "contact": "刘先生",
+      "telephone": "13912345678",
+      "email": "18720114512@163.com",
+      "shop_area": -85.65,
+      "address": "深圳前海",
+      "address_num": "22号",
+      "lastmodtime": 1508383744,
+      "praise_num": 100,
+      "good_rate": 0.821,
+      "open_time": [
+        "08:01:00",
+        "22:00:00"
+      ],
+      "img_list": [
+        "d69500805e1da2210119446547a737ff.jpg",
+        "b73eaca80588754b136673b0e2cdfc66.jpg",
+        "678edf76ebd4479f339475f25fb6c86b.jpg"
+      ],
+      "broadcast_content": "Array",
+      "is_invoice_vat": [
+        {
+          "is_invoice": 0,
+          "invoice_type": []
+        }
+      ],
+      "delete": null,
+      "weixin": {
+        "sub_mch_id": "1467121102"
+      },
+      "food_attach_list": [
+        "少盐",
+        "加醋",
+        "少糖",
+        "大辣"
+      ],
+      "food_unit_list": [
+        "份1",
+        "份3",
+        "份2",
+        "份",
+        "斤",
+        "碗",
+        "瓶"
+      ],
+      "suspend": 0,
+      "is_seat_enable": null,
+      "opening_time": [],
+      "shop_pay_way": [
+        1,
+        2,
+        3
+      ],
+      "pay_time": [
+        2,
+        1
+      ],
+      "sale_way": [
+        4,
+        1,
+        2
+      ],
+      "shop_label": [
+        "粤菜",
+        "川菜",
+        "湘菜"
+      ],
+      "invoice_remark": "本店不支持开发票xx",
+      "shop_seat_region": null,
+      "shop_seat_type": null,
+      "shop_seat_shape": null,
+      "shop_composition": null,
+      "shop_feature": null,
+      "shop_business": {
+        "company_name": "赛领科技w",
+        "legal_person": "刘先生w",
+        "legal_phone": "153-1234567890",
+        "legal_card": "360782554696845210w525",
+        "legal_card_photo": [
+          "965ae586db8f2b7b4a3f3ea5ba10316f.jpg",
+          "86844c0d267b5dd50512805d09d415f8.jpg"
+        ],
+        "business_num": "121548w111",
+        "business_date": "[1508198400,1508284800]",
+        "business_photo": "28a24dec0acf137e1ec6fc937feeadd3.jpg",
+        "repast_permit_identity": "桂",
+        "repast_permit_year": 2018,
+        "repast_permit_num": "123456-1234562w",
+        "repast_permit_photo": "a66357faac0dd7b74285a46b3d39b025.jpg",
+        "confirmation": "3ed1a968d391e0c64f13d4be86304b30.jpg",
+        "business_scope": "餐冷饮wwws ed "
+      },
+      "mail_vali": {
+        "mail": "18720114512@163.com",
+        "passwd": "87d353c0dee92eaa06692d4f6ae2078a"
+      }
+    },
+    "employeeinfo": { // 员工信息
+      "userid": 1,
+      "shop_id": "4",
+      "real_name": "",
+      "phone": null,
+      "employee_no": null,
+      "duty": 1,
+      "section": null,
+      "permission": null,
+      "lastmodtime": 1498287496,
+      "delete": 0,
+      "health_certificate": null,
+      "remark": null,
+      "is_freeze": null
+    }
+  }
+}
+=== 注销登录 ===
+url = login_save.php
+req ={
+    logout : 1,
+    token : "dc2y398577v5f203"
+}
+resp ={
+    "ret": 0,
+    "data": {}
+  }
+========= 菜品管理相关接口 ==============
+=== 拉取菜品管理详情列表信息 ===
+url = menu_get.php
+req ={
+    foodlist: 1,
+    category_id: "222233",//品类id
+    food_name: "回锅肉", //编号或者名字
+    sale_off: 0, //上下架状态
+    is_draft: 0, //查看草稿时传1
+    type:1,//差看除配件以外的餐品时传1
+    page_size: 20, //分页
+    page_no: 2, //页数
+}
+resp ={
+    ret: 0 // 0:正常，非0出错（见cfg.js、const.php等定义）
+    data: {
+        food_list: [{
+            food_id: "11111",   //菜品id
+            food_sn : "1231231"  //菜品编号
+            food_img_list: [ "e9b98d90bed8247ca96290ea5f59ee64.jpg", "e9b98d90bed8247ca96290ea5f59ee64.jpg"], //菜品图片
+            food_name: "回锅肉",  //菜品名字
+            food_price: {
+                original_price: 180.00       //菜品价格   必须要有原价 
+            },
+            food_unit: "盘",  // 计量单位
+            category_name: "小炒",  //所属分类名称
+            category_id: "222233", //所属分类id
+            food_num_day: 11, //日销量
+            food_num_week: 22, //周销量
+            food_num_mon: 33,  //月销量
+            stock_num: 44, //库存数
+            share_num: 55, //分享数
+            favorites_num: 66, //收藏数
+            comment_num: 77, //评论数
+            code_img: "e9b98d90bed8247ca96290ea5f59ee64.jpg", //二维码图片
+            sale_off: 0,  //上下架状态 0: 上架  1: 下架
+        }]
+    }
+}
+=== 拉取菜品详情 ===
+url = menu_get.php
+req ={
+    foodinfo: 1,
+    food_id: "222",//餐品id
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "info": {
+            "food_id": "99",
+            "shop_id": "3",
+            "food_name": "酸辣鸡杂",
+            "food_num_day": 0,
+            "food_price": {
+                "type": 2,
+                "using": [
+                    1
+                ],
+                "price": [
+                    {
+                        "title": "中份",
+                        "original_price": 180,
+                        "discount_price": 175,
+                        "vip_price": 165,
+                        "festival_price": 160,
+                        "is_use": 0
+                    },
+                    {
+                        "title": "小份",
+                        "original_price": 180,
+                        "discount_price": 175,
+                        "vip_price": 165,
+                        "festival_price": 160,
+                        "is_use": 1
+                    }
+                ]
+            },
+            "food_intro": "",
+            "praise_num": null,
+            "food_img_list": [],
+            "entry_time": 1503052231,
+            "lastmodtime": 1508484822,
+            "delete": null,
+            "food_unit": "",
+            "need_waiter_confirm": 0,
+            "sale_off": 1,
+            "accessory": null,
+            "accessory_num": null,
+            "pack_remark": null,
+            "composition": null,
+            "feature": null,
+            "sale_way": null,
+            "sale_num": null,
+            "sale_off_way": null,
+            "food_sale_time": [],
+            "type": null,
+            "is_draft": null,
+            "food_category": "163",
+            "food_vip_price": 20,
+            "category": [
+                [
+                    {
+                        "category_id": "20",
+                        "category_name": "热菜",
+                        "shop_id": "3",
+                        "printer_id": "",
+                        "lastmodtime": 1508392783,
+                        "delete": 0,
+                        "type": 1,
+                        "food_id_list": [],
+                        "opening_time": [
+                            "0",
+                            "1",
+                            "2",
+                            "3",
+                            "4"
+                        ],
+                        "sortval": 5,
+                        "parent_id": "0",
+                        "entry_type": 2,
+                        "entry_time": 423245611
+                    },
+                    {
+                        "category_id": "1555",
+                        "category_name": "炒菜",
+                        "shop_id": "3",
+                        "printer_id": "",
+                        "lastmodtime": 1508392783,
+                        "delete": 0,
+                        "type": 1,
+                        "food_id_list": [
+                            "99",
+                            "61",
+                            "79",
+                            "1111"
+                        ],
+                        "opening_time": [
+                            "0",
+                            "1",
+                            "2",
+                            "3",
+                            "4"
+                        ],
+                        "sortval": 5,
+                        "parent_id": "20",
+                        "entry_type": 2,
+                        "entry_time": 423245611
+                    }
+                ]
+            ]
+        }
+    }
+}
+===新增分类===
+url = category_save.php
+req = {
+    save: 1,
+    category_id: "22",
+    category_name: "sss",
+    parent_id: "333",   //要存放的父级分类
+    opening_time: [1,2,3] //所属时段
+    type: 1  // 1菜品 2配件 3酒水
+}
+resp = {
+    ret: 0 // 0:正常，非0出错（见cfg.js、const.php等定义）
+    data: {}
+}
+===删除分类===
+url = category_save.php
+req = {
+    delete : 1,
+    category_id : "22"  
+}
+resp = {
+    ret: 0 // 0:正常，非0出错（见cfg.js、const.php等定义）
+    data: {}
+}
+===修改分类===
+url = category_save.php
+req ={
+    save: 1,
+    category_id: "22",
+    category_name: "sss",
+    parent_id: "333",   
+}
+resp ={
+    ret: 0 // 0:正常，非0出错（见cfg.js、const.php等定义）
+    data: {}
+}
+=== 删除food ===
+url = menu_save.php
+req ={
+    del_food:1,
+    food_id_list: ['22','33']  //需要删除的菜品id
+}
+resp ={
+    ret: 0 // 0:正常，非0出错（见cfg.js、const.php等定义）
+    data: {}
+}
+=== 上架下架 ===
+url = menu_save.php
+req ={
+    sale_off_opr:1,
+    food_id_list: ['22','33'], 
+    is_sale_off:0 //上下架状态 0: 上架  1: 下架
+}
+resp ={
+    ret: 0 // 0:正常，非0出错（见cfg.js、const.php等定义）
+    data: {}
+}
+=== 保存菜品编辑信息 ====
+url = menu_save.php
+req = {
+        food_id: "123",             //餐品id
+        food_name: "回锅肉",        //菜品名称
+        category_id: "222233",      //所属分类id
+        food_img_list: [],          //图片
+        foor_unit: "盘",            //计量单位
+        feature:["加量", "不加钱"], //特色
+        type: 1,                    // 1,菜品  2,配件  3,酒水
+        is_draft: 0                 // 0,正式 1,草稿
+        entry_type: 1,              // 创建时传1
+        sale_off: 0                 // 0上架 1下架
+        food_price: { // 无份量时
+            type : 1,                // 1 无分量规格价格 2, 有分量规格价格
+            using: 5,                // 使用哪个价格的位标志(1:原价,2:折扣价,4:会员价,8:节日价)
+            price:[{
+                    original_price: 180.00,  // 原价
+                    discount_price: 175.00,  // 折扣价
+                    vip_price:165.00,        // 会员价
+                    festival_price:160.00,   // 节日价
+                }]
+            },
+        food_price: { // 有份量时
+                type : 2,                // 1 无分量规格价格 2, 有分量规格价格
+                using: 5,                // 使用哪个价格的位标志(1:原价,2:折扣价,4:会员价,8:节日价)
+                price:[{
+                    title: "中份",
+                    original_price: 180.00,  // 原价
+                    discount_price: 175.00,  // 折扣价
+                    vip_price:165.00,        // 会员价
+                    festival_price:160.00,   // 节日价
+                    is_use: 0                // 是否选中使用此规格(0:不使用,1:使用)
+                },
+                {    
+                    title: "小份",
+                    original_price: 180.00,  // 原价
+                    discount_price: 175.00,  // 折扣价
+                    vip_price:165.00,        // 会员价
+                    festival_price:160.00,   // 节日价
+                    is_use: 1                // 是否选中使用此规格(0:不使用,1:使用)
+                }] 
+            },
+        food_attach_list:[{              // 口味
+                title: "辣度", 
+                list:["中辣","微辣"] 
+            },
+            {              
+                title: "盐度", 
+                list:["少盐","多盐"] 
+            }],
+        composition: ['玉米','大米'],  //食材
+        food_num_day: 12,              //每天库存， 0不限量
+        accessory_num:  4,             //打包需要数量
+        pack_remark: "",               //打包备注
+        accessory: "23",               //打包需要配件id
+        sale_way: 1,                   //1预定在店吃 2.非预定在店吃 3.预定自提 4.外卖 5打包外带
+        sale_num: 1,                   //起售数量
+        sale_off_way: 0,               //0 不设置 1自定义 2按周期
+        food_sale_time: [              // 自定义时，时间戳
+            {start_time: 1234644663,end_time:5343455436},
+            {start_time:1234644663,end_time:5343455436}
+            ],  
+        food_sale_week: [1,2],         // 按周期时  1,2,...,7  周一,周二,...,周日
+}
+resp ={
+    ret: 0 // 0:正常，非0出错（见cfg.js、const.php等定义）
+    data: {
+    }
+}
+=== 拉取所有品类下拉框 ===
+url = category_get.php
+req ={
+    list: 1
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "list": [
+            {
+                "category_id": "11",
+                "category_name": "菜品",
+                "shop_id": "4",
+                "printer_id": "13",
+                "lastmodtime": 1494757422,
+                "delete": 0,
+                "type": 1,
+                "opening_time": [
+                    "1",
+                    "2",
+                    "3",
+                    "4"
+                ],
+                "sortval": null,
+                "parent_id": "0",
+                "entry_type": 1,
+                "entry_time": 1,
+                "list": [
+                    {
+                        "category_id": "42",
+                        "category_name": "凉菜",
+                        "shop_id": "4",
+                        "printer_id": null,
+                        "lastmodtime": 1508147284,
+                        "delete": 0,
+                        "type": 1,
+                        "opening_time": [
+                            "1",
+                            "2",
+                            "3",
+                            "4"
+                        ],
+                        "sortval": 4,
+                        "parent_id": "11",
+                        "entry_type": null,
+                        "entry_time": null,
+                        "list": [
+                            {
+                                "category_id": "17",
+                                "category_name": "小菜",
+                                "shop_id": "4",
+                                "printer_id": "",
+                                "lastmodtime": 1505439776,
+                                "delete": 0,
+                                "type": 1,
+                                "opening_time": [
+                                    "1",
+                                    "3",
+                                    "4",
+                                    "5"
+                                ],
+                                "sortval": 2,
+                                "parent_id": "42",
+                                "entry_type": null,
+                                "entry_time": null,
+                                "list": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
+=== 创建编辑餐品品类下拉框 ===
+url = category_get.php
+req ={
+    type_list: 1,
+    type: 1 //1,菜品 2,配件 3,酒水
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "list": {
+            "category_id": "11",
+            "category_name": "菜品",
+            "list": [
+                {
+                    "category_id": "301",
+                    "category_name": "热菜",
+                    "list":[
+                            {
+                                "category_id": "539",
+                                "category_name": "川菜dddasD",
+                                "list": []
+                               
+                            },
+                            {
+                                "category_id": "16",
+                                "category_name": "干锅sdad",
+                                "list": []
+                               
+                            }
+                        ]
+                }
+            ]
+        }
+    }
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<店铺>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+=== 保存店铺信息 ===
+=== 编辑店铺信息 和 店铺设置信息 === //根据编辑处选择字段
+url = shopinfo_save.php
+req = {
+    shopinfo_save : 1,
+    //userid : 1,        //通过登录获取
+    //shop_id : "120",  //店铺id(string)这里是测试数据 这个参数是不要的
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+=== 拉取店铺基本信息 ===
+url = shopinfo_get.php
+req = {
+    get_shopinfo_base : 1,
+    //userid : 1,       //通过登录获取
+    //shop_id : "120",  //店铺id(string)这里是测试数据 这个参数是不要的
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {
+        shopinfo: {     // 店铺信息
+            username:"admin",                                        //(string) 用户账号
+            shop_id: "120",                                          //(string) 店铺id
+            shop_name: "肯德基KFC"                                    //(string) 店铺名称
+            shop_logo: "2296b866563f728d72742748a5d4c966.jpg",　　    //（string)商户logo
+            contact: "冉大"                                           //(string)联系人
+            telephone: "12312345678",　　                             //（string)联系电话
+            email: "123456@qq.com",　　                               //（string)邮箱
+            is_weixin: 1,　　                                         //(int)用户是否绑定微信(0:没绑定,1:绑定)
+            shop_area: 128.5,　　                                     //（float)店铺大小
+            address: "深圳洪浪北地铁口1",　　                            //（string)店铺地址
+            address_num: "130号",　　                                 //（string)门牌号 （用于编辑显示）
+        }
+    }
+}
+=== 获取编辑店铺信息 ===
+url = shopinfo_get.php
+req = {
+    get_shopinfo_edit: 1,
+    //userid:1,//登录获取
+    //shop_id : "120" //这是测试数据，通过登录来进行修改，登录获取userid
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {
+        shopsystem: {     // 店铺设置
+            suspend: 0,                                         //(int)(单选)店铺是否暂停 0:正常使用, 1:被系统管理员暂停,
+            shop_pay_way: [1,2,3,4]                             //(int)(多选) 店铺启用支付方式：1.现金支付 2:刷卡支付 3:微信支付 4:支付宝支付
+            pay_time: [1,2]　　                                  //（int)(多选)付款时间 1：餐前 2:餐后
+            sale_way: [1,2,3,4]　　                              //（int)(多选)销售方式 1:在店吃 2:外卖 3:打包 4:自提
+            shop_label: ["川菜","粤菜","湘菜"]　　                 //（string)店铺标签(可以是多个,不上限）
+            $open_time: ["09:00:00","12:00:00"]                 //(string)店铺营业时间
+            $opening_time: [ {                                   //(string)(多选)店铺餐时设置 1:早市,2:午市,3:晚市,4:夜宵
+                                 "type": 1,
+                                    "from": [{                  //时间开始
+                                        "hh": "07",            //小时
+                                        "mm": "00",            //分钟
+                                        "ss": "00"             //秒
+                                    }],
+                                    "to": [{                    //时间终止
+                                        "hh": "22",
+                                        "mm": "00",
+                                        "ss": "00"
+                                    }]
+                                },
+                                {
+                                    "type": 2,
+                                    "from": [{
+                                        "hh": "07",
+                                        "mm": "00",
+                                        "ss": "00"
+                                    }],
+                                    "to": [{
+                                        "hh": "09",
+                                        "mm": "00",
+                                        "ss": "00"
+                                     }]
+                                }]
+            is_invoice_vat: [
+                                {
+                                    "is_invoice": 1,      //(int)是否支付增值税发票（1:支持, 0:不支持）
+                                    "invoice_type": [     //1支持invoice_type里面有数据 (1:增值普通发票,2:增值普通发票,3:电子发票)
+                                        1,                //0不支持invoice_type为[]
+                                        2,
+                                        3
+                                    ]
+                                }
+                            ]　　
+
+           invoice_remark:"addafsafasf"                       //(string)发票备注
+           img_list: ["2296b8665.jpg","22396b8665.jpg",]　　    //（string)店铺图片(可以是多张,最多5张）
+        }
+    }
+}
+
+=== 添加删除保存店铺所有需要的标签接口 ===
+url = shopinfo_save.php
+req = {
+    save_label : 1,             //参数
+    label_name :"shop_label",   //需要添加的标签名字段
+                                //shop_label:店铺标签
+                                //shop_seat_region:店铺餐桌区域标签
+                                //shop_seat_type:店铺餐桌类型标签
+                                //shop_seat_shape:店铺餐桌桌型标签
+                                //shop_seat_shape:店铺餐桌桌型标签
+                                //shop_seat_shape:店铺餐桌桌型标签
+                                //shop_composition：店铺食材标签
+                                //shop_feature：店铺特色标签
+    shop_label:["火锅","川菜"]    //(string)字段值 //这里必须参数和label_name的值一样
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+=== 获取店铺所有需要的标签接口 ===
+url = shopinfo_get.php
+req = {
+    get_shop_label : 1,             //参数
+    label_name :"shop_label",   //需要添加的标签名字段
+                                //shop_label:店铺标签
+                                //shop_seat_region:店铺餐桌区域标签
+                                //shop_seat_type:店铺餐桌类型标签
+                                //shop_seat_shape:店铺餐桌桌型标签
+                                //shop_seat_shape:店铺餐桌桌型标签
+                                //shop_seat_shape:店铺餐桌桌型标签
+                                //shop_composition：店铺食材标签
+                                //shop_feature：店铺特色标签
+                                //food_attach_list：店铺口味可选附加属性配置list（加辣等）
+                                //food_unit_list：店铺餐品可选单位list（份、碗、斤等）
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {
+      "shop_label_all": [     //显示上面查询的字段名
+                "房顶",
+                "123"
+            ]
+            }
+}
+=== 获取工商信息 ===
+url = shopinfo_get.php
+req = {
+    get_shop_business: 1,
+     //userid:1,                //登录获取
+     //shop_id:4,               //登陆获取
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {
+        shopsbusiness: {     // 店铺设置
+            shop_business: [                                  //店铺工商管理信息
+                            "company_name": "赛铃"                     //(string)企业名称
+                            "legal_person": "Randa"                   //(string)法人代表
+                            "legal_phone": "12312345678"              //(string)法人电话
+                            "legal_card": "51302319922012345x"        //(string)法人身份证
+                            "legal_card_photo": "Randa.jpg"           //(string)法人身份照片
+                            "business_num":12345678910                //(int)营业执照注册号
+                            "business_date": [123456,654321]          //(int)营业期限(eg:2018-1-1,2018-2-2)
+                            "business_photo":"business.jpg"           //(string)营业执照照片
+                            "repast_permit_identity":"四川省"          //(string)餐饮许省
+                            "repast_permit_year":2017                 //(int)餐饮许可年份
+                            "repast_permit_num":"123456-123456"       //(string)餐饮许可号
+                            "repast_permit_photo":"business.jpg"      //(string)餐饮许可证件
+                            "confirmation":"confirmation.jpg"         //(string)确认书
+                            "business_scope":"餐饮"                    //(string)经营范围
+                ]
+        }
+    }
+}
+=== 保存工商信息 ===
+url = shopinfo_save.php
+req = {
+    save_shop_business: 1,
+    //userid:1,//登录获取  <<<<<<<<<<<<下面是前端需要保存的字段>>>>>>>>>>>>>>>>>
+     "company_name": "赛铃"                     //(string)企业名称
+     "legal_person": "Randa"                   //(string)法人代表
+     "legal_phone": "12312345678"              //(string)法人电话
+     "legal_card": "51302319922012345x"        //(string)法人身份证
+     "legal_card_photo": "Randa.jpg"           //(string)法人身份照片
+     "business_num":12345678910                //(int)营业执照注册号
+     "business_date": [123456,654321]          //(int)营业期限(eg:2018-1-1,2018-2-2)
+     "business_photo":"business.jpg"           //(string)营业执照照片
+     "repast_permit_identity":"四川省"          //(string)餐饮许省
+     "repast_permit_year":2017                 //(int)餐饮许可年份
+     "repast_permit_num":"123456-123456"       //(string)餐饮许可号
+     "repast_permit_photo":"business.jpg"      //(string)餐饮许可证件
+     "confirmation":"confirmation.jpg"         //(string)确认书
+     "business_scope":"餐饮"                    //(string)经营范围
+}
+resp = {ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+        data: {}
+}
+=== 获取工商信息认证状态 ===
+url = shopinfo_get.php
+req = {
+    get_shop_bs_status: 1,     //参数
+    //shop_id:4,               //登陆获取
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {
+            shop_business_status: {         //店铺工商管理信息状态
+                                            //认证是3个模块的的状态，分别是法人身份证证件认证,企业营业认证，餐饮认证
+
+                                            //企业认证状态只要不是0,其余全部显示认证未通过
+                                            //企业认证关联保存中的字段有：company_name,business_num,business_date,business_photo
+            "bs_code": 3,                //（int）企业营业认证状态（0:认证通过;98:认证未通过;
+                                                                      1:营业执照全称格式校验不通过;(company_name)
+                                                                      2:营业执照注册号格式校验不通过;(business_num)
+                                                                      3:营业执照期限校验不通过;(business_date)
+                                                                      4:营业执照期照片限校验不通过;(business_photo)
+
+                                           //身份认证状态只要不是0,其余全部显示认证未通过
+                                           //身份认证关联保存中的字段有：legal_person,legal_card,legal_card_photo
+            "id_code":0,                //（int）身份认证状态（0:认证通过;98:认证未通过;
+                                                                  1:真实姓名效验不通过;(legal_person)
+                                                                  2:身份证号效验不通过;(legal_card)
+                                                                  3:身份证照片效验不通过;(legal_card_photo)
+
+                                          //餐饮认证状态只要不是0,其余全部显示认证未通过
+                                          //餐饮认证关联保存中的字段有：repast_permit_identity,repast_permit_year,
+                                          repast_permit_num,repast_permit_photo,confirmation,business_scope
+           "rs_code":98,                //（int）餐饮认证状态（0:认证通过;98:认证未通过;
+                                                                1:餐饮许可编号效验不通过;(repast_permit_identity,repast_permit_year,repast_permit_num)
+                                                                2:餐饮服务许可证照片效验不通过;(repast_permit_photo)
+                                                                3:确认书照片效验不通过;(confirmation)
+                                                                4:经营范围效验不通过;(business_scope)
+        }
+    }
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<餐桌>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+=== 拉取餐桌列表 ===
+url = seat_get.php
+req = {
+    get_seat_list : 1,
+    userid : "1"   //通过登录获取的
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {
+        seatlist: [{    // 餐桌列表信息
+            seat_id: "123",                    //(string) 餐桌编号id
+            seat_name: "大大号"                 //(string) 餐桌台号
+            seat_region: "大厅",　　            //（string)餐桌区域
+            seat_type: "散座"                  //(string)餐桌类型
+            seat_shape:"方桌"                  //(string)桌形
+            seat_size: 10,　　                 //(int)餐桌人数
+            price:1.5,　　                     //(float)餐位费
+            price_type:1                      // (int)餐位费结算方式（0:无餐位费,1:按人数,2:固定数,3:餐费百分比）
+            qr_code: "二维码",　　             //（string)餐桌二维码
+        }]
+    }
+}
+=== 编辑餐桌信息 ===
+url = seat_save.php
+req = {
+    seat_save: 1,
+     seat_id: "123",                    //(string) 餐桌编号id
+     seat_name: "大大号"                 //(string) 餐桌台号
+     seat_region: "大厅",　　            //（string)餐桌区域
+     seat_type: "散座"                  //(string)餐桌类型
+     seat_shape:"方桌"                  //(string)桌形
+     seat_size: 10,　　                 //(int)餐桌人数
+     price:1.5,　　                     //(float)餐位费
+     consume_min :10.5                 //(float)最低消费
+     price_type:1                      //(int)餐位费结算方式（0:无餐位费,1:按人数,2:固定数,3:餐费百分比）
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+=== 删除餐桌信息 ===
+url = seat_save.php
+req = {
+    seat_delete: 1,
+    seat_id_list : ["1","9"], //餐桌id(string)（可以单选，多选)
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+=== 获取餐桌二维码打包信息 ===
+url = img_get.php
+req = {
+    batch_export_seat_qrcode: 1,        //参数
+    seat_list : ["1","9"],              //(string)餐桌(id可以单选，多选)
+    shop_id   :"4"                      //(string)店铺id
+}
+resp = {
+    ret : 0,                            // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<用户>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+=== 修改用户密码 ===
+url = user_info.php
+req = {
+    save_password: 1,         //保存参数
+    //userid:"2"              //通过用户登录获取
+    old_password:"123"        //(string)旧密码
+    new_password:"456"        //(string)新密码
+    new_password_again:"456"  //(string)再次输入新密码
+}
+resp = {
+    ret : 0,                   // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+=== 绑定用户手机号码 ===
+url = user_info.php
+req = {
+    phone_bind: 1,            //保存参数
+    //userid:"1"              //通过用户登录获取
+    token:"T1ez7zcisNYfqJa9"  //(string)token
+    phone:"18280131245"       //(string)手机号
+    code:"EAVG"               //(string)图形验证码
+    phone_code:"14ffx"        //手机验证码
+}
+resp = {
+    ret : 0,                  // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<id>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+=== 创建id ===
+url = gen_id.php
+req = {
+       genid : 1,                        //参数
+       type : "seat"                    //(string)获取id //取值:seat,food,category,xxx
+}
+resp = {
+    ret : 0,                        // 0:正常，非0出错（见cfg.js定义）
+    data: {
+       "id":400                        //返回id
+     }
+    }
+=== 邮箱绑定发送接口 ===
+url = user_info.php
+req = {
+   send_email: 1,                  //参数
+   //userid：1                     //(int)用户id通过用户登录获取
+   //shop_id："4"                  //(string)店铺id通过用户登录获取
+   email : "123@qq.com"           //(string)邮箱 （必须符合邮箱正则验证）（测试用真实邮箱才能绑定）
+                                  //一个真实邮箱不能多次连续发送（根据的163邮箱发送规则来的）
+}
+resp = {
+   ret : 0,                        // 0:正常，非0出错（见cfg.js定义）
+   crypt:1
+   data: {
+       "send_email":"邮箱发送成功"}    //提示信息
+     }
+=== 邮箱点击绑定接口 ===
+url = bind_mail.php
+   req = {
+     bind_email: 1,               //参数
+     //userid：1                  //(int)用户id发送邮件获取
+     //shop_id："4"               //(string)店铺id发送邮件获取
+     //passwd:"1341fgdss"        //(string)验证码发送邮件获取
+
+    }
+    resp = {
+    ret : 0,                      // 0:正常，非0出错（见cfg.js定义）
+    data: {
+     "bind_email":"邮箱绑定成功"     //提示信息
+         }
+        }
+=== 邮箱解绑接口 ===
+url = user_info.php
+req = {
+    unbind_email: 1,               //参数
+    //userid：1                    //(int)用户id通过用户登录获取
+    //shop_id："4"                 //(string)店铺id通过用户登录获取
+}
+resp = {
+    ret : 0,                      // 0:正常，非0出错（见cfg.js定义）
+    crypt:1,
+    data: {
+    'unbind_email':"邮箱解绑成功"   //提示信息
+     }
+    }
+=== 手机绑定接口 ===
+url = user_info.php
+req = {
+    bind_phone:1                  //参数
+    //userid：1                   //(int)用户id通过用户登录获取
+    //shop_id："4"                //(string)店铺id通过用户登录获取
+    //token: fvasihih1,          //前台token值
+    phone:18280156916            //(string)手机号码
+    phone_code:13141             //手机验证码
+
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    crypt:1,
+    data:{
+    'bind_phone':"手机绑定成功"    //提示信息
+    }
+}
+=== 手机解绑接口 ===
+url = user_info.php
+req = {
+    unbind_phone:1               //参数
+    //userid：1                  //(int)用户id通过用户登录获取
+    //shop_id："4"               //(string)店铺id通过用户登录获取
+    //token: fvasihih1,         //前台token值
+    phone_code:13141            //手机验证码
+}
+resp = {
+    ret : 0,                    // 0:正常，非0出错（见cfg.js定义）
+    crypt:1,
+    data:{
+    'unbind_phone':"手机解绑成功" //提示信息
+    }
+}
+=== 手机发送验证码接口 ===（就是输入手机发送的验证码接口）
+url = customer_save.php
+req = {
+    get_coke:1                  //参数
+    //token: fvasihih1,         //前台给的数据
+    page_code:ACF1              //(string)图形验证码
+    phone:18280156916           //(string)手机号码
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+    'phone_code':1549498,        //返回的手机验证码
+     }
+}
+=== 手机发送解绑验证码接口 ===（解绑手机发送的验证码接口）
+ url = customer_save.php
+ req = {
+     get_unbind_code:1           //参数
+     //token: fvasihih1,         //前台给的数据
+     //userid：1                 //(int)用户id通过用户登录获取
+     //shop_id："4"              //(string)店铺id通过用户登录获取
+     page_code:ACF1             //(string)图形验证码
+     phone:18280156916          //(string)手机号码
+
+ }
+ resp = {
+     ret : 0,                    // 0:正常，非0出错（见cfg.js定义）
+     data:{
+     'phone_code':1549498,       //返回的手机验证码
+      }
+ }
