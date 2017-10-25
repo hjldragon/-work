@@ -371,6 +371,7 @@ resp ={
 === 保存菜品编辑信息 ====
 url = menu_save.php
 req = {
+        save:1,
         food_id: "123",             //餐品id
         food_name: "回锅肉",        //菜品名称
         category_id: "222233",      //所属分类id
@@ -378,9 +379,9 @@ req = {
         foor_unit: "盘",            //计量单位
         feature:["加量", "不加钱"], //特色
         type: 1,                    // 1,菜品  2,配件  3,酒水
-        is_draft: 0                 // 0,正式 1,草稿
+        is_draft: 0,                // 0,正式 1,草稿
         entry_type: 1,              // 创建时传1
-        sale_off: 0                 // 0上架 1下架
+        sale_off: 0,                // 0上架 1下架
         food_price: { // 无份量时
             type : 1,                // 1 无分量规格价格 2, 有分量规格价格
             using: 5,                // 使用哪个价格的位标志(1:原价,2:折扣价,4:会员价,8:节日价)
@@ -424,7 +425,7 @@ req = {
         accessory_num:  4,             //打包需要数量
         pack_remark: "",               //打包备注
         accessory: "23",               //打包需要配件id
-        sale_way: 1,                   //1预定在店吃 2.非预定在店吃 3.预定自提 4.外卖 5打包外带
+        sale_way: [1,2],                   //1预定在店吃 2.非预定在店吃 3.预定自提 4.外卖 5打包外带
         sale_num: 1,                   //起售数量
         sale_off_way: 0,               //0 不设置 1自定义 2按周期
         food_sale_time: [              // 自定义时，时间戳
@@ -602,33 +603,33 @@ resp = {
             sale_way: [1,2,3,4]　　                              //（int)(多选)销售方式 1:在店吃 2:外卖 3:打包 4:自提
             shop_label: ["川菜","粤菜","湘菜"]　　                 //（string)店铺标签(可以是多个,不上限）
             $open_time: ["09:00:00","12:00:00"]                 //(string)店铺营业时间
-            $opening_time: [ {                                   //(string)(多选)店铺餐时设置 1:早市,2:午市,3:晚市,4:夜宵
-                                 "type": 1,
-                                    "from": [{                  //时间开始
+            $opening_time: [ {                                   //(string)(多选)店铺餐时设置
+                                 "type": 1,                     //1:早市,2:午市,3:晚市,4:夜宵
+                                    "from": {                  //时间开始
                                         "hh": "07",            //小时
                                         "mm": "00",            //分钟
                                         "ss": "00"             //秒
-                                    }],
-                                    "to": [{                    //时间终止
+                                    },
+                                    "to": {                    //时间终止
                                         "hh": "22",
                                         "mm": "00",
                                         "ss": "00"
-                                    }]
+                                    }
                                 },
                                 {
                                     "type": 2,
-                                    "from": [{
+                                    "from": {
                                         "hh": "07",
                                         "mm": "00",
                                         "ss": "00"
-                                    }],
-                                    "to": [{
+                                    },
+                                    "to": {
                                         "hh": "09",
                                         "mm": "00",
                                         "ss": "00"
-                                     }]
+                                     }
                                 }]
-            is_invoice_vat: [
+            is_invoice_vat:
                                 {
                                     "is_invoice": 1,      //(int)是否支付增值税发票（1:支持, 0:不支持）
                                     "invoice_type": [     //1支持invoice_type里面有数据 (1:增值普通发票,2:增值普通发票,3:电子发票)
@@ -637,7 +638,7 @@ resp = {
                                         3
                                     ]
                                 }
-                            ]　　
+                            　　
 
            invoice_remark:"addafsafasf"                       //(string)发票备注
            img_list: ["2296b8665.jpg","22396b8665.jpg",]　　    //（string)店铺图片(可以是多张,最多5张）
@@ -679,6 +680,7 @@ req = {
                                 //shop_feature：店铺特色标签
                                 //food_attach_list：店铺口味可选附加属性配置list（加辣等）
                                 //food_unit_list：店铺餐品可选单位list（份、碗、斤等）
+                                //shop_food_attach：店铺口味总标签
 }
 resp = {
     ret : 0,     // 0:正常，非0出错（见cfg.js定义）
@@ -754,25 +756,25 @@ resp = {
             shop_business_status: {         //店铺工商管理信息状态
                                             //认证是3个模块的的状态，分别是法人身份证证件认证,企业营业认证，餐饮认证
 
-                                            //企业认证状态只要不是0,其余全部显示认证未通过
+                                            //企业认证状态只要不是0,97,96,其余全部显示状态全部显示98
                                             //企业认证关联保存中的字段有：company_name,business_num,business_date,business_photo
-            "bs_code": 3,                //（int）企业营业认证状态（0:认证通过;98:认证未通过;
+            "bs_code": 3,                  //（int）企业营业认证状态（0:认证通过;98:认证未通过;97:认证中;96:未认证;
                                                                       1:营业执照全称格式校验不通过;(company_name)
                                                                       2:营业执照注册号格式校验不通过;(business_num)
                                                                       3:营业执照期限校验不通过;(business_date)
                                                                       4:营业执照期照片限校验不通过;(business_photo)
 
-                                           //身份认证状态只要不是0,其余全部显示认证未通过
+                                           //身份认证状态只要不是0,97,96,其余全部显示状态全部显示98
                                            //身份认证关联保存中的字段有：legal_person,legal_card,legal_card_photo
-            "id_code":0,                //（int）身份认证状态（0:认证通过;98:认证未通过;
+            "id_code":0,                //（int）身份认证状态（（0:认证通过;98:认证未通过;97:认证中;96:未认证;
                                                                   1:真实姓名效验不通过;(legal_person)
                                                                   2:身份证号效验不通过;(legal_card)
                                                                   3:身份证照片效验不通过;(legal_card_photo)
 
-                                          //餐饮认证状态只要不是0,其余全部显示认证未通过
+                                          //餐饮认证状态只要不是0,97,96,其余全部显示状态全部显示98
                                           //餐饮认证关联保存中的字段有：repast_permit_identity,repast_permit_year,
                                           repast_permit_num,repast_permit_photo,confirmation,business_scope
-           "rs_code":98,                //（int）餐饮认证状态（0:认证通过;98:认证未通过;
+           "rs_code":98,                //（int）餐饮认证状态（（0:认证通过;98:认证未通过;97:认证中;96:未认证；
                                                                 1:餐饮许可编号效验不通过;(repast_permit_identity,repast_permit_year,repast_permit_num)
                                                                 2:餐饮服务许可证照片效验不通过;(repast_permit_photo)
                                                                 3:确认书照片效验不通过;(confirmation)
@@ -886,7 +888,7 @@ resp = {
 === 邮箱绑定发送接口 ===
 url = user_info.php
 req = {
-   send_email: 1,                  //参数
+   bind_email: 1,                  //参数
    //userid：1                     //(int)用户id通过用户登录获取
    //shop_id："4"                  //(string)店铺id通过用户登录获取
    email : "123@qq.com"           //(string)邮箱 （必须符合邮箱正则验证）（测试用真实邮箱才能绑定）
@@ -961,6 +963,7 @@ resp = {
     'unbind_phone':"手机解绑成功" //提示信息
     }
 }
+///测试手机绑定和解绑接口所有验证码都是654321
 === 手机发送验证码接口 ===（就是输入手机发送的验证码接口）
 url = customer_save.php
 req = {
@@ -983,7 +986,7 @@ resp = {
      //userid：1                 //(int)用户id通过用户登录获取
      //shop_id："4"              //(string)店铺id通过用户登录获取
      page_code:ACF1             //(string)图形验证码
-     phone:18280156916          //(string)手机号码
+
 
  }
  resp = {
