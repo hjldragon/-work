@@ -308,16 +308,16 @@ class OpenTime
 
 class ShopBusinessStatus
 {
-    public $bs_code = null;    //（int）企业营业认证状态（00:认证通过;98:认证未通过;
+    public $bs_code = 96;    //（int）企业营业认证状态（0:认证通过;98:认证未通过;97:认证中;96:未认证;
                                //01:营业执照全称格式校验不通过;(company_name)
                                //02:营业执照注册号格式校验不通过;(business_num)
                                //03:营业执照期限校验不通过;(business_date)
                                //04:营业执照期照片限校验不通过;(business_photo)
-    public $id_code = null;    //（int）身份认证状态（00:认证通过;98:认证未通过;
+    public $id_code = 96;    //（int）身份认证状态（0:认证通过;98:认证未通过;97:认证中;96:未认证;
                                //01:真实姓名效验不通过;(legal_person)
                                //02:身份证号效验不通过;(legal_card)
                                //03:身份证照片效验不通过;(legal_card_photo)
-    public $rs_code = null;    //（int）餐饮认证状态（00:认证通过;98:认证未通过;
+    public $rs_code = 96;    //（int）餐饮认证状态（0:认证通过;98:认证未通过;97:认证中;96:未认证;
                                //01:餐饮许可编号效验不通过;(repast_permit_identity,repast_permit_year,repast_permit_num)
                                //02:餐饮服务许可证照片效验不通过;(repast_permit_photo)
                                //03:确认书照片效验不通过;(confirmation)
@@ -338,21 +338,13 @@ class ShopBusinessStatus
         $this->rs_code = $cursor['rs_code'];
     }
 
-    public static function ToList($cursor)
-    {
-        $list = array();
-        foreach ($cursor as $item) {
-            $entry = new self($item);
-            array_push($list, $entry);
-        }
-        return $list;
-    }
 }
 
 class MailVail
 {
     public $mail                   = null;    //绑定邮箱
     public $passwd                 = null;    //邮箱验证密码
+    public $mail_time              = null;    //邮箱有效时间
 
 
     function __construct($cursor = null)
@@ -368,6 +360,7 @@ class MailVail
         }
         $this->mail           = $cursor['mail'];
         $this->passwd         = $cursor['passwd'];
+        $this->mail_time      = $cursor['mail_time'];
 
     }
 
@@ -643,6 +636,9 @@ class Shop
             if (null !== $info->mail_vali->passwd) {
                 $set["mail_vali.passwd"] = (string)$info->mail_vali->passwd;
             }
+            if (null !== $info->mail_vali->mail_time) {
+                $set["mail_vali.mail_time"] = (string)$info->mail_vali->mail_time;
+            }
         }
         if (null !== $info->shop_bs_status){
             if (null !== $info->shop_bs_status->bs_code) {
@@ -651,7 +647,7 @@ class Shop
             if (null !== $info->shop_bs_status->id_code) {
                 $set["shop_bs_status.id_code"] = (int)$info->shop_bs_status->id_code;
             }
-            if (null !== $info->shop_bs_status->bs_code) {
+            if (null !== $info->shop_bs_status->rs_code) {
                 $set["shop_bs_status.rs_code"] = (int)$info->shop_bs_status->rs_code;
             }
         }

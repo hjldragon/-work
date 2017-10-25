@@ -107,74 +107,74 @@ function SaveShopBusiness(&$resp)
     //$shop_id                               = (string)$_['shop_id'];//<<<<<<<<<<<<<这里是测试数据
     $company_name                          = $_['company_name'];
     if (!$company_name) {
-        LogErr("$company_name  err");
+        LogErr("company_name  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $legal_person                          = $_['legal_person'];
     if (!$legal_person) {
-        LogErr("$legal_person  err");
+        LogErr("legal_person  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $legal_phone                           = $_['legal_phone'];
     if (!$legal_phone) {
-        LogErr("$legal_phone  err");
+        LogErr("legal_phone is empty");
         return errcode::PARAM_ALL_GET;
     }
     $legal_card                            = $_['legal_card'];
     if (!$legal_card) {
-        LogErr("$legal_card  err");
+        LogErr("legal_card  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $legal_card_photo                      = json_decode($_['legal_card_photo']);
     //$legal_card_photo                      = explode(',',$_['legal_card_photo']);
     if (!$legal_card_photo) {
-        LogErr("$legal_card_photo  err");
+        LogErr("legal_card_photo  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $business_num                          = $_['business_num'];
     if (!$business_num) {
-        LogErr("$business_num  err");
+        LogErr("business_num  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $business_date                         = $_['business_date'];
     //$business_date                         = explode(',',$_['business_date']);
     if (!$business_date) {
-        LogErr("$business_date  err");
+        LogErr("business_date is empty");
         return errcode::PARAM_ALL_GET;
     }
     $business_photo                        = $_['business_photo'];
     if (!$business_photo) {
-        LogErr("$business_photo  err");
+        LogErr("business_photo  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $repast_permit_identity                = $_['repast_permit_identity'];
     if (!$repast_permit_identity) {
-        LogErr("$repast_permit_identity  err");
+        LogErr("repast_permit_identity  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $repast_permit_year                    = $_['repast_permit_year'];
     if (!$repast_permit_year) {
-        LogErr("$repast_permit_year  err");
+        LogErr("repast_permit_year  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $repast_permit_num                     = $_['repast_permit_num'];
     if (!$repast_permit_num) {
-        LogErr("$repast_permit_num  err");
+        LogErr("repast_permit_num  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $repast_permit_photo                   = $_['repast_permit_photo'];
     if (!$repast_permit_photo) {
-        LogErr("$repast_permit_photo  err");
+        LogErr("repast_permit_photo  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $confirmation                          = $_['confirmation'];
     if (!$confirmation) {
-        LogErr("$confirmation  err");
+        LogErr("confirmation  is empty");
         return errcode::PARAM_ALL_GET;
     }
     $business_scope                        = $_['business_scope'];
     if (!$business_scope) {
-        LogErr("$business_scope  err");
+        LogErr("business_scope  is empty");
         return errcode::PARAM_ALL_GET;
     }
 
@@ -336,9 +336,7 @@ function SaveShopLabel(&$resp)
         return errcode::SHOP_LABEL_ERR;
     }
     $all  = json_decode($_[$name]);
-    //$all  = explode(',',$_[$name]);
     $all  = array_filter($all);
-    //$shop_id = $_['shop_id'];//<<<<<<<<<<<<<<<<<<<<<<<<<<<<测试数据
     $shop_id = \Cache\Login::GetShopId();
     if (!$shop_id)
     {

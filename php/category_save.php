@@ -74,8 +74,7 @@ function SaveCategory(&$resp)
 }
 
 function DeleteCategory(&$resp){
-    //获取删除数据的全局变量
-    //如果没有数据，提示错误信息
+
     $_=$GLOBALS["_"];
     LogDebug($_);
     if(!$_){
@@ -119,6 +118,74 @@ function getTree(&$category_id_list,$parent_id)
     }
 }
 
+function CategorySave($info){
+    $shop_id = \Cache\Login::GetShopId();
+
+    $mongodb = new \DaoMongodb\Category;
+    $entry   = new \DaoMongodb\CategoryEntry;
+
+    $entry->category_id   = $info["category_id"];
+    $entry->category_name = $info["category_name"];
+    $entry->shop_id       = $shop_id;
+    $entry->type          = $info["type"];
+    $entry->opening_time  = [1,2,3,4];
+    $entry->parent_id     = $info["parent_id"];
+    $entry->delete        = 0;
+    $entry->entry_type    = 1;
+    $entry->entry_time    = $info["entry_time"];
+
+    $ret = $mongodb->Save($entry);
+    if(0 != $ret)
+    {
+        LogErr("{$entry->category_name} Save err");
+        return errcode::SYS_ERR;
+    }
+    LogInfo("{$entry->category_name} save ok");
+    return 0;
+}
+
+// 自动创建系统固定商品分类
+function EntryCategory(&$resp)
+{
+    if(!PageUtil::LoginCheck())
+    {
+        LogDebug("not login, token:{$_['token']}");
+        return errcode::USER_NOLOGIN;
+    }
+    $info["category_id"]   = \DaoRedis\Id::GenCategoryId();
+    $info["category_name"] = "菜品";
+    $info["type"]          = 1;
+    $info["parent_id"]     = 0;
+    $info["entry_time"]    = time();
+    $ret = CategorySave($info);
+    
+    $data["category_id"]   = \DaoRedis\Id::GenCategoryId();
+    $data["category_name"] = "酒水";
+    $data["type"]          = 3;
+    $data["parent_id"]     = 0;
+    $data["entry_time"]    = time()+1;
+    $ret = CategorySave($data);
+
+    $inf["category_id"]   = \DaoRedis\Id::GenCategoryId();
+    $inf["category_name"] = "配件";
+    $inf["type"]          = 2;
+    $inf["parent_id"]     = 0;
+    $inf["entry_time"]    = time()+2;
+    $ret = CategorySave($inf);
+
+    $da["category_id"]   = \DaoRedis\Id::GenCategoryId();
+    $da["category_name"] = "餐盒";
+    $da["type"]          = 2;
+    $da["parent_id"]     = $inf["category_id"];
+    $da["entry_time"]    = time()+3;
+    $ret = CategorySave($da);
+
+    $resp = (object)array(
+    );
+    LogInfo("save ok");
+    return 0;
+}
+
 $ret = -1;
 $resp = (object)array();
 if(isset($_['save']))
@@ -126,11 +193,20 @@ if(isset($_['save']))
     $ret = SaveCategory($resp);
 
 }
-//HJL设置测试删除方法
+
 else if(isset($_['delete']))
 {
-    $ret=DeleteCategory($resp);
+    $ret = DeleteCategory($resp);
 
+}
+else if(isset($_['entry'])) //<<<<<<<<<<<<<<<<<<<<<<<<<<新增店铺测试用
+{
+    $ret = EntryCategory($resp);
+}
+else
+{
+    $ret = errcode::PARAM_ERR;
+    LogErr("param err");
 }
 LogDebug($ret);
 

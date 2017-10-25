@@ -496,7 +496,6 @@ class MenuInfo
                 }
             }
         }
-
         if(empty($sortby))
         {
             $sortby['_id'] = 1;

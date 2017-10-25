@@ -56,7 +56,7 @@ class errcode
     const HOTEL_NOT_EXIST       = -20035;       // 酒店不存在
     const PHONE_ERR             = -20037;       // 手机号码不正确
     const EMAIL_ERR             = -20038;       // 邮箱不正确
-    const MAIL_CODE_ERR         = -20039;       // 邮箱不正确
+    const MAIL_CODE_ERR         = -20039;       // 邮箱密文不正确
     const COKE_ERR              = -20040;       // 验证码不正确
     const SHOP_LABEL_ERR        = -20041;       // 标签名为空
     const PHONE_COKE_ERR        = -20042;       // 手机验证不正确
@@ -87,6 +87,8 @@ class errcode
     const FOOD_NOT_EXIST          = -30027;       // 餐品不存在
     const ORDER_NOT_EXIST         = -30028;       // 订单不存在
     const ORDER_HAD_CHANGE        = -30029;       // 订单已有变动，请刷新后再操作
+    const PHONE_CODE_LAPSE        = -30030;       // 手机验证码超时
+    const MAIL_TIME_LAPSE         = -30031;       // 手机验证码超时
 
 
     /*

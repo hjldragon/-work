@@ -58,6 +58,7 @@ function GetFoodInfo(&$resp)
         if($using & PriceType::FESTIVAL){
             array_push($price, PriceType::FESTIVAL);
         }
+        LogDebug($price);
         $info->food_price->using = $price;
     }else{
         $info = array();
@@ -161,6 +162,36 @@ function GetFoodList(&$resp)
     LogInfo("--ok--");
     return 0;
 }
+//  查找餐盒品类下的配件
+function GetAccessoryList(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if(!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $shop_id = \Cache\Login::GetShopId();
+
+    $catemgo = new \DaoMongodb\Category;
+    $category_name = "餐盒";
+    $cate_info = $catemgo->GetNameById($category_name,$shop_id);
+    if(!$cate_info->category_id){
+        LogErr("category err");
+        return errcode::PARAM_ERR;
+    }
+    $mgo = new \DaoMongodb\MenuInfo;
+    $cond['cate_id_list'] = [$cate_info->category_id];
+    $page_size = 100;
+    $page_no = 1;
+    $info = $mgo->GetFoodList($shop_id, $cond, $page_size, $page_no);
+    $resp = (object)array(
+        'list' => $info
+    );
+    //LogDebug($resp);
+    LogInfo("--ok--");
+    return 0;
+}
 
 $ret = -1;
 $resp = (object)array();
@@ -171,6 +202,10 @@ if(isset($_["foodinfo"]))
 elseif(isset($_["foodlist"]))
 {
     $ret = GetFoodList($resp);
+}
+elseif(isset($_["accessory"]))
+{
+    $ret = GetAccessoryList($resp);
 }
 else
 {

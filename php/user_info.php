@@ -316,6 +316,11 @@ function PhoneBind(&$resp)
         LogErr("phone_code is err");
         return errcode::PHONE_COKE_ERR;
     }
+    if(time() > $data->code_time)
+    {
+        LogErr("phone_code is lapse");
+        return errcode::PHONE_CODE_LAPSE;
+    }
     //保存绑定手机号码
     $userinfo->userid    = $userid;
     $userinfo->phone     = $phone;
@@ -358,8 +363,8 @@ function BindEmail(&$resp)
     }
     //验证邮箱是否已绑定
     $userinfo = new \DaoMongodb\User;
-    $info  = $userinfo->QueryByEmail($email);
-    if($info->email)
+    $info     = $userinfo->QueryByEmail($email);
+    if ($info->email)
     {
         LogErr("email is exist");
         return errcode::EMAIL_IS_EXIST;
@@ -367,28 +372,29 @@ function BindEmail(&$resp)
     $email_url = ShopIsSuspend::MAIL_URL;
     $passwd    = md5(rand(10000, 99999));
 
-    $mgo                = new \DaoMongodb\Shop;
-    $entry              = \Cache\Shop::Get($shop_id);
-    $shop_email->mail   = $_['email'];
-    $shop_email->passwd = $passwd;
-    $entry->mail_vali   = $shop_email;
-    $entry->shop_id     = $shop_id;
-    $ret                = $mgo->Save($entry);
-    $url                = $email_url . 'passwd=' . $passwd . '&bind_email=1&userid=' . $userid . '&shop_id=' . $shop_id;
-    if (0 != $ret)
-    {
+    $mgo                   = new \DaoMongodb\Shop;
+    $entry                 = \Cache\Shop::Get($shop_id);
+    $shop_email->mail      = $_['email'];
+    $shop_email->passwd    = $passwd;
+    $shop_email->mail_time = time() + 24 * 60 * 60 * 1000;
+    $entry->mail_vali      = $shop_email;
+    $entry->shop_id        = $shop_id;
+    $ret                   = $mgo->Save($entry);
+    $url                   = $email_url . 'passwd=' . $passwd . '&bind_email=1&userid=' . $userid . '&shop_id=' . $shop_id;
+    if (0 != $ret) {
         LogErr("Save err");
         return errcode::SYS_ERR;
     }
+    $zi = "绑定";
     //执行邮箱发送
-   $send = Cfg::GetMail($email,$url);
-    if(0!=$send){
-        LogDebug('send failed'.$send);
+    $send = Cfg::GetMail($email, $url, $zi);
+    if (0 != $send) {
+        LogDebug('send failed' . $send);
         return errcode::EMAIL_SEND_FAIL;
     }
 
     $resp = (object)[
-        'send_email'=>"发送邮件成功",
+        'send_email' => "发送邮件成功",
     ];
     LogInfo("save ok");
     return 0;
@@ -412,7 +418,12 @@ function UnBindEmail(&$resp)
         return errcode::USER_NOLOGIN;
     }
     $email_url = ShopIsSuspend::MAIL_URL;
+    $mgo                   = new \DaoMongodb\Shop;
     $entry     = \Cache\Shop::Get($shop_id);
+    $shop_email->mail_time = time() + 24 * 60 * 60 * 1000;
+    $entry->mail_vali      = $shop_email;
+    $entry->shop_id        = $shop_id;
+    $mgo->Save($entry);
     $mgo       = \Cache\UsernInfo::Get($userid);
     if ($entry->email != $mgo->email)
     {
@@ -420,8 +431,9 @@ function UnBindEmail(&$resp)
     }
     $email = $entry->email;
     $url   = $email_url . '&unbind_email=1&userid=' . $userid . '&shop_id=' . $shop_id;
+    $zi = "解绑";
     //执行邮箱发送
-    $send = Cfg::GetMail($email, $url);
+    $send = Cfg::GetMail($email, $url,$zi);
     if (0 != $send) {
         LogDebug('send failed' . $send);
         return errcode::EMAIL_SEND_FAIL;
@@ -466,6 +478,11 @@ function UnBindPhone(&$resp)
     {
         LogErr("phone_code is err");
         return errcode::COKE_ERR;
+    }
+    if(time() > $data->code_time)
+    {
+        LogErr("phone_code is lapse");
+        return errcode::PHONE_CODE_LAPSE;
     }
     //保存绑定手机号码
     $userinfo->userid    = $userid;

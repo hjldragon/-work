@@ -191,15 +191,16 @@ class Category
         // LogDebug(iterator_to_array($cursor));
         return CategoryEntry::ToList($cursor);
     }
-    
-    //HJL定义的一个通过名字，来获取category的ID
-    public function GetNameById($category_name){
+
+    public function GetNameById($category_name,$shop_id){
         $db =\DbPool::GetMongoDb();
         $table =$db->selectCollection($this->Tablename());
         $cond = array(
-            'category_name'=>(string)$category_name
+            'delete'  => ['$ne'=>1],
+            'category_name'=>(string)$category_name,
+            'shop_id'=>(string)$shop_id
         );
-        $cursor = $table->find($cond);
+        $cursor = $table->findOne($cond);
         return new  CategoryEntry($cursor);
     }
     public function GetCategoryById($category_id)

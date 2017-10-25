@@ -70,7 +70,6 @@ function DeleteSeatInfo(&$resp)
     }
 
     $seat_id_list = json_decode($_['seat_id_list']);
-    //$seat_id_list = explode(',',$_['seat_id_list']); //<<<<<<<<<<<<<<<<<<<测试时的代码
     LogDebug($_['seat_id_list']);
     if (!$seat_id_list) {
         return errcode::SEAT_NOT_EXIST;
@@ -78,9 +77,7 @@ function DeleteSeatInfo(&$resp)
 
     $entry   = new \DaoMongodb\SeatEntry;
     $mongodb = new \DaoMongodb\Seat;
-
     $ret     = $mongodb->BatchDelete($seat_id_list);
-
     if (0 != $ret) {
         LogErr("delete err");
         return errcode::SYS_ERR;

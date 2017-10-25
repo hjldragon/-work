@@ -244,7 +244,7 @@ eof;
         return "$dir/$filename";
     }
     //邮箱发送配置
-    public function GetMail($email,$url)
+    public function GetMail($email,$url,$zi)
     {
         try {
             $mail = new PHPMailer(); //建立邮件发送类
@@ -263,7 +263,7 @@ eof;
             $mail->From     = "18280156916@163.com"; //发件人的完整邮箱
             $mail->FromName = "赛领新吃货"; //发送邮箱
             $mail->Subject  = "新吃货邮箱绑定";//标题
-            $mail->MsgHTML("这是您登录帐户时所需的邮箱连接!<a href='$url'>请点击绑定</a>");//邮件消息体
+            $mail->MsgHTML("这是您登录帐户时所需的$zi.邮箱连接!<a href='$url'>请点击$zi</a>");//邮件消息体
             $mail->AddAddress($email);
             $mail->WordWrap = 80; // 设置每行字符串的长度
             $mail->Send();

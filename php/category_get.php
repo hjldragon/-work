@@ -25,7 +25,6 @@ function GetCategoryInfo(&$resp)
     $info = $mgo->GetCategoryById($category_id);
 
     $resp = (object)array(
-
         'info' => $info
     );
     LogDebug($resp);
@@ -95,7 +94,6 @@ function GetCategoryTypeList(&$resp)
     $data->list = array();
     
     getCategoryId($data,$cate->category_id);
-    
     $resp = (object)array(
         'list' => $data
     );
@@ -132,6 +130,11 @@ elseif(isset($_["list"]))
 elseif(isset($_["type_list"]))
 {
     $ret = GetCategoryTypeList($resp);
+}
+else
+{
+    $ret = errcode::PARAM_ERR;
+    LogErr("param err");
 }
 
 $html = json_encode((object)array(

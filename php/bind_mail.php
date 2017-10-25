@@ -25,7 +25,13 @@ function BindEmailSucceed(&$resp)
 
     if ($passwd != $shop->mail_vali->passwd)
     {
+        LogErr("mail passwd err");
         return errcode::MAIL_CODE_ERR;
+    }
+    if(time() > $shop->mail_vali->mail_time)
+    {
+        LogErr("mail validity lapse");
+        return errcode::MAIL_TIME_LAPSE;
     }
     //验证成功后开始绑定邮箱号
     $email = $shop->mail_vali->mail;
@@ -62,6 +68,11 @@ function UnBindEmailSucceed(&$resp)
     $userid       = $_['userid'];
     $mgo          = new DaoMongodb\Shop;
     $shop         = $mgo->GetShopById($shop_id);
+    if(time() > $shop->mail_vali->mail_time)
+    {
+        LogErr("mail validity lapse");
+        return errcode::MAIL_TIME_LAPSE;
+    }
     $email        = "";
     $shop->id     = $shop_id;
     $shop->email  = $email;

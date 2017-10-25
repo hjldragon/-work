@@ -138,18 +138,15 @@ class Seat
         foreach ($seat_id_list as $i => &$item) {
             $item = (string)$item;
         }
-
-        $set = array(
-            "delete" => 1,
-            "lastmodtime" => time()
-        );
-        $value = array(
-            '$set' => $set
-        );
         $cond = [
             'seat_id' => ['$in' => $seat_id_list],
         ];
-
+        $value = array(
+            '$set' => array(
+                "delete" => 1,
+                "lastmodtime" => time()
+            )
+        );
         try {
             $ret = $table->update($cond, $value, ['safe' => true, 'upsert' => true, 'multiple' => true]);
             LogDebug("ret:" . $ret["ok"]);
