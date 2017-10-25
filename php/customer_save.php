@@ -120,7 +120,6 @@ function SaveUserInfo(&$resp)
     LogInfo("save ok");
     return 0;
 }
-
 //删除用户信息
 function DeleteCustomer(&$resp)
 {
@@ -160,7 +159,6 @@ function GetCoke(&$resp){
     $db         = new \DaoRedis\Login;
     $redis      = $db->Get($token);
     $radis_code = $redis->page_code;
-
     //验证验证码
     if ($radis_code != $page_code)
     {
@@ -174,16 +172,18 @@ function GetCoke(&$resp){
     }
     $mgo  = new \DaoMongodb\User;
     $info = $mgo->QueryByPhone($phone);
-    if($info->phone){
+    if($info->phone)
+    {
         LogErr("phone is exist");
         return errcode::PHONE_IS_EXIST;
     }
-    $code  = rand(100000,999999);
-    $right = Cfg::SendCheckCode($code,$phone);
-    if($right != 0)
-    {
-        return errcode::PHONE_SEND_FAIL;
-    }
+    //$code  = rand(100000,999999);
+      $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
+//    $right = Cfg::SendCheckCode($code,$phone);
+//    if($right != 0)
+//    {
+//        return errcode::PHONE_SEND_FAIL;
+//    }
 
     $redis = new \DaoRedis\Login();
     $data  = new \DaoRedis\LoginEntry();
@@ -206,7 +206,6 @@ function GetUnBindCode(&$resp){
         return errcode::PARAM_ERR;
     }
     $token      = $_['token'];
-    $phone      = $_['phone'];
     $page_code  = strtolower($_['page_code']);
     $db         = new \DaoRedis\Login;
     $redis      = $db->Get($token);
@@ -224,21 +223,17 @@ function GetUnBindCode(&$resp){
     {
         return errcode::USER_NOLOGIN;
     }
+    //获取用户已绑定的手机号码
     $mgo      = new \DaoMongodb\User;
-    $mgo2     = new \DaoMongodb\Shop;
     $userinfo = $mgo->QueryById($userid);
-    $shopinfo = $mgo2->GetShopById($shop_id);
-    if ($userinfo->phone != $phone && $shopinfo->telephone != $phone)
-    {
-        LogErr("phone bind is not this num");
-        return errcode::NOT_BIND_PHONE;
-    }
-    $code  = rand(100000, 999999);
-    $right = Cfg::SendCheckCode($code, $phone);
-    if ($right != 0)
-    {
-        return errcode::PHONE_SEND_FAIL;
-    }
+    $phone   = $userinfo->phone;
+    $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
+//    $code  = rand(100000, 999999);
+//    $right = Cfg::SendCheckCode($code, $phone);
+//    if ($right != 0)
+//    {
+//        return errcode::PHONE_SEND_FAIL;
+//    }
 
     $redis            = new \DaoRedis\Login();
     $data             = new \DaoRedis\LoginEntry();

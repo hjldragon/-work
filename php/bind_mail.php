@@ -50,12 +50,47 @@ function BindEmailSucceed(&$resp)
     return 0;
 
 }
+function UnBindEmailSucceed(&$resp)
+{
+    $_ = $GLOBALS['_'];
+    if (!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $shop_id      = $_['shop_id'];
+    $userid       = $_['userid'];
+    $mgo          = new DaoMongodb\Shop;
+    $shop         = $mgo->GetShopById($shop_id);
+    $email        = "";
+    $shop->id     = $shop_id;
+    $shop->email  = $email;
+    $ret_shop     = $mgo->Save($shop);
+    $entry        = new DaoMongodb\User;
+    $user         = $entry->QueryById($userid);
+    $user->userid = $userid;
+    $user->email  = $email;
+    $ret_user     = $entry->Save($user);
+    if (0 != $ret_shop || 0 != $ret_user)
+    {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+    $resp = (object)[
+        'unbind_email' => "解绑成功",
+    ];
+    LogInfo("email unbinding successful");
+    return 0;
+}
 $ret = -1;
 $resp = (object)array();
 
 if (isset($_['bind_email']))
 {
     $ret = BindEmailSucceed($resp);
+}elseif(isset($_['unbind_email']))
+{
+    $ret = UnBindEmailSucceed($resp);
 }
 
 $html = json_encode((object)array(

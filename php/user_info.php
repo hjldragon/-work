@@ -231,7 +231,6 @@ function EditUserPassword(&$resp)
         return errcode::PARAM_ERR;
     }
     $userid = \Cache\Login::GetUserid();
-    //$userid = $_['userid'];//<<<<<<<<<<<<<<<<<测试数据
     if (!$userid)
     {
         return errcode::USER_NOLOGIN;
@@ -247,6 +246,10 @@ function EditUserPassword(&$resp)
     if ($old_password !== md5($password))
     {
         return errcode::USER_PASSWD_ERR;
+    }
+    if($password === $new_password)
+    {
+        return errcode::PASSWORD_TWO_SAME;
     }
     if ($new_password != $new_password_again)
     {
@@ -372,12 +375,16 @@ function BindEmail(&$resp)
     $entry->shop_id     = $shop_id;
     $ret                = $mgo->Save($entry);
     $url                = $email_url . 'passwd=' . $passwd . '&bind_email=1&userid=' . $userid . '&shop_id=' . $shop_id;
-    //执行邮箱发送
-    Cfg::GetMail($email,$url);
     if (0 != $ret)
     {
         LogErr("Save err");
         return errcode::SYS_ERR;
+    }
+    //执行邮箱发送
+   $send = Cfg::GetMail($email,$url);
+    if(0!=$send){
+        LogDebug('send failed'.$send);
+        return errcode::EMAIL_SEND_FAIL;
     }
 
     $resp = (object)[
@@ -389,34 +396,39 @@ function BindEmail(&$resp)
 //解绑邮箱
 function UnBindEmail(&$resp)
 {
-    $_ = $GLOBALS['_'];
+    $_ = $GLOBALS["_"];
     if (!$_)
     {
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
+
     $userid  = \Cache\Login::GetUserid();
     $shop_id = \Cache\Login::GetShopId();
-    $email   = "";
-    $mgo = new DaoMongodb\Shop;
-    $shop =$mgo->GetShopById($shop_id);
-
-    $shop->id    = $shop_id;
-    $shop->email = $email;
-    $ret_shop =  $mgo->Save($shop);
-
-    $entry = new DaoMongodb\User;
-    $user= $entry->QueryById($userid);
-    $user->userid = $userid;
-    $user->email  = $email;
-    $ret_user = $entry->Save($user);
-    if (0 != $ret_shop || 0!=$ret_user)
+    //$shop_id = $_['shop_id'];
+    //$userid  = $_['userid'];//<<<<<<<<<<<<<<<<<测试数据\
+    if (!$userid || !$shop_id)
     {
-        LogErr("Save err");
-        return errcode::SYS_ERR;
+        return errcode::USER_NOLOGIN;
     }
-
-    $resp = (object)['unbind_email'=>"邮箱解绑成功"];
+    $email_url = ShopIsSuspend::MAIL_URL;
+    $entry     = \Cache\Shop::Get($shop_id);
+    $mgo       = \Cache\UsernInfo::Get($userid);
+    if ($entry->email != $mgo->email)
+    {
+        return errcode::FILE_WRITE_ERR;
+    }
+    $email = $entry->email;
+    $url   = $email_url . '&unbind_email=1&userid=' . $userid . '&shop_id=' . $shop_id;
+    //执行邮箱发送
+    $send = Cfg::GetMail($email, $url);
+    if (0 != $send) {
+        LogDebug('send failed' . $send);
+        return errcode::EMAIL_SEND_FAIL;
+    }
+    $resp = (object)[
+        'send_email' => "发送邮件成功",
+    ];
     LogInfo("save ok");
     return 0;
 }
@@ -494,7 +506,7 @@ elseif($_["user_setting"])
 }elseif (isset($_['bind_phone']))
 {
     $ret = PhoneBind($resp);
-}elseif (isset($_['send_email']))
+}elseif (isset($_['bind_email']))
 {
     $ret = BindEmail($resp);
 }elseif (isset($_['unbind_email']))

@@ -413,6 +413,7 @@ class ShopEntry
     public $shop_business     = null;               // 店铺工商信息
     public $mail_vali         = null;               // 邮箱验证
     public $shop_bs_status    = null;               //店铺工商信息认证状态
+    public $shop_food_attach  = null;               //店铺口味标签
 
 
 
@@ -466,6 +467,7 @@ class ShopEntry
         $this->shop_business       = new ShopBusiness($cursor['shop_business']);
         $this->mail_vali           = new MailVail($cursor['mail_vali']);
         $this->shop_bs_status      = new ShopBusinessStatus($cursor['shop_bs_status']);
+        $this->shop_food_attach    = $cursor['shop_food_attach'];
     }
 
     public static function ToList($cursor)
@@ -635,7 +637,12 @@ class Shop
             ]);
         }
         if (null !== $info->mail_vali){
-            $set["mail_vali"] = $info->mail_vali;
+            if (null !== $info->mail_vali->mail) {
+                $set["mail_vali.mail"] = (string)$info->mail_vali->mail;
+            }
+            if (null !== $info->mail_vali->passwd) {
+                $set["mail_vali.passwd"] = (string)$info->mail_vali->passwd;
+            }
         }
         if (null !== $info->shop_bs_status){
             if (null !== $info->shop_bs_status->bs_code) {
@@ -648,10 +655,18 @@ class Shop
                 $set["shop_bs_status.rs_code"] = (int)$info->shop_bs_status->rs_code;
             }
         }
+        if (null !== $info->shop_food_attach){
+            $set["shop_food_attach"] = $info->shop_food_attach;
+        }
+        if (null !== $info->food_attach_list){
+            $set["food_attach_list"] = $info->food_attach_list;
+        }
+        if (null !== $info->food_unit_list){
+            $set["food_unit_list"] = $info->food_unit_list;
+        }
         $value = array(
             '$set' => $set
         );
-
         try {
             $ret = $table->update($cond, $value, ['upsert' => true]);
             LogDebug("ret:" . json_encode($ret));
@@ -659,7 +674,6 @@ class Shop
             LogErr($e->getMessage());
             return \errcode::DB_OPR_ERR;
         }
-
         return 0;
     }
 

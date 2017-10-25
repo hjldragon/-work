@@ -263,13 +263,15 @@ eof;
             $mail->From     = "18280156916@163.com"; //发件人的完整邮箱
             $mail->FromName = "赛领新吃货"; //发送邮箱
             $mail->Subject  = "新吃货邮箱绑定";//标题
-            $mail->MsgHTML("这是您登录帐户时所需的邮箱绑定连接!<a href='$url'>请点击绑定</a>");//邮件消息体
+            $mail->MsgHTML("这是您登录帐户时所需的邮箱连接!<a href='$url'>请点击绑定</a>");//邮件消息体
             $mail->AddAddress($email);
             $mail->WordWrap = 80; // 设置每行字符串的长度
             $mail->Send();
+            return 0;
         } catch (phpmailerException $e) {
             echo "邮件发送失败：" . $e->errorMessage();
             echo $mail->ErrorInfo;
+            return -1;
         }
     }
     //手机验证码发送配置

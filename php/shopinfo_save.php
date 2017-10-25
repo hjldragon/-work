@@ -374,6 +374,9 @@ function SaveShopLabel(&$resp)
         case 'food_unit_list':
             $entry->food_unit_list = $all;
             break;
+        case 'shop_food_attach':
+            $entry->shop_food_attach = $all;
+            break;
         default:
             return errcode::PARAM_ERR;
             break;

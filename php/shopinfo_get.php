@@ -202,7 +202,6 @@ function GetShopLabel(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    //$shop_id = $_['shop_id'];//<<<<<<<<<<<<<<<<<<<<<<<<<<<<测试数据
     $shop_id = \Cache\Login::GetShopId();
     if (!$shop_id)
     {
@@ -239,6 +238,9 @@ function GetShopLabel(&$resp)
         case 'food_unit_list':
             $shop_info = $info->food_unit_list;
             break;
+        case 'shop_food_attach':
+            $shop_info = $info->shop_food_attach;
+            break;
         default:
             return errcode::SHOP_LABEL_ERR;
             break;
@@ -247,7 +249,7 @@ function GetShopLabel(&$resp)
         $name => $shop_info,
     ];
 
-    LogInfo("get    ok");
+    LogInfo("get ok");
     return 0;
 }
 $ret = -1;
