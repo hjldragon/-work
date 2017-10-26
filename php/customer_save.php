@@ -27,9 +27,7 @@ function SaveCustomer(&$resp)
     $weixin_account        = $_['weixin_account'];
     $vip_level             = $_['vip_level'];
     $userid                = $_['userid'];
-    //获取店铺id<<<<<<<<现在在创建数据
-    $shop_id               = 4; //\Cache\Login::GetShopId();
-    //链接mongodb数据库
+    $shop_id               = \Cache\Login::GetShopId();
     $mongodb               = new \DaoMongodb\Customer;
     $entry                 = new \DaoMongodb\CustomerEntry;
     $entry->customer_id    = $customer_id;
@@ -72,6 +70,7 @@ function SaveUserInfo(&$resp)
     //$user_avater = $_['user_avater'];
     $phone         = $_['phone'];
     $sex           = $_['sex'];
+
     if($cutomer_id){
         $cutomer_info = Cache\Customer::Get($cutomer_id);
         $userid       = $cutomer_info->userid;
@@ -177,7 +176,7 @@ function GetCoke(&$resp){
         LogErr("phone is exist");
         return errcode::PHONE_IS_EXIST;
     }
-    //$code  = rand(100000,999999);
+//    $code  = rand(100000,999999);
       $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
 //    $right = Cfg::SendCheckCode($code,$phone);
 //    if($right != 0)
@@ -187,6 +186,7 @@ function GetCoke(&$resp){
 
     $redis = new \DaoRedis\Login();
     $data  = new \DaoRedis\LoginEntry();
+    $data->phone      = $phone;
     $data->token      = $token;
     $data->phone_code = $code;
     $data->code_time  = time()+5*60*1000;
@@ -226,10 +226,11 @@ function GetUnBindCode(&$resp){
     //获取用户已绑定的手机号码
     $mgo      = new \DaoMongodb\User;
     $userinfo = $mgo->QueryById($userid);
-    $phone   = $userinfo->phone;
+    $phone    = $userinfo->phone;
+
     $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
 //    $code  = rand(100000, 999999);
-//    $right = Cfg::SendCheckCode($code, $phone);
+//   $right = Cfg::SendCheckCode($code, $phone);
 //    if ($right != 0)
 //    {
 //        return errcode::PHONE_SEND_FAIL;
@@ -241,7 +242,6 @@ function GetUnBindCode(&$resp){
     $data->phone_code = $code;
     $data->code_time  = time() + 5 * 60 * 1000;
     LogDebug($data);
-
     $redis->Save($data);
     $resp = (object)[
         'phone_code' => $code,

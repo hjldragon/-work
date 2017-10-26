@@ -24,20 +24,20 @@ function SavePrinter(&$resp)
         return errcode::USER_NOLOGIN;
     }
 
-    $printer_id   = $_['printer_id'];
-    $printer_name = $_['printer_name'];
-    $printer_category = $_['printer_category'];
-    $printer_size = $_['printer_size'];
-    $printer_brand = $_['printer_brand'];
-    $printer_note = $_['printer_note'];
-    $print_position_left = $_['print_position_left'];
-    $print_position_top = $_['print_position_top'];
-    $print_position_width = $_['print_position_width'];
+    $printer_id            = $_['printer_id'];
+    $printer_name          = $_['printer_name'];
+    $printer_category      = $_['printer_category'];
+    $printer_size          = $_['printer_size'];
+    $printer_brand         = $_['printer_brand'];
+    $printer_note          = $_['printer_note'];
+    $print_position_left   = $_['print_position_left'];
+    $print_position_top    = $_['print_position_top'];
+    $print_position_width  = $_['print_position_width'];
     $print_position_height = $_['print_position_height'];
-    $food_category_list = json_decode($_['food_category_list']);
+    $food_category_list    = json_decode($_['food_category_list']);
     LogDebug($food_category_list);
 
-    $shop_id = \Cache\Login::GetShopId();//获取店铺ID，根据登录者来判断店铺ID？
+    $shop_id = \Cache\Login::GetShopId();//获取店铺ID
 
     $mongodb = new \DaoMongodb\Printer;
     $entry = new \DaoMongodb\PrinterEntry;

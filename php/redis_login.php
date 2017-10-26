@@ -21,7 +21,7 @@ class LoginEntry
     public $phone_code = null;     // 手机验证码
     public $code_time  = null;     //手机验证码过期时间
     public $page_code  = null;     // 页面验证码
-    public $email_time = null;     //邮箱时间
+    public $phone      = null;     //输入手机号
 
 
     function __construct($cursor=null)
@@ -45,7 +45,7 @@ class LoginEntry
         $this->phone_code = $cursor['phone_code'];
         $this->code_time  = $cursor['code_time'];
         $this->page_code  = $cursor['page_code'];
-        $this->email_time = $cursor['email_time'];
+        $this->phone       = $cursor['phone'];
     }
 };
 
@@ -98,10 +98,11 @@ class Login
         {
             $data["page_code"] = $entry->page_code;
         }
-        if(null !== $entry->email_time)
+        if(null !== $entry->phone)
         {
-            $data["email_time"] = $entry->email_time;
+            $data["phone"] = $entry->phone;
         }
+
         $ret = $db->hmset($entry->token, $data);
         LogDebug("ret:$ret");
         if($ret > 0)

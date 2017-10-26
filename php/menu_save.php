@@ -6,6 +6,8 @@
 require_once("current_dir_env.php");
 require_once("mgo_menu.php");
 
+Permission::PageCheck();
+
 function SaveFoodinfo(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -18,7 +20,7 @@ function SaveFoodinfo(&$resp)
     $food_id             = (string)$_['food_id'];
     $food_name           = $_['food_name'];
     $category_id         = (string)$_['category_id'];
-    $food_price          = json_decode($_['food_price']);
+    $food_price          = $_['food_price'];
     $composition         = json_decode($_['composition']);
     $feature             = json_decode($_['feature']);
     $food_img_list       = json_decode($_['food_img_list']);
@@ -28,7 +30,6 @@ function SaveFoodinfo(&$resp)
     $pack_remark         = $_['pack_remark'];
     $praise_num          = $_['praise_num'];
     $entry_type          = $_['entry_type'];
-    $shop_id             = $_['shop_id'];
     $food_sale_time      = json_decode($_['food_sale_time']);
     $food_sale_week      = json_decode($_['food_sale_week']);
     $sale_off            = $_['sale_off'];
@@ -41,8 +42,21 @@ function SaveFoodinfo(&$resp)
     $sale_way            = json_decode($_['sale_way']);
     $sale_num            = $_['sale_num'];
     $sale_off_way        = $_['sale_off_way'];
-    
-    
+    if(null != $food_price && null == $type){
+        LogErr("type err");
+        return errcode::PARAM_ERR;
+    }
+    if(2 != $type){
+        $food_price  = json_decode($food_price);
+    }
+    if(!$food_name){
+        LogErr("food_name err");
+        return errcode::PARAM_ERR;
+    }
+    if(!$category_id){
+        LogErr("category_id err");
+        return errcode::PARAM_ERR;
+    }
     if(count($food_img_list) > MAX_FOODIMG_NUM)
     {
         LogErr("img too many");
@@ -59,15 +73,6 @@ function SaveFoodinfo(&$resp)
         LogErr("food_name exist:[$food_name], info->food_id:[{$info->food_id}]");
         return errcode::FOOD_EXIST;
     }
-    if(!$food_name){
-        LogErr("food_name err");
-        return errcode::PARAM_ERR;
-    }
-    if(!$category_id){
-        LogErr("category_id err");
-        return errcode::PARAM_ERR;
-    }
-    
     if(!$food_id)
     {
         $food_id = \DaoRedis\Id::GenFoodId();
@@ -107,7 +112,6 @@ function SaveFoodinfo(&$resp)
     $entry->sale_way            = $sale_way;
     $entry->sale_num            = $sale_num;
     $entry->sale_off_way        = $sale_off_way;
-
     $ret = $mongodb->Save($entry);
     LogDebug($ret);
     if(0 != $ret)

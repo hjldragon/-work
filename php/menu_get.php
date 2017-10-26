@@ -12,7 +12,7 @@ require_once("mgo_category.php");
 require_once("mgo_spec.php");
 require_once("mgo_stat_food_byday.php");
 
-
+//Permission::PageCheck();
 
 // 取餐品已售数
 function GetTodayFoodSoldNum($food_id)
@@ -122,7 +122,7 @@ function GetFoodList(&$resp)
     {
         $page_no = 1; //第一页开始
     }
-    $shop_id = \Cache\Login::GetShopId();
+    $shop_id = "3";//\Cache\Login::GetShopId();
     
     LogDebug("shop_id:[$shop_id]");
     if($category_id){
@@ -149,16 +149,18 @@ function GetFoodList(&$resp)
 
     LogDebug($list);
     foreach($list as $i => &$item)
-    {
+    {   
         $item->category_name = \Cache\Category::Get($item->category_id)->category_name;
-        $item->food_sold_num_day = GetTodayFoodSoldNum($item->food_id);
+        
+        //$item->food_sold_num_day = GetTodayFoodSoldNum($item->food_id);
     }
     
     $resp = (object)array(
         'list' => $list,
         'total' => $total
     );
-     LogDebug($resp);
+
+    LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }

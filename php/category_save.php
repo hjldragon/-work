@@ -7,6 +7,7 @@ require_once("current_dir_env.php");
 require_once("mgo_category.php");
 require_once("redis_id.php");
 
+Permission::PageCheck();
 function SaveCategory(&$resp)
 {
     $_ = $GLOBALS["_"];

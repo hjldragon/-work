@@ -10,9 +10,9 @@ require_once("cache.php");
 require_once("mgo_order.php");
 
 
-Permission::EmployeePermissionCheck(
-     Permission::CHK_ORDER_R
-);
+//Permission::EmployeePermissionCheck(
+//     Permission::CHK_ORDER_R
+//);
 
 
 
@@ -62,7 +62,7 @@ function GetOrderList(&$resp)
     }
     if(!$end_time)
     {
-        $end_time = $tbegin;
+        $end_time = $begin_time;
     }
     LogDebug("begin_time:$begin_time, end_time:$end_time");
     $begin_time_sec = strtotime($begin_time);
@@ -105,7 +105,87 @@ function GetOrderList(&$resp)
     LogInfo("--ok--");
     return 0;
 }
+function GetOrderAllList(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if(!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $order_id     = $_['order_id'];
+    $seat_id      = $_['seat_id'];
+    $is_invoicing = $_['is_invoicing'];
+    $dine_way     = $_['dine_way'];
+    $pay_way      = $_['pay_way'];
+    $order_status = $_['order_status'];
+    $begin_time   = $_["begin_time"];
+    $end_time     = $_["end_time"];
+    $page_size    = $_['page_size'];
+    $page_no      = $_['page_no'];
+    if(!$page_size)
+    {
 
+        $page_size = 7;//如果没有传默认10条
+    }
+    if(!$page_no)
+    {
+        $page_no = 1; //第一页开始
+    }
+/*    if(!$begin_time)
+    {
+        $begin_time = date("Y-m-d");
+    }
+    if(!$end_time)
+    {
+        $end_time = $begin_time;
+    }
+    LogDebug("begin_time:$begin_time, end_time:$end_time");
+    $begin_time_sec = strtotime($begin_time);
+    $end_time_sec = strtotime($end_time) + 3600*24 - 1; // 一天的最后一秒*/
+
+    $shop_id = \Cache\Login::GetShopId();
+    LogDebug("shop_id:[$shop_id]");
+
+    $mgo = new \DaoMongodb\Order;
+    $order_list = $mgo->GetOrderAllList(
+        [
+            'shop_id'      => $shop_id,
+            'order_id'     => $order_id,
+            'seat_id'      => $seat_id,
+            'is_invoicing' => $is_invoicing,
+            'dine_way'     => $dine_way,
+            'pay_way'      => $pay_way,
+            'order_status' => $order_status,
+//            'begin_time'   => $begin_time_sec,
+//            'end_time'     => $end_time_sec,
+        ],
+        ["_id"=>-1],
+        $page_size,
+        $page_no
+    );
+    LogDebug($order_list);
+    //取餐桌信息
+    foreach($order_list as $key => &$value)
+    {
+        $value->seat = \Cache\Seat::Get($value->seat_id);
+        if(!$value->seat)
+        {
+            $value->seat = [];
+        }
+        else
+        {
+            $value->seat->seat_price = Util::FenToYuan($value->seat->seat_price);
+        }
+    }
+
+    $resp = (object)array(
+        'order_list' => $order_list
+    );
+    // LogDebug($resp);
+    LogInfo("--ok--");
+    return 0;
+}
 // 订单统计
 function GetOrderStat(&$resp)
 {
@@ -115,9 +195,9 @@ function GetOrderStat(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $is_byday = $_["byday"];
-    $is_bymon = $_["bymon"];
-    $is_byyear = $_["byyear"];
+    $is_byday   = $_["byday"];
+    $is_bymon   = $_["bymon"];
+    $is_byyear  = $_["byyear"];
     $begin_time = $_["begin_time"];
     $end_time   = $_["end_time"];
 
@@ -233,6 +313,10 @@ if(isset($_["orderinfo"]))
 elseif(isset($_["orderlist"]))
 {
     $ret = GetOrderList($resp);
+}
+elseif(isset($_["get_order_list"]))
+{
+    $ret = GetOrderAllList($resp);
 }
 elseif(isset($_["orderstat"]))
 {

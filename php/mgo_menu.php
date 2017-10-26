@@ -44,8 +44,8 @@ class FoodSaleTime
 
 class Attach
 {
-    public $title  = null;   //开始时间
-    public $list   = null;   //结束时间
+    public $title  = null;   //口味名称
+    public $list   = null;   //口味属性
 
     function __construct($cursor = null)
     {
@@ -61,7 +61,6 @@ class Attach
         }
         $this->title  = $cursor['title'];
         $this->list   = $cursor['list'];
-
     }
 
     public static function ToList($cursor)
@@ -190,7 +189,7 @@ class MenuInfoEntry
 
     // mongodb查询结果转为结构体
     public function FromMgo($cursor)
-    {
+    {   
         if (!$cursor) {
             return;
         }
@@ -199,14 +198,13 @@ class MenuInfoEntry
         $this->food_name           = $cursor['food_name'];
         $this->category_id         = $cursor['category_id'];
         $this->food_num_day        = $cursor['food_num_day'];
-        $this->food_price          = new FoodPrice($cursor['food_price']);
         //$this->food_num_mon        = $cursor['food_num_mon'];
         $this->praise_num          = $cursor['praise_num'];
         $this->food_intro          = $cursor['food_intro'];
         $this->food_img_list       = $cursor['food_img_list'];
         $this->entry_time          = $cursor['entry_time'];
         $this->lastmodtime         = $cursor['lastmodtime'];
-        $this->food_attach_list    = new Attach($cursor['food_attach_list']);
+        $this->food_attach_list    = Attach::ToList($cursor['food_attach_list']);
         $this->food_unit           = $cursor['food_unit'];
         $this->need_waiter_confirm = $cursor['need_waiter_confirm'];
         $this->sale_off            = $cursor['sale_off'];
@@ -222,6 +220,11 @@ class MenuInfoEntry
         $this->sale_way            = $cursor['sale_way'];
         $this->sale_off_way        = $cursor['sale_off_way'];
         $this->sale_num            = $cursor['sale_num'];
+        if(2 == $cursor['type']){
+            $this->food_price      = $cursor['food_price'];
+        }else{
+            $this->food_price      = new FoodPrice($cursor['food_price']);
+        }
     }
 
     public static function ToList($cursor)
@@ -269,25 +272,32 @@ class MenuInfo
         if (null !== $info->food_num_day) {
             $set["food_num_day"] = (int)$info->food_num_day;
         }
-
-        if (null !== $info->food_price) {
-            $price_list = [];
-            foreach ($info->food_price->price as $val) {
-                $p = new Price();
-                $p->title = (string)$val->title;
-                $p->original_price = (float)$val->original_price;
-                $p->discount_price = (float)$val->discount_price;
-                $p->vip_price      = (float)$val->vip_price;
-                $p->festival_price = (float)$val->festival_price;
-                $p->is_use         = (int)$val->is_use;
-                $price_list[] = $p;
-            }
-            $p = new FoodPrice();
-            $p->type  = (int)$info->food_price->type;
-            $p->price = $price_list;
-            $p->using = (int)$info->food_price->using;
-            $set["food_price"] = $p;
+        if (null !== $info->type) {
+            $set["type"] = (int)$info->type;
         }
+        if (null !== $info->food_price) {
+            if(2 == $info->type){
+                $set["food_price"] = (float)$info->food_price;
+            }else{
+                $price_list = [];
+                foreach ($info->food_price->price as $val) {
+                    $p = new Price();
+                    $p->title = (string)$val->title;
+                    $p->original_price = (float)$val->original_price;
+                    $p->discount_price = (float)$val->discount_price;
+                    $p->vip_price      = (float)$val->vip_price;
+                    $p->festival_price = (float)$val->festival_price;
+                    $p->is_use         = (int)$val->is_use;
+                    $price_list[] = $p;
+                }
+                $p = new FoodPrice();
+                $p->type  = (int)$info->food_price->type;
+                $p->price = $price_list;
+                $p->using = (int)$info->food_price->using;
+                $set["food_price"] = $p;
+            }
+        }
+
         // if (null !== $info->food_num_mon) {
         //     $set["food_num_mon"] = (int)$info->food_num_mon;
         // }
@@ -352,9 +362,6 @@ class MenuInfo
         }
         if (null !== $info->is_draft) {
             $set["is_draft"] = (int)$info->is_draft;
-        }
-        if (null !== $info->type) {
-            $set["type"] = (int)$info->type;
         }
         if (null !== $info->sale_way) {
             $set["sale_way"] = (int)$info->sale_way;
@@ -496,6 +503,7 @@ class MenuInfo
                 }
             }
         }
+
         if(empty($sortby))
         {
             $sortby['_id'] = 1;

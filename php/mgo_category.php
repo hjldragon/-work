@@ -99,7 +99,10 @@ class Category
         //     $set["food_id_list"] = (array)$info->food_id_list;
         // }
         if (null !== $info->opening_time) {
-            $set["opening_time"] = (array)$info->opening_time;
+            foreach ($info->opening_time as &$v) {
+                $v = (int)$v;
+            }
+            $set["opening_time"] = $info->opening_time;
         }
         if (null !== $info->sortval) {
             $set["sortval"] = (array)$info->sortval;

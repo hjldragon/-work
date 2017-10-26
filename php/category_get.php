@@ -9,7 +9,7 @@ require_once("const.php");
 require_once("cache.php");
 require_once("mgo_category.php");
 
- 
+Permission::PageCheck();
 
 function GetCategoryInfo(&$resp)
 {

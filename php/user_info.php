@@ -288,7 +288,8 @@ function PhoneBind(&$resp)
     }
     $token      = $_['token'];
     $phone      = $_['phone'];
-    if(!preg_match('/^1([0-9]{9})/',$phone)){
+    if(!preg_match('/^1([0-9]{9})/',$phone))
+    {
         LogErr("phone err");
         return errcode::PHONE_ERR;
     }
@@ -320,6 +321,11 @@ function PhoneBind(&$resp)
     {
         LogErr("phone_code is lapse");
         return errcode::PHONE_CODE_LAPSE;
+    }
+    if($phone != $data->phone)
+    {
+        LogErr("phone is not true");
+        return errcode::PHONE_ERR;
     }
     //保存绑定手机号码
     $userinfo->userid    = $userid;
@@ -483,6 +489,11 @@ function UnBindPhone(&$resp)
     {
         LogErr("phone_code is lapse");
         return errcode::PHONE_CODE_LAPSE;
+    }
+    if($userinfo->phone != $data->phone)
+    {
+        LogErr("phone is not true");
+        return errcode::PHONE_ERR;
     }
     //保存绑定手机号码
     $userinfo->userid    = $userid;

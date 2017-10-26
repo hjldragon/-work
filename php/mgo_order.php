@@ -64,12 +64,12 @@ class OrderEntry
     public $order_id         = null;    // 订单id
     public $customer_id      = null;    // 顾客用户id
     public $shop_id          = null;    // 餐馆id
-    public $dine_way         = null;    // 用餐方式(0:未确定, 1:在店吃, 2:打包)
-    public $pay_way          = null;    // 支付方式(0:未确定, 1:现金, 2:微信支付)
+    public $dine_way         = null;    // 用餐方式(0:未确定, 1:在店吃, 2:打包, 3:自提, 4:外卖)
+    public $pay_way          = null;    // 支付方式(0:未确定,1:现金支付, 2:微信支付, 3:支付宝支付, 4:银行卡支付, 5:挂账)
     public $customer_num     = null;    // 顾客人数
     public $seat_id          = null;    // 餐桌座位
     public $food_list        = null;    // 餐品列表
-    public $order_status     = null;    // 订单状态(0:待处理,1:已确认,2:已支付,3:已完成)
+    public $order_status     = null;    // 订单状态(0:未支付,1:已支付,2:挂账,4:已反结,5:退款成功,6:退款失败,7:已关闭)
     public $order_time       = null;    // 下单时间(时间戳)
     public $lastmodtime      = null;    //
     public $delete           = null;    // 0:未删除; 1:已删除
@@ -80,6 +80,7 @@ class OrderEntry
     public $seat_price       = null;    // 餐位费
     public $order_fee        = null;    // 订单金额（按定价算出来的当前消费额）
     public $order_remark     = null;    // 订单备注
+    public $is_invoicing     = null;    // 是否开票（1:已开票,2:未开票)
 
     function __construct($cursor=null)
     {
@@ -112,6 +113,7 @@ class OrderEntry
         $this->seat_price       = $cursor['seat_price'];
         $this->order_fee        = $cursor['order_fee'];
         $this->order_remark     = $cursor['order_remark'];
+        $this->is_invoicing     = $cursor['is_invoicing'];
     }
 
     public static function ToList($cursor)
@@ -252,6 +254,10 @@ class Order
         {
             $set["order_remark"] = (string)$info->order_remark;
         }
+        if(null !== $info->is_invoicing)
+        {
+            $set["is_invoicing"] = (int)$info->is_invoicing;
+        }
 
         $value = array(
             '$set' => $set
@@ -288,7 +294,7 @@ class Order
 
         try
         {
-            $table->update($cond, $value, ['safe'=>true, 'upsert'=>true]);
+           $ret = $table->update($cond, $value, ['safe'=>true, 'upsert'=>true]);
             LogDebug("ret:" . $ret['ok']);
         }
         catch(MongoCursorException $e)
@@ -342,6 +348,16 @@ class Order
             {
                 $cond['seat_id'] = (string)$seat_id;
             }
+            $dine_way = $filter['dine_way'];
+            if(!empty($dine_way))
+            {
+                $cond['dine_way'] = (int)$dine_way;
+            }
+            $is_invoicing = $filter['is_invoicing'];
+            if(!empty($is_invoicing))
+            {
+                $cond['is_invoicing'] = (int)$is_invoicing;
+            }
             $begin_time = $filter['begin_time'];
             $end_time = $filter['end_time'];
             if(!empty($begin_time))
@@ -370,7 +386,72 @@ class Order
         $cursor = $table->find($cond, $field)->sort($sortby);
         return OrderEntry::ToList($cursor);
     }
+    public function GetOrderAllList($filter=null,$sortby=[],$page_size, $page_no)
+    {
+        if(!$filter['shop_id'])
+        {
+            return [];
+        }
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
 
+        $cond = ['delete'  => ['$ne'=>1]];
+        if(null != $filter)
+        {
+            $order_id = $filter['order_id'];
+            if(!empty($order_id))
+            {
+                $cond['order_id'] = (string)$order_id;
+            }
+            $shop_id = $filter['shop_id'];
+            if(!empty($shop_id))
+            {
+                $cond['shop_id'] = (string)$shop_id;
+            }
+            $seat_id = $filter['seat_id'];
+            if(!empty($seat_id))
+            {
+                $cond['seat_id'] = (string)$seat_id;
+            }
+            $dine_way = $filter['dine_way'];
+            if(!empty($dine_way))
+            {
+                $cond['dine_way'] = (int)$dine_way;
+            }
+            $is_invoicing = $filter['is_invoicing'];
+            if(!empty($is_invoicing))
+            {
+                $cond['is_invoicing'] = (int)$is_invoicing;
+            }
+            $pay_way = $filter['pay_way'];
+            if(!empty($pay_way))
+            {
+                $cond['pay_way'] = (int)$pay_way;
+            }
+            $begin_time = $filter['begin_time'];
+            $end_time = $filter['end_time'];
+            if(!empty($begin_time))
+            {
+                $cond['order_time'] = [
+                    '$gte' => (int)$begin_time,
+                    '$lte' => (int)$end_time
+                ];
+            }
+            $order_status = $filter['order_status'];
+            if(!empty($order_status))
+            {
+                $cond['order_status'] = (int)$order_status;
+            }
+        }
+        if(empty($sortby))
+        {
+            $sortby['_id'] = -1;
+        }
+         LogDebug($cond);
+        $field["_id"] = 0;
+        $cursor = $table->find($cond, $field)->sort($sortby)->skip(($page_no-1)*$page_size)->limit($page_size);
+        return OrderEntry::ToList($cursor);
+    }
     // 取客人最近的一条订单
     public function GetLastOrder($customer_id)
     {
