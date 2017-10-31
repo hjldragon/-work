@@ -427,7 +427,7 @@ req = {
         accessory_num:  4,             //打包需要数量
         pack_remark: "",               //打包备注
         accessory: "23",               //打包需要配件id
-        sale_way: [1,2],               //1预定在店吃 2.非预定在店吃 3.预定自提 4.外卖 5打包外带
+        sale_way: [1,2],               //1.在店吃 2.自提 3.打包 4.外卖 
         sale_num: 1,                   //起售数量
         sale_off_way: 0,               //0 不设置 1自定义 2按周期
         food_sale_time: [              // 自定义时，时间戳
@@ -839,25 +839,28 @@ resp = {
             shop_business_status: {         //店铺工商管理信息状态
                                             //认证是3个模块的的状态，分别是法人身份证证件认证,企业营业认证，餐饮认证
 
-                                            //企业认证状态只要不是0,97,96,其余全部显示状态全部显示98
+
                                             //企业认证关联保存中的字段有：company_name,business_num,business_date,business_photo
-            "bs_code": 3,                  //（int）企业营业认证状态（0:认证通过;98:认证未通过;97:认证中;96:未认证;
+            "bs_code": 3,                  //（int）企业营业认证状态（0:未认证;1:认证中;2:认证通过;3:认证未通过;
+                                                                   //下面是认证失败原因（暂时为用都到）
                                                                       1:营业执照全称格式校验不通过;(company_name)
                                                                       2:营业执照注册号格式校验不通过;(business_num)
                                                                       3:营业执照期限校验不通过;(business_date)
                                                                       4:营业执照期照片限校验不通过;(business_photo)
 
-                                           //身份认证状态只要不是0,97,96,其余全部显示状态全部显示98
+
                                            //身份认证关联保存中的字段有：legal_person,legal_card,legal_card_photo
-            "id_code":0,                //（int）身份认证状态（（0:认证通过;98:认证未通过;97:认证中;96:未认证;
+            "id_code":0,                //（int）身份认证状态（0:未认证;1:认证中;2:认证通过;3:认证未通过;
+                                                                 //下面是认证失败原因（暂时为用都到）
                                                                   1:真实姓名效验不通过;(legal_person)
                                                                   2:身份证号效验不通过;(legal_card)
                                                                   3:身份证照片效验不通过;(legal_card_photo)
 
-                                          //餐饮认证状态只要不是0,97,96,其余全部显示状态全部显示98
+
                                           //餐饮认证关联保存中的字段有：repast_permit_identity,repast_permit_year,
                                           repast_permit_num,repast_permit_photo,confirmation,business_scope
-           "rs_code":98,                //（int）餐饮认证状态（（0:认证通过;98:认证未通过;97:认证中;96:未认证；
+           "rs_code":2,                //（int）餐饮认证状态（0:未认证;1:认证中;2:认证通过;3:认证未通过;
+                                                                //下面是认证失败原因（暂时为用都到）
                                                                 1:餐饮许可编号效验不通过;(repast_permit_identity,repast_permit_year,repast_permit_num)
                                                                 2:餐饮服务许可证照片效验不通过;(repast_permit_photo)
                                                                 3:确认书照片效验不通过;(confirmation)
@@ -1261,7 +1264,157 @@ resp = {
                          "seat_price": 0
                      }
                  }
-             ]
+             ],
+                "total": 3,                    //总单合计
+                "all_order_fee": 1645.2,       //所有筛选后的单总价
+                "get_real_order": 1099,        //实收总价
+                "order_average_price": 548.4,  //订单平均价
+                "order_people_price": 329.04   //客单价
          }
      }
   }
+
+
+========= 客户管理相关接口 ==============
+=== 拉取客户管理详情列表信息 ===
+url = customer_get.php
+req ={
+    customer_list: 1,
+    nickname: "222233",  //昵称
+    phone: "1345678989", //手机号
+    sex: 0,              //值为1时是男性，值为2时是女性
+    page_size: 20,       //分页
+    page_no: 2,          //页数
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "custominfo": [
+            {
+                "customer_id": 37,
+                "userid": null,
+                "shop_id": "4",
+                "phone": "15881818181",
+                "is_vip": 1,
+                "openid": "sdfwfnwe142",
+                "ctime": 1502846959,
+                "mtime": 1502847267,
+                "lastmodtime": null,
+                "delete": 0,
+                "weixin_account": "86895292",
+                "vip_level": 1,
+                "remark": null,
+                "sex": null,
+                "usernick": null,
+                "user_avater": null,
+                "birthday": null
+            }
+        ],
+        "total": 1
+    }
+}  
+=== 修改客户信息 ===
+url = customer_save.php
+req ={
+    customer_save: 1,
+    customer_id: "223",  //客户id
+    is_vip: 0,           //是否会员(0:不是,1:是)
+    remark: "这是备注",  //备注
+}
+resp ={
+         "ret": 0,
+         "data": {}
+    }
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<部门>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+=== 保存修改部门信息 ===
+url = department_save.php
+req ={
+    department_save: 1,                //参数
+    //shop_id:"4",                     //(string)店铺id通过登录获取
+    department_id: "12",               //(string)部门id(输入就是修改，不输入就是添加）
+    department_name:"总统部",           //(string)部门名称
+}
+resp ={
+         "ret": 0,
+         "data": {}
+    }
+=== 删除部门信息 ===
+url = department_save.php
+req ={
+    department_del: 1,                //参数
+    //shop_id:"4",                    //(string)店铺id通过登录获取
+    department_id: "12",              //(string)部门id
+}
+resp ={
+         "ret": 0,
+         "data": {}
+    }
+==== 获取部门接口 ====
+  url = department_get.php
+  req = {
+      get_department_list:1           //参数
+      //shop_id:"4",                  //(string)店铺id通过登录获取
+  }
+  resp = {
+             "ret": 0,
+             "data": {
+                 "department_list": [
+                     {
+                         "department_id": "1",
+                         "department_name": "采购部",
+                         "employee_list": [
+                             {
+                                 "employee_id": "132",
+                                 "employee_name": "管理员"
+                             },
+                             {
+                                 "employee_id": "A10004",
+                                 "employee_name": "张三"
+                             }
+                         ]
+                     },
+                     {
+                         "department_id": "6",
+                         "department_name": "服务部",
+                         "employee_list": [
+                             {
+                                 "employee_id": "222",
+                                 "employee_name": "赵明明"
+                             },
+                             {
+                                 "employee_id": "33",
+                                 "employee_name": "找明明+2"
+                             },
+                             {
+                                 "employee_id": "116",
+                                 "employee_name": "赵明明+3"
+                             }
+                         ]
+                     },
+                     {
+                         "department_id": "12",
+                         "department_name": "时蔬采购部",
+                         "employee_list": [
+                             {
+                                 "employee_id": "1314",
+                                 "employee_name": "hjl"
+                             }
+                         ]
+                     },
+                     {
+                         "department_id": "21",
+                         "department_name": "清扫接待安排服务",
+                         "employee_list": [
+                             {
+                                 "employee_id": "A0001",
+                                 "employee_name": "小李"
+                             },
+                             {
+                                 "employee_id": "123",
+                                 "employee_name": "找明明+6"
+                             }
+                         ]
+                     }
+                 ]
+             }
+         }
