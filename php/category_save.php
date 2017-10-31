@@ -6,6 +6,7 @@
 require_once("current_dir_env.php");
 require_once("mgo_category.php");
 require_once("redis_id.php");
+require_once("mgo_menu.php");
 
 Permission::PageCheck();
 function SaveCategory(&$resp)
@@ -91,6 +92,19 @@ function DeleteCategory(&$resp){
     getTree($category_id_list,$category_id);
 
     LogDebug($category_id_list);
+    $menumgo = new \DaoMongodb\MenuInfo;
+    $cond = [
+        
+        'cate_id_list' => $category_id_list
+    ];
+    $page_size = 1;
+    $page_no   = 1;
+    $shop_id = \Cache\Login::GetShopId();
+    $list = $menumgo->GetFoodList($shop_id, $cond, $page_size, $page_no);
+    if(count($list)>0){
+        LogErr("Delete err");
+        return errcode::CATE_NOT_DEL;
+    }
     $ret = $mongodb->BatchDeleteById($category_id_list);
     LogDebug($ret);
     

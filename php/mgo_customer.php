@@ -25,6 +25,10 @@ class CustomerEntry
     public $weixin_account = null;           // 微信账号
     public $vip_level      = null;           // 会员等级（暂未开放)
     public $remark         = null;           // 备注
+    public $sex            = null;           // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+    public $usernick       = null;           // 用户昵称
+    public $user_avater    = null;           // 用户头像
+    public $birthday       = null;           // 用户生日
 
 
     function __construct($cursor = null)
@@ -52,6 +56,10 @@ class CustomerEntry
         $this->weixin_account = $cursor['weixin_account'];
         $this->vip_level      = $cursor['vip_level'];
         $this->remark         = $cursor['remark'];
+        $this->sex            = $cursor['sex'];
+        $this->usernick       = $cursor['usernick'];
+        $this->user_avater    = $cursor['user_avater'];
+        $this->birthday       = $cursor['birthday'];
     }
 
     public static function ToList($cursor)
@@ -90,7 +98,7 @@ class Customer
 
         $set = array(
             "customer_id" => (int)$info->customer_id,
-            "lastmodtime"       => time()
+            "lastmodtime" => time()
         );
         if (null !== $info->userid) {
             $set["userid"] = (int)$info->userid;
@@ -128,7 +136,19 @@ class Customer
         if (null !== $info->remark) {
             $set["remark"] = (string)$info->remark;
         }
-        //LogDebug($set);
+        if (null !== $info->user_avater) {
+            $set["user_avater"] = (string)$info->user_avater;
+        }
+        if (null !== $info->usernick) {
+            $set["usernick"] = (string)$info->usernick;
+        }
+        if (null !== $info->birthday) {
+            $set["birthday"] = (int)$info->birthday;
+        }
+        if (null !== $info->sex) {
+            $set["sex"] = (int)$info->sex;
+        }
+        LogDebug($set);
         $value = array(
             '$set' => $set
         );
@@ -190,7 +210,7 @@ class Customer
         return new CustomerEntry($ret);
     }
 
-    public function GetCustomerList($shop_id, $filter=null, $page_size, $page_no)
+    public function GetCustomerList($shop_id, $filter=null, $page_size, $page_no, &$total=null)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
@@ -205,28 +225,34 @@ class Customer
             $customer_id = $filter['customer_id'];
             if(!empty($customer_id))
             {
-                $cond['customer_id'] = (int)$customer_id;
+                $cond['customer_id'] = (string)$customer_id;
             }
             $phone = $filter['phone'];
             if(!empty($phone))
             {
                 $cond['phone'] = new \MongoRegex("/$phone/");
             }
-            $userid_list = $filter['userid_list'];
-            if(!empty($phone))
+            $nickname = $filter['nickname'];
+            if(!empty($nickname))
             {
-                $cond['userid'] = ['$in' => $userid_list];
+                $cond['nickname'] = new \MongoRegex("/$nickname/");
             }
-            $customer_name = $filter['customer_name'];
-            if(!empty($customer_name))
+            $sex = $filter['sex'];
+            if(!empty($sex))
             {
-                //$cond['customer_name'] = $filter['customer_name'];
-                //这里的mongoRegex是过滤出来的字段
-                $cond['customer_name'] = new \MongoRegex("/$customer_name/");
+                $cond['sex'] = (int)$sex;
             }
+            // $userid_list = $filter['userid_list'];
+            // if(!empty($phone))
+            // {
+            //     $cond['userid'] = ['$in' => $userid_list];
+            // }
         }
         LogDebug($cond);
         $cursor = $table->find($cond, ["_id"=>0])->skip(($page_no-1)*$page_size)->limit($page_size);
+        if(null !== $total){
+            $total = $table->count($cond);
+        }
         return CustomerEntry::ToList($cursor);
     }
 

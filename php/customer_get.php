@@ -55,7 +55,7 @@ function GetCustomerList(&$resp){
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $shop_id  = 4; //\Cache\Login::GetShopId();
+    $shop_id  = \Cache\Login::GetShopId();
     //通过获取用户登陆id来，获取用户信息
     $nickname  = $_['nickname'];
     $phone     = $_['phone'];
@@ -70,29 +70,16 @@ function GetCustomerList(&$resp){
     {
         $page_no = 1; //第一页开始
     }
-    $user_mgo = new DaoMongodb\User;
-    $userid_list = array();
-    if($nickname || $sex){
-        $info['nickname'] = $nickname;
-        $info['sex']      = $sex;
-        $user_info = $user_mgo->GetUserList($info);
-        foreach ($wx_info as $key => $value) {
-            array_push($userid_list, $value->userid);
-        }
-    }
-    $filter['phone'] = $phone;
-    $filter['userid_list'] = $userid_list;
+    $filter['phone']    = $phone;
+    $filter['nickname'] = $nickname;
+    $filter['sex']      = $sex;
     $mgo = new \DaoMongodb\Customer;
-    $custominfo = $mgo->GetCustomerList($shop_id,$filter,$page_size,$page_no);
-    foreach ($custominfo as $i => &$item) {
-        $user = $user_mgo->QueryById($item->userid);
-        $item->nickname    = $user->nickname;
-        $item->sex         = $user->sex;
-        $item->user_avater = $user->user_avater;
-    }
+    $total = 0;
+    $custominfo = $mgo->GetCustomerList($shop_id,$filter,$page_size,$page_no,$total);
    
     $resp =(object)[
         'custominfo'=>$custominfo,
+        'total' => $total
     ];
     LogInfo("--ok--");
     return 0;
@@ -211,9 +198,21 @@ function GetCustomer(&$resp)
     return 0;
 }
 
-
-$resp = null;
-$ret  =  GetCustomer($resp);
+$ret = -1;
+$resp = (object)array();
+if(isset($_['customer_list']))
+{
+    $ret = GetCustomerList($resp);
+}
+else if(isset($_['get']))
+{
+    $ret = GetCustomer($resp);
+}
+else
+{
+    LogErr("param err");
+    $ret = errcode::PARAM_ERR;
+}
 
 $html = json_encode((object)array(
     'ret'  => $ret,

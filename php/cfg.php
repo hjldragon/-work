@@ -10,7 +10,7 @@ require_once("mgo_cfg.php");
 require_once("util.php");
 require_once ("class.phpmailer.php");
 require_once ("class.smtp.php");
-require_once ("alidayu/TopSdk.php");
+//require_once ("alidayu/TopSdk.php");
 
 class Cfg
 {
@@ -254,7 +254,7 @@ eof;
             $mail->CharSet   = "UTF-8";//设置信息的编码类型
             $mail->Host      = "smtp.163.com"; //邮箱服务器
             $mail->Username  = "18280156916@163.com"; //服务器邮箱账号
-            $mail->Password  = "sailing123"; // QQ邮箱密码
+            $mail->Password  = "sailing123"; // 163邮箱设置密钥
             $mail->SMTPDebug = 1;
             $mail->Port      = 25;//邮箱服务器端口号
             /*内容信息*/
@@ -274,13 +274,13 @@ eof;
             return -1;
         }
     }
-    //手机验证码发送配置
-    function SendCheckCode($code,$phone)
+    //阿里大于手机验证码发送配置
+    function SendCheckCode($code, $phone)
     {
-        $c = new TopClient;
-        $c->appkey = "24493589";//这里是我的应用key
+        $c            = new TopClient;
+        $c->appkey    = "24493589";//这里是我的应用key
         $c->secretKey = "71f080699a57dab32d3d2a037b13c2ba";//密匙
-        $req = new AlibabaAliqinFcSmsNumSendRequest;
+        $req          = new AlibabaAliqinFcSmsNumSendRequest;
         /*
              公共回传参数，在“消息返回”中会透传回该参数；
              举例：用户可以传入自己下级的会员ID，在消息返回时，
@@ -304,12 +304,9 @@ eof;
         $req->setRecNum("$phone");
         $req->setSmsTemplateCode("SMS_105000102");
         $resp = $c->execute($req);
-        if($resp->result->success)
-        {
+        if ($resp->result->success) {
             return 0;
-        }
-        else
-        {
+        } else {
             return -1;
         }
     }

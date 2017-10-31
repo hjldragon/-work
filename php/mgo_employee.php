@@ -14,15 +14,19 @@ class EmployeeEntry
     public $shop_id            = null;     // 餐馆店铺id
     public $real_name          = null;     // 员工姓名
     public $phone              = null;     // 手机号
-    public $employee_no        = null;     // 员工工号
     public $duty               = null;     // 员工职务
-    public $section            = null;     // 所属部门
+    public $department_id      = null;     // 所属部门id
     public $permission         = null;     // 员工权限(-->const.php-->EmployeePermission)
     public $lastmodtime        = null;     // 数据最后修改时间
     public $delete             = null;     // 0:正常, 1:已删除
     public $health_certificate = null;     // 健康证
     public $remark             = null;     // 备注
     public $is_freeze          = null;     // 0:正常, 1:已冻结
+    public $identity           = null;     // 身份证号
+    public $sex                = null;     // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知 
+    public $email              = null;     // 用户邮箱
+    public $is_weixin          = null;     // 是否绑定微信(0:没绑定,1:绑定)
+    public $is_admin           = null;     // 是否是管理员(0:员工,1:管理员)
 
     function __construct($cursor=null)
     {
@@ -42,15 +46,18 @@ class EmployeeEntry
         $this->shop_id            = $cursor['shop_id'];
         $this->real_name          = $cursor['real_name'];
         $this->phone              = $cursor['phone'];
-        $this->employee_no        = $cursor['employee_no'];
         $this->duty               = $cursor['duty'];
-        $this->section            = $cursor['section'];
+        $this->department_id      = $cursor['department_id'];
         $this->permission         = $cursor['permission'];
         $this->lastmodtime        = $cursor['lastmodtime'];
         $this->delete             = $cursor['delete'];
         $this->health_certificate = $cursor['health_certificate'];
         $this->remark             = $cursor['remark'];
         $this->is_freeze          = $cursor['is_freeze'];
+        $this->identity           = $cursor['identity'];
+        $this->sex                = $cursor['sex'];
+        $this->email              = $cursor['email'];
+        $this->is_weixin          = $cursor['is_weixin'];
     }
 
     public static function ToList($cursor)
@@ -98,10 +105,6 @@ class Employee
         {
             $set["phone"] = (string)$info->phone;
         }
-        if(null !== $info->employee_no)
-        {
-            $set["employee_no"] = (string)$info->employee_no;
-        }
         if(null !== $info->duty)
         {
             $set["duty"] = (int)$info->duty;
@@ -118,9 +121,9 @@ class Employee
         {
             $set["delete"] = (int)$info->delete;
         }
-        if(null !== $info->section)
+        if(null !== $info->department_id)
         {
-            $set["section"] = (string)$info->section;
+            $set["department_id"] = (string)$info->department_id;
         }
         if(null !== $info->health_certificate)
         {
@@ -133,6 +136,20 @@ class Employee
         if(null !== $info->is_freeze)
         {
             $set["is_freeze"] = (int)$info->is_freeze;
+        }
+        if(null !== $info->identity)
+        {
+            $set["identity"] = (string)$info->identity;
+        }
+        if(null !== $info->sex)
+        {
+            $set["sex"] = (int)$info->sex;
+        }
+        if (null !== $info->email) {
+            $set["email"] = (string)$info->email;
+        }
+        if (null !== $info->is_weixin) {
+            $set["is_weixin"] = (int)$info->is_weixin;
         }
         $value = array(
             '$set' => $set
@@ -219,6 +236,20 @@ class Employee
         $cursor = $table->find($cond, ["_id"=>0]);
         return EmployeeEntry::ToList($cursor);
     }
+    //通过部门ID获取所有员工
+    public function GetDepartmentEmployee($shop_id,$department_id)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = [
+            'delete'  => ['$ne'=>1],
+            'shop_id' => (string)$shop_id,
+            'department_id'=>(string)$department_id
+        ];
+        $cursor = $table->find($cond, ["_id"=>0]);
+        return EmployeeEntry::ToList($cursor);
+    }
     // 冻结/启用
     public function BatchFreeze($userid,$type)
     {
@@ -247,6 +278,23 @@ class Employee
             return errcode::DB_OPR_ERR;
         }
         return 0;
+    }
+
+    public function QueryUser($employee_no, $real_name, $phone, $email)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+        $cond = [
+            'delete'=> ['$ne'=>1],
+            '$or' => [
+                ["employee_no" => (string)$employee_no],
+                ["real_name" => (string)$real_name],
+                ["phone" => (string)$phone],
+                ["email" => (string)$email]
+            ]
+        ];
+        $cursor = $table->find($cond, ["_id"=>0]);
+        return EmployeeEntry::ToList($cursor);
     }
 }
 

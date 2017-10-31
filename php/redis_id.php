@@ -27,7 +27,7 @@ class Id
 
     static public function GenUserId()
     {
-        return (int)self::GenId("userid");
+        return (int)self::GenId("user");
     }
 
     static public function GenLoginId()
@@ -90,6 +90,10 @@ class Id
     static public function GenInvoiceId()
     {
         return (string)self::GenId("invoice");
+    }
+    static public function GenDepartmentId()
+    {
+        return (string)self::GenId("department");
     }
 
 }

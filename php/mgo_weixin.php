@@ -23,7 +23,10 @@ class WeixinEntry
     public $country       = null;  // 用户所在国家
     public $province      = null;  // 用户所在省份
     public $delete        = null;
-    public $lastmodtime   = null; 
+    public $lastmodtime   = null;
+    public $src           = null;  // 绑定来源:1客户端,2商户端
+    public $customer_id   = null;  // 客户id
+    public $employee_id   = null;  // 员工id
 
  
 
@@ -49,6 +52,9 @@ class WeixinEntry
         $this->province    = $cursor['province'];
         $this->delete      = $cursor['delete'];
         $this->lastmodtime = $cursor['lastmodtime'];
+        $this->src         = $cursor['src'];
+        $this->customer_id = $cursor['customer_id'];
+        $this->employee_id = $cursor['employee_id'];
     }
 
     public static function ToList($cursor)
@@ -109,10 +115,19 @@ class Weixin
             $set["province"] = (string)$info->province;
         }
         if (null !== $info->delete) {
-            $set["delete"] = (string)$info->delete;
+            $set["delete"] = (int)$info->delete;
         }
         if (null !== $info->lastmodtime) {
             $set["lastmodtime"] = $info->lastmodtime;
+        }
+        if (null !== $info->src) {
+            $set["src"] = (int)$info->src;
+        }
+        if (null !== $info->customer_id) {
+            $set["customer_id"] = (string)$info->customer_id;
+        }
+        if (null !== $info->employee_id) {
+            $set["employee_id"] = (string)$info->employee_id;
         }
         
 
@@ -137,7 +152,8 @@ class Weixin
         $table = $db->selectCollection($this->Tablename());
         
         $cond = array(
-            'openid' => (string)$openid
+            'openid' => (string)$openid,
+            'src'    => (int)$src
         );
 
         $ret = $table->findOne($cond);

@@ -115,11 +115,6 @@ function SaveShopBusiness(&$resp)
         LogErr("legal_person  is empty");
         return errcode::PARAM_ALL_GET;
     }
-    $legal_phone                           = $_['legal_phone'];
-    if (!$legal_phone) {
-        LogErr("legal_phone is empty");
-        return errcode::PARAM_ALL_GET;
-    }
     $legal_card                            = $_['legal_card'];
     if (!$legal_card) {
         LogErr("legal_card  is empty");
@@ -180,7 +175,6 @@ function SaveShopBusiness(&$resp)
 
     $shop_business->company_name           = $company_name;
     $shop_business->legal_person           = $legal_person;
-    $shop_business->legal_phone            = $legal_phone;
     $shop_business->legal_card             = $legal_card;
     $shop_business->legal_card_photo       = $legal_card_photo;
     $shop_business->business_date          = $business_date;

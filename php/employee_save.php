@@ -65,7 +65,8 @@ function SaveEmployee(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $userid             = $_['user_id'];
+    $userid             = $_['userid'];
+    $employee_id        = $_['employee_id'];
     $real_name          = $_['real_name'];
     $phone              = $_['phone'];
     $employee_no        = $_['employee_no'];
@@ -77,8 +78,11 @@ function SaveEmployee(&$resp)
     $health_certificate = $_['health_certificate'];
     $remark             = $_['remark'];
     $is_freeze          = $_['is_freeze'];
+    $identity           = $_['identity'];
+    $sex                = $_['sex'];
+    $email              = $_['email'];
 
-    if(!$userid)
+    if(!$employee_id || !$phone || !$identity)
     {
         LogErr("param err");
         return errcode::PARAM_ERR;
@@ -89,17 +93,27 @@ function SaveEmployee(&$resp)
     {
         $passwd = null;
     }
-
+    $userinfo = new \DaoMongodb\UserEntry();
+    if(!$userid){
+        $userid = $userinfo->QueryByPhoneID($phone,$identity)->userid;
+    }
+    if(!$userid){
+        $userid = \DaoRedis\Id::GenUserId();
+        $userinfo->ctime   = time();
+    }
     $shop_id = \Cache\Login::GetShopId();
 
-    $userinfo = new \DaoMongodb\UserEntry();
+    
     $userinfo->userid     = $userid;
     $userinfo->phone      = $phone;
     //$userinfo->username = $shop_id . "-" . $userid;
     $userinfo->password   = $passwd;
-    $userinfo->property   |= UserProperty::SHOP_USER; // 店铺用户
+    $userinfo->identity   = $identity;
+    $userinfo->mtime      = time();
+    //$userinfo->property   |= UserProperty::SHOP_USER; // 店铺用户
     $userinfo->delete     = 0;
-    $ret = EmployeeUserSetting($userinfo);
+    $ret = $userinfo->Save($userinfo); 
+    //$ret = EmployeeUserSetting($userinfo);
     if(0 != $ret)
     {
         LogErr("register user err, ret=[$ret]");
@@ -110,6 +124,7 @@ function SaveEmployee(&$resp)
     $entry   = new \DaoMongodb\EmployeeEntry;
 
     $entry->userid             = $userid;
+    $entry->employee_id        = $employee_id;
     $entry->shop_id            = $shop_id;
     $entry->real_name          = $real_name;
     $entry->phone              = $phone;
@@ -119,6 +134,9 @@ function SaveEmployee(&$resp)
     $entry->remark             = $remark;
     $entry->health_certificate = $health_certificate;
     $entry->section            = $section;
+    $entry->identity           = $identity;
+    $entry->sex                = $sex;
+    $entry->email              = $email;
     $entry->is_freeze          = 0;
     $entry->lastmodtime        = time();
     LogDebug($entry);

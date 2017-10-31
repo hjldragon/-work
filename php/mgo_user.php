@@ -23,12 +23,13 @@ class UserEntry
     public $mtime         = null;   // 修改时间
     public $delete        = null;   // 0:未删除; 1:已删除
     public $phone         = null;   // 手机号
-    public $usernick      = null;   // 用户昵称
-    public $user_avater   = null;   // 用户头像
-    public $birthday      = null;   // 用户生日
-    public $sex           = null;   // 用户性别(1:不确定,2:男,3:女)
+    public $identity      = null;   // 身份证号
+    // public $usernick      = null;   // 用户昵称
+    // public $user_avater   = null;   // 用户头像
+    // public $birthday      = null;   // 用户生日
+    // public $sex           = null;   // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
     public $email         = null;   // 用户邮箱
-    public $is_weixin     = null;   // 是否绑定微信(0:没绑定,1:绑定)
+    // public $is_weixin     = null;   // 是否绑定微信(0:没绑定,1:绑定)
 
     // // 具体业务数据
     // public $shop_id = null;     // 当前用户所属的店 （注，此这段分出到员工表）
@@ -57,11 +58,12 @@ class UserEntry
         $this->delete        = $cursor['delete'];
         $this->user_avater   = $cursor['user_avater'];
         $this->phone         = $cursor['phone'];
-        $this->usernick      = $cursor['usernick'];
-        $this->birthday      = $cursor['birthday'];
-        $this->sex           = $cursor['sex'];
-        $this->email         = $cursor['email'];
-        $this->is_weixin     = $cursor['is_weixin'];
+        $this->identity      = $cursor['identity'];
+        // $this->usernick      = $cursor['usernick'];
+        // $this->birthday      = $cursor['birthday'];
+        // $this->sex           = $cursor['sex'];
+         $this->email         = $cursor['email'];
+        // $this->is_weixin     = $cursor['is_weixin'];
     }
 
     public static function ToList($cursor)
@@ -160,18 +162,28 @@ class User
         {
             $set["phone"] = (string)$info->phone;
         }
-        if (null !== $info->birthday) {
-            $set["birthday"] = (int)$info->birthday;
+        if(null !== $info->identity)
+        {
+            $set["identity"] = (string)$info->identity;
         }
-        if (null !== $info->sex) {
-            $set["sex"] = (int)$info->sex;
-        }
-        if (null !== $info->email) {
-            $set["email"] = (string)$info->email;
-        }
-        if (null !== $info->is_weixin) {
-            $set["is_weixin"] = (int)$info->is_weixin;
-        }
+        // if (null !== $info->user_avater) {
+        //     $set["user_avater"] = (string)$info->user_avater;
+        // }
+        // if (null !== $info->usernick) {
+        //     $set["usernick"] = (string)$info->usernick;
+        // }
+        // if (null !== $info->birthday) {
+        //     $set["birthday"] = (int)$info->birthday;
+        // }
+        // if (null !== $info->sex) {
+        //     $set["sex"] = (int)$info->sex;
+        // }
+         if (null !== $info->email) {
+             $set["email"] = (string)$info->email;
+         }
+        // if (null !== $info->is_weixin) {
+        //     $set["is_weixin"] = (int)$info->is_weixin;
+        // }
         // LogDebug($set);
 
         $value = array(
@@ -257,6 +269,23 @@ class User
         return null;
     }
 
+    public function QueryByPass($userid, $password)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+        $cond = [
+            'delete'=> ['$ne'=>1],
+            "userid" => (int)$userid,
+            "password" => (string)$password
+        ];
+        $cursor = $table->findOne($cond, ["_id"=>0]);
+        if($cursor && $cursor['userid'])
+        {
+            return new UserEntry($cursor);
+        }
+        return null;
+    }
+
     // 返回 UserEntry
     public function QueryById($userid)
     {  
@@ -308,6 +337,22 @@ class User
 
         $cond = array(
             'phone' => (string)$email,
+            'delete' => ['$ne' => 1],
+        );
+
+        $ret = $table->findOne($cond);
+
+        return new UserEntry($ret);
+    }
+
+     public function QueryByPhoneID($phone,$identity)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = array(
+            'phone' => (string)$phone,
+            'identity' => (string)$identity,
             'delete' => ['$ne' => 1],
         );
 

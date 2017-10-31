@@ -308,16 +308,19 @@ class OpenTime
 
 class ShopBusinessStatus
 {
-    public $bs_code = 96;    //（int）企业营业认证状态（0:认证通过;98:认证未通过;97:认证中;96:未认证;
+    public $bs_code = 0;    //（int）企业营业认证状态（0:未认证;1:认证中;2:认证通过;3:认证未通过;
+    //下面是认证失败原因（暂时为用都到）
                                //01:营业执照全称格式校验不通过;(company_name)
                                //02:营业执照注册号格式校验不通过;(business_num)
                                //03:营业执照期限校验不通过;(business_date)
                                //04:营业执照期照片限校验不通过;(business_photo)
-    public $id_code = 96;    //（int）身份认证状态（0:认证通过;98:认证未通过;97:认证中;96:未认证;
+    public $id_code = 0;    //（int）身份认证状态（0:未认证;1:认证中;2:认证通过;3:认证未通过;
+    //下面是认证失败原因（暂时为用都到）
                                //01:真实姓名效验不通过;(legal_person)
                                //02:身份证号效验不通过;(legal_card)
                                //03:身份证照片效验不通过;(legal_card_photo)
-    public $rs_code = 96;    //（int）餐饮认证状态（0:认证通过;98:认证未通过;97:认证中;96:未认证;
+    public $rs_code = 0;    //（int）餐饮认证状态（0:未认证;1:认证中;2:认证通过;3:认证未通过;
+    //下面是认证失败原因（暂时为用都到）
                                //01:餐饮许可编号效验不通过;(repast_permit_identity,repast_permit_year,repast_permit_num)
                                //02:餐饮服务许可证照片效验不通过;(repast_permit_photo)
                                //03:确认书照片效验不通过;(confirmation)

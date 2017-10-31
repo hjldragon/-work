@@ -136,8 +136,8 @@ function UserSetting(&$resp)
     $new_password = $_["new_password"];
     $new_prompt   = $_["new_prompt"];
     $phone        = $_["phone"];
-    $shop_id      = (string)$_["shop_id"];
-
+    //$shop_id      = (string)$_["shop_id"];
+    $shop_id = \Cache\Login::GetShopId();
     if("" == $new_username)
     {
         LogErr("param err, new_username:[$new_username]");
@@ -344,6 +344,67 @@ function PhoneBind(&$resp)
     LogInfo("phone binding successful");
     return 0;
 }
+//解绑用户手机号码
+function UnBindPhone(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $shop_id = \Cache\Login::GetShopId();
+    $userid  = \Cache\Login::GetUserid();
+    //$userid = $_['userid'];//<<<<<<<<<<<<<<测试数据
+    if (!$userid || !$shop_id)
+    {
+        return errcode::USER_NOLOGIN;
+    }
+    $token    = $_['token'];
+    $mgo      = new \DaoMongodb\User;
+    $mgo2     = new \DaoMongodb\Shop;
+    $userinfo = $mgo->QueryById($userid);
+    $shopinfo = $mgo2->GetShopById($shop_id);
+    //验证user表和shop表联系人的电话是否一样
+    if ($userinfo->phone != $shopinfo->telephone)
+    {
+        return errcode::DATA_CHANGE;
+    }
+
+    $code             = $_['phone_code'];//手机验证码
+    $redis            = new \DaoRedis\Login();
+    $data             = $redis->Get($token);//获取手机号上面的验证码
+    if ($code != $data->phone_code)
+    {
+        LogErr("phone_code is err");
+        return errcode::COKE_ERR;
+    }
+    if(time() > $data->code_time)
+    {
+        LogErr("phone_code is lapse");
+        return errcode::PHONE_CODE_LAPSE;
+    }
+    if($userinfo->phone != $data->phone)
+    {
+        LogErr("phone is not true");
+        return errcode::PHONE_ERR;
+    }
+    //保存绑定手机号码
+    $userinfo->userid    = $userid;
+    $userinfo->phone     = ""; //解绑手机号
+    $shopinfo->shop_id   = $shop_id;
+    $shopinfo->telephone = ""; //解绑手机号
+    $ret2                = $mgo2->Save($shopinfo);
+    $ret                 = $mgo->Save($userinfo);
+    if (0 != $ret || 0 != $ret2) {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+
+    $resp = (object)['unbind_phone' => "手机解绑成功"];
+    LogInfo("phone binding successful");
+    return 0;
+}
 //用户发送绑定邮箱
 function BindEmail(&$resp)
 {
@@ -431,6 +492,10 @@ function UnBindEmail(&$resp)
     $entry->shop_id        = $shop_id;
     $mgo->Save($entry);
     $mgo       = \Cache\UsernInfo::Get($userid);
+    LogDebug($userid);
+    LogDebug($mgo);
+    LogDebug($entry->email);
+    LogDebug($mgo->email);
     if ($entry->email != $mgo->email)
     {
         return errcode::FILE_WRITE_ERR;
@@ -450,67 +515,7 @@ function UnBindEmail(&$resp)
     LogInfo("save ok");
     return 0;
 }
-//解绑用户手机号码
-function UnBindPhone(&$resp)
-{
-    $_ = $GLOBALS["_"];
-    if (!$_)
-    {
-        LogErr("param err");
-        return errcode::PARAM_ERR;
-    }
-    $shop_id = \Cache\Login::GetShopId();
-    $userid  = \Cache\Login::GetUserid();
-    //$userid = $_['userid'];//<<<<<<<<<<<<<<测试数据
-    if (!$userid || !$shop_id)
-    {
-        return errcode::USER_NOLOGIN;
-    }
-    $token    = $_['token'];
-    $mgo      = new \DaoMongodb\User;
-    $mgo2     = new \DaoMongodb\Shop;
-    $userinfo = $mgo->QueryById($userid);
-    $shopinfo = $mgo2->GetShopById($shop_id);
-    //验证user表和shop表联系人的电话是否一样
-    if ($userinfo->phone != $shopinfo->telephone)
-    {
-        return errcode::DATA_CHANGE;
-    }
 
-    $code             = $_['phone_code'];//手机验证码
-    $redis            = new \DaoRedis\Login();
-    $data             = $redis->Get($token);//获取手机号上面的验证码
-    if ($code != $data->phone_code)
-    {
-        LogErr("phone_code is err");
-        return errcode::COKE_ERR;
-    }
-    if(time() > $data->code_time)
-    {
-        LogErr("phone_code is lapse");
-        return errcode::PHONE_CODE_LAPSE;
-    }
-    if($userinfo->phone != $data->phone)
-    {
-        LogErr("phone is not true");
-        return errcode::PHONE_ERR;
-    }
-    //保存绑定手机号码
-    $userinfo->userid    = $userid;
-    $userinfo->phone     = ""; //解绑手机号
-    $shopinfo->shop_id   = $shop_id;
-    $shopinfo->telephone = ""; //解绑手机号
-    $ret2                = $mgo2->Save($shopinfo);
-    $ret                 = $mgo->Save($userinfo);
-    if (0 != $ret || 0 != $ret2) {
-        LogErr("Save err");
-        return errcode::SYS_ERR;
-    }
-
-    $resp = (object)['unbind_phone' => "手机解绑成功"];
-    LogInfo("phone binding successful");
-    return 0;
-}
 $ret = -1;
 $resp = null;
 if($_["list"])

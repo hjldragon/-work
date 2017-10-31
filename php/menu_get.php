@@ -39,11 +39,10 @@ function GetFoodInfo(&$resp)
     $info = $mgo->GetFoodinfoById($food_id);
     if($info->food_id){
         $cateinfo = \Cache\Category::Get($info->category_id);
-        $info->category = array();
         $data = array();
         array_push($data, $cateinfo);
         GetCategory($data,$cateinfo->parent_id);
-        array_push($info->category, $data);
+        $info->category = $data;
         $using = $info->food_price->using;
         $price = array();
         if($using & PriceType::ORIGINAL){
@@ -122,7 +121,7 @@ function GetFoodList(&$resp)
     {
         $page_no = 1; //第一页开始
     }
-    $shop_id = "3";//\Cache\Login::GetShopId();
+    $shop_id = \Cache\Login::GetShopId();
     
     LogDebug("shop_id:[$shop_id]");
     if($category_id){

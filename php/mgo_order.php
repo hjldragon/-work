@@ -386,7 +386,7 @@ class Order
         $cursor = $table->find($cond, $field)->sort($sortby);
         return OrderEntry::ToList($cursor);
     }
-    public function GetOrderAllList($filter=null,$sortby=[],$page_size, $page_no)
+    public function GetOrderAllList($filter=null,$sortby=[],$page_size, $page_no,&$total=null,&$price_list=null)
     {
         if(!$filter['shop_id'])
         {
@@ -394,7 +394,6 @@ class Order
         }
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
-
         $cond = ['delete'  => ['$ne'=>1]];
         if(null != $filter)
         {
@@ -429,7 +428,7 @@ class Order
                 $cond['pay_way'] = (int)$pay_way;
             }
             $begin_time = $filter['begin_time'];
-            $end_time = $filter['end_time'];
+            $end_time   = $filter['end_time'];
             if(!empty($begin_time))
             {
                 $cond['order_time'] = [
@@ -450,6 +449,31 @@ class Order
          LogDebug($cond);
         $field["_id"] = 0;
         $cursor = $table->find($cond, $field)->sort($sortby)->skip(($page_no-1)*$page_size)->limit($page_size);
+        if(null !== $total){
+            $total = $table->count($cond);
+        }
+
+        //聚合条件算出:订单总价，订单总人数，订单总减价
+        $pipe = [
+            array('$match'=>$cond),
+            array(
+                '$group' => array(
+                    '_id' => null,
+                    'all_customer_num' => array('$sum' => '$customer_num'),
+                    'all_order_fee' => array('$sum' => '$order_fee'),
+                    'all_order_payable' => array('$sum' => '$order_payable'),
+                ),
+            ),
+        ];
+        LogDebug($pipe);
+        $all_list = $table->aggregate($pipe);
+        if($all_list['ok'] == 1)
+        {
+            $price_list = $all_list['result'][0];
+        }else
+        {
+            $price_list = null;
+        }
         return OrderEntry::ToList($cursor);
     }
     // 取客人最近的一条订单

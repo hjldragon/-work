@@ -108,7 +108,7 @@ function GetOrderList(&$resp)
 function GetOrderAllList(&$resp)
 {
     $_ = $GLOBALS["_"];
-    if(!$_)
+    if (!$_)
     {
         LogErr("param err");
         return errcode::PARAM_ERR;
@@ -123,31 +123,33 @@ function GetOrderAllList(&$resp)
     $end_time     = $_["end_time"];
     $page_size    = $_['page_size'];
     $page_no      = $_['page_no'];
-    if(!$page_size)
+    if (!$page_size)
     {
 
         $page_size = 7;//如果没有传默认10条
     }
-    if(!$page_no)
+    if (!$page_no)
     {
         $page_no = 1; //第一页开始
     }
-/*    if(!$begin_time)
+    if (!$begin_time)
     {
-        $begin_time = date("Y-m-d");
+        $begin_time = date("Y-m-d"); //默认当天00:00:00
     }
-    if(!$end_time)
+    if (!$end_time)
     {
-        $end_time = $begin_time;
+        $end_time = $begin_time; //默认当天23:59:59
     }
     LogDebug("begin_time:$begin_time, end_time:$end_time");
     $begin_time_sec = strtotime($begin_time);
-    $end_time_sec = strtotime($end_time) + 3600*24 - 1; // 一天的最后一秒*/
+    $end_time_sec   = strtotime($end_time) + 3600 * 24 - 1; // 一天的最后一秒
 
     $shop_id = \Cache\Login::GetShopId();
     LogDebug("shop_id:[$shop_id]");
-
-    $mgo = new \DaoMongodb\Order;
+    $total    = 0 ; //总单合计
+    $pirce_list = [];
+    $mgo        = new \DaoMongodb\Order;
+    LogDebug($_);
     $order_list = $mgo->GetOrderAllList(
         [
             'shop_id'      => $shop_id,
@@ -157,35 +159,54 @@ function GetOrderAllList(&$resp)
             'dine_way'     => $dine_way,
             'pay_way'      => $pay_way,
             'order_status' => $order_status,
-//            'begin_time'   => $begin_time_sec,
-//            'end_time'     => $end_time_sec,
+            'begin_time'   => $begin_time_sec,
+            'end_time'     => $end_time_sec,
         ],
-        ["_id"=>-1],
+        ["_id" => -1],
         $page_size,
-        $page_no
+        $page_no,
+        $total,
+        $pirce_list
     );
-    LogDebug($order_list);
-    //取餐桌信息
-    foreach($order_list as $key => &$value)
+    LogDebug($pirce_list);
+    if($pirce_list == null)
+    {
+        return errcode::SYS_BUSY;
+    }
+    //订单金额总价
+    $all_order_fee = $pirce_list['all_order_fee'];
+    //订单总客人数
+    $all_customer_num = $pirce_list['all_customer_num'];
+    //实收总价
+    $order_payable =$pirce_list['all_order_payable'];
+    //订单平均价
+    $order_average_price =$all_order_fee/$total;
+    //客单价格
+    $order_people_price = $all_order_fee/$all_customer_num;
+    foreach ($order_list as $key => &$value)
     {
         $value->seat = \Cache\Seat::Get($value->seat_id);
-        if(!$value->seat)
+        if (!$value->seat)
         {
             $value->seat = [];
-        }
-        else
-        {
+        } else {
             $value->seat->seat_price = Util::FenToYuan($value->seat->seat_price);
         }
     }
 
-    $resp = (object)array(
-        'order_list' => $order_list
-    );
-    // LogDebug($resp);
+    $resp = (object)[
+        'order_list'          => $order_list,
+        'total'               => $total,       //总单数
+        'all_order_fee'       => $all_order_fee,//订单金额总价
+        'get_real_order'      => $order_payable,//实收总价
+        'order_average_price' => $order_average_price,//订单平均价
+        'order_people_price'  => $order_people_price//客单价
+    ];
+    LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
+
 // 订单统计
 function GetOrderStat(&$resp)
 {

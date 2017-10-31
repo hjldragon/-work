@@ -64,6 +64,7 @@ class errcode
     const PARAM_ALL_GET         = -20044;       // 工商参数不齐全
     const PASSWORD_TWO_SAME     = -20045;       // 修改密码和原密码一样
     const EMAIL_SEND_FAIL       = -20046;       // 邮箱发送失败
+    const DEPARTMENT_IS_EXIST   = -20047;       // 部门名称重复
 
 
                                   // 2017-05-02
@@ -89,6 +90,8 @@ class errcode
     const ORDER_HAD_CHANGE        = -30029;       // 订单已有变动，请刷新后再操作
     const PHONE_CODE_LAPSE        = -30030;       // 手机验证码超时
     const MAIL_TIME_LAPSE         = -30031;       // 手机验证码超时
+    const CATE_NOT_DEL            = -30032;       // 此分类下有商品，不能删除
+    const DEPARTMENT_NOT_DEL      = -30033;       // 此部门下有员工，不能删除
 
 
     /*

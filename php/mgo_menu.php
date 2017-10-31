@@ -174,7 +174,7 @@ class MenuInfoEntry
     public $pack_remark         = null;             // 打包备注
     public $composition         = null;             // 食材
     public $feature             = null;             // 特色
-    public $sale_way            = null;             // 1预定在店吃 2.非预定在店吃 3.预定自提 4.外卖 5打包外带
+    public $sale_way            = null;             // 1.在店吃 2.自提 3.打包 4.外卖 
     public $sale_num            = null;             // 起售数量
     public $sale_off_way        = null;             // 0 不设置 1自定义 2按周期
     public $food_sale_time      = null;             // food出售时间段
@@ -364,7 +364,7 @@ class MenuInfo
             $set["is_draft"] = (int)$info->is_draft;
         }
         if (null !== $info->sale_way) {
-            $set["sale_way"] = (int)$info->sale_way;
+            $set["sale_way"] = (array)$info->sale_way;
         }
         if (null !== $info->sale_num) {
             $set["sale_num"] = (int)$info->sale_num;
@@ -488,7 +488,7 @@ class MenuInfo
                 if (!empty($food_name)) {
                     $cond['$or'] = [
                         ["food_name" => new \MongoRegex("/$food_name/i")],
-                        ["food_sn" => (string)$food_name]
+                        ["food_id" => (string)$food_name]
                     ];
                 }
                 // 草稿
@@ -514,7 +514,6 @@ class MenuInfo
         if(null !== $total){
             $total = $table->count($cond);
         }
-        
         
         LogDebug(iterator_to_array($cursor));
         return MenuInfoEntry::ToList($cursor);
