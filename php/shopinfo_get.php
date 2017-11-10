@@ -252,6 +252,38 @@ function GetShopLabel(&$resp)
     LogInfo("get ok");
     return 0;
 }
+//获取店铺收银,微信,支付宝设置信息
+function GetShopPaySet(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $shop_id = Cache\Login::GetShopId();
+    if (!$shop_id)
+    {
+        LogErr("shop_id err or maybe not login");
+        return errcode::SEAT_NOT_EXIST;
+    }
+    $mgo                       = new \DaoMongodb\Shop;
+    $info                      = $mgo->GetShopById($shop_id);
+    $shopinfo1 = $info->collection_set;
+//    $shopinfo2 = $info->weixin_pay_set;
+//    $shopinfo3 = $info->alipay_set;
+    $shopinfo2 = $info->weixin_seting;
+    $shopinfo3 = $info->alipay_seting;
+
+    $resp = (object)[
+        'collection_set' => $shopinfo1,
+        'weixin_seting'  => $shopinfo2,
+        'alipay_seting'  => $shopinfo3
+    ];
+    LogDebug($resp);
+    LogInfo("--ok--");
+    return 0;
+}
 $ret = -1;
 $resp = (object)array();
 if(isset($_["get_shop_info"]))
@@ -276,6 +308,9 @@ elseif(isset($_["shoplist"]))
 }elseif (isset($_['get_shop_bs_status']))
 {
     $ret = GetShopBusinessStatus($resp);
+}elseif (isset($_['get_shop_pay_set']))
+{
+    $ret = GetShopPaySet($resp);
 }
 
 $html = json_encode((object)array(

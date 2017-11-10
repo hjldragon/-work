@@ -9,6 +9,7 @@ require_once("redis_id.php");
 require_once("mgo_menu.php");
 
 Permission::PageCheck();
+
 function SaveCategory(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -28,34 +29,56 @@ function SaveCategory(&$resp)
     $category_name = $_['category_name'];
     //$printer_id    = $_['printer_id'];
     $type          = $_['type'];
-    //$food_id_list  = json_decode($_['food_id_list']);
     $opening_time  = json_decode($_['opening_time']);
     $parent_id     = $_['parent_id'];
-    if(!$category_name){
-        LogErr("category_name err");
-        return errcode::PARAM_ERR;
+    if(!$category_name || !$opening_time){
+        LogErr("param err");
+        return errcode::PARAM_ALL_GET;
     }
     if(!$parent_id){
         $parent_id = 0;
     }
+    $mongodb = new \DaoMongodb\Category;
+    $time = array();
     if(!$category_id)
     {
         $category_id = \DaoRedis\Id::GenCategoryId();
         $entry_time = time();
+    }else{
+        $list = $mongodb->GetByParentList($category_id);
+        if($list){
+            if(!in_array(OpenTime::MORNING, $opening_time)){
+                array_push($time, OpenTime::MORNING);
+            }
+            if(!in_array(OpenTime::NOON, $opening_time)){
+                array_push($time, OpenTime::NOON);
+            }
+            if(!in_array(OpenTime::NIGHT, $opening_time)){
+                array_push($time, OpenTime::NIGHT);
+            }
+            if(!in_array(OpenTime::SUPPER, $opening_time)){
+                array_push($time, OpenTime::SUPPER);
+            }
+            if($time){
+                $res = $mongodb->UpdateOpenTime($category_id,$time);
+                if(0 != $res){
+                    LogErr("opening_time update err");
+                    return errcode::DB_OPR_ERR;
+                }
+            }
+        }
     }
     
     //通过登录来获取shop_id
     $shop_id = \Cache\Login::GetShopId();
 
-    $mongodb = new \DaoMongodb\Category;
     $entry   = new \DaoMongodb\CategoryEntry;
 
     $entry->category_id   = $category_id;
     $entry->category_name = $category_name;
     $entry->shop_id       = $shop_id;
-    $entry->printer_id    = $printer_id;
+    //$entry->printer_id    = $printer_id;
     $entry->type          = $type;
-    //$entry->food_id_list  = $food_id_list;
     $entry->opening_time  = $opening_time;
     $entry->parent_id     = $parent_id;
     $entry->delete        = 0;
@@ -123,9 +146,10 @@ function DeleteCategory(&$resp){
 function getTree(&$category_id_list,$parent_id)
 {   
     array_push($category_id_list, $parent_id);
-    $mgo = new \DaoMongodb\Category;
+    $mgo  = new \DaoMongodb\Category;
     $info = $mgo->GetByParentList($parent_id);
-    if(!$info){
+    if(!$info)
+    {
       return;
     }
     foreach ($info as $key => $value) {
@@ -133,73 +157,7 @@ function getTree(&$category_id_list,$parent_id)
     }
 }
 
-function CategorySave($info){
-    $shop_id = \Cache\Login::GetShopId();
 
-    $mongodb = new \DaoMongodb\Category;
-    $entry   = new \DaoMongodb\CategoryEntry;
-
-    $entry->category_id   = $info["category_id"];
-    $entry->category_name = $info["category_name"];
-    $entry->shop_id       = $shop_id;
-    $entry->type          = $info["type"];
-    $entry->opening_time  = [1,2,3,4];
-    $entry->parent_id     = $info["parent_id"];
-    $entry->delete        = 0;
-    $entry->entry_type    = 1;
-    $entry->entry_time    = $info["entry_time"];
-
-    $ret = $mongodb->Save($entry);
-    if(0 != $ret)
-    {
-        LogErr("{$entry->category_name} Save err");
-        return errcode::SYS_ERR;
-    }
-    LogInfo("{$entry->category_name} save ok");
-    return 0;
-}
-
-// 自动创建系统固定商品分类
-function EntryCategory(&$resp)
-{
-    if(!PageUtil::LoginCheck())
-    {
-        LogDebug("not login, token:{$_['token']}");
-        return errcode::USER_NOLOGIN;
-    }
-    $info["category_id"]   = \DaoRedis\Id::GenCategoryId();
-    $info["category_name"] = "菜品";
-    $info["type"]          = 1;
-    $info["parent_id"]     = 0;
-    $info["entry_time"]    = time();
-    $ret = CategorySave($info);
-    
-    $data["category_id"]   = \DaoRedis\Id::GenCategoryId();
-    $data["category_name"] = "酒水";
-    $data["type"]          = 3;
-    $data["parent_id"]     = 0;
-    $data["entry_time"]    = time()+1;
-    $ret = CategorySave($data);
-
-    $inf["category_id"]   = \DaoRedis\Id::GenCategoryId();
-    $inf["category_name"] = "配件";
-    $inf["type"]          = 2;
-    $inf["parent_id"]     = 0;
-    $inf["entry_time"]    = time()+2;
-    $ret = CategorySave($inf);
-
-    $da["category_id"]   = \DaoRedis\Id::GenCategoryId();
-    $da["category_name"] = "餐盒";
-    $da["type"]          = 2;
-    $da["parent_id"]     = $inf["category_id"];
-    $da["entry_time"]    = time()+3;
-    $ret = CategorySave($da);
-
-    $resp = (object)array(
-    );
-    LogInfo("save ok");
-    return 0;
-}
 
 $ret = -1;
 $resp = (object)array();
@@ -213,10 +171,6 @@ else if(isset($_['delete']))
 {
     $ret = DeleteCategory($resp);
 
-}
-else if(isset($_['entry'])) //<<<<<<<<<<<<<<<<<<<<<<<<<<新增店铺测试用
-{
-    $ret = EntryCategory($resp);
 }
 else
 {

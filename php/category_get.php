@@ -22,7 +22,7 @@ function GetCategoryInfo(&$resp)
     $category_id = (string)$_['category_id'];
 
     $mgo = new \DaoMongodb\Category;
-    $info = $mgo->GetCategoryById($category_id);
+    $info = \Cache\Category::Get($category_id);
 
     $resp = (object)array(
         'info' => $info

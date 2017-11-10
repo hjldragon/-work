@@ -62,6 +62,7 @@ function GetCustomerList(&$resp){
     $sex       = $_['sex'];
     $page_size = $_['page_size'];
     $page_no   = $_['page_no'];
+    $vip_sort  = $_['vip_sort'];
     if(!$page_size)
     {
         $page_size = 10;//如果没有传默认10条
@@ -70,12 +71,16 @@ function GetCustomerList(&$resp){
     {
         $page_no = 1; //第一页开始
     }
+    if(null != $vip_sort)
+    {
+        $sortby['is_vip'] = (int)$vip_sort; 
+    }
     $filter['phone']    = $phone;
     $filter['nickname'] = $nickname;
     $filter['sex']      = $sex;
     $mgo = new \DaoMongodb\Customer;
     $total = 0;
-    $custominfo = $mgo->GetCustomerList($shop_id,$filter,$page_size,$page_no,$total);
+    $custominfo = $mgo->GetCustomerList($shop_id,$filter,$page_size,$page_no, $sortby, $total);
    
     $resp =(object)[
         'custominfo'=>$custominfo,

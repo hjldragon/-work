@@ -94,6 +94,25 @@ function GetFoodQrcode(&$resp)
     exit(0);
 }
 
+function GetLoginQrcode(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if(!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $token = $_["token"];
+    
+    $login_qrcode_img = PageUtil::GetLoginQrcodeImg($token);
+    
+    LogDebug("login_qrcode_img:[$login_qrcode_img]");
+
+    header('Content-type: image/jpg'); //输出图片头
+    readfile($login_qrcode_img);
+    exit(0);
+}
+
 function ExportSeatQrcode(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -151,6 +170,10 @@ else if($_["get_seat_qrcode"])
 else if($_["get_food_qrcode"])
 {
     $ret =  GetFoodQrcode($resp);
+}
+else if($_["get_login_qrcode"])
+{
+    $ret =  GetLoginQrcode($resp);
 }
 else if($_["batch_export_seat_qrcode"])
 {

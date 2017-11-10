@@ -95,6 +95,18 @@ class Id
     {
         return (string)self::GenId("department");
     }
+    static public function GenEmployeeId()
+    {
+        return (string)self::GenId("employee");
+    }
+    static public function GenPositionId()
+    {
+        return (string)self::GenId("position");
+    }
+    static public function GenReservationId()
+    {
+        return (string)self::GenId("reservation");
+    }
 
 }
 

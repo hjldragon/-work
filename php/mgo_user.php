@@ -13,24 +13,25 @@ require_once("const.php");
 class UserEntry
 {
     public $userid        = null;   // 用户id
-    public $username      = null;   // 用户名
+    public $username      = null;   // 用户名(登陆名)
     public $password      = null;   // 密码
     public $question      = null;   // 问题
     public $answer        = null;   // 答案
     public $passwd_prompt = null;   // 密码提示
-    public $property      = null;   // 用户属性(位字段，见class UserProperty)
+    //public $property      = null;   // 用户属性(位字段，见class UserProperty)
     public $ctime         = null;   // 创建时间
     public $mtime         = null;   // 修改时间
     public $delete        = null;   // 0:未删除; 1:已删除
     public $phone         = null;   // 手机号
     public $identity      = null;   // 身份证号
-    // public $usernick      = null;   // 用户昵称
-    // public $user_avater   = null;   // 用户头像
-    // public $birthday      = null;   // 用户生日
-    // public $sex           = null;   // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+    public $usernick      = null;   // 用户昵称
+    public $user_avater   = null;   // 用户头像
+    public $birthday      = null;   // 用户生日
+    public $sex           = null;   // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
     public $email         = null;   // 用户邮箱
-    // public $is_weixin     = null;   // 是否绑定微信(0:没绑定,1:绑定)
-
+    public $is_weixin     = null;   // 是否绑定微信(0:没绑定,1:绑定)
+    public $health_certificate = null;    // 健康证
+    public $real_name     = null;   // 真实姓名
     // // 具体业务数据
     // public $shop_id = null;     // 当前用户所属的店 （注，此这段分出到员工表）
 
@@ -46,24 +47,25 @@ class UserEntry
         {
             return;
         }
-        $this->userid        = $cursor['userid'];
-        $this->username      = $cursor['username'];
-        $this->password      = $cursor['password'];
-        $this->question      = $cursor['question'];
-        $this->answer        = $cursor['answer'];
-        $this->passwd_prompt = $cursor['passwd_prompt'];
-        $this->property      = $cursor['property'];
-        $this->ctime         = $cursor['ctime'];
-        $this->mtime         = $cursor['mtime'];
-        $this->delete        = $cursor['delete'];
-        $this->user_avater   = $cursor['user_avater'];
-        $this->phone         = $cursor['phone'];
-        $this->identity      = $cursor['identity'];
-        // $this->usernick      = $cursor['usernick'];
-        // $this->birthday      = $cursor['birthday'];
-        // $this->sex           = $cursor['sex'];
-         $this->email         = $cursor['email'];
-        // $this->is_weixin     = $cursor['is_weixin'];
+        $this->userid             = $cursor['userid'];
+        $this->username           = $cursor['username'];
+        $this->password           = $cursor['password'];
+        $this->question           = $cursor['question'];
+        $this->answer             = $cursor['answer'];
+        $this->passwd_prompt      = $cursor['passwd_prompt'];
+        $this->ctime              = $cursor['ctime'];
+        $this->mtime              = $cursor['mtime'];
+        $this->delete             = $cursor['delete'];
+        $this->user_avater        = $cursor['user_avater'];
+        $this->phone              = $cursor['phone'];
+        $this->identity           = $cursor['identity'];
+        $this->usernick           = $cursor['usernick'];
+        $this->birthday           = $cursor['birthday'];
+        $this->sex                = $cursor['sex'];
+        $this->email              = $cursor['email'];
+        $this->is_weixin          = $cursor['is_weixin'];
+        $this->health_certificate = $cursor['health_certificate'];
+        $this->real_name          = $cursor['real_name'];
     }
 
     public static function ToList($cursor)
@@ -77,15 +79,15 @@ class UserEntry
         return $list;
     }
 
-    public function IsShopUser()
-    {
-        return ($this->property & \UserProperty::SHOP_USER) != 0;
-    }
+    // public function IsShopUser()
+    // {
+    //     return ($this->property & \UserProperty::SHOP_USER) != 0;
+    // }
 
-    public function IsShopAdmin()
-    {
-        return ($this->property & \UserProperty::SYS_ADMIN) != 0;
-    }
+    // public function IsShopAdmin()
+    // {
+    //     return ($this->property & \UserProperty::SYS_ADMIN) != 0;
+    // }
 };
 
 class User
@@ -140,12 +142,12 @@ class User
         {
             $set["passwd_prompt"] = (string)$info->passwd_prompt;
         }
-        if(null !== $info->property)
-        {
-            $bit["property"] = [
-                'or' => (int)$info->property
-            ];
-        }
+        // if(null !== $info->property)
+        // {
+        //     $bit["property"] = [
+        //         'or' => (int)$info->property
+        //     ];
+        // }
         if((int)$info->ctime > 0)
         {
             $set["ctime"] = (int)$info->ctime;
@@ -166,25 +168,31 @@ class User
         {
             $set["identity"] = (string)$info->identity;
         }
-        // if (null !== $info->user_avater) {
-        //     $set["user_avater"] = (string)$info->user_avater;
-        // }
-        // if (null !== $info->usernick) {
-        //     $set["usernick"] = (string)$info->usernick;
-        // }
-        // if (null !== $info->birthday) {
-        //     $set["birthday"] = (int)$info->birthday;
-        // }
-        // if (null !== $info->sex) {
-        //     $set["sex"] = (int)$info->sex;
-        // }
+        if (null !== $info->user_avater) {
+            $set["user_avater"] = (string)$info->user_avater;
+        }
+        if (null !== $info->usernick) {
+            $set["usernick"] = (string)$info->usernick;
+        }
+        if (null !== $info->birthday) {
+            $set["birthday"] = (int)$info->birthday;
+        }
+        if (null !== $info->sex) {
+            $set["sex"] = (int)$info->sex;
+        }
          if (null !== $info->email) {
              $set["email"] = (string)$info->email;
          }
-        // if (null !== $info->is_weixin) {
-        //     $set["is_weixin"] = (int)$info->is_weixin;
-        // }
-        // LogDebug($set);
+        if (null !== $info->is_weixin) {
+            $set["is_weixin"] = (int)$info->is_weixin;
+        }
+        if (null !== $info->health_certificate) {
+            $set["health_certificate"] = (string)$info->health_certificate;
+        }
+        if (null !== $info->real_name) {
+            $set["real_name"] = (string)$info->real_name;
+        }
+        LogDebug($set);
 
         $value = array(
             '$set' => $set
@@ -243,29 +251,23 @@ class User
         return null;
     }
 
-    public function QueryUser($userid, $username, $phone, $email,$password_md5)
+    public function QueryUser($username, $phone, $password_md5)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
         $cond = [
-            'delete'=> ['$ne'=>1],
+            'delete' => ['$ne' => 1],
             '$or' => [
-                ["userid" => (int)$userid],
                 ["username" => (string)$username],
-                ["phone" => (string)$phone],
-                ["email" => (string)$email]
+                ["phone"    => (string)$phone]
             ]
         ];
-        $cursor = $table->find($cond, ["_id"=>0]);
-        
-        foreach($cursor as $item)
-        {   
-            if($password_md5 == md5($item['password']) && $item['password'])
-            {
-                return new UserEntry($item);
-            }
+        $cursor = $table->findOne($cond, ["_id"=>0]);
+        if($password_md5 == md5($cursor['password']) && $cursor['password'])
+        {
+            return new UserEntry($cursor);
         }
-
+     
         return null;
     }
 
@@ -337,22 +339,6 @@ class User
 
         $cond = array(
             'phone' => (string)$email,
-            'delete' => ['$ne' => 1],
-        );
-
-        $ret = $table->findOne($cond);
-
-        return new UserEntry($ret);
-    }
-
-     public function QueryByPhoneID($phone,$identity)
-    {
-        $db = \DbPool::GetMongoDb();
-        $table = $db->selectCollection($this->Tablename());
-
-        $cond = array(
-            'phone' => (string)$phone,
-            'identity' => (string)$identity,
             'delete' => ['$ne' => 1],
         );
 

@@ -61,10 +61,15 @@ class errcode
     const SHOP_LABEL_ERR        = -20041;       // 标签名为空
     const PHONE_COKE_ERR        = -20042;       // 手机验证不正确
     const PHONE_SEND_FAIL       = -20043;       // 手机发送失败
-    const PARAM_ALL_GET         = -20044;       // 工商参数不齐全
-    const PASSWORD_TWO_SAME     = -20045;       // 修改密码和原密码一样
+    const PARAM_ALL_GET         = -20044;       // 必填参数不齐全
+    const PASSWORD_TWO_SAME     = -20045;       // 2次输入的密码不一样
     const EMAIL_SEND_FAIL       = -20046;       // 邮箱发送失败
     const DEPARTMENT_IS_EXIST   = -20047;       // 部门名称重复
+    const IDCARD_ERR            = -20048;       // 身份证号码不正确
+    const PHONE_VERIFY_ERR      = -20049;        //手机验证过程出错
+    const USER_NOT_ZC           = -20050;        //用户没有注册
+    const ORDER_SEAT_NO         = -20051;        //订单中含有该餐桌
+
 
 
                                   // 2017-05-02
@@ -127,6 +132,7 @@ class OrderStatus
     const ERR       = 7;    // 订单出错
     const POSTPONED = 8;    // 叫起（即确认下单，但延迟出餐）
 
+
     // 是已确认状态
     static function HadConfirmed($status)
     {
@@ -135,7 +141,16 @@ class OrderStatus
                 OrderStatus::POSTPONED == $status;
     }
 }
-
+class NewOrderStatus
+{
+    const NOPAY     = 1;    // 未支付
+    const PAY       = 2;    // 已支付
+    const KNOT      = 3;    // 反结
+    const REFUND    = 4;    // 退款成功
+    const REFUNDFAIL= 5;    // 退款失败
+    const CLOSER    = 6;    // 已关闭
+    const GUAZ      = 7;    // 挂账
+}
 // 打印机规格
 // js/cfg.js-->PrinterSpec
 class PrinterSize
@@ -143,6 +158,7 @@ class PrinterSize
     const SPEC_80MM = 1;      // 80mm
     const SPEC_58MM = 2;      // 58mm
 }
+
 
 // 打印机规格
 // js/cfg.js-->PrinterCategory
@@ -280,4 +296,42 @@ class PriceType
     const FESTIVAL   = 8;   // 节日价格
 }
 
+// 营业时间段
+class OpenTime
+{
+    const MORNING  = 1;   // 早市
+    const NOON     = 2;   // 午市
+    const NIGHT    = 3;   // 晚市
+    const SUPPER   = 4;   // 夜宵
+}
+class SetPayWay
+{
+    const USEOUR   = 1;   // 使用个人码
+    const USEOTHER = 2;   // 使用微信/支付宝的支付
+
+}
+class Position
+{
+    const ALLBACKSTAGE   = 1;      // 后台全部权限
+    const ALLWEB         = 2;      // 前端全部权限
+    const ORDERING       = 4;      // 使用点餐
+    const GIVING         = 8;      // 赠送
+    const NEW_ORDER      = 16;     // 使用新订单管理
+    const USRPREDETET    = 32;     // 使用预定
+    const USRHISTORORDER = 64;     // 使用历史订单管理
+    const CHECKOUT       = 128;    // 结账
+    const ORDEROUT       = 256;    // 下单并结账
+    const CLOSEOUT       = 512;    // 关闭并结账
+    const USROUT         = 1024;   // 使用退款申请
+    const FCHECKOUT      = 2048;   // 使用反结账
+    const REFUND         = 4096;   // 退款
+    const CLOSEROREDER   = 8192;   // 关闭订单
+    const INVOICE        = 16384;  // 开发票
+    const REDDASHED      = 32768;  // 红冲
+    const USERSILVER     = 65536;  // 使用收银
+    const GUAZHANG       = 131072; // 挂账
+    const MALING         = 262144; // 抹零
+    const SETTING        = 524288; // 基础设置
+
+}
 ?>

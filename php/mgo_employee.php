@@ -14,19 +14,21 @@ class EmployeeEntry
     public $shop_id            = null;     // 餐馆店铺id
     public $real_name          = null;     // 员工姓名
     public $phone              = null;     // 手机号
-    public $duty               = null;     // 员工职务
+    public $position_id        = null;     // 员工职务id
     public $department_id      = null;     // 所属部门id
     public $permission         = null;     // 员工权限(-->const.php-->EmployeePermission)
     public $lastmodtime        = null;     // 数据最后修改时间
     public $delete             = null;     // 0:正常, 1:已删除
-    public $health_certificate = null;     // 健康证
-    public $remark             = null;     // 备注
     public $is_freeze          = null;     // 0:正常, 1:已冻结
-    public $identity           = null;     // 身份证号
-    public $sex                = null;     // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知 
-    public $email              = null;     // 用户邮箱
-    public $is_weixin          = null;     // 是否绑定微信(0:没绑定,1:绑定)
     public $is_admin           = null;     // 是否是管理员(0:员工,1:管理员)
+    public $remark             = null;     // 备注
+    public $entry_time         = null;     // 创建时间
+    //public $identity           = null;     // 身份证号
+    //public $sex                = null;     // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+    //public $email              = null;     // 用户邮箱
+    //public $health_certificate = null;     // 健康证
+    //public $is_weixin          = null;     // 是否绑定微信(0:没绑定,1:绑定)
+
 
     function __construct($cursor=null)
     {
@@ -46,18 +48,20 @@ class EmployeeEntry
         $this->shop_id            = $cursor['shop_id'];
         $this->real_name          = $cursor['real_name'];
         $this->phone              = $cursor['phone'];
-        $this->duty               = $cursor['duty'];
+        $this->position_id        = $cursor['position_id'];
         $this->department_id      = $cursor['department_id'];
         $this->permission         = $cursor['permission'];
         $this->lastmodtime        = $cursor['lastmodtime'];
         $this->delete             = $cursor['delete'];
-        $this->health_certificate = $cursor['health_certificate'];
         $this->remark             = $cursor['remark'];
         $this->is_freeze          = $cursor['is_freeze'];
-        $this->identity           = $cursor['identity'];
-        $this->sex                = $cursor['sex'];
-        $this->email              = $cursor['email'];
-        $this->is_weixin          = $cursor['is_weixin'];
+        $this->entry_time         = $cursor['entry_time'];
+        $this->is_admin           = $cursor['is_admin'];
+//        $this->identity           = $cursor['identity'];
+//        $this->sex                = $cursor['sex'];
+//        $this->email              = $cursor['email'];
+//        $this->is_weixin          = $cursor['is_weixin'];
+//        $this->health_certificate = $cursor['health_certificate'];
     }
 
     public static function ToList($cursor)
@@ -89,7 +93,7 @@ class Employee
         );
 
         $set = array(
-            'employee_id' => (string)$info->employee_id,
+            'userid' => (int)$info->userid,
             "lastmodtime" => (null !== $info->lastmodtime) ? $info->lastmodtime : time()
         );
 
@@ -101,13 +105,17 @@ class Employee
         {
             $set["real_name"] = (string)$info->real_name;
         }
+        if(null !== $info->employee_id)
+        {
+            $set["employee_id"] = (string)$info->employee_id;
+        }
         if(null !== $info->phone)
         {
             $set["phone"] = (string)$info->phone;
         }
-        if(null !== $info->duty)
+        if(null !== $info->position_id)
         {
-            $set["duty"] = (int)$info->duty;
+            $set["position_id"] = (string)$info->position_id;
         }
         if(null !== $info->permission)
         {
@@ -137,20 +145,29 @@ class Employee
         {
             $set["is_freeze"] = (int)$info->is_freeze;
         }
-        if(null !== $info->identity)
-        {
-            $set["identity"] = (string)$info->identity;
+        if (null !== $info->entry_time) {
+            $set["entry_time"] = (int)$info->entry_time;
         }
-        if(null !== $info->sex)
-        {
-            $set["sex"] = (int)$info->sex;
+//        if (null !== $info->userid) {
+//            $set["userid"] = (int)$info->userid;
+//        }
+        if (null !== $info->is_admin) {
+            $set["is_admin"] = (int)$info->is_admin;
         }
-        if (null !== $info->email) {
-            $set["email"] = (string)$info->email;
-        }
-        if (null !== $info->is_weixin) {
-            $set["is_weixin"] = (int)$info->is_weixin;
-        }
+//        if(null !== $info->identity)
+//        {
+//            $set["identity"] = (string)$info->identity;
+//        }
+//        if(null !== $info->sex)
+//        {
+//            $set["sex"] = (int)$info->sex;
+//        }
+//        if (null !== $info->email) {
+//            $set["email"] = (string)$info->email;
+//        }
+//        if (null !== $info->is_weixin) {
+//            $set["is_weixin"] = (int)$info->is_weixin;
+//        }
         $value = array(
             '$set' => $set
         );
@@ -168,25 +185,27 @@ class Employee
         return 0;
     }
 
-    public function BatchDelete($userid_id_list)
+    public function BatchDelete($employee_id,$shop_id)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
-
-        foreach($userid_id_list as $i => &$item)
-        {
-            $item = (int)$item;
-        }
+//
+//        foreach($userid_id_list as $i => &$item)
+//        {
+//            $item = (int)$item;
+//        }
 
         $set = array(
-            "delete" => 1,
-            "lastmodtime" => time()
+            "delete"      => 1,
+            "lastmodtime" => time(),
         );
         $value = array(
             '$set' => $set
         );
         $cond = [
-            'userid' => ['$in' => $userid_id_list]
+            //'userid' => ['$in' => $userid_id_list]
+            "shop_id" => $shop_id,
+            'employee_id'  => $employee_id
         ];
         LogDebug($cond);
         try
@@ -194,10 +213,10 @@ class Employee
             $ret = $table->update($cond, $value, ['safe'=>true, 'upsert'=>true, 'multiple'=>true]);
             LogDebug("ret:" . $ret["ok"]);
         }
-        catch(MongoCursorException $e)
+        catch(\MongoCursorException $e)
         {
             LogErr($e->getMessage());
-            return errcode::DB_OPR_ERR;
+            return \errcode::DB_OPR_ERR;
         }
         return 0;
     }
@@ -206,15 +225,40 @@ class Employee
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
+        $cond = [
+            'delete'  => ['$ne'=>1],
+            'userid' => (int)$userid,
+        ];
+        $cursor = $table->find($cond, ["_id"=>0]);
+        return EmployeeEntry::ToList($cursor);
+    }
+
+    public function GetEmployeeInfo($shop_id,$employee_id)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
 
         $cond = [
-            'userid' => (int)$userid,
+            'shop_id' => (string)$shop_id,
+            'employee_id'=>(string)$employee_id,
+            'delete' => ['$ne' => 1]
         ];
         $cursor = $table->findOne($cond);
         return new EmployeeEntry($cursor);
     }
+    public function GetEmployeeID($shop_id,$employee_name)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
 
-
+        $cond = [
+            'shop_id'     => (string)$shop_id,
+            'employee_id' => (string)$employee_name,
+            'delete'      => ['$ne' => 1],
+        ];
+        $cursor = $table->findOne($cond);
+        return new EmployeeEntry($cursor);
+    }
     public function GetEmployeeList($shop_id, $filter=null)
     {
         $db = \DbPool::GetMongoDb();
@@ -250,21 +294,51 @@ class Employee
         $cursor = $table->find($cond, ["_id"=>0]);
         return EmployeeEntry::ToList($cursor);
     }
+
+    public function QueryByPhone($phone)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = array(
+            'phone' => (string)$phone,
+            'delete' => ['$ne' => 1],
+        );
+
+        $ret = $table->findOne($cond);
+
+        return new EmployeeEntry($ret);
+    }
+
+    public function QueryByShopId($userid, $shop_id)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = array(
+            'userid' => (int)$userid,
+            'shop_id' => (string)$shop_id,
+            'delete' => ['$ne' => 1],
+        );
+        $ret = $table->findOne($cond);
+        return new EmployeeEntry($ret);
+    }
     // 冻结/启用
-    public function BatchFreeze($userid,$type)
+    public function BatchFreeze($employee_id,$shop_id,$type)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
 
         $set = array(
-            "is_freeze" => (int)$type,
-            "lastmodtime" => time()
+            "is_freeze"   => (int)$type,
+            "shop_id"     => (string)$shop_id,
+            "lastmodtime" => time(),
         );
         $value = array(
             '$set' => $set
         );
         $cond = [
-            'userid' => $userid
+            'employee_id' => $employee_id
         ];
         LogDebug($cond);
         try
@@ -272,28 +346,28 @@ class Employee
             $ret = $table->update($cond, $value, ['safe'=>true, 'upsert'=>true, 'multiple'=>true]);
             LogDebug("ret:" . $ret["ok"]);
         }
-        catch(MongoCursorException $e)
+        catch(\MongoCursorException $e)
         {
             LogErr($e->getMessage());
-            return errcode::DB_OPR_ERR;
+            return \errcode::DB_OPR_ERR;
         }
         return 0;
     }
 
     public function QueryUser($employee_no, $real_name, $phone, $email)
     {
-        $db = \DbPool::GetMongoDb();
-        $table = $db->selectCollection($this->Tablename());
-        $cond = [
-            'delete'=> ['$ne'=>1],
-            '$or' => [
+        $db     = \DbPool::GetMongoDb();
+        $table  = $db->selectCollection($this->Tablename());
+        $cond   = [
+            'delete' => ['$ne' => 1],
+            '$or'    => [
                 ["employee_no" => (string)$employee_no],
                 ["real_name" => (string)$real_name],
                 ["phone" => (string)$phone],
-                ["email" => (string)$email]
-            ]
+                ["email" => (string)$email],
+            ],
         ];
-        $cursor = $table->find($cond, ["_id"=>0]);
+        $cursor = $table->find($cond, ["_id" => 0]);
         return EmployeeEntry::ToList($cursor);
     }
 }

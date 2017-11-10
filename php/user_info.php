@@ -288,44 +288,21 @@ function PhoneBind(&$resp)
     }
     $token      = $_['token'];
     $phone      = $_['phone'];
-    if(!preg_match('/^1([0-9]{9})/',$phone))
+    $phone_code = $_['phone_code'];//手机验证码
+    $result     = Cfg::VerifyPhoneCode($token, $phone, $phone_code);
+    if ($result != 0)
     {
-        LogErr("phone err");
-        return errcode::PHONE_ERR;
+        LogDebug($result);
+        return errcode::PARAM_ERR;
     }
-    $mgo   = new \DaoMongodb\User;
-    $mgo2  = new \DaoMongodb\Shop;
+    $mgo      = new \DaoMongodb\User;
+    $mgo2     = new \DaoMongodb\Shop;
     $userinfo = $mgo->QueryById($userid);
     $shopinfo = $mgo2->GetShopById($shop_id);
     //验证user表和shop表联系人的电话是否一样
     if($userinfo->phone != $shopinfo->telephone)
     {
         return errcode::DATA_CHANGE;
-    }
-    $info  = $mgo->QueryByPhone($phone);
-    //验证手机号码是否重复
-    if ($info->phone)
-    {
-        LogErr("phone is exist");
-        return errcode::PHONE_IS_EXIST;
-    }
-    $code             = $_['phone_code'];//手机验证码
-    $redis            = new \DaoRedis\Login();
-    $data             = $redis->Get($token);//获取手机号上面的验证码
-    if ($code != $data->phone_code)
-    {
-        LogErr("phone_code is err");
-        return errcode::PHONE_COKE_ERR;
-    }
-    if(time() > $data->code_time)
-    {
-        LogErr("phone_code is lapse");
-        return errcode::PHONE_CODE_LAPSE;
-    }
-    if($phone != $data->phone)
-    {
-        LogErr("phone is not true");
-        return errcode::PHONE_ERR;
     }
     //保存绑定手机号码
     $userinfo->userid    = $userid;
@@ -515,7 +492,184 @@ function UnBindEmail(&$resp)
     LogInfo("save ok");
     return 0;
 }
+//注册账号
+function UserEmployeeSetting(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $real_name = $_['real_name'];
+    if (!$real_name)
+    {
+        LogErr("name is empty,have to");
+        return errcode::PARAM_ALL_GET;
+    }
 
+    $idcard = $_['identity'];
+    if (!preg_match('/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/', $idcard))
+    {
+        LogErr("idcard err");
+        return errcode::IDCARD_ERR;
+    }
+    $token = $_['token'];
+    $phone = $_['phone'];
+    $mgo   = new \DaoMongodb\User;
+    //因为现在是phone唯一所以也验证了员工里面是否存在手机绑定已存在
+    $info  = $mgo->QueryByPhone($phone);
+    LogDebug($info);
+    if ($info->phone)
+    {
+        LogErr("phone is exist");
+        return errcode::PHONE_IS_EXIST;
+    }
+    $phone_code = $_['phone_code'];//手机验证码
+    $result     = Cfg::VerifyPhoneCode($token, $phone, $phone_code);
+
+    //验证手机结果
+    if ($result != 0)
+    {
+        LogDebug($result);
+        return errcode::PHONE_VERIFY_ERR;
+    }
+    $passwd = $_['passwd'];
+    if (!$passwd) {
+        LogErr("passwd is empty,have to");
+        return errcode::PARAM_ALL_GET;
+    }
+    $passwd_again = $_['passwd_again'];
+    if ($passwd != $passwd_again) {
+        LogDebug($passwd, $passwd_again);
+        return errcode::PASSWORD_TWO_SAME;
+    }
+
+    $sex = $_['sex'];
+    if (!$sex) {
+        LogErr("sex is empty,have to");
+        return errcode::PARAM_ALL_GET;
+    }
+
+    $health_certificate = $_['health_certificate'];
+    $is_weixin          = $_['is_weixin'];
+
+    //创建生成用户表
+    $userid = \DaoRedis\Id::GenUserId();
+    $user   = new \DaoMongodb\UserEntry;
+    // 是否已注册过
+    $ret = $mgo->IsExist([
+        'phone' => $phone,
+    ]);
+    LogDebug($ret);
+    if (null != $ret) {
+        if ($ret->phone) {
+            LogErr("phone exist:[{$ret->phone}");
+            return errcode::PHONE_IS_EXIST;
+        }
+    }
+    $user->userid             = $userid;
+    $user->real_name          = $real_name;
+    $user->delete             = 0;
+    $user->password           = $passwd;
+    $user->phone              = $phone;
+    $user->identity           = $idcard;
+    $user->sex                = $sex;
+    $user->is_weixin          = $is_weixin;
+    $user->health_certificate = $health_certificate;
+    $ret                      = $mgo->Save($user);
+    if ($ret != 0) {
+        LogErr("Save err, ret=[$ret]");
+        return errcode::SYS_ERR;
+    }
+    $resp = (object)[
+    ];
+    return 0;
+}
+//忘记密码
+function UserNewPasswd(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $token      = $_['token'];
+    $phone      = $_['phone'];
+    $mgo              = new \DaoMongodb\User;
+    $user_phone = $mgo->QueryByPhone($phone);
+    if($user_phone != $phone)
+    {
+        LogDebug($phone);
+        return errcode::PHONE_ERR;
+    }
+    $phone_code = $_['phone_code'];//手机验证码
+    $result     = Cfg::VerifyPhoneCode($token, $phone, $phone_code);
+    if ($result != 0)
+    {
+        LogDebug($result);
+        return errcode::PARAM_ERR;
+    }
+    $userid = \Cache\Login::GetUserid();
+    if (!$userid)
+    {
+        return errcode::USER_NOLOGIN;
+    }
+    $new_passwd       = $_['new_passwd'];
+    $new_passwd_again = $_['new_passwd_again'];
+
+    $user             = new \DaoMongodb\UserEntry;
+    if ($new_passwd != $new_passwd_again)
+    {
+        LogDebug($new_passwd, $new_passwd_again, 'is not same so err');
+        return errcode::PASSWORD_TWO_SAME;
+    }
+    $user->userid   = $userid;
+    $user->password = $new_passwd;
+    $ret            = $mgo->Save($user);
+    if (0 != $ret)
+    {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+    $resp = (object)[];
+    LogInfo("save ok");
+    return 0;
+}
+//编辑用户个人中心信息
+function EditUserInfo(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $userid             = \Cache\Login::GetUserid();
+    $username           = $_['username'];
+    $identity           = $_['identity'];
+    $sex                = $_['sex'];
+    $health_certificate = $_['health_certificate'];
+    $mgo                = new \DaoMongodb\User;
+    $user               = new \DaoMongodb\UserEntry;
+
+
+    $user->userid             = $userid;
+    $user->username           = $username;
+    $user->identity           = $identity;
+    $user->sex                = $sex;
+    $user->health_certificate = $health_certificate;
+    $ret                      = $mgo->Save($user);
+    if (0 != $ret) {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+    $resp = (object)[];
+    LogInfo("save ok");
+    return 0;
+
+}
 $ret = -1;
 $resp = null;
 if($_["list"])
@@ -548,7 +702,21 @@ elseif($_["user_setting"])
 }elseif (isset($_['unbind_phone']))
 {
     $ret = UnBindPhone($resp);
-}else
+}elseif(isset($_['setting_user']))
+{
+    $ret = UserEmployeeSetting($resp);
+}
+
+elseif(isset($_['save_new_passwd']))
+{
+    $ret = UserNewPasswd($resp);
+}
+else if(isset($_['edit_user_info']))
+{
+    $ret = EditUserInfo($resp);
+}
+
+else
 {
     $ret = errcode::PARAM_ERR;
     LogErr("param err");

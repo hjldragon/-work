@@ -7,8 +7,9 @@ require_once("cache.php");
 require_once("db_pool.php");
 require_once("redis_login.php");
 require_once("mgo_customer.php");
+require_once("mgo_employee.php");
 require_once("ChuanglanSmsHelper/ChuanglanSmsApi.php");
-Permission::PageCheck();
+//Permission::PageCheck();
 //$_=$_REQUEST;
 //保存客户信息
 function SaveCustomer(&$resp)
@@ -92,29 +93,23 @@ function GetCoke(&$resp){
         LogErr("phone err");
         return errcode::PHONE_ERR;
     }
-    $mgo       = new \DaoMongodb\User;
-    $info      = $mgo->QueryByPhone($phone);
-    if ($info->phone)
-    {
-        LogErr("phone is exist");
-        return errcode::PHONE_IS_EXIST;
-    }
-    $code = mt_rand(100000, 999999);
-    //$code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
-    $clapi  = new ChuanglanSmsApi();
-    $msg    = '【赛领新吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
-    $result = $clapi->sendSMS($phone, $msg);
-    LogDebug($result);
-    if (!is_null(json_decode($result)))
-    {
-        $output = json_decode($result, true);
-        if (isset($output['code']) && $output['code'] == '0')
-        {
-            LogDebug('短信发送成功！');
-        } else {
-            return $output['errorMsg'] . errcode::PHONE_SEND_FAIL;
-        }
-    }
+
+        $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
+    //$code = mt_rand(100000, 999999);
+//    $clapi  = new ChuanglanSmsApi();
+//    $msg    = '【赛领新吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
+//    $result = $clapi->sendSMS($phone, $msg);
+//    LogDebug($result);
+//    if (!is_null(json_decode($result)))
+//    {
+//        $output = json_decode($result, true);
+//        if (isset($output['code']) && $output['code'] == '0')
+//        {
+//            LogDebug('短信发送成功！');
+//        } else {
+//            return $output['errorMsg'] . errcode::PHONE_SEND_FAIL;
+//        }
+//    }
 
     $redis            = new \DaoRedis\Login();
     $data             = new \DaoRedis\LoginEntry();
@@ -129,58 +124,44 @@ function GetCoke(&$resp){
     ];
     return 0;
 }
-//发送手机解绑验证码
-function GetUnBindCode(&$resp){
+//无图形验证码发送手机验证码
+function GetPhoneCode(&$resp){
     $_ = $GLOBALS["_"];
     if (!$_)
     {
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $token     = $_['token'];
-    $page_code = strtolower($_['page_code']);
-    $db        = new \DaoRedis\Login;
-    $redis     = $db->Get($token);
-    LogDebug($redis);
-    $radis_code = $redis->page_code;
-    //验证验证码
-    if ($radis_code != $page_code)
+    $token      = $_['token'];
+    $phone      = $_['phone'];
+    if (!preg_match('/^1([0-9]{9})/', $phone))
     {
-        LogErr("coke err");
-        return errcode::COKE_ERR;
+        LogErr("phone err");
+        return errcode::PHONE_ERR;
     }
-    $shop_id = \Cache\Login::GetShopId();
-    $userid  = \Cache\Login::GetUserid();
 
-    if (!$userid || !$shop_id)
-    {
-        return errcode::USER_NOLOGIN;
-    }
-    //获取用户已绑定的手机号码
-    $mgo      = new \DaoMongodb\User;
-    $userinfo = $mgo->QueryById($userid);
-    $phone    = $userinfo->phone;
-
-    //$code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
-    $code   = mt_rand(100000, 999999);
-    $clapi  = new ChuanglanSmsApi();
-    $msg    = '【赛领新吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';//根据253服务器上面签名复制的，不能随便改！
-    $result = $clapi->sendSMS($phone, $msg);
-    LogDebug($result);
-    if (!is_null(json_decode($result))) {
-        $output = json_decode($result, true);
-        if (isset($output['code']) && $output['code'] == '0') {
-            LogDebug('短信发送成功！');
-        } else {
-            return $output['errorMsg'] . errcode::PHONE_SEND_FAIL;
-        }
-    }
+    $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
+    //$code = mt_rand(100000, 999999);
+//    $clapi  = new ChuanglanSmsApi();
+//    $msg    = '【赛领新吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
+//    $result = $clapi->sendSMS($phone, $msg);
+//    LogDebug($result);
+//    if (!is_null(json_decode($result)))
+//    {
+//        $output = json_decode($result, true);
+//        if (isset($output['code']) && $output['code'] == '0')
+//        {
+//            LogDebug('短信发送成功！');
+//        } else {
+//            return $output['errorMsg'] . errcode::PHONE_SEND_FAIL;
+//        }
+//    }
 
     $redis            = new \DaoRedis\Login();
     $data             = new \DaoRedis\LoginEntry();
+    $data->phone      = $phone;
     $data->token      = $token;
     $data->phone_code = $code;
-    $data->phone      = $phone;
     $data->code_time  = time() + 5 * 60 * 1000;
     LogDebug($data);
     $redis->Save($data);
@@ -189,7 +170,6 @@ function GetUnBindCode(&$resp){
     ];
     return 0;
 }
-
 $ret = -1;
 $resp = (object)array();
 if (isset($_['customer_save']))
@@ -198,12 +178,12 @@ if (isset($_['customer_save']))
 }elseif (isset($_['get_coke'])) {
 
     $ret = GetCoke($resp);
-}elseif (isset($_['get_unbind_code'])) {
-
-    $ret = GetUnBindCode($resp);
 }elseif (isset($_['del_customer']) || isset($_['del']))
 {   
     $ret = DeleteCustomer($resp);
+}elseif (isset($_['get_phone_code'])) {
+
+    $ret = GetPhoneCode($resp);
 }
 else
 {
@@ -212,9 +192,9 @@ else
 }
 $html = json_encode((object)array(
     'ret'  => $ret,
-    //'data' => $resp
-    'crypt' => 1, // 是加密数据标记
-    'data'  => PageUtil::EncRespData(json_encode($resp))
+    'data' => $resp
+    // 'crypt' => 1, // 是加密数据标记
+    // 'data'  => PageUtil::EncRespData(json_encode($resp))
 ));
 ?><?php /******************************以下为html代码******************************/ ?>
 <?= $html ?>

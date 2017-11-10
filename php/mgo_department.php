@@ -126,6 +126,19 @@ class Department
 
         return new DepartmentEntry($ret);
     }
+    public function  QueryByDepartmentId($shop_id,$department_id)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
 
+        $cond = array(
+            'shop_id' => (string)$shop_id,
+            'department_id'=>(string)$department_id,
+            'delete' => ['$ne' => 1]
+        );
+        $ret = $table->findOne($cond);
+
+        return new DepartmentEntry($ret);
+    }
 }
 ?>

@@ -62,6 +62,7 @@ function SaveImgFileHtml5(&$resp=NULL)
 
     $userid = (int)$_["userid"];
     $file = $_FILES["imgfile"];
+    
     // LogDebug($file);
     if($file["error"] > 0)
     {

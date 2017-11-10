@@ -84,7 +84,7 @@ class Customer
 
     public function Save(&$info)
     {
-        if (!$info->customer_id || !$info->openid)
+        if (!$info->customer_id)
         {
             LogErr("param err:" . json_encode($info));
             return \errcode::PARAM_ERR;
@@ -93,11 +93,11 @@ class Customer
         $table = $db->selectCollection($this->Tablename());
 
         $cond = array(
-            'customer_id' => (int)$info->customer_id
+            'customer_id' => (string)$info->customer_id
         );
 
         $set = array(
-            "customer_id" => (int)$info->customer_id,
+            "customer_id" => (string)$info->customer_id,
             "lastmodtime" => time()
         );
         if (null !== $info->userid) {
@@ -148,6 +148,7 @@ class Customer
         if (null !== $info->sex) {
             $set["sex"] = (int)$info->sex;
         }
+        
         LogDebug($set);
         $value = array(
             '$set' => $set
@@ -171,9 +172,9 @@ class Customer
         $table = $db->selectCollection($this->Tablename());
 
         $cond = array(
-            'customer_id' => (int)$customer_id
+            'customer_id' => (string)$customer_id,
+            'delete' => array('$ne'=>1)
         );
-
         $ret = $table->findOne($cond);
         return new CustomerEntry($ret);
     }
@@ -210,7 +211,7 @@ class Customer
         return new CustomerEntry($ret);
     }
 
-    public function GetCustomerList($shop_id, $filter=null, $page_size, $page_no, &$total=null)
+    public function GetCustomerList($shop_id, $filter=null, $page_size, $page_no, $sortby = [], &$total=null)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
@@ -248,8 +249,12 @@ class Customer
             //     $cond['userid'] = ['$in' => $userid_list];
             // }
         }
+        if(empty($sortby)){
+            $sortby['ctime'] = -1;
+        }
+        
         LogDebug($cond);
-        $cursor = $table->find($cond, ["_id"=>0])->skip(($page_no-1)*$page_size)->limit($page_size);
+        $cursor = $table->find($cond, ["_id"=>0])->sort($sortby)->skip(($page_no-1)*$page_size)->limit($page_size);
         if(null !== $total){
             $total = $table->count($cond);
         }

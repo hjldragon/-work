@@ -46,15 +46,15 @@ function GetPrinterList(&$resp)
 
     $mgo = new \DaoMongodb\Printer;
     $list = $mgo->GetList($shop_id);
-    foreach($list as $i => &$item)
-    {
-        $food_category_map = [];
-        foreach($item->food_category_list as $j => $category_id)
-        {
-            $food_category_map[$category_id] = \Cache\Category::Get($category_id);
-        }
-        $item->food_category_map = $food_category_map;
-    }
+    // foreach($list as $i => &$item)
+    // {
+    //     $food_category_map = [];
+    //     foreach($item->food_category_list as $j => $category_id)
+    //     {
+    //         $food_category_map[$category_id] = \Cache\Category::Get($category_id);
+    //     }
+    //     $item->food_category_map = $food_category_map;
+    // }
 
     $resp = (object)array(
         'list' => $list
@@ -106,11 +106,11 @@ function NeedPrintFoodCategory(&$resp)
 
 $ret = -1;
 $resp = (object)array();
-if(isset($_["info"]))
+if(isset($_["printer_info"]))
 {
     $ret = GetPrinterInfo($resp);
 }
-elseif(isset($_["list"]))
+elseif(isset($_["printer_list"]))
 {
     $ret = GetPrinterList($resp);
 }

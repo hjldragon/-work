@@ -369,6 +369,102 @@ class MailVail
 
 }
 
+class CollectionSet
+{
+    public $is_debt                 = null;    // 是否挂账（0:是,1:否）
+    public $is_mailing              = null;    // 是否支持抹零（0:是,1:否）
+    public $mailing_type            = null;    // 抹零方式(1:抹除分,2:取整数元）
+
+
+    function __construct($cursor = null)
+    {
+        $this->FromMgo($cursor);
+    }
+
+    // mongodb查询结果转为结构体
+    public function FromMgo($cursor)
+    {
+        if (!$cursor) {
+            return;
+        }
+        $this->is_debt           = $cursor['is_debt'];
+        $this->is_mailing        = $cursor['is_mailing'];
+        $this->mailing_type      = $cursor['mailing_type'];
+
+    }
+
+}
+
+class WeixinPaySet
+{
+    public $pay_way                 = null;    // 收款方式（1:微信个人收款码,2:微信支付）
+    public $code_img                = null;    // 个人付款码图片
+    public $code_show               = null;    // 付款码展示（0:展示,1:不展示)
+    public $sub_mch_id              = null;    // 微信支付商户号
+    public $api_key                 = null;    // 微信密钥
+    public $spc_sub                 = null;    // 特约商户（0:是,1:不是)
+    public $tenpay_img              = null;    // 财付通商户证书
+
+    function __construct($cursor = null)
+    {
+        $this->FromMgo($cursor);
+    }
+
+    // mongodb查询结果转为结构体
+    public function FromMgo($cursor)
+    {
+        if (!$cursor) {
+            return;
+        }
+        $this->pay_way    = $cursor['pay_way'];
+        $this->code_img   = $cursor['code_img'];
+        $this->sub_mch_id = $cursor['sub_mch_id'];
+        $this->code_show  = $cursor['code_show'];
+        $this->api_key    = $cursor['api_key'];
+        $this->spc_sub    = $cursor['spc_sub'];
+        $this->tenpay_img = $cursor['tenpay_img'];
+
+    }
+
+}
+
+class AlipaySet
+{
+    public $pay_way                = null;    // 收款方式（1:支付宝个人收款码,2:支付宝当面支付）
+    public $code_img               = null;    // 个人付款码图片
+    public $code_show              = null;    // 付款码展示（0:展示,1:不展示)
+    public $alipay_app_id          = null;    // 支付宝AppID
+    public $public_key             = null;    // RSA私钥
+    public $private_key            = null;    // 支付宝公钥
+    public $safe_code              = null;    // 安全校验码
+    public $hz_identity            = null;    // 合作者身份
+    public $alipay_num             = null;    // 支付宝账号
+
+    function __construct($cursor = null)
+    {
+        $this->FromMgo($cursor);
+    }
+
+    // mongodb查询结果转为结构体
+    public function FromMgo($cursor)
+    {
+        if (!$cursor) {
+            return;
+        }
+        $this->pay_way       = $cursor['pay_way'];
+        $this->code_img      = $cursor['code_img'];
+        $this->alipay_app_id = $cursor['alipay_app_id'];
+        $this->code_show     = $cursor['code_show'];
+        $this->public_key    = $cursor['public_key'];
+        $this->private_key   = $cursor['private_key'];
+        $this->safe_code     = $cursor['safe_code'];
+        $this->hz_identity   = $cursor['hz_identity'];
+        $this->alipay_num    = $cursor['alipay_num'];
+
+    }
+
+}
+
 class ShopEntry
 {
 
@@ -408,9 +504,14 @@ class ShopEntry
     public $shop_feature      = null;               // 店铺特色标签
     public $shop_business     = null;               // 店铺工商信息
     public $mail_vali         = null;               // 邮箱验证
-    public $shop_bs_status    = null;               //店铺工商信息认证状态
-    public $shop_food_attach  = null;               //店铺口味标签
-
+    public $shop_bs_status    = null;               // 店铺工商信息认证状态
+    public $shop_food_attach  = null;               // 店铺口味标签
+    public $shop_model        = null;               // 营业模式 1:快餐,2:中餐
+    public $collection_set    = null;               // 收银设置
+    public $weixin_pay_set    = null;               // 微信支付设置
+    public $alipay_set        = null;               // 微信支付设置
+    public $weixin_seting     = null;               // 微信支付是否设置(0:不启用,1启用)
+    public $alipay_seting     = null;               // 支付宝支付是否设置(0:不启用,1启用)
 
 
     function __construct($cursor = null)
@@ -464,6 +565,12 @@ class ShopEntry
         $this->mail_vali           = new MailVail($cursor['mail_vali']);
         $this->shop_bs_status      = new ShopBusinessStatus($cursor['shop_bs_status']);
         $this->shop_food_attach    = $cursor['shop_food_attach'];
+        $this->shop_model          = $cursor['shop_model'];
+        $this->collection_set      = new CollectionSet($cursor['collection_set']);
+        $this->weixin_pay_set      = new WeixinPaySet($cursor['weixin_pay_set']);
+        $this->alipay_set          = new AlipaySet($cursor['alipay_set']);
+        $this->weixin_seting       = $cursor['weixin_seting'];
+        $this->alipay_seting       = $cursor['alipay_seting'];
     }
 
     public static function ToList($cursor)
@@ -663,9 +770,67 @@ class Shop
         if (null !== $info->food_unit_list){
             $set["food_unit_list"] = $info->food_unit_list;
         }
+        if (null !== $info->shop_model){
+            $set["shop_model"] = $info->shop_model;
+        }
+        if (null !== $info->collection_set){
+            $set["collection_set"] = new CollectionSet([
+                'is_debt'      => (int)$info->collection_set->is_debt,
+                'is_mailing'   => (int)$info->collection_set->is_mailing,
+                'mailing_type' => (int)$info->collection_set->mailing_type,
+            ]);
+        }
+        if (null !== $info->weixin_pay_set){
+            if (\SetPayWay::USEOUR == $info->weixin_pay_set->pay_way)
+            {
+                $p                     = new WeixinPaySet();
+                $p->pay_way            = (int)$info->weixin_pay_set->pay_way;
+                $p->code_show          = (int)$info->weixin_pay_set->code_show;
+                $p->code_img           = (string)$info->weixin_pay_set->code_img;
+                $set["weixin_pay_set"] = $p;
+            } elseif (\SetPayWay::USEOTHER == $info->weixin_pay_set->pay_way)
+            {
+                $p                     = new WeixinPaySet();
+                $p->pay_way            = (int)$info->weixin_pay_set->pay_way;
+                $p->sub_mch_id         = (string)$info->weixin_pay_set->sub_mch_id;
+                $p->api_key            = (string)$info->weixin_pay_set->api_key;
+                $p->spc_sub            = (int)$info->weixin_pay_set->spc_sub;
+                $p->tenpay_img         = (string)$info->weixin_pay_set->tenpay_img;
+                $set["weixin_pay_set"] = $p;
+            }
+        }
+        if (null !== $info->alipay_set){
+            if (\SetPayWay::USEOUR == $info->alipay_set->pay_way)
+            {
+                $p                     = new AlipaySet();
+                $p->pay_way            = (int)$info->alipay_set->pay_way;
+                $p->code_show          = (int)$info->alipay_set->code_show;
+                $p->code_img           = (string)$info->alipay_set->code_img;
+                $set["alipay_set"] = $p;
+            } elseif (\SetPayWay::USEOTHER == $info->alipay_set->pay_way)
+            {
+                $p                     = new AlipaySet();
+                $p->pay_way            = (int)$info->alipay_set->pay_way;
+                $p->alipay_app_id      = (string)$info->alipay_set->alipay_app_id;
+                $p->public_key         = (string)$info->alipay_set->public_key;
+                $p->private_key        = (string)$info->alipay_set->private_key;
+                $p->safe_code          = (string)$info->alipay_set->safe_code;
+                $p->hz_identity        = (string)$info->alipay_set->hz_identity;
+                $p->alipay_num         = (string)$info->alipay_set->alipay_num;
+                $set["alipay_set"] = $p;
+            }
+        }
+        if (null !== $info->weixin_seting){
+            $set["weixin_seting"] = $info->weixin_seting;
+        }
+        if (null !== $info->alipay_seting){
+            $set["alipay_seting"] = $info->alipay_seting;
+        }
+
         $value = array(
             '$set' => $set
         );
+
         try {
             $ret = $table->update($cond, $value, ['upsert' => true]);
             LogDebug("ret:" . json_encode($ret));

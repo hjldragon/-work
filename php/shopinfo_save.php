@@ -6,6 +6,7 @@
 require_once("current_dir_env.php");
 require_once("mgo_shop.php");
 require_once("permission.php");
+require_once("redis_id.php");
 Permission::PageCheck();
 //$_=$_REQUEST;
 //编辑店铺设置
@@ -25,13 +26,19 @@ function SaveShopInfo(&$resp)
 //        LogErr("permission err, username:" . \Cache\Login::GetUsername());
 //        return $ret;
 //    }
-    $shop_id = \Cache\Login::GetShopId();
-    if (!$shop_id) {
+    $login_shop_id = \Cache\Login::GetShopId();
+    if (!$login_shop_id)
+    {
         LogErr("shop_id err or maybe not login");
         return errcode::USER_NOLOGIN;
     }
-
-    //$shop_id             = (string)$_['shop_id'];//<<<<<<<<<<<<<这里是测试数据
+    $shop_id = $_['shop_id'];
+    if ($login_shop_id != $shop_id)
+    {
+        LogDebug($shop_id, $login_shop_id);
+        return errcode::SHOP_NOT_WEIXIN;
+    }
+    LogDebug($shop_id);
     $shop_name           = $_['shop_name'];
     $shop_logo           = $_['shop_logo'];
     $shop_area           = $_['shop_area'];
@@ -98,11 +105,17 @@ function SaveShopBusiness(&$resp)
 //        LogErr("permission err, username:" . \Cache\Login::GetUsername());
 //        return $ret;
 //    }
-    $shop_id = \Cache\Login::GetShopId();
-    if (!$shop_id)
+    $login_shop_id = \Cache\Login::GetShopId();
+    if (!$login_shop_id)
     {
         LogErr("shop_id err or maybe not login");
-        return errcode::SEAT_NOT_EXIST;
+        return errcode::USER_NOLOGIN;
+    }
+    $shop_id       = $_['shop_id'];
+    if($login_shop_id != $shop_id)
+    {
+        LogDebug($shop_id,$login_shop_id);
+        return errcode::SHOP_NOT_WEIXIN;
     }
     //$shop_id                               = (string)$_['shop_id'];//<<<<<<<<<<<<<这里是测试数据
     $company_name                          = $_['company_name'];
@@ -331,12 +344,20 @@ function SaveShopLabel(&$resp)
     }
     $all  = json_decode($_[$name]);
     $all  = array_filter($all);
-    $shop_id = \Cache\Login::GetShopId();
-    if (!$shop_id)
+
+    $login_shop_id = \Cache\Login::GetShopId();
+    if (!$login_shop_id)
     {
         LogErr("shop_id err or maybe not login");
         return errcode::USER_NOLOGIN;
     }
+    $shop_id       = $_['shop_id'];
+    if($login_shop_id != $shop_id)
+    {
+        LogDebug($shop_id,$login_shop_id);
+        return errcode::SHOP_NOT_WEIXIN;
+    }
+
     $mgo            = new \DaoMongodb\Shop;
     $entry          = new \DaoMongodb\ShopEntry;
     $entry->shop_id = $shop_id;
@@ -383,7 +404,191 @@ function SaveShopLabel(&$resp)
     LogInfo("save ok");
     return 0;
 }
+//收银设置
+function SaveCollectionSet(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_) {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $login_shop_id = \Cache\Login::GetShopId();
+    if (!$login_shop_id)
+    {
+        LogErr("shop_id err or maybe not login");
+        return errcode::USER_NOLOGIN;
+    }
+    $shop_id       = $_['shop_id'];
+    if($login_shop_id != $shop_id)
+    {
+        LogDebug($shop_id,$login_shop_id);
+        return errcode::SHOP_NOT_WEIXIN;
+    }
+    $is_debt                          = $_['is_debt'];
+    $is_mailing                       = $_['is_mailing'];
+    $mailing_type                     = $_['mailing_type'];
 
+    if (null==$is_debt || null==$is_mailing) {
+        LogErr("some word  is empty");
+        return errcode::PARAM_ALL_GET;
+    }
+
+    $collection_set->is_debt      = $is_debt;
+    $collection_set->is_mailing   = $is_mailing;
+    $collection_set->mailing_type = $mailing_type;
+
+    $mgo                                   = new \DaoMongodb\Shop;
+    $entry                                 = new \DaoMongodb\ShopEntry;
+    $entry->shop_id                        = $shop_id;
+    $entry->collection_set                 = $collection_set;
+    $ret = $mgo->Save($entry);
+    if (0 != $ret) {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+
+    $resp = (object)array();
+    LogInfo("save ok");
+    return 0;
+}
+//微信支付设置
+function SaveWeiXinPaySet(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_) {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $login_shop_id = \Cache\Login::GetShopId();
+    if (!$login_shop_id)
+    {
+        LogErr("shop_id err or maybe not login");
+        return errcode::USER_NOLOGIN;
+    }
+    $shop_id       = $_['shop_id'];
+    if($login_shop_id != $shop_id)
+    {
+        LogDebug($shop_id,$login_shop_id);
+        return errcode::SHOP_NOT_WEIXIN;
+    }
+    $mgo                                   = new \DaoMongodb\Shop;
+    $entry                                 = new \DaoMongodb\ShopEntry;
+    $pay_way    = (int)$_['pay_way'];
+    $code_img   = $_['code_img'];
+    $code_show  = $_['code_show'];
+    $sub_mch_id = $_['sub_mch_id'];
+    $api_key    = $_['api_key'];
+    $spc_sub    = $_['spc_sub'];
+    $tenpay_img = $_['tenpay_img'];
+
+    if($pay_way === \SetPayWay::USEOUR)
+    {
+        if(!$code_img || null==$code_show)
+        {
+            LogErr("some word  is empty");
+            return errcode::PARAM_ALL_GET;
+        }
+    }elseif($pay_way==\SetPayWay::USEOTHER){
+       if (null==$pay_way  || !$sub_mch_id || !$api_key || null==$spc_sub || !$tenpay_img)
+       {
+           LogErr("some word  is empty");
+           return errcode::PARAM_ALL_GET;
+       }
+   }else{
+        return errcode::PARAM_ERR;
+    }
+
+    $weixin_pay_set->code_img   = $code_img;
+    $weixin_pay_set->code_show  = $code_show;
+    $weixin_pay_set->pay_way    = $pay_way;
+    $weixin_pay_set->sub_mch_id = $sub_mch_id;
+    $weixin_pay_set->api_key    = $api_key;
+    $weixin_pay_set->tenpay_img = $tenpay_img;
+    $weixin_pay_set->spc_sub    = $spc_sub;
+
+    $entry->shop_id                        = $shop_id;
+    $entry->weixin_pay_set                 = $weixin_pay_set;
+    $ret = $mgo->Save($entry);
+    if (0 != $ret) {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+
+    $resp = (object)array();
+    LogInfo("save ok");
+    return 0;
+}
+//支付宝设置
+function SaveAlipaySet(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_) {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $login_shop_id = \Cache\Login::GetShopId();
+    if (!$login_shop_id)
+    {
+        LogErr("shop_id err or maybe not login");
+        return errcode::USER_NOLOGIN;
+    }
+    $shop_id       = $_['shop_id'];
+    if($login_shop_id != $shop_id)
+    {
+        LogDebug($shop_id,$login_shop_id);
+        return errcode::SHOP_NOT_WEIXIN;
+    }
+    $pay_way       = $_['pay_way'];
+    $code_img      = $_['code_img'];
+    $code_show     = $_['code_show'];
+    $alipay_app_id = $_['alipay_app_id'];
+    $public_key    = $_['public_key'];
+    $private_key   = $_['private_key'];
+    $safe_code     = $_['safe_code'];
+    $hz_identity   = $_['hz_identity'];
+    $alipay_num    = $_['alipay_num'];
+
+    if($pay_way == \SetPayWay::USEOUR)
+    {
+        if(null==$pay_way  || !$code_img || null==$code_show)
+        {
+            LogErr("some word  is empty");
+            return errcode::PARAM_ALL_GET;
+        }
+    }elseif($pay_way==\SetPayWay::USEOTHER){
+        if (null==$pay_way  || !$alipay_app_id || !$public_key || !$safe_code || !$private_key || !$private_key || !$hz_identity || !$alipay_num)
+        {
+            LogErr("some word  is empty");
+            return errcode::PARAM_ALL_GET;
+        }
+    }else{
+        return errcode::PARAM_ERR;
+    }
+
+    $alipay_set->pay_way       = $pay_way;
+    $alipay_set->code_img      = $code_img;
+    $alipay_set->code_show     = $code_show;
+    $alipay_set->alipay_app_id = $alipay_app_id;
+    $alipay_set->public_key    = $public_key;
+    $alipay_set->private_key   = $private_key;
+    $alipay_set->safe_code     = $safe_code;
+    $alipay_set->hz_identity   = $hz_identity;
+    $alipay_set->alipay_num    = $alipay_num;
+
+    $mgo                                   = new \DaoMongodb\Shop;
+    $entry                                 = new \DaoMongodb\ShopEntry;
+    $entry->shop_id                        = $shop_id;
+    $entry->alipay_set                     = $alipay_set;
+    $ret = $mgo->Save($entry);
+    if (0 != $ret) {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+
+    $resp = (object)array();
+    LogInfo("save ok");
+    return 0;
+}
 $ret = -1;
 $resp = (object)array();
 if(isset($_['shopinfo_save']))
@@ -408,6 +613,15 @@ else if(isset($_['opr_shop']))
 elseif(isset($_['save_shop_business']))
 {
     $ret = SaveShopBusiness($resp);
+}elseif(isset($_['save_collection_set']))
+{
+    $ret = SaveCollectionSet($resp);
+}elseif(isset($_['save_weixin_pay_set']))
+{
+    $ret = SaveWeiXinPaySet($resp);
+}elseif(isset($_['save_alipay_set']))
+{
+    $ret = SaveAlipaySet($resp);
 }
 else
 {

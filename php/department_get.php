@@ -39,7 +39,7 @@ function GetAllDepartment(&$resp)
         {
             $employee_list_all                  = [];
             $employee_list_all['employee_id']   = $all->employee_id;
-            $employee_list_all['employee_name'] = $all->real_name;
+            $employee_list_all['real_name'] = $all->real_name;
             array_push($all_employee, $employee_list_all);
         }
         $list['employee_list'] = $all_employee;
@@ -53,80 +53,72 @@ function GetAllDepartment(&$resp)
     LogInfo("--ok--");
     return 0;
 }
-
-//获取餐店所有标签
-function GetShopLabel(&$resp)
+function GetDepartmentInfo(&$resp)
 {
-    $_ = $GLOBALS['_'];
+    $_ = $GLOBALS["_"];
+    if(!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $department_id = $_['department_id'];
+    $shop_id       = \Cache\Login::GetShopId();
+    if (!$shop_id)
+    {
+        LogDebug($shop_id);
+        return errcode::USER_NOLOGIN;
+    }
+    $mgo             = new \DaoMongodb\Department;
+    $department_info = $mgo->QueryByDepartmentId($shop_id,$department_id);
+    LogDebug($department_info);
+    $department['department'] = $department_info->department_name;
+
+    $resp = (object)array(
+        'department_name' => $department['department']
+    );
+    // LogDebug($resp);
+    LogInfo("--ok--");
+    return 0;
+}
+function GetDepartmentEmployee(&$resp)
+{
+    $_ = $GLOBALS["_"];
     if (!$_)
     {
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $shop_id = \Cache\Login::GetShopId();
+    $department_id = $_['department_id'];
+    $shop_id       = \Cache\Login::GetShopId();
     if (!$shop_id)
     {
-        LogErr("shop_id err or maybe not login");
+        LogDebug($shop_id);
         return errcode::USER_NOLOGIN;
     }
+    $employee      = new \DaoMongodb\Employee;
+    $employee_list = $employee->GetDepartmentEmployee($shop_id,$department_id);
+    LogDebug($employee_list);
 
-    $mgo            = new \DaoMongodb\Shop;
-    $info           = $mgo->GetShopById($shop_id);
-    $name = $_['label_name'];
-    switch ($name)
-    {
-        case 'shop_label':
-            $shop_info = $info->shop_label;
-            break;
-        case 'shop_seat_region':
-            $shop_info = $info->shop_seat_region;
-            break;
-        case 'shop_seat_type':
-            $shop_info = $info->shop_seat_type;
-            break;
-        case 'shop_seat_shape':
-            $shop_info = $info->shop_seat_shape;
-            break;
-        case 'shop_composition':
-            $shop_info = $info->shop_composition;
-            break;
-        case 'shop_feature':
-            $shop_info = $info->shop_feature;
-            break;
-        case 'food_attach_list':
-            $shop_info = $info->food_attach_list;
-            break;
-        case 'food_unit_list':
-            $shop_info = $info->food_unit_list;
-            break;
-        case 'shop_food_attach':
-            $shop_info = $info->shop_food_attach;
-            break;
-        default:
-            return errcode::SHOP_LABEL_ERR;
-            break;
-    }
     $resp = (object)[
-        $name => $shop_info,
+        'employee_list' => $employee_list,
     ];
-
-    LogInfo("get ok");
+    LogDebug($resp);
+    LogInfo("--ok--");
     return 0;
 }
+
 $ret = -1;
 $resp = (object)array();
 if(isset($_["get_department_list"]))
 {
     $ret = GetAllDepartment($resp);
-}
-elseif(isset($_["shoplist"]))
+} elseif(isset($_["get_department_info"]))
 {
-    $ret = GetShopList($resp);
-}elseif(isset($_["get_shopinfo_base"]))
+    $ret = GetDepartmentInfo($resp);
+} elseif(isset($_["get_department_employee"]))
 {
-    $ret = GetShopBaseInfo($resp);
+    $ret = GetDepartmentEmployee($resp);
 }
-
 $html = json_encode((object)array(
     'ret'   => $ret,
     'data'  => $resp

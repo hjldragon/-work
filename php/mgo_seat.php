@@ -80,7 +80,7 @@ class Seat
         $set = array(
             "seat_id"     => (string)$info->seat_id,
             "lastmodtime" => time(),
-            "delete"      => 0,
+            'delete'  => ['$ne'=>1],
         );
 
         if (null !== $info->shop_id) {
@@ -143,7 +143,7 @@ class Seat
         ];
         $value = array(
             '$set' => array(
-                "delete" => 1,
+                'delete'  => ['$ne'=>1],
                 "lastmodtime" => time()
             )
         );
@@ -164,6 +164,22 @@ class Seat
 
         $cond = [
             'seat_id' => (string)$seat_id,
+        ];
+
+        $cursor = $table->findOne($cond);
+
+        return new SeatEntry($cursor);
+    }
+
+    public function GetSeatByName($shop_id,$seat_name)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = [
+            'seat_name' => (string)$seat_name,
+            'shop_id'   => (string)$shop_id,
+            'delete'    => ['$ne' => 1],
         ];
 
         $cursor = $table->findOne($cond);

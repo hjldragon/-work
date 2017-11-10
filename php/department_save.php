@@ -53,7 +53,6 @@ function SaveDepartment(&$resp)
     LogInfo("save ok");
     return 0;
 }
-
 //删除部门信息
 function DeleteDepartment(&$resp)
 {

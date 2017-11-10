@@ -26,7 +26,7 @@ function SavePrinter(&$resp)
 
     $printer_id            = $_['printer_id'];
     $printer_name          = $_['printer_name'];
-    $printer_category      = $_['printer_category'];
+    $printer_category      = json_decode($_['printer_category']);
     $printer_size          = $_['printer_size'];
     $printer_brand         = $_['printer_brand'];
     $printer_note          = $_['printer_note'];
@@ -36,11 +36,14 @@ function SavePrinter(&$resp)
     $print_position_height = $_['print_position_height'];
     $food_category_list    = json_decode($_['food_category_list']);
     LogDebug($food_category_list);
-
+    if(!$printer_id || !$printer_name || !$printer_category || !$printer_size){
+        LogErr("param err");
+        return errcode::PARAM_ALL_GET;
+    }
     $shop_id = \Cache\Login::GetShopId();//获取店铺ID
 
     $mongodb = new \DaoMongodb\Printer;
-    $entry = new \DaoMongodb\PrinterEntry;
+    $entry   = new \DaoMongodb\PrinterEntry;
 
     $entry->printer_id            = $printer_id;
     $entry->printer_name          = $printer_name;
@@ -120,11 +123,11 @@ function DeletePrinter(&$resp)
 
 $ret = -1;
 $resp = (object)array();
-if(isset($_['save']))
+if(isset($_['save_printer']))
 {
     $ret = SavePrinter($resp);
 }
-if(isset($_['del']))
+if(isset($_['del_printer']))
 {
     $ret = DeletePrinter($resp);
 }

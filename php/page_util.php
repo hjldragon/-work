@@ -321,6 +321,17 @@ static function GetFoodQrcodeImg($shop_id, $food_id)
     return $food_qrcode_img;
 }
 
+static function GetLoginQrcodeImg($token)
+{
+    $login_qrcode_contect = Cfg::instance()->GetLoginQrcodeContect($token);
+    QRcode::png($login_qrcode_contect, $login_qrcode_img,
+        'L',        // 容错级别
+        20,         // 生成图片大小
+        1);         // 边框
+    
+    return $login_qrcode_img;
+}
+
 // 查检订单是否可修改
 static function OrderCanModify($order_id)
 {

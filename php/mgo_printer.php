@@ -12,10 +12,10 @@ class PrinterEntry
 {
     public $printer_id            = null;     // 打印机id
     public $printer_name          = null;     // 打印机名
-    public $printer_category      = null;     // 打印机类别（见const.php::PrinterCategory）
-    public $printer_size          = null;     // 打印机规格（见const.php::PrinterCategory）
-    public $printer_brand         = null;     // 打印机品牌
-    public $food_category_list    = null;     // 当printer_category为只打印指定菜类别时，指定的菜类别
+    public $printer_category      = null;     // 支持单据类型  1:'点菜单（后厨）'2:'作废单（后厨）'3:'点菜单（消费者）'4:'结账单'5:'预结账单'
+    public $printer_size          = null;     // 打印机规格
+    public $printer_brand         = null;     // 打印机型号
+    public $food_category_list    = null;     // 指定的菜类别
     public $shop_id               = null;     // 餐馆id
     public $lastmodtime           = null;     // 数据最后修改时间
     public $delete                = null;     // 0:正常, 1:已删除
@@ -156,10 +156,10 @@ class Printer
             $ret = $table->update($cond, $value, ['safe'=>true, 'upsert'=>true]);
             LogDebug("ret:" . json_encode($ret));
         }
-        catch(MongoCursorException $e)
+        catch(\MongoCursorException $e)
         {
             LogErr($e->getMessage());
-            return errcode::DB_OPR_ERR;
+            return \errcode::DB_OPR_ERR;
         }
         return 0;
     }

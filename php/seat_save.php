@@ -57,7 +57,6 @@ function SaveSeatInfo(&$resp)
     LogInfo("save ok");
     return 0;
 }
-
 //删除餐桌号可以多选
 function DeleteSeatInfo(&$resp)
 {

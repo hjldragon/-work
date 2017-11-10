@@ -129,7 +129,8 @@ eof;
         // 点餐页面地址
         $this->ordering_url = "http://of.jzzwlcm.com/menu.php";
         $this->menu_url = "http://www.of.com:8080/index.php";
-        $this->food_url = '';
+        $this->food_url = 'http://www.ob.com:8080';
+        $this->login_url = 'http://wx.jzzwlcm.com/wx_login_tmp.php';
         // LogInfo("cfg:" . json_encode($this));
         return 0;
     }
@@ -193,12 +194,20 @@ eof;
         // /data/ordering/shoper/3/img/seat_qrcode_img/
     }
 
-     // 取餐品二维码内容
+    // 取餐品二维码内容
     public function GetFoodQrcodeContect($food_id)
     {   
         //'http://www.of.com:8080/index.php?seat=199'
         //return "{$this->ordering_url}?food={$food_id}";
         return "{$this->food_url}?food={$food_id}";
+    }
+
+    // 取登录二维码内容
+    public function GetLoginQrcodeContect($token)
+    {   
+        //'http://www.of.com:8080/index.php?seat=199'
+        //return "{$this->ordering_url}?food={$food_id}";
+        return "{$this->login_url}?token={$token}";
     }
 
     public function GetTmpPath($filename)
@@ -275,7 +284,7 @@ eof;
         }
     }
     //阿里大于手机验证码发送配置
-    function SendCheckCode($code, $phone)
+    public function SendCheckCode($code, $phone)
     {
         $c            = new TopClient;
         $c->appkey    = "24493589";//这里是我的应用key
@@ -310,6 +319,88 @@ eof;
             return -1;
         }
     }
+    //发送手机验证码
+    public function GetCoke($token,$phone,$page_code){
+
+        $db         = new \DaoRedis\Login;
+        $redis      = $db->Get($token);
+        $radis_code = $redis->page_code;
+        //验证验证码
+        if ($radis_code != $page_code)
+        {
+            LogErr("coke err");
+            return errcode::COKE_ERR;
+        }
+
+        if (!preg_match('/^1([0-9]{9})/', $phone))
+        {
+            LogErr("phone err");
+            return errcode::PHONE_ERR;
+        }
+        $mgo       = new \DaoMongodb\User;
+        $info      = $mgo->QueryByPhone($phone);
+        if ($info->phone)
+        {
+            LogErr("phone is exist");
+            return errcode::PHONE_IS_EXIST;
+        }
+        $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
+        //$code = mt_rand(100000, 999999);
+//    $clapi  = new ChuanglanSmsApi();
+//    $msg    = '【赛领新吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
+//    $result = $clapi->sendSMS($phone, $msg);
+//    LogDebug($result);
+//    if (!is_null(json_decode($result)))
+//    {
+//        $output = json_decode($result, true);
+//        if (isset($output['code']) && $output['code'] == '0')
+//        {
+//            LogDebug('短信发送成功！');
+//        } else {
+//            return $output['errorMsg'] . errcode::PHONE_SEND_FAIL;
+//        }
+//    }
+    LogDebug($code);
+        $redis            = new \DaoRedis\Login();
+        $data             = new \DaoRedis\LoginEntry();
+        $data->phone      = $phone;
+        $data->token      = $token;
+        $data->phone_code = $code;
+        $data->code_time  = time() + 5 * 60 * 1000;
+        LogDebug($data);
+        $redis->Save($data);
+
+        return 0;
+    }
+    //验证手机验证码
+    public function VerifyPhoneCode($token,$phone,$phone_code){
+        if (!preg_match('/^1([0-9]{9})/', $phone))
+        {
+            LogErr("phone err");
+            return errcode::PHONE_ERR;
+        }
+
+        $redis      = new \DaoRedis\Login();
+        $data       = $redis->Get($token);//获取手机号上面的验证码
+        if ($phone_code != $data->phone_code)
+        {
+            LogErr("phone_code is err");
+            return errcode::PHONE_COKE_ERR;
+        }
+        if (time() > $data->code_time)
+        {
+            LogErr("phone_code is lapse");
+            return errcode::PHONE_CODE_LAPSE;
+        }
+        if ($phone != $data->phone)
+        {
+            LogErr("phone is not true");
+            return errcode::PHONE_ERR;
+        }
+        return 0;
+    }
+
+
 };
 
 ?>
