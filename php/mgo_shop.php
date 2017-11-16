@@ -371,8 +371,8 @@ class MailVail
 
 class CollectionSet
 {
-    public $is_debt                 = null;    // 是否挂账（0:是,1:否）
-    public $is_mailing              = null;    // 是否支持抹零（0:是,1:否）
+    public $is_debt                 = null;    // 是否挂账（1:是,0:否）
+    public $is_mailing              = null;    // 是否支持抹零（1:是,0:否）
     public $mailing_type            = null;    // 抹零方式(1:抹除分,2:取整数元）
 
 
@@ -399,10 +399,10 @@ class WeixinPaySet
 {
     public $pay_way                 = null;    // 收款方式（1:微信个人收款码,2:微信支付）
     public $code_img                = null;    // 个人付款码图片
-    public $code_show               = null;    // 付款码展示（0:展示,1:不展示)
+    public $code_show               = null;    // 付款码展示（1:展示,0:不展示)
     public $sub_mch_id              = null;    // 微信支付商户号
     public $api_key                 = null;    // 微信密钥
-    public $spc_sub                 = null;    // 特约商户（0:是,1:不是)
+    public $spc_sub                 = null;    // 特约商户（1:是,0:不是)
     public $tenpay_img              = null;    // 财付通商户证书
 
     function __construct($cursor = null)
@@ -432,7 +432,7 @@ class AlipaySet
 {
     public $pay_way                = null;    // 收款方式（1:支付宝个人收款码,2:支付宝当面支付）
     public $code_img               = null;    // 个人付款码图片
-    public $code_show              = null;    // 付款码展示（0:展示,1:不展示)
+    public $code_show              = null;    // 付款码展示（1:展示,0:不展示)
     public $alipay_app_id          = null;    // 支付宝AppID
     public $public_key             = null;    // RSA私钥
     public $private_key            = null;    // 支付宝公钥
@@ -781,44 +781,77 @@ class Shop
             ]);
         }
         if (null !== $info->weixin_pay_set){
-            if (\SetPayWay::USEOUR == $info->weixin_pay_set->pay_way)
-            {
-                $p                     = new WeixinPaySet();
-                $p->pay_way            = (int)$info->weixin_pay_set->pay_way;
-                $p->code_show          = (int)$info->weixin_pay_set->code_show;
-                $p->code_img           = (string)$info->weixin_pay_set->code_img;
-                $set["weixin_pay_set"] = $p;
-            } elseif (\SetPayWay::USEOTHER == $info->weixin_pay_set->pay_way)
-            {
-                $p                     = new WeixinPaySet();
-                $p->pay_way            = (int)$info->weixin_pay_set->pay_way;
-                $p->sub_mch_id         = (string)$info->weixin_pay_set->sub_mch_id;
-                $p->api_key            = (string)$info->weixin_pay_set->api_key;
-                $p->spc_sub            = (int)$info->weixin_pay_set->spc_sub;
-                $p->tenpay_img         = (string)$info->weixin_pay_set->tenpay_img;
-                $set["weixin_pay_set"] = $p;
+            if (null !== $info->weixin_pay_set->pay_way) {
+                $set["weixin_pay_set.pay_way"] = (int)$info->weixin_pay_set->pay_way;
             }
+            if (null !== $info->weixin_pay_set->code_show) {
+                $set["weixin_pay_set.code_show"] = (int)$info->weixin_pay_set->code_show;
+            }
+            if (null !== $info->weixin_pay_set->code_img) {
+                $set["weixin_pay_set.code_img"] = (string)$info->weixin_pay_set->code_img;
+            }
+            if (null !== $info->weixin_pay_set->sub_mch_id) {
+                $set["weixin_pay_set.sub_mch_id"] = (string)$info->weixin_pay_set->sub_mch_id;
+            }
+            if (null !== $info->weixin_pay_set->api_key) {
+                $set["weixin_pay_set.api_key"] = (string)$info->weixin_pay_set->api_key;
+            }
+            if (null !== $info->weixin_pay_set->spc_sub) {
+                $set["weixin_pay_set.spc_sub"] = (int)$info->weixin_pay_set->spc_sub;
+            }
+            if (null !== $info->weixin_pay_set->tenpay_img) {
+                $set["weixin_pay_set.tenpay_img"] = (string)$info->weixin_pay_set->tenpay_img;
+            }
+//                $p                     = new WeixinPaySet();
+//                $p->pay_way            = (int)$info->weixin_pay_set->pay_way;
+//                $p->code_show          = (int)$info->weixin_pay_set->code_show;
+//                $p->code_img           = (string)$info->weixin_pay_set->code_img;
+//                $p->sub_mch_id         = (string)$info->weixin_pay_set->sub_mch_id;
+//                $p->api_key            = (string)$info->weixin_pay_set->api_key;
+//                $p->spc_sub            = (int)$info->weixin_pay_set->spc_sub;
+//                $p->tenpay_img         = (string)$info->weixin_pay_set->tenpay_img;
+//                $set["weixin_pay_set"] = $p;
         }
         if (null !== $info->alipay_set){
-            if (\SetPayWay::USEOUR == $info->alipay_set->pay_way)
-            {
-                $p                     = new AlipaySet();
-                $p->pay_way            = (int)$info->alipay_set->pay_way;
-                $p->code_show          = (int)$info->alipay_set->code_show;
-                $p->code_img           = (string)$info->alipay_set->code_img;
-                $set["alipay_set"] = $p;
-            } elseif (\SetPayWay::USEOTHER == $info->alipay_set->pay_way)
-            {
-                $p                     = new AlipaySet();
-                $p->pay_way            = (int)$info->alipay_set->pay_way;
-                $p->alipay_app_id      = (string)$info->alipay_set->alipay_app_id;
-                $p->public_key         = (string)$info->alipay_set->public_key;
-                $p->private_key        = (string)$info->alipay_set->private_key;
-                $p->safe_code          = (string)$info->alipay_set->safe_code;
-                $p->hz_identity        = (string)$info->alipay_set->hz_identity;
-                $p->alipay_num         = (string)$info->alipay_set->alipay_num;
-                $set["alipay_set"] = $p;
+            if (null !== $info->alipay_set->pay_way) {
+                $set["alipay_set.pay_way"] = (int)$info->alipay_set->pay_way;
             }
+            if (null !== $info->alipay_set->code_show) {
+                $set["alipay_set.code_show"] = (int)$info->alipay_set->code_show;
+            }
+            if (null !== $info->alipay_set->code_img) {
+                $set["alipay_set.code_img"] = (string)$info->alipay_set->code_img;
+            }
+            if (null !== $info->alipay_set->alipay_app_id) {
+                $set["alipay_set.alipay_app_id"] = (string)$info->alipay_set->alipay_app_id;
+            }
+            if (null !== $info->alipay_set->public_key) {
+                $set["alipay_set.public_key"] = (string)$info->alipay_set->public_key;
+            }
+            if (null !== $info->alipay_set->private_key) {
+                $set["alipay_set.private_key"] = (string)$info->alipay_set->private_key;
+            }
+            if (null !== $info->alipay_set->safe_code) {
+                $set["alipay_set.safe_code"] = (string)$info->alipay_set->safe_code;
+            }
+            if (null !== $info->alipay_set->hz_identity) {
+                $set["alipay_set.hz_identity"] = (string)$info->alipay_set->hz_identity;
+            }
+            if (null !== $info->alipay_set->alipay_num) {
+                $set["alipay_set.alipay_num"] = (string)$info->alipay_set->alipay_num;
+            }
+//                $p                     = new AlipaySet();
+//                $p->pay_way            = (int)$info->alipay_set->pay_way;
+//                $p->code_show          = (int)$info->alipay_set->code_show;
+//                $p->code_img           = (string)$info->alipay_set->code_img;
+//                $p->alipay_app_id      = (string)$info->alipay_set->alipay_app_id;
+//                $p->public_key         = (string)$info->alipay_set->public_key;
+//                $p->private_key        = (string)$info->alipay_set->private_key;
+//                $p->safe_code          = (string)$info->alipay_set->safe_code;
+//                $p->hz_identity        = (string)$info->alipay_set->hz_identity;
+//                $p->alipay_num         = (string)$info->alipay_set->alipay_num;
+//                $set["alipay_set"] = $p;
+
         }
         if (null !== $info->weixin_seting){
             $set["weixin_seting"] = $info->weixin_seting;
@@ -830,7 +863,7 @@ class Shop
         $value = array(
             '$set' => $set
         );
-
+        LogDebug($set['weixin_pay_set']);
         try {
             $ret = $table->update($cond, $value, ['upsert' => true]);
             LogDebug("ret:" . json_encode($ret));

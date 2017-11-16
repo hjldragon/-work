@@ -77,6 +77,7 @@ class Permission {
         }
 
         $loginuser = \Cache\Login::UserInfo();
+
         if(!$loginuser)
         {
             LogErr("user no login");
@@ -84,6 +85,7 @@ class Permission {
         }
 
         // 是否系统管理员
+
         if(($permission_bit & Permission::CHK_ADMIN)
             && (!Cfg::instance()->IsAdmin($loginuser->username)
                 || !UserProperty::IsAdmin($loginuser->property)))
@@ -163,6 +165,69 @@ class Permission {
 
         // 有权限
         LogDebug("permission ok");
+        return 0;
+    }
+    public static function CheckIsPermission($employee)
+    {
+
+        // 登录检查
+        // 是否已登录
+        if(!PageUtil::LoginCheck())
+        {
+            LogErr("user no login");
+            return errcode::USER_NOLOGIN;
+        }
+        $loginuser = \Cache\Login::UserInfo();
+
+        if(!$loginuser)
+        {
+            LogErr("user no login");
+            return errcode::USER_NOLOGIN;
+        }
+        if(!$employee)
+        {
+            LogErr("no employeeinfo:[$employee->userid]");
+            return errcode::USER_NOLOGIN;
+        }
+
+        //获取权限信息
+        $positioninfo = \Cache\Position::Get($employee->shop_id,$employee->position_id);
+
+        // 是否为超级管理员
+        $permission = PageUtil::IsLoginEmployeePermission($employee->shop_id);
+        // 检查权限是否只够
+        if($permission != 1 && !Position::IsAdmin($positioninfo->position_permission))
+        {
+            LogErr("no permission: CHK_SHOP_ADMIN");
+            return errcode::USER_PERMISSION_ERR;
+        }
+        // 有权限
+        LogDebug("permission ok");
+        return 0;
+    }
+    //检测用户是否且有相应权限
+    public static function UserPermissionCheck($employee)
+    {
+        $ret = Permission::CheckIsPermission($employee);
+        if(0 != $ret)
+        {
+            echo json_encode((object)array('ret'=> $ret));
+            LogErr("permission err, username:" . \Cache\Login::GetUsername());
+            exit(0);
+        }
+    }
+    //店铺操作权限
+    public static function ShopCheck($chk)
+    {
+        if($chk->is_admin != 1 && $chk->position_id)
+        {
+            return errcode::USER_NO_EXIST;
+        }
+        // 是否系统管理员
+        if(($chk & Permission::CHK_ADMIN) && !Cfg::instance()->IsAdmin(\Cache\Login::GetUsername()))
+        {
+            return errcode::USER_PERMISSION_ERR;
+        }
         return 0;
     }
 }// end of class Permission {...

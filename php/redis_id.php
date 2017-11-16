@@ -107,6 +107,14 @@ class Id
     {
         return (string)self::GenId("reservation");
     }
+    static public function GenNewsId()
+    {
+        return (string)self::GenId("news");
+    }
+    static public function GenNewsReadyId()
+    {
+        return (string)self::GenId("newsready");
+    }
 
 }
 

@@ -2,8 +2,8 @@
 === 登录 ===
 url = login_save.php
 req ={
-    login : 1,
-    phone :"admin",      //登录账号
+    login : 1,               //参数
+    phone :"13888881234",    //登录账号（账号或手机号）
     password_md5 : "admin", // 登录密码
     page_code : "1234"      // 页面验证码
 }
@@ -938,11 +938,11 @@ resp = {
 === 收银设置 ===
 url = shopinfo_save.php
 req = {
-    save_collection_set: 1,                     //参数
+    save_collection_set: 1,                    //参数
     shop_id: "4",,                             //(string)店铺id,因为现在是选择店铺所以要传店铺id过来
-    is_debt: 0,,                               //(int)是否挂账（0:是,1:否）
-    is_mailing: 0,                             //(int)是否支持抹零（0:是,1:否）
-    mailing_type: 2                           //(int)抹零方式(1:抹除分,2:取整数元）
+    is_debt: 1,                                //(int)是否挂账（1:是,0:否）
+    is_mailing: 1,                             //(int)是否支持抹零（1:是,0:否）
+    mailing_type: 2                            //(int)抹零方式(1:抹除分,2:取整数元）
 
 }
 resp = {
@@ -951,19 +951,14 @@ resp = {
      }
 }
 === 支付宝支付设置 ===
-url = shopinfo_save.php
+url = shopinfo_get.php
 req = {
        save_alipay_set: 1,                                 //参数
-       pay_way: 2,                                         // (int)收款方式（1:微信个人收款码,2:微信支付）
+       pay_way: 1,                                         // (int)收款方式（1:微信个人收款码,2:微信支付）
        shop_id: "4",                                       //(string)店铺id,因为现在是选择店铺所以要传店铺id过来
        code_img: "610a0b14f5c74256a028ed6c2a2596a2.jpg",   // (string)个人付款码图片          //这个字段属于收款方式中的pay_way=1
        code_show: 0,                                       // (int)付款码展示（0:展示,1:不展示)//这个字段属于收款方式中的pay_way=1
-       alipay_app_id :"KjG0Cabol32JW",                     // (string)支付宝AppID           //这个字段属于收款方式中的pay_way=2
-       public_key: "12345678901",                          // (string)RSA私钥               //这个字段属于收款方式中的pay_way=2
-       private_key: "D831hbfa7FJr108dB78103BGa71",         // (string)支付宝公钥             //这个字段属于收款方式中的pay_way=2
-       safe_code: "b7774405bb69f4ab056b"                   // (string)安全校验码             //这个字段属于收款方式中的pay_way=2
-       hz_identity: "b7774405bb69f4ab056b"                 // (string)合作者身份             //这个字段属于收款方式中的pay_way=2
-       alipay_num: "b7774405bb69f4ab056b"                  // (string)支付宝账号             //这个字段属于收款方式中的pay_way=2
+
 
 }
 resp = {
@@ -972,16 +967,13 @@ resp = {
      }
 }
 === 微信支付设置 ===
-url = shopinfo_save.php
+url = shopinfo_get.php
 req = {
        save_weixin_pay_set: 1,                             //参数
        pay_way: 2,                                         // (int)收款方式（1:微信个人收款码,2:微信支付）
        shop_id: "4",                                       //(string)店铺id,因为现在是选择店铺所以要传店铺id过来
        code_img: "610a0b14f5c74256a028ed6c2a2596a2.jpg",   // (string)个人付款码图片          //这个字段属于收款方式中的pay_way=1
        code_show: 0,                                       // (int)付款码展示（0:展示,1:不展示)//这个字段属于收款方式中的pay_way=1
-       spc_sub: 0,                                         // (int)特约商户（0:是,1:不是)     //这个字段属于收款方式中的pay_way=2
-       sub_mch_id: "12345678901",                          // (string)微信支付商户号          //这个字段属于收款方式中的pay_way=2
-       api_key: "D831hbfa7FJr108dB78103BGa71",             // (string)微信密钥               //这个字段属于收款方式中的pay_way=2
        tenpay_img: "b7774405bb69f4ab056ba60c54cf8461.jpg"  // (string)财付通商户证书          //这个字段属于收款方式中的pay_way=2
 
 }
@@ -990,7 +982,7 @@ resp = {
     data:{
      }
 }
-=== 获取所有支付设置列表 ===
+=== 获取收银设置 ===
 url = shopinfo_get.php
 req = {
     get_shop_pay_set:1,      //参数
@@ -1004,21 +996,60 @@ resp = {
               "is_mailing": 0,
               "mailing_type": 2
           },
-     "collection_set": {
-              "is_debt": 0,
-              "is_mailing": 0,
-              "mailing_type": 0
-          },
-          "weixin_seting": 1,      // 微信支付是否设置(0:不启用,1启用)
-          "alipay_seting": 1           // 支付宝支付是否设置(0:不启用,1启用)
     }
+}
+=== 获取微信收银设置 ===
+url = shopinfo_save.php
+req = {
+    select_weixin_set:1,      //参数
+    shop_id: "4",           //(string)店铺id,因为现在是选择店铺所以要传店铺id过来
+    pay_way:1               //1是获取个人码信息,2是获取微信端信息
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {
+          "weixin_seting": 1,  //是否启用微信端设置 1设置,0未设置   未设置下面的空数组
+          "weixin_pay_set": [
+              {
+                  "pay_way": 2,    //使用方法（1使用个人码,2使用微信端）
+                  "spc_sub": 0,    // 特约商户（1:是,0:不是)
+                  "sub_mch_id": "12345678901", //微信支付商户号
+                  "api_key": "D831hbfa7FJr108dB78103BGa71",   //微信密钥
+                  "tenpay_img": "434b5ef863672366b44732cf8fb3e273.jpg" //财付通商户证书
+              }
+          ]
+      }
+}
+=== 获取支付宝收银设置 ===
+url = shopinfo_save.php
+req = {
+    select_alipay_set:1,      //参数
+    shop_id: "4",           //(string)店铺id,因为现在是选择店铺所以要传店铺id过来
+    pay_way:1               //1是获取个人码信息,2是获取微信端信息
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {
+            "alipay_seting": 1,   //是否启用微信端设置 1设置,0未设置   未设置下面的空数组
+             "alipay": [
+                    {
+                    "pay_way": 2,    //使用方法（1使用个人码,2使用支付宝端）
+                    "alipay_app_id": "abchadho1232198jcna", //支付宝AppID
+                    "public_key": "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBANYs5EYJ6KwEhUtz",   //RSA私钥
+                    "private_key": "6YZZLDWdFGP4KcFFnh1aVpsxuwidRYNf9B1Y86tCfpwIDAQAB",//支付宝公钥
+                    "safe_code": "abchadho1232198jcna",   //安全校验码
+                    "hz_identity": "abchadho1232198jcna",//合作者身份
+                     "alipay_num": "rick@morty.com"      //支付宝账号
+                    }
+                ]
+      }
 }
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<餐桌>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 === 拉取餐桌列表 ===
 url = seat_get.php
 req = {
     get_seat_list : 1,
-    userid : "1"   //通过登录获取的
+    //userid : "1"   //通过登录获取的
 }
 resp = {
     ret : 0,     // 0:正常，非0出错（见cfg.js定义）
@@ -1629,15 +1660,12 @@ url = user_info.php
 req ={
     setting_user: 1,                                             //参数
     phone: "1345678989",                                         //手机号,登录账号（必填）
-    sex: 1,                                                      //值为1时是男性，值为2时是女性（必填）
+    sex: 1,                                                      //值为1时是男性，值为2时是女性（选填）
     phone_code:"654321"                                          //手机验证码（必填）//所以发送手机验证都连接->手机发送验证码接口(P1053)
     token: "T16yRk5WVrNtlRE5",                                   //token值（必填）
-    identity: "5130231699743131",                                //身份证号码（选填）
-    real_name:"不太好"                                             //用户真实姓名（必填）
+    real_name:"不太好"                                            //用户真实姓名（必填）
     passwd:"123456"                                              //密码（必填）
     passwd_again:"123456"                                        //再次输入密码（必填）
-    health_certificate: "afca2469a69090f9016406b62c0db7cf.jpg"   //健康证（选填）
-    is_weixin:1                                                  //是否绑定微信 1:绑定,0未绑定（选填）
 }
 resp ={
     "ret": 0,
@@ -1650,14 +1678,46 @@ url = user_info.php
 req ={
     edit_user_info: 1,                                           //参数
     //userid:11,                                                 //用户登录获取（用户个人信息获取是登录时就获取了在登录接口（p1））
-    username: "不太好",                                           //用户姓名
+    real_name: "不太好",                                           //用户姓名
     health_certificate: "afca2469a69090f9016406b62c0db7cf.jpg"   //健康证
     identity: "5130231991112001x",                               //身份证号码
-    sex: 1                                                       //性别值为1时是男性，值为2时是女性
+    is_weixin: 1,                                                //是否绑定微信 1绑定,0未绑定
+    sex: 1                                                       //性别值为1时是男性，值为2时是女性,0不确定
 }
 resp ={
     "ret": 0,
     "data": {
+}
+=== 获取用户编辑个人中心 ===
+url = user_info.php
+req ={
+    get_user_info: 1   //参数
+}
+resp ={
+    "ret": 0,
+    "data": {
+            "userinfo": {
+                "userid": 1,
+                "username": "admin",
+                "password": "123456",
+                "question": null,
+                "answer": null,
+                "passwd_prompt": ".....[@]1",
+                "ctime": 1494757164,
+                "mtime": 1510816773,
+                "delete": 0,
+                "phone": "13888888888",
+                "identity": null,
+                "usernick": "老大哥哥",
+                "user_avater": "610a0b14f5c74256a028ed6c2a2596a2.jpg",
+                "birthday": null,
+                "sex": null,
+                "email": "18720114512@163.com",
+                "is_weixin": 1,
+                "health_certificate": null,
+                "real_name": null
+            }
+
 }
 === 用户忘记密码 ===
 url = user_info.php
@@ -1709,7 +1769,7 @@ req ={
     freeze_employee: 1,                                           //参数
     employee_id:11,                                               //员工id
     //shop_id: "4",                                              //用户登陆获取
-    type:1                                                       //冻结状态0:正常, 1:冻结
+    is_freeze:1                                                  //冻结状态0:正常, 1:冻结
 }
 resp ={
     "ret": 0,
@@ -1783,8 +1843,8 @@ req = {
     userid:11                  //(string)用户ID
     phone:13544442221          //(string)手机号码
     department_id:12           //(string)部门id
-    duty_id:"1"                //(string)职位id
-    real_name:"你好"             //(string)用户姓名
+    position_id:"1"            //(string)职位id
+    real_name:"你好"            //(string)用户姓名
 }
 resp = {
     ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
@@ -1794,10 +1854,10 @@ resp = {
 === 员工编辑 ===
 url = employee_save.php
 req = {
-    shop_employee_save:1        //参数
+    save_employee_info:1        //参数
     employee_id:"44"            //(string)员工id
     department_id:"12"          //(string)部门id
-    duty_id:"1"                //(string)职位id
+    position_id:"1"             //(string)职位id
 }
 resp = {
     ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
@@ -2168,6 +2228,7 @@ resp = {
                        "delete": 0,
                        "entry_type":1     // 创建类型(1:系统录入，2:手动录入)
                        "lastmodtime": 1509963165
+                       "is_edit": 1,      //0:不编辑, 1:可编辑
                    },
             {               //职位信息
                                "position_id": "32",
@@ -2347,5 +2408,110 @@ req = {
 resp = {
     ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
     data:{
+     }
+}
+
+ <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<消息 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+=== 消息创建/编辑 ===
+url = news_save.php
+req = {
+    news_save:1,               //参数
+    news_id:"32",              //(string)消息id(修改时传)
+    title:"标题",              //(string)消息标题
+    content:"内容",            //(string)消息内容
+    is_draft: 0,               //是否草稿（0:不是, 1:是）
+    send_time:12323435         //发送时间(立即发送不用传)
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+     }
+}
+
+=== 批量删除消息 ===
+url = news_save.php
+req = {
+    del_news:1,                        //参数
+    news_id_list:["11","32"]           //(string)消息id
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+     }
+}
+
+=== 消息详情 ===
+url = news_get.php
+req = {
+    news_info:1,                       //参数
+    news_id:"32",                      //(string)消息id
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+     }
+}
+
+=== 系统消息列表 ===
+url = news_get.php
+req = {
+    sysnews_list:1                //参数
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+     }
+}
+
+=== 系统消息标记已读 ===
+url = news_save.php
+req = {
+    ready_news:1,               //参数
+    id_list:['11','66']         //id
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+     }
+}
+
+=== 批量删除系统消息 ===
+url = news_save.php
+req = {
+    del_sysnews:1,                //参数
+    id_list:["11","32"]           //(string)消息id
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+     }
+}
+
+=== 消息中心列表 ===
+url = news_get.php
+req = {
+    news_list:1,                 //参数
+    is_send:0                    //搜索条件 是否已发送（0:未发, 1:已发送）
+    is_draft: 1                  //草稿箱时传
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+        "list": [
+            {
+                "news_id": "7",
+                "shop_id": "3",
+                "title": "打折",
+                "content": "爆炸新闻",
+                "is_draft": 0,
+                "delete": 0,
+                "lastmodtime": 1510713189,
+                "send_time": 1510714200,
+                "is_send": 0,
+                "ctime": null,
+                "is_system": 1,
+                "send_username": "新吃货官方"
+            }
+        ]
      }
 }

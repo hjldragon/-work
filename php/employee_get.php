@@ -87,15 +87,21 @@ function GetEmployeeOneInfo(&$resp)
     $userid                           = $employee->userid;
     $employee_info                    = [];
     $employee_info['department_id']   = $employee->department_id;
+    $department                       = new \DaoMongodb\Department;
+    $department_info                  = $department->QueryByDepartmentId($shop_id, $employee->department_id);
+    $employee_info['department_name'] = $department_info->department_name;
     $employee_info['employee_id']     = $employee->employee_id;
     $employee_info['position_id']     = $employee->position_id;
+    $position                         = new \DaoMongodb\Position;
+    $position_info                    = $position->GetPositionById($shop_id, $employee->position_id);
+    $employee_info['position_name']   = $position_info->position_name;
+
     $user                             = new \DaoMongodb\User;
     LogDebug($userid);
     $userinfo                         = $user->QueryById($userid);
     $user_info                        = [];
     $user_info['real_name']           = $userinfo->real_name;
     $user_info['identity']            = $userinfo->identity;
-    $user_info['sex']                 = $userinfo->sex;
     $user_info['health_certificate']  = $userinfo->health_certificate;
     $user_info['is_weixin']           = $userinfo->is_weixin;
     $user_info['phone']               = $userinfo->phone;
@@ -133,8 +139,11 @@ function GetEmployeeAllList(&$resp)
         $department_info    = $department->QueryByDepartmentId($shop_id, $v->department_id);
         $position           = new \DaoMongodb\Position;
         $position_info      = $position->GetPositionById($shop_id, $v->position_id);
+        $userinfo           = new \DaoMongodb\User;
+        $user_info          = $userinfo->QueryById($v->userid);
         $v->position_name   = $position_info->position_name;
         $v->department_name = $department_info->department_name;
+        $v->is_weixin       = $user_info->is_weixin;
 
     }
     $resp = (object)[

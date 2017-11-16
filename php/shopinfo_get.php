@@ -252,7 +252,7 @@ function GetShopLabel(&$resp)
     LogInfo("get ok");
     return 0;
 }
-//获取店铺收银,微信,支付宝设置信息
+//获取店铺收银设置信息
 function GetShopPaySet(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -267,21 +267,139 @@ function GetShopPaySet(&$resp)
         LogErr("shop_id err or maybe not login");
         return errcode::SEAT_NOT_EXIST;
     }
-    $mgo                       = new \DaoMongodb\Shop;
-    $info                      = $mgo->GetShopById($shop_id);
-    $shopinfo1 = $info->collection_set;
-//    $shopinfo2 = $info->weixin_pay_set;
-//    $shopinfo3 = $info->alipay_set;
-    $shopinfo2 = $info->weixin_seting;
-    $shopinfo3 = $info->alipay_seting;
+    $mgo         = new \DaoMongodb\Shop;
+    $info        = $mgo->GetShopById($shop_id);
+    $shopinfo    = $info->collection_set;
 
     $resp = (object)[
-        'collection_set' => $shopinfo1,
-        'weixin_seting'  => $shopinfo2,
-        'alipay_seting'  => $shopinfo3
+        'collection_set' => $shopinfo,
     ];
     LogDebug($resp);
     LogInfo("--ok--");
+    return 0;
+}
+//支付宝使用个人码或者支付宝端设置
+function SaveAlipaySelectSet(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_) {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $login_shop_id = \Cache\Login::GetShopId();
+    if (!$login_shop_id)
+    {
+        LogErr("shop_id err or maybe not login");
+        return errcode::USER_NOLOGIN;
+    }
+    $shop_id = $_['shop_id'];
+    if ($login_shop_id != $shop_id)
+    {
+        LogDebug($shop_id, $login_shop_id);
+        return errcode::SHOP_NOT_WEIXIN;
+    }
+    $pay_way             = $_['pay_way'];
+    $alipay_set->pay_way = $pay_way;
+    $mgo                 = new \DaoMongodb\Shop;
+    $entry               = new \DaoMongodb\ShopEntry;
+    $entry->shop_id      = $shop_id;
+    $entry->alipay_set   = $alipay_set;
+    $ret                 = $mgo->Save($entry);
+    if (0 != $ret)
+    {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+    LogInfo("save ok");
+    $info        = $mgo->GetShopById($shop_id);
+    $alipay_info = [];
+
+    if ($info->alipay_seting == 1)
+    {
+        if ($info->alipay_set->pay_way == PaySetingWay::PAYONE)
+        {
+            $alipay['pay_way']   = $info->alipay_set->pay_way;
+            $alipay['code_img']  = $info->alipay_set->code_img;
+            $alipay['code_show'] = $info->alipay_set->code_show;
+            array_push($alipay_info, $alipay);
+        } elseif ($info->alipay_set->pay_way == PaySetingWay::PAYTWO)
+        {
+            $alipay['pay_way']       = $info->alipay_set->pay_way;
+            $alipay['alipay_app_id'] = $info->alipay_set->alipay_app_id;
+            $alipay['public_key']    = $info->alipay_set->public_key;
+            $alipay['private_key']   = $info->alipay_set->private_key;
+            $alipay['safe_code']     = $info->alipay_set->safe_code;
+            $alipay['hz_identity']   = $info->alipay_set->hz_identity;
+            $alipay['alipay_num']    = $info->alipay_set->alipay_num;
+            array_push($alipay_info, $alipay);
+        } else {
+            $alipay_info = [];
+        }
+    } else {
+        $alipay_info = [];
+    }
+    $resp = (object)[
+        'alipay_seting' => $info->alipay_seting,
+        'alipay'        => $alipay_info,
+    ];
+    return 0;
+}
+//微信使用个人码或者微信端设置
+function SaveWeixinSelectSet(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_) {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $login_shop_id = \Cache\Login::GetShopId();
+    if (!$login_shop_id) {
+        LogErr("shop_id err or maybe not login");
+        return errcode::USER_NOLOGIN;
+    }
+    $shop_id = $_['shop_id'];
+    if ($login_shop_id != $shop_id) {
+        LogDebug($shop_id, $login_shop_id);
+        return errcode::SHOP_NOT_WEIXIN;
+    }
+    $pay_way                 = $_['pay_way'];
+    $weixin_pay_set->pay_way = $pay_way;
+    $mgo                     = new \DaoMongodb\Shop;
+    $entry                   = new \DaoMongodb\ShopEntry;
+    $entry->shop_id          = $shop_id;
+    $entry->weixin_pay_set   = $weixin_pay_set;
+    $ret                     = $mgo->Save($entry);
+    if (0 != $ret) {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+    LogInfo("save ok");
+    $info        = $mgo->GetShopById($shop_id);
+    $weixin_info = [];
+    if ($info->weixin_seting == 1) {
+        if ($info->weixin_pay_set->pay_way == PaySetingWay::PAYONE ) {
+            $weixin['pay_way']   = $info->weixin_pay_set->pay_way;
+            $weixin['code_img']  = $info->weixin_pay_set->code_img;
+            $weixin['code_show'] = $info->weixin_pay_set->code_show;
+            array_push($weixin_info, $weixin);
+        } elseif ($info->weixin_pay_set->pay_way == PaySetingWay::PAYTWO) {
+            $weixin['pay_way']    = $info->weixin_pay_set->pay_way;
+            $weixin['spc_sub']    = $info->weixin_pay_set->spc_sub;
+            $weixin['sub_mch_id'] = $info->weixin_pay_set->sub_mch_id;
+            $weixin['api_key']    = $info->weixin_pay_set->api_key;
+            $weixin['tenpay_img'] = $info->weixin_pay_set->tenpay_img;
+            array_push($weixin_info, $weixin);
+        } else {
+            $weixin_info = [];
+        }
+    } else {
+        $weixin_info = [];
+    }
+    $resp = (object)[
+        'weixin_seting'  => $info->weixin_seting,
+        'weixin_pay_set' => $weixin_info,
+    ];
+
     return 0;
 }
 $ret = -1;
@@ -311,6 +429,12 @@ elseif(isset($_["shoplist"]))
 }elseif (isset($_['get_shop_pay_set']))
 {
     $ret = GetShopPaySet($resp);
+}elseif(isset($_['select_alipay_set']))
+{
+    $ret = SaveAlipaySelectSet($resp);
+}elseif(isset($_['select_weixin_set']))
+{
+    $ret = SaveWeixinSelectSet($resp);
 }
 
 $html = json_encode((object)array(

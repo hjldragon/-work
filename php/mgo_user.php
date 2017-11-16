@@ -12,26 +12,26 @@ require_once("const.php");
 # t_user
 class UserEntry
 {
-    public $userid        = null;   // 用户id
-    public $username      = null;   // 用户名(登陆名)
-    public $password      = null;   // 密码
-    public $question      = null;   // 问题
-    public $answer        = null;   // 答案
-    public $passwd_prompt = null;   // 密码提示
-    //public $property      = null;   // 用户属性(位字段，见class UserProperty)
-    public $ctime         = null;   // 创建时间
-    public $mtime         = null;   // 修改时间
-    public $delete        = null;   // 0:未删除; 1:已删除
-    public $phone         = null;   // 手机号
-    public $identity      = null;   // 身份证号
-    public $usernick      = null;   // 用户昵称
-    public $user_avater   = null;   // 用户头像
-    public $birthday      = null;   // 用户生日
-    public $sex           = null;   // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
-    public $email         = null;   // 用户邮箱
-    public $is_weixin     = null;   // 是否绑定微信(0:没绑定,1:绑定)
-    public $health_certificate = null;    // 健康证
-    public $real_name     = null;   // 真实姓名
+    public $userid             = null;   // 用户id
+    public $username           = null;   // 用户名(登陆名)
+    public $password           = null;   // 密码
+    public $question           = null;   // 问题
+    public $answer             = null;   // 答案
+    public $passwd_prompt      = null;   // 密码提示
+    //public $property         = null;   // 用户属性(位字段，见class UserProperty)
+    public $ctime              = null;   // 创建时间
+    public $mtime              = null;   // 修改时间
+    public $delete             = null;   // 0:未删除; 1:已删除
+    public $phone              = null;   // 手机号
+    public $identity           = null;   // 身份证号
+    public $usernick           = null;   // 用户昵称
+    public $user_avater        = null;   // 用户头像
+    public $birthday           = null;   // 用户生日
+    public $sex                = null;   // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+    public $email              = null;   // 用户邮箱
+    public $is_weixin          = null;   // 是否绑定微信(0:没绑定,1:绑定)
+    public $health_certificate = null;   // 健康证
+    public $real_name          = null;   // 真实姓名
     // // 具体业务数据
     // public $shop_id = null;     // 当前用户所属的店 （注，此这段分出到员工表）
 

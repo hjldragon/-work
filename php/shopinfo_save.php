@@ -121,69 +121,69 @@ function SaveShopBusiness(&$resp)
     $company_name                          = $_['company_name'];
     if (!$company_name) {
         LogErr("company_name  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $legal_person                          = $_['legal_person'];
     if (!$legal_person) {
         LogErr("legal_person  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $legal_card                            = $_['legal_card'];
     if (!$legal_card) {
         LogErr("legal_card  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $legal_card_photo                      = json_decode($_['legal_card_photo']);
     //$legal_card_photo                      = explode(',',$_['legal_card_photo']);
     if (!$legal_card_photo) {
         LogErr("legal_card_photo  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $business_num                          = $_['business_num'];
     if (!$business_num) {
         LogErr("business_num  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $business_date                         = $_['business_date'];
     //$business_date                         = explode(',',$_['business_date']);
     if (!$business_date) {
         LogErr("business_date is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $business_photo                        = $_['business_photo'];
     if (!$business_photo) {
         LogErr("business_photo  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $repast_permit_identity                = $_['repast_permit_identity'];
     if (!$repast_permit_identity) {
         LogErr("repast_permit_identity  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $repast_permit_year                    = $_['repast_permit_year'];
     if (!$repast_permit_year) {
         LogErr("repast_permit_year  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $repast_permit_num                     = $_['repast_permit_num'];
     if (!$repast_permit_num) {
         LogErr("repast_permit_num  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $repast_permit_photo                   = $_['repast_permit_photo'];
     if (!$repast_permit_photo) {
         LogErr("repast_permit_photo  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $confirmation                          = $_['confirmation'];
     if (!$confirmation) {
         LogErr("confirmation  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $business_scope                        = $_['business_scope'];
     if (!$business_scope) {
         LogErr("business_scope  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
 
     $shop_business->company_name           = $company_name;
@@ -430,7 +430,7 @@ function SaveCollectionSet(&$resp)
 
     if (null==$is_debt || null==$is_mailing) {
         LogErr("some word  is empty");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
 
     $collection_set->is_debt      = $is_debt;
@@ -481,33 +481,34 @@ function SaveWeiXinPaySet(&$resp)
     $spc_sub    = $_['spc_sub'];
     $tenpay_img = $_['tenpay_img'];
 
-    if($pay_way === \SetPayWay::USEOUR)
-    {
-        if(!$code_img || null==$code_show)
-        {
-            LogErr("some word  is empty");
-            return errcode::PARAM_ALL_GET;
-        }
-    }elseif($pay_way==\SetPayWay::USEOTHER){
-       if (null==$pay_way  || !$sub_mch_id || !$api_key || null==$spc_sub || !$tenpay_img)
-       {
-           LogErr("some word  is empty");
-           return errcode::PARAM_ALL_GET;
-       }
-   }else{
-        return errcode::PARAM_ERR;
-    }
+//    if($pay_way === \SetPayWay::USEOUR)
+//    {
+//        if(null==$pay_way  ||!$code_img || null==$code_show)
+//        {
+//            LogErr("some word  is empty");
+//            return errcode::PARAM_ERR;
+//        }
+//    }elseif($pay_way==\SetPayWay::USEOTHER){
+//       if (null==$pay_way  || !$sub_mch_id || !$api_key || null==$spc_sub )
+//       {
+//           LogErr("some word  is empty");
+//           return errcode::PARAM_ERR;
+//       }
+//   }else{
+//        return errcode::PARAM_ERR;
+//    }
 
     $weixin_pay_set->code_img   = $code_img;
     $weixin_pay_set->code_show  = $code_show;
     $weixin_pay_set->pay_way    = $pay_way;
     $weixin_pay_set->sub_mch_id = $sub_mch_id;
     $weixin_pay_set->api_key    = $api_key;
-    $weixin_pay_set->tenpay_img = $tenpay_img;
     $weixin_pay_set->spc_sub    = $spc_sub;
+    $weixin_pay_set->tenpay_img = $tenpay_img;
 
     $entry->shop_id                        = $shop_id;
     $entry->weixin_pay_set                 = $weixin_pay_set;
+    $entry->weixin_seting                  = 1;
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
         LogErr("Save err");
@@ -548,22 +549,22 @@ function SaveAlipaySet(&$resp)
     $hz_identity   = $_['hz_identity'];
     $alipay_num    = $_['alipay_num'];
 
-    if($pay_way == \SetPayWay::USEOUR)
-    {
-        if(null==$pay_way  || !$code_img || null==$code_show)
-        {
-            LogErr("some word  is empty");
-            return errcode::PARAM_ALL_GET;
-        }
-    }elseif($pay_way==\SetPayWay::USEOTHER){
-        if (null==$pay_way  || !$alipay_app_id || !$public_key || !$safe_code || !$private_key || !$private_key || !$hz_identity || !$alipay_num)
-        {
-            LogErr("some word  is empty");
-            return errcode::PARAM_ALL_GET;
-        }
-    }else{
-        return errcode::PARAM_ERR;
-    }
+//    if($pay_way == \SetPayWay::USEOUR)
+//    {
+//        if(null==$pay_way  || !$code_img || null==$code_show)
+//        {
+//            LogErr("some word  is empty");
+//            return errcode::PARAM_ERR;
+//        }
+//    }elseif($pay_way==\SetPayWay::USEOTHER){
+//        if (null==$pay_way  || !$alipay_app_id || !$public_key || !$safe_code || !$private_key || !$private_key || !$hz_identity || !$alipay_num)
+//        {
+//            LogErr("some word  is empty");
+//            return errcode::PARAM_ERR;
+//        }
+//    }else{
+//        return errcode::PARAM_ERR;
+//    }
 
     $alipay_set->pay_way       = $pay_way;
     $alipay_set->code_img      = $code_img;
@@ -579,6 +580,7 @@ function SaveAlipaySet(&$resp)
     $entry                                 = new \DaoMongodb\ShopEntry;
     $entry->shop_id                        = $shop_id;
     $entry->alipay_set                     = $alipay_set;
+    $entry->alipay_seting                  = 1;
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
         LogErr("Save err");
@@ -589,6 +591,8 @@ function SaveAlipaySet(&$resp)
     LogInfo("save ok");
     return 0;
 }
+
+
 $ret = -1;
 $resp = (object)array();
 if(isset($_['shopinfo_save']))

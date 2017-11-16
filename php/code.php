@@ -1,12 +1,11 @@
 <?php
 ob_start();
-require_once("current_dir_env.php");  // 给前端调用的代码，都要加上这行 <<<<<<<<<<<<<<<<<<<<<
+require_once("current_dir_env.php");
 require_once("db_pool.php");
 require_once("validatecode.php");
 require_once("redis_login.php");
 ob_end_clean();
 
-// 定义一个入口 <<<<<<<<<<<<<<<<<<<<<<<<
 function main()
 {
     $token    = $_REQUEST['token'];

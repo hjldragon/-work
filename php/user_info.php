@@ -10,6 +10,7 @@ require_once("mgo_employee.php");
 require_once("redis_id.php");
 require_once("class.smtp.php");
 require_once("class.phpmailer.php");
+
 Permission::PageCheck();
 //$_=$_REQUEST;
 function GetUserList(&$resp)
@@ -136,8 +137,7 @@ function UserSetting(&$resp)
     $new_password = $_["new_password"];
     $new_prompt   = $_["new_prompt"];
     $phone        = $_["phone"];
-    //$shop_id      = (string)$_["shop_id"];
-    $shop_id = \Cache\Login::GetShopId();
+    $shop_id      = \Cache\Login::GetShopId();
     if("" == $new_username)
     {
         LogErr("param err, new_username:[$new_username]");
@@ -148,16 +148,14 @@ function UserSetting(&$resp)
     {
         $userid = \DaoRedis\Id::GenUserId();
     }
-
     $dao = new \DaoMongodb\User;
-
     // 是否已注册过
     $ret = $dao->IsExist([
-        'userid' => $userid,
+        'userid'   => $userid,
         'username' => $new_username,
-        'phone' => $phone,
+        'phone'    => $phone,
     ]);
-    //LogDebug($userlist);
+
     if(null != $ret && $ret->userid != $userid)
     {
         if($ret->username)
@@ -174,7 +172,6 @@ function UserSetting(&$resp)
 
     $entry = new \DaoMongodb\UserEntry;
     $entry->userid        = $userid;
-    //$entry->shop_id       = $shop_id;
     $entry->username      = $new_username;
     $entry->password      = $new_password;
     $entry->passwd_prompt = $new_prompt;
@@ -197,13 +194,13 @@ function UserSetting(&$resp)
     if($shop_id)
     {
         // 登记到员工表
-        $mgo_employee = new \DaoMongodb\Employee;
-        $employee_info = new \DaoMongodb\EmployeeEntry;
-        $employee_info->userid = $userid;
-        $employee_info->shop_id = $shop_id;
-        $employee_info->duty = EmployeeDuty::SYS_SHOP_ADMIN;
-        $employee_info->real_name = ""; //$shopinfo->shop_name;
-        $employee_info->delete = 0;
+        $mgo_employee              = new \DaoMongodb\Employee;
+        $employee_info             = new \DaoMongodb\EmployeeEntry;
+        $employee_info->userid     = $userid;
+        $employee_info->shop_id    = $shop_id;
+        $employee_info->duty       = EmployeeDuty::SYS_SHOP_ADMIN;
+        $employee_info->real_name  = ""; //$shopinfo->shop_name;
+        $employee_info->delete     = 0;
         $employee_info->permission = EmployeePermission::AllPermission();
 
         $ret = $mgo_employee->Save($employee_info);
@@ -431,7 +428,7 @@ function BindEmail(&$resp)
     }
     $zi = "绑定";
     //执行邮箱发送
-    $send = Cfg::GetMail($email, $url, $zi);
+    $send = PageUtil::GetMail($email, $url, $zi);
     if (0 != $send) {
         LogDebug('send failed' . $send);
         return errcode::EMAIL_SEND_FAIL;
@@ -481,7 +478,7 @@ function UnBindEmail(&$resp)
     $url   = $email_url . '&unbind_email=1&userid=' . $userid . '&shop_id=' . $shop_id;
     $zi = "解绑";
     //执行邮箱发送
-    $send = Cfg::GetMail($email, $url,$zi);
+    $send = PageUtil::GetMail($email, $url,$zi);
     if (0 != $send) {
         LogDebug('send failed' . $send);
         return errcode::EMAIL_SEND_FAIL;
@@ -505,14 +502,7 @@ function UserEmployeeSetting(&$resp)
     if (!$real_name)
     {
         LogErr("name is empty,have to");
-        return errcode::PARAM_ALL_GET;
-    }
-
-    $idcard = $_['identity'];
-    if (!preg_match('/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/', $idcard))
-    {
-        LogErr("idcard err");
-        return errcode::IDCARD_ERR;
+        return errcode::PARAM_ERR;
     }
     $token = $_['token'];
     $phone = $_['phone'];
@@ -526,7 +516,7 @@ function UserEmployeeSetting(&$resp)
         return errcode::PHONE_IS_EXIST;
     }
     $phone_code = $_['phone_code'];//手机验证码
-    $result     = Cfg::VerifyPhoneCode($token, $phone, $phone_code);
+    $result     = PageUtil::VerifyPhoneCode($token, $phone, $phone_code);
 
     //验证手机结果
     if ($result != 0)
@@ -537,7 +527,7 @@ function UserEmployeeSetting(&$resp)
     $passwd = $_['passwd'];
     if (!$passwd) {
         LogErr("passwd is empty,have to");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $passwd_again = $_['passwd_again'];
     if ($passwd != $passwd_again) {
@@ -548,11 +538,8 @@ function UserEmployeeSetting(&$resp)
     $sex = $_['sex'];
     if (!$sex) {
         LogErr("sex is empty,have to");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
-
-    $health_certificate = $_['health_certificate'];
-    $is_weixin          = $_['is_weixin'];
 
     //创建生成用户表
     $userid = \DaoRedis\Id::GenUserId();
@@ -573,10 +560,7 @@ function UserEmployeeSetting(&$resp)
     $user->delete             = 0;
     $user->password           = $passwd;
     $user->phone              = $phone;
-    $user->identity           = $idcard;
     $user->sex                = $sex;
-    $user->is_weixin          = $is_weixin;
-    $user->health_certificate = $health_certificate;
     $ret                      = $mgo->Save($user);
     if ($ret != 0) {
         LogErr("Save err, ret=[$ret]");
@@ -597,7 +581,7 @@ function UserNewPasswd(&$resp)
     }
     $token      = $_['token'];
     $phone      = $_['phone'];
-    $mgo              = new \DaoMongodb\User;
+    $mgo        = new \DaoMongodb\User;
     $user_phone = $mgo->QueryByPhone($phone);
     if($user_phone != $phone)
     {
@@ -605,7 +589,7 @@ function UserNewPasswd(&$resp)
         return errcode::PHONE_ERR;
     }
     $phone_code = $_['phone_code'];//手机验证码
-    $result     = Cfg::VerifyPhoneCode($token, $phone, $phone_code);
+    $result     = PageUtil::VerifyPhoneCode($token, $phone, $phone_code);
     if ($result != 0)
     {
         LogDebug($result);
@@ -647,18 +631,28 @@ function EditUserInfo(&$resp)
         return errcode::PARAM_ERR;
     }
     $userid             = \Cache\Login::GetUserid();
-    $username           = $_['username'];
+    $real_name          = $_['real_name'];
     $identity           = $_['identity'];
+    if (!preg_match('/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/', $identity))
+    {
+        LogErr("idcard err");
+        return errcode::IDCARD_ERR;
+    }
     $sex                = $_['sex'];
     $health_certificate = $_['health_certificate'];
+    $is_weixin          = $_['is_weixin'];
+    //默认未未绑定微信
+    if(!$is_weixin)
+    {
+        $is_weixin = 0;
+    }
     $mgo                = new \DaoMongodb\User;
     $user               = new \DaoMongodb\UserEntry;
-
-
     $user->userid             = $userid;
-    $user->username           = $username;
+    $user->real_name          = $real_name;
     $user->identity           = $identity;
     $user->sex                = $sex;
+    $user->is_weixin          = $is_weixin;
     $user->health_certificate = $health_certificate;
     $ret                      = $mgo->Save($user);
     if (0 != $ret) {
@@ -670,6 +664,33 @@ function EditUserInfo(&$resp)
     return 0;
 
 }
+//获取个人中心个人信息
+function GetUserEditInfo(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    LogDebug($_);
+    if (!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $userid = \Cache\Login::GetUserid();
+
+    $dao      = new \DaoMongodb\User;
+    $userinfo = $dao->QueryById($userid);
+    if ($userinfo->userid != $userid)
+    {
+        LogErr("dao->QueryById err, userid=[$userid]");
+        return -1;
+    }
+    $resp = (object)[
+        'userinfo' => $userinfo,
+    ];
+    LogDebug($resp);
+    LogInfo("--ok--");
+    return 0;
+}
+
 $ret = -1;
 $resp = null;
 if($_["list"])
@@ -714,6 +735,9 @@ elseif(isset($_['save_new_passwd']))
 else if(isset($_['edit_user_info']))
 {
     $ret = EditUserInfo($resp);
+}else if(isset($_['get_user_info']))
+{
+    $ret = GetUserEditInfo($resp);
 }
 
 else

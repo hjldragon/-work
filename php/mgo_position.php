@@ -16,7 +16,9 @@ class PositionEntry
     public $position_note          = null;     // 职位备注
     public $shop_id                = null;     // 店铺id
     public $delete                 = null;     // 0:正常, 1:已删除
+    public $is_edit                = null;     // 0:不编辑, 1:可编辑
     public $lastmodtime            = null;     // 数据最后修改时间
+    public $ctime                  = null;     // 创建时间
     public $entry_type             = null;     // 创建类型(1:系统录入，2:手动录入)
 
 
@@ -39,7 +41,9 @@ class PositionEntry
         $this->shop_id                = $cursor['shop_id'];
         $this->delete                 = $cursor['delete'];
         $this->lastmodtime            = $cursor['lastmodtime'];
+        $this->ctime                  = $cursor['ctime'];
         $this->entry_type             = $cursor['entry_type'];
+        $this->is_edit                = $cursor['is_edit'];
 
     }
 
@@ -81,6 +85,10 @@ class Position
         {
             $set["position_name"] = (string)$info->position_name;
         }
+        if(null !== $info->ctime)
+        {
+            $set["ctime"] = (int)$info->ctime;
+        }
         if(null !== $info->position_permission)
         {
             $set["position_permission"] = (int)$info->position_permission;
@@ -100,6 +108,10 @@ class Position
         if(null !== $info->entry_type)
         {
             $set["entry_type"] = (int)$info->entry_type;
+        }
+        if(null !== $info->is_edit )
+        {
+            $set["is_edit "] = (int)$info->is_edit;
         }
 
         $value = array(
@@ -172,9 +184,28 @@ class Position
             'delete'  => ['$ne'=>1],
             'shop_id' => ['$in' => [0,(string)$shop_id]]
         ];
-        $cursor = $table->find($cond, ["_id"=>0]);
+        $cursor = $table->find($cond)->sort(['ctime'=>1]);
         // LogDebug(iterator_to_array($cursor));
         return PositionEntry::ToList($cursor);
+    }
+
+    public function QueryByName($shop_id,$position_name,$position_id=null)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+        $cond = array(
+            'position_name' => $position_name,
+            'shop_id'       => $shop_id,
+            'delete'        => array('$ne' => 1),
+        );
+         if(null != $position_id)
+         {
+             $cond['position_id'] =array('$ne' => $position_id);
+         }
+
+        $ret = $table->findOne($cond);
+        // LogDebug($ret);
+        return new PositionEntry($ret);
     }
 }
 

@@ -232,7 +232,7 @@ function GetOrderAllList(&$resp)
             'begin_time'       => $begin_time,
             'end_time'         => $end_time,
         ],
-      $sort,
+        $sort,
         $page_size,
         $page_no,
         $total,
@@ -272,8 +272,9 @@ function GetOrderAllList(&$resp)
         if (!$value->seat)
         {
             $value->seat = [];
-        } else
-            {
+        } 
+        else
+        {
             $value->seat->seat_price = Util::FenToYuan($value->seat->seat_price);
         }
     }

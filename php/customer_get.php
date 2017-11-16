@@ -81,7 +81,9 @@ function GetCustomerList(&$resp){
     $mgo = new \DaoMongodb\Customer;
     $total = 0;
     $custominfo = $mgo->GetCustomerList($shop_id,$filter,$page_size,$page_no, $sortby, $total);
-   
+    foreach ($custominfo as &$item) {
+        $item->user_avater = \Cache\UsernInfo::Get($item->userid)->user_avater;
+    }
     $resp =(object)[
         'custominfo'=>$custominfo,
         'total' => $total

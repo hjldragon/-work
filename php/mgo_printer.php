@@ -100,7 +100,7 @@ class Printer
         }
         if(null !== $info->printer_category)
         {
-            $set["printer_category"] = (int)$info->printer_category;
+            $set["printer_category"] = $info->printer_category;
         }
         if(null !== $info->printer_size)
         {

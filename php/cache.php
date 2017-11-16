@@ -15,8 +15,7 @@ require_once("mgo_seat.php");
 require_once("mgo_printer.php");
 require_once("mgo_employee.php");
 require_once("mgo_customer.php");
-//加载留言板的文件，并生成数据吗？
-require_once ("mgo_communication.php");
+require_once ("mgo_position.php");
 
 // 登录相关信息
 class Login
@@ -382,24 +381,43 @@ class Employee
         LogDebug("load employee --> cache, data:" . json_encode($info));
         return $info;
     }
+    static function GetInfo($userid,$shop_id)
+    {
+        $info = &self::$cache[$userid];
+
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new \DaoMongodb\Employee;
+        $info = $mgo->QueryByShopId($userid, $shop_id);
+        if($userid != $info->userid && $shop_id != $info->shop_id)
+        {
+            LogErr("employee err, userid:[$userid], shopid:[$shop_id]," . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load employee --> cache, data:" . json_encode($info));
+        return $info;
+    }
 }
-//hjl留言信息
-class Communication{
+//权限信息
+class Position{
     //都要写个私有的变量
     private static $cache=[];
-    static  function Get($content_id){
-        $info=&self::$cache[$content_id];
+    static  function Get($shop_id,$position_id){
+        $info=&self::$cache[$position_id];
         if(null != $info){
             return $info;
         }
         //连接数据库
-        $mgo=new \DaoMongodb\Communication;
+        $mgo = new \DaoMongodb\Position;
         //调用获取id的方法
-        $info=$mgo->QueryById($content_id);
-        if($content_id != $info->content_id){
+        $info=$mgo->GetPositionById($shop_id,$position_id);
+        if($position_id != $info->position_id && $shop_id != $info->shop_id){
             //如果没有留言id给提示错误信息
-            LogErr("content err,content_id:[$content_id],".json_encode($info));
-            $info=null;
+            LogErr("position err,content_id:[$position_id],".json_encode($info));
+            $info = null;
             return $info;
         }
         //返回正确信息

@@ -20,7 +20,7 @@ class EmployeeEntry
     public $lastmodtime        = null;     // 数据最后修改时间
     public $delete             = null;     // 0:正常, 1:已删除
     public $is_freeze          = null;     // 0:正常, 1:已冻结
-    public $is_admin           = null;     // 是否是管理员(0:员工,1:管理员)
+    public $is_admin           = null;     // 是否是管理员(0:员工,1:系统管理员)
     public $remark             = null;     // 备注
     public $entry_time         = null;     // 创建时间
     //public $identity           = null;     // 身份证号
@@ -93,7 +93,7 @@ class Employee
         );
 
         $set = array(
-            'userid' => (int)$info->userid,
+            //'userid' => (int)$info->userid,
             "lastmodtime" => (null !== $info->lastmodtime) ? $info->lastmodtime : time()
         );
 
@@ -148,9 +148,9 @@ class Employee
         if (null !== $info->entry_time) {
             $set["entry_time"] = (int)$info->entry_time;
         }
-//        if (null !== $info->userid) {
-//            $set["userid"] = (int)$info->userid;
-//        }
+        if (null !== $info->userid) {
+            $set["userid"] = (int)$info->userid;
+        }
         if (null !== $info->is_admin) {
             $set["is_admin"] = (int)$info->is_admin;
         }
@@ -171,7 +171,6 @@ class Employee
         $value = array(
             '$set' => $set
         );
-
         try
         {
             $ret = $table->update($cond, $value, ['safe'=>true, 'upsert'=>true]);
@@ -265,8 +264,9 @@ class Employee
         $table = $db->selectCollection($this->Tablename());
 
         $cond = [
-            'delete'  => ['$ne'=>1],
-            'shop_id' => (string)$shop_id
+            'delete'   => ['$ne' => 1],
+            'is_admin' => ['$ne' => 1],
+            'shop_id'  => (string)$shop_id,
         ];
         if(null != $filter)
         {
@@ -324,23 +324,23 @@ class Employee
         return new EmployeeEntry($ret);
     }
     // 冻结/启用
-    public function BatchFreeze($employee_id,$shop_id,$type)
+    public function BatchFreeze($employee_id,$shop_id, $is_freeze)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
-
+        $cond = [
+            'employee_id' => $employee_id
+        ];
         $set = array(
-            "is_freeze"   => (int)$type,
+            "is_freeze"   => (int)$is_freeze,
             "shop_id"     => (string)$shop_id,
             "lastmodtime" => time(),
         );
         $value = array(
             '$set' => $set
         );
-        $cond = [
-            'employee_id' => $employee_id
-        ];
         LogDebug($cond);
+        LogDebug($value);
         try
         {
             $ret = $table->update($cond, $value, ['safe'=>true, 'upsert'=>true, 'multiple'=>true]);

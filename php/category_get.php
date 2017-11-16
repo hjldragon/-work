@@ -20,8 +20,6 @@ function GetCategoryInfo(&$resp)
         return errcode::PARAM_ERR;
     }
     $category_id = (string)$_['category_id'];
-
-    $mgo = new \DaoMongodb\Category;
     $info = \Cache\Category::Get($category_id);
 
     $resp = (object)array(
@@ -40,19 +38,18 @@ function GetCategoryList(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-
+    $type = $_['type'];
     
     $shop_id = \Cache\Login::GetShopId();
 
     $mgo = new \DaoMongodb\Category;
-    $list = $mgo->GetList($shop_id);
+    $list = $mgo->GetList($shop_id, $type);
     
     $data = getTree($list,0);
 
     $resp = (object)array(
         'list' => $data
     );
-    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -69,7 +66,6 @@ function getTree($data, $pId)
         $v->list = array();
        }
        $tree[] = $v;
-       //unset($data[$k]);
       }
     }
     return $tree;

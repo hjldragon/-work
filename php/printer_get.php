@@ -8,7 +8,7 @@ require_once("page_util.php");
 require_once("const.php");
 require_once("cache.php");
 require_once("mgo_printer.php");
-
+require_once("mgo_category.php");
 // $_=$_REQUEST;
 
 function GetPrinterInfo(&$resp)
@@ -24,13 +24,31 @@ function GetPrinterInfo(&$resp)
 
     $mgo = new \DaoMongodb\Printer;
     $info = $mgo->GetPrinterById($printer_id);
-
+    $info->category = array();
+    foreach ($info->food_category_list as $key => $value) {
+        $cateinfo = \Cache\Category::Get($value);
+        $data = array();
+        array_push($data, $cateinfo);
+        GetCategory($data,$cateinfo->parent_id);
+        array_push($info->category, $data);
+    }
     $resp = (object)array(
         'info' => $info
     );
     LogDebug($resp);
     LogInfo("--ok--");
     return 0;
+}
+
+//递归查找父级品类
+function GetCategory(&$data,$parent_id){
+    $info = \Cache\Category::Get($parent_id);
+    if($info){
+        array_unshift($data, $info);
+    }
+    if($info->parent_id){
+        GetCategory($data,$info->parent_id);
+    }
 }
 
 function GetPrinterList(&$resp)
@@ -46,15 +64,21 @@ function GetPrinterList(&$resp)
 
     $mgo = new \DaoMongodb\Printer;
     $list = $mgo->GetList($shop_id);
-    // foreach($list as $i => &$item)
-    // {
-    //     $food_category_map = [];
-    //     foreach($item->food_category_list as $j => $category_id)
-    //     {
-    //         $food_category_map[$category_id] = \Cache\Category::Get($category_id);
-    //     }
-    //     $item->food_category_map = $food_category_map;
-    // }
+
+    foreach($list as $i => &$item)
+    {
+        $category_name = [];
+        foreach($item->food_category_list as $j => $category_id)
+        {   
+            if(0 == $category_id){
+                $category_name[] = '全部';
+            }else{
+               $category_name[] = \Cache\Category::Get($category_id)->category_name; 
+            }
+            
+        }
+        $item->food_category_name = $category_name;
+    }
 
     $resp = (object)array(
         'list' => $list

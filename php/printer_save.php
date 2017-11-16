@@ -38,7 +38,7 @@ function SavePrinter(&$resp)
     LogDebug($food_category_list);
     if(!$printer_id || !$printer_name || !$printer_category || !$printer_size){
         LogErr("param err");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $shop_id = \Cache\Login::GetShopId();//获取店铺ID
 
@@ -127,11 +127,15 @@ if(isset($_['save_printer']))
 {
     $ret = SavePrinter($resp);
 }
-if(isset($_['del_printer']))
+else if(isset($_['del_printer']))
 {
     $ret = DeletePrinter($resp);
 }
-
+else
+{
+    $ret = -1;
+    LogErr("param err");
+}
 $html = json_encode((object)array(
     'ret' => $ret,
     'data' => $resp

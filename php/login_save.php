@@ -29,7 +29,7 @@ function Login(&$resp)
 
     $token        = $_["token"];
     $phone        = $_["phone"];
-    $password_md5 = md5($_["password_md5"]);
+    $password_md5 = $_["password_md5"];
     $page_code    = strtolower($_['page_code']);
     if(empty($phone)) 
     {
@@ -270,21 +270,33 @@ function LoginShop(&$resp){
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $token   = $_["token"];
-    $shop_id = $_['shop_id'];
-    $userid  = \Cache\Login::GetUserid();
+    $token    = $_["token"];
+    $shop_id  = $_['shop_id'];
+    $userid   = \Cache\Login::GetUserid();
     $shopinfo = \Cache\Shop::Get($shop_id);
-    $mgo = new \DaoMongodb\Employee;
+    $mgo      = new \DaoMongodb\Employee;
     $employee = $mgo->QueryByShopId($userid, $shop_id);
-    $redis = new \DaoRedis\Login();
-    $info = new \DaoRedis\LoginEntry();
-    $info->token    = $token;
-    $info->userid   = $userid;
-    $info->shop_id  = $shop_id;
+    //权限操作
+    $ret = Permission::UserPermissionCheck($employee);
+    if($ret !=0 )
+    {
+        return errcode::USER_PERMISSION_ERR;
+    }
+    //员工是否被冻结
+    if($employee->is_freeze == \EmployeeFreeze::FREEZE)
+    {
+        return errcode::EMPLOYEE_IS_FREEZE;
+    }
+    //判断该登录用户是否有权限
+    $redis         = new \DaoRedis\Login();
+    $info          = new \DaoRedis\LoginEntry();
+    $info->token   = $token;
+    $info->userid  = $userid;
+    $info->shop_id = $shop_id;
     $redis->Save($info);
     $resp = (object)array(
         'employeeinfo' => $employee,
-        'shopinfo' => $shopinfo
+        'shopinfo'     => $shopinfo,
     );
     return 0;
 }
@@ -309,7 +321,7 @@ function Logout(&$resp)
     $info->login    = 0;
     LogDebug($info);
 
-    $redis->Save($info);
+    $ret = $redis->Save($info);
     if(0 != $ret)
     {
         LogErr("SaveKey err");

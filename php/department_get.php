@@ -10,6 +10,7 @@ require_once("cache.php");
 require_once("mgo_department.php");
 require_once("permission.php");
 require_once("mgo_employee.php");
+require_once("mgo_position.php");
 
 Permission::PageCheck();
 //$_=$_REQUEST;
@@ -37,9 +38,9 @@ function GetAllDepartment(&$resp)
         $all_employee            = [];
         foreach ($employee_list as $all)
         {
-            $employee_list_all                  = [];
-            $employee_list_all['employee_id']   = $all->employee_id;
-            $employee_list_all['real_name'] = $all->real_name;
+            $employee_list_all                    = [];
+            $employee_list_all['employee_id']     = $all->employee_id;
+            $employee_list_all['real_name']       = $all->real_name;
             array_push($all_employee, $employee_list_all);
         }
         $list['employee_list'] = $all_employee;
@@ -97,6 +98,16 @@ function GetDepartmentEmployee(&$resp)
     }
     $employee      = new \DaoMongodb\Employee;
     $employee_list = $employee->GetDepartmentEmployee($shop_id,$department_id);
+    foreach ($employee_list as &$v)
+    {
+        $position           = new \DaoMongodb\Position;
+        $position_info      = $position->GetPositionById($shop_id, $v->position_id);
+        $v->position_name   = $position_info->position_name;
+        $department         = new \DaoMongodb\Department;
+        $department_info    = $department->QueryByDepartmentId($shop_id, $department_id);
+        $v->department_name = $department_info->department_name;
+    }
+
     LogDebug($employee_list);
 
     $resp = (object)[

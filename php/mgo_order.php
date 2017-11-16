@@ -22,6 +22,7 @@ class OrderFoodInfo
     public $food_attach_list = null;     // 口味附加属性list（加辣等）
     public $food_unit        = null;     // 店铺餐品单位（份、碗、斤等）
     public $unit_num         = null;     // 餐品量(即点了多少斤等)
+    public $food_remark      = null;     // 餐品备注
 
     function __construct($cursor=null)
     {
@@ -45,6 +46,7 @@ class OrderFoodInfo
         $this->food_attach_list = $cursor['food_attach_list'];
         $this->food_unit        = $cursor['food_unit'];
         $this->unit_num         = $cursor['unit_num'];
+        $this->food_remark      = $cursor['food_remark'];
     }
 
     public static function ToList($cursor)
@@ -130,7 +132,7 @@ class OrderEntry
     public $seat_price       = null;    // 餐位费
     public $order_fee        = null;    // 订单金额（按定价算出来的当前消费额）
     public $order_remark     = null;    // 订单备注
-    public $is_invoicing     = null;    // 是否开票（1:已开票,2:未开票)
+    public $is_invoicing     = null;    // 是否开票（1:已开票,0:未开票)
 
     function __construct($cursor=null)
     {
@@ -514,7 +516,8 @@ class Order
             $order_id = $filter['order_id'];
             if (null !== $order_id)
             {
-                $cond['order_id'] = (string)$order_id;
+                $cond['order_id'] = new \MongoRegex("/$order_id/");
+                //$cond['order_id'] = (string)$order_id;
             }
             $shop_id = $filter['shop_id'];
             if (null !== $shop_id)

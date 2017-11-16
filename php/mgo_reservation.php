@@ -160,12 +160,14 @@ class Reservation
             $customer_name = $filter['customer_name'];
             if(!empty($customer_name))
             {
-                $cond['customer_name'] = (string)$customer_name;
+                $cond['customer_name'] = new \MongoRegex("/$customer_name/");
+                //$cond['customer_name'] = (string)$customer_name;
             }
             $customer_phone = $filter['customer_phone'];
             if(!empty($customer_phone))
             {
-                $cond['customer_phone'] = (string)$customer_phone;
+                $cond['customer_phone'] = new \MongoRegex("/$customer_phone/");
+                //$cond['customer_phone'] = (string)$customer_phone;
             }
             $shop_id = $filter['shop_id'];
             if(!empty($shop_id))

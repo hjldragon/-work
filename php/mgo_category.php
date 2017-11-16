@@ -179,7 +179,7 @@ class Category
         return new CategoryEntry($cursor);
     }
 
-    public function GetList($shop_id)
+    public function GetList($shop_id, $type = null)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
@@ -189,6 +189,9 @@ class Category
             // 'shop_id' => ['$in' => [0, (string)$shop_id]],
             'shop_id' => (string)$shop_id,
         ];
+        if($type){
+            $cond['type'] = ['$ne'=>2];
+        }
         $cursor = $table->find($cond, ["_id"=>0])->sort(["entry_time"=>1]);
         // LogDebug(iterator_to_array($cursor));
         return CategoryEntry::ToList($cursor);

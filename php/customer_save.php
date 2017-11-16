@@ -67,7 +67,7 @@ function DeleteCustomer(&$resp)
     LogInfo("delete ok");
     return 0;
 }
-//发送手机验证码
+//发送图形手机验证码
 function GetCoke(&$resp){
     $_ = $GLOBALS["_"];
     if (!$_)

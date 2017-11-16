@@ -28,7 +28,7 @@ function SaveShopinfo(&$resp)
     $shop_model    = $_['shop_model'];
     if(!$shop_name || !$shop_logo || !$shop_area || !$address_num){
         LogErr("param err");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     $mgo = new \DaoMongodb\Shop;
     $entry = new \DaoMongodb\ShopEntry;
@@ -309,6 +309,8 @@ function PositionSave($info)
     $entry->shop_id             = $info["shop_id"];
     $entry->entry_type          = 1;
     $entry->delete              = 0;
+    $entry->ctime               = $info['ctime'];
+    $entry->is_edit             = $info['is_edit'];
 
 
     $ret = $mongodb->Save($entry);
@@ -324,11 +326,24 @@ function PositionSave($info)
 function EntryPosition($shop_id)
 {
 
-
+    $info["position_id"]         = \DaoRedis\Id::GenPositionId();
+    $info["position_name"]       = "管理员";
+    $info["position_permission"] = 3;
+    $info["shop_id"]             = $shop_id;
+    $info['ctime']               = time();
+    $info['is_edit']             = 0;
+    $ret                         = PositionSave($info);;
+    if (0 != $ret)
+    {
+        LogErr("{$info["position_name"]} err");
+        return errcode::SYS_ERR;
+    }
     $info["position_id"]         = \DaoRedis\Id::GenPositionId();
     $info["position_name"]       = "店长";
     $info["position_permission"] = 3;
     $info["shop_id"]             = $shop_id;
+    $info['ctime']               = time()+1;
+    $info['is_edit']             = 1;
     $ret                         = PositionSave($info);;
     if (0 != $ret)
     {
@@ -338,8 +353,10 @@ function EntryPosition($shop_id)
 
     $info["position_id"]         = \DaoRedis\Id::GenPositionId();
     $info["position_name"]       = "收银员";
-    $info["position_permission"] = 3;
+    $info["position_permission"] = 2;
     $info["shop_id"]             = $shop_id;
+    $info['ctime']               = time()+2;
+    $info['is_edit']             = 1;
     $ret                         = PositionSave($info);;
     if (0 != $ret)
     {
@@ -349,8 +366,10 @@ function EntryPosition($shop_id)
 
     $info["position_id"]         = \DaoRedis\Id::GenPositionId();
     $info["position_name"]       = "服务员";
-    $info["position_permission"] = 3;
+    $info["position_permission"] = 2;
     $info["shop_id"]             = $shop_id;
+    $info['ctime']               = time()+3;
+    $info['is_edit']             = 1;
     $ret                         = PositionSave($info);;
     if (0 != $ret)
     {

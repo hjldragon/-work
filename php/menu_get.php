@@ -76,7 +76,9 @@ function GetFoodInfo(&$resp)
 //递归查找父级品类
 function GetCategory(&$data,$parent_id){
     $info = \Cache\Category::Get($parent_id);
-    array_unshift($data, $info);
+    if($info){
+        array_unshift($data, $info);
+    }
     if($info->parent_id){
         GetCategory($data,$info->parent_id);
     }

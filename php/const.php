@@ -61,7 +61,7 @@ class errcode
     const SHOP_LABEL_ERR        = -20041;       // 标签名为空
     const PHONE_COKE_ERR        = -20042;       // 手机验证不正确
     const PHONE_SEND_FAIL       = -20043;       // 手机发送失败
-    const PARAM_ALL_GET         = -20044;       // 必填参数不齐全
+    const NEWS_NUM_MAX          = -20044;       // 发送消息数超出限制
     const PASSWORD_TWO_SAME     = -20045;       // 2次输入的密码不一样
     const EMAIL_SEND_FAIL       = -20046;       // 邮箱发送失败
     const DEPARTMENT_IS_EXIST   = -20047;       // 部门名称重复
@@ -97,6 +97,7 @@ class errcode
     const MAIL_TIME_LAPSE         = -30031;       // 手机验证码超时
     const CATE_NOT_DEL            = -30032;       // 此分类下有商品，不能删除
     const DEPARTMENT_NOT_DEL      = -30033;       // 此部门下有员工，不能删除
+    const EMPLOYEE_IS_FREEZE      = -30034;       // 此部门员工已被冻结
 
 
     /*
@@ -202,7 +203,8 @@ class IsVipCustomer
 class EmployeeDuty
 {
     const UNKNOWN         = 0;   // 待定
-    const SYS_SHOP_ADMIN  = 1;   // 店铺系统管理员
+    //const SYS_SHOP_ADMIN  = 1;   // 店铺系统管理员
+    const SYS_SHOP_ADMIN  = 195;   // 店铺系统管理员
     const BOSS            = 2;   // 老板
     const GENERAL_MANAGER = 3;   // 总经理
     const SHOP_MANAGER    = 4;   // 店长
@@ -310,6 +312,7 @@ class SetPayWay
     const USEOTHER = 2;   // 使用微信/支付宝的支付
 
 }
+//职级权限值
 class Position
 {
     const ALLBACKSTAGE   = 1;      // 后台全部权限
@@ -332,6 +335,33 @@ class Position
     const GUAZHANG       = 131072; // 挂账
     const MALING         = 262144; // 抹零
     const SETTING        = 524288; // 基础设置
+    //时候拥有后台管理权限
+    public static function IsAdmin($position_permission)
+    {
+        return (Position::ALLBACKSTAGE & $position_permission) != 0;
+    }
 
+
+}
+class PositionType
+{
+    const SYSTEMTYPEONE   = 1;      // 系统默认创建的职级的type
+}
+class EmployeeFreeze
+{
+    const FREEZE   = 1;             // 员工已冻结
+}
+//支付设置
+class PaySetingWay
+{
+    const PAYONE   = 1;             // 个人码支付方式
+    const PAYTWO   = 2;             // 微信/支付宝端支付方式
+
+}
+
+//店铺消息设置
+class ShopNewsDay
+{
+    const NUM   = 5;             // 店铺每日群发消息限制数
 }
 ?>

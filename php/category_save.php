@@ -33,7 +33,7 @@ function SaveCategory(&$resp)
     $parent_id     = $_['parent_id'];
     if(!$category_name || !$opening_time){
         LogErr("param err");
-        return errcode::PARAM_ALL_GET;
+        return errcode::PARAM_ERR;
     }
     if(!$parent_id){
         $parent_id = 0;

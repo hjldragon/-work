@@ -7,9 +7,7 @@ require_once("current_dir_env.php");
 require_once("mgo_employee.php");
 require_once("mgo_user.php");
 require_once("redis_id.php");
-//Permission::EmployeePermissionCheck(
-//     Permission::CHK_SHOP_ADMIN
-//);
+
 
 // 修改或注册用户
 // 注：$userinfo->userid中返回注册的id
@@ -185,10 +183,10 @@ function FreezeEmployee(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $employee_id  = $_['employee_id'];
-    $shop_id = \Cache\Login::GetShopId();
-    $type    = $_['type'];
-
+    $employee_id = $_['employee_id'];
+    $shop_id     = \Cache\Login::GetShopId();
+    $is_freeze        = $_['is_freeze'];
+    
     if(!$employee_id)
     {
         LogErr("param err");
@@ -196,7 +194,7 @@ function FreezeEmployee(&$resp)
     }
 
     $mongodb = new \DaoMongodb\Employee;
-    $ret = $mongodb->BatchFreeze($employee_id,$shop_id,$type);
+    $ret = $mongodb->BatchFreeze($employee_id,$shop_id, $is_freeze);
     if(0 != $ret)
     {
         LogErr("BatchDelete err");
@@ -210,7 +208,8 @@ function FreezeEmployee(&$resp)
 }
 //邀请员工第一步获取手机号验证码并获取手机号用户信息
 function InviteGetUserInfo(&$resp)
-{
+{	
+	
     $_ = $GLOBALS["_"];
     if (!$_)
     {
@@ -227,7 +226,7 @@ function InviteGetUserInfo(&$resp)
         return errcode::USER_NOT_ZC;
     }
     $phone_code = $_['phone_code'];//手机验证码
-    $result     = Cfg::VerifyPhoneCode($token, $phone, $phone_code);
+    $result     = PageUtil::VerifyPhoneCode($token, $phone, $phone_code);
     //验证手机结果
     if ($result != 0)
     {
@@ -271,17 +270,13 @@ function InviteEmployee(&$resp)
     {
         return errcode::USER_NOLOGIN;
     }
-    $employee_id          = $_['employee_id'];
-    if(!$employee_id)
-    {
-        $employee_id          = \DaoRedis\Id::GenEmployeeId();
-    }
-
+    $employee_id          = \DaoRedis\Id::GenEmployeeId();
     $entry                = new DaoMongodb\EmployeeEntry;
     $mgo                  = new DaoMongodb\Employee;
     $entry->userid        = $userid;
     $entry->delete        = 0;
     $entry->is_freeze     = 0;
+    $entry->is_admin      = 0;
     $entry->shop_id       = $shop_id;
     $entry->phone         = $phone;
     $entry->real_name     = $real_name;
@@ -289,6 +284,7 @@ function InviteEmployee(&$resp)
     $entry->department_id = $department_id;
     $entry->position_id   = $position_id;
     $entry->entry_time    = time();
+
     $ret                  = $mgo->Save($entry);
     if ($ret != 0)
     {
@@ -299,8 +295,45 @@ function InviteEmployee(&$resp)
     LogInfo("--ok--");
     return 0;
 }
+//编辑员工接口
+function SaveEmployeeInfo(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_) {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
 
-$ret = -1;
+    $employee_id   = $_['employee_id'];
+    $department_id = $_['department_id'];
+    $position_id   = $_['position_id'];
+
+    if (!$employee_id) {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+
+    $mongodb              = new \DaoMongodb\Employee;
+    $entry                = new \DaoMongodb\EmployeeEntry;
+    $entry->employee_id   = $employee_id;
+    $entry->department_id = $department_id;
+    $entry->position_id   = $position_id;
+    $entry->lastmodtime   = time();
+    LogDebug($entry);
+
+    $ret = $mongodb->Save($entry);
+    if (0 != $ret) {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+
+    $resp = (object)[
+    ];
+    LogInfo("save ok");
+    return 0;
+}
+
+         $ret = -1;
 $resp = (object)array();
 if(isset($_['save']))
 {
@@ -321,6 +354,10 @@ else if(isset($_['get_user_info']))
 else if(isset($_['shop_employee_save']))
 {
     $ret = InviteEmployee($resp);
+}
+else if(isset($_['save_employee_info']))
+{
+    $ret = SaveEmployeeInfo($resp);
 }
 else
 {
