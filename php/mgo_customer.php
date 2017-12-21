@@ -1,7 +1,7 @@
 <?php
 /*
  * [Rocky 2017-04-26 18:00:57]
- * 用户表操作类
+ * 客户表操作类
  */
 declare(encoding='UTF-8');
 namespace DaoMongodb;
@@ -17,7 +17,6 @@ class CustomerEntry
     public $phone          = null;           // 手机号(用户名)
     public $is_vip         = null;           // 是否会员(0:未知,1:是)
     public $openid         = null;           // 微信openid
-    //public $property     = null;           // 用户属性(位字段，1bit:管理员)
     public $ctime          = null;           // 创建时间
     public $mtime          = null;           // 修改时间
     public $lastmodtime    = null;           // 最后修改的时间
@@ -26,9 +25,8 @@ class CustomerEntry
     public $vip_level      = null;           // 会员等级（暂未开放)
     public $remark         = null;           // 备注
     public $sex            = null;           // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
-     public $usernick      = null;           // 用户昵称
-    // public $user_avater    = null;           // 用户头像
-    // public $birthday       = null;           // 用户生日
+    public $usernick       = null;           // 用户昵称
+    public $is_pad_customer= null;           // 是否是pad端客户（1:是,0:不是）
 
 
     function __construct($cursor = null)
@@ -48,7 +46,6 @@ class CustomerEntry
         $this->phone          = $cursor['phone'];
         $this->is_vip         = $cursor['is_vip'];
         $this->openid         = $cursor['openid'];
-        //$this->property     = $cursor['property'];
         $this->lastmodtime    = $cursor['lastmodtime'];
         $this->ctime          = $cursor['ctime'];
         $this->mtime          = $cursor['mtime'];
@@ -58,8 +55,7 @@ class CustomerEntry
         $this->remark         = $cursor['remark'];
         $this->sex            = $cursor['sex'];
         $this->usernick       = $cursor['usernick'];
-        // $this->user_avater    = $cursor['user_avater'];
-        // $this->birthday       = $cursor['birthday'];
+        $this->is_pad_customer= $cursor['is_pad_customer'];
     }
 
     public static function ToList($cursor)
@@ -136,17 +132,14 @@ class Customer
         if (null !== $info->remark) {
             $set["remark"] = (string)$info->remark;
         }
-        // if (null !== $info->user_avater) {
-        //     $set["user_avater"] = (string)$info->user_avater;
-        // }
         if (null !== $info->usernick) {
             $set["usernick"] = (string)$info->usernick;
         }
-        // if (null !== $info->birthday) {
-        //     $set["birthday"] = (int)$info->birthday;
-        // }
         if (null !== $info->sex) {
             $set["sex"] = (int)$info->sex;
+        }
+        if (null !== $info->is_pad_customer) {
+            $set["is_pad_customer"] = (int)$info->is_pad_customer;
         }
         
         LogDebug($set);
@@ -195,7 +188,22 @@ class Customer
         $ret = $table->findOne($cond);
         return new CustomerEntry($ret);
     }
+    // 返回 CustomerEntry
+    public function QueryByUseridShopid($userid, $shop_id)
+    {
 
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = array(
+            'userid'  => (int)$userid,
+            'shop_id' => (string)$shop_id,
+            'delete'  => array('$ne' => 1)
+        );
+
+        $ret = $table->findOne($cond);
+        return new CustomerEntry($ret);
+    }
 
     public function QueryByShopid($shop_id)
     {
@@ -312,6 +320,20 @@ class Customer
             return \errcode::DB_OPR_ERR;
         }
         return 0;
+    }
+
+    public function QueryByPhone($shop_id,$phone)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = array(
+            'shop_id' => (string)$shop_id,
+            'phone'   => (string)$phone,
+            'delete'  => array('$ne'=>1)
+        );
+        $ret = $table->findOne($cond);
+        return new CustomerEntry($ret);
     }
 }
 

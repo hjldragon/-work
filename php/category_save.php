@@ -120,10 +120,8 @@ function DeleteCategory(&$resp){
         
         'cate_id_list' => $category_id_list
     ];
-    $page_size = 1;
-    $page_no   = 1;
     $shop_id = \Cache\Login::GetShopId();
-    $list = $menumgo->GetFoodList($shop_id, $cond, $page_size, $page_no);
+    $list = $menumgo->GetFoodList($shop_id, $cond);
     if(count($list)>0){
         LogErr("Delete err");
         return errcode::CATE_NOT_DEL;

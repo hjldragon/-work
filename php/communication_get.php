@@ -51,7 +51,7 @@ if(isset($_["list"])){
     $ret = GetCommunicationList($resp);
 }
 $html =json_encode((object)array(
-   'ret' => $ret,
+    'ret' => $ret,
     'data'=>$resp
 ));
 echo $html;//传送给前台

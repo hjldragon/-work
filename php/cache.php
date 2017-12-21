@@ -9,6 +9,7 @@ require_once("current_dir_env.php");
 require_once("const.php");
 require_once("redis_login.php");
 require_once("mgo_user.php");
+require_once("mgo_weixin.php");
 require_once("mgo_shop.php");
 require_once("mgo_category.php");
 require_once("mgo_seat.php");
@@ -33,6 +34,11 @@ class Login
         self::$cache = $redis->Get($token);
         LogDebug("load logininfo --> cache, data:" . json_encode(self::$cache));
         return self::$cache;
+    }
+
+    static function Token()
+    {
+        return self::$cache->token?:"";
     }
 
     static function GetKey()
@@ -425,6 +431,52 @@ class Position{
         return $info;
 
     }
+}
+
+// 微信用户信息
+class Weixin
+{
+    private static $cache = [];
+
+    static function Get($openid, $src)
+    {
+        $info = &self::$cache[$openid];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new \DaoMongodb\Weixin;
+        $info = $mgo->QueryByOpenId($openid, $src);
+        
+        if($openid != $info->openid)
+        {
+            LogErr("weixin_user err, openid:[$openid], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load weixin_user --> cache, data:" . json_encode($info));
+        return $info;
+    }
+    static function GetUser($userid)
+    {
+        $info = &self::$cache[$userid];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new \DaoMongodb\Weixin;
+        $info = $mgo->QueryByUserId($userid);
+        
+        if($userid != $info->userid)
+        {
+            LogErr("weixin_user err, userid:[$userid], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load weixin_user --> cache, data:" . json_encode($info));
+        return $info;
+    }
+
 }
 
 ?>

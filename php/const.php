@@ -69,6 +69,19 @@ class errcode
     const PHONE_VERIFY_ERR      = -20049;        //手机验证过程出错
     const USER_NOT_ZC           = -20050;        //用户没有注册
     const ORDER_SEAT_NO         = -20051;        //订单中含有该餐桌
+    const EMPLOYEE_IS_EXIT      = -20060;        //该员工已经邀请过了
+    const PHONE_TWO_NOT         = -20061;        //俩次输入的电话号码不一样
+    const WEIXIN_NO_LOGIN       = -20062;        //此微信未绑定,不能登录
+    const WEIXIN_NO_BINDING     = -20063;        //此微信已绑定账号,不能重复绑定
+    const WEIXIN_NO_REBINDING   = -20064;        //账号与微信不符,不能解除绑定
+    const INVOICING_NOT         = -20065;        //用户没开票
+    const FOOD_ERR              = -20066;        //餐品出错
+    const INVOICE_IS_ERR        = -20067;        //发票错误
+    const FEE_MONEY_ERR         = -20068;        //减免金额出错
+    const CODE_NOT_SET          = -20069;        //二维码未设置
+    const NEWS_NOT_CONTENT      = -20070;        // 系统消息无内容
+    const NEWS_ID_NOT_EP        = -20071;        // 消息id不能为空
+
 
 
 
@@ -98,7 +111,9 @@ class errcode
     const CATE_NOT_DEL            = -30032;       // 此分类下有商品，不能删除
     const DEPARTMENT_NOT_DEL      = -30033;       // 此部门下有员工，不能删除
     const EMPLOYEE_IS_FREEZE      = -30034;       // 此部门员工已被冻结
-
+    const SEAT_IS_EXIST           = -30035;       // 餐桌号已存在
+    const SHOP_SUSPEND            = -30036;       // 系统暂停使用
+    const RESERVATION_NOT_EXIST   = -30037;       // 预约不存在
 
     /*
      * 注意同步修改 js/cfg.js --> errcode
@@ -119,7 +134,6 @@ class UserProperty
         return (UserProperty::SYS_ADMIN & $property) != 0;
     }
 }
-
 // js/cfg.js-->OrderStatus
 class OrderStatus
 {
@@ -132,7 +146,6 @@ class OrderStatus
     const PRINTED   = 6;    // 已出单
     const ERR       = 7;    // 订单出错
     const POSTPONED = 8;    // 叫起（即确认下单，但延迟出餐）
-
 
     // 是已确认状态
     static function HadConfirmed($status)
@@ -151,6 +164,27 @@ class NewOrderStatus
     const REFUNDFAIL= 5;    // 退款失败
     const CLOSER    = 6;    // 已关闭
     const GUAZ      = 7;    // 挂账
+    const REFUNDING = 8;    // 退款中
+}
+//支付状态
+class PayStatus
+{
+    const NOPAY     = 1;    // 未支付
+    const PAY       = 2;    // 已支付
+    const GUAZ      = 3;    // 挂账
+}
+//订单确认状态
+class OrderSureStatus
+{
+    const NOSURE    = 1;    // 未下单
+    const SURE      = 2;    // 下单
+    const SUREPAY   = 3;    // 下单并支付
+    // 是已确认状态
+//    static function HadConfirmed($status)
+//    {
+//        return OrderSureStatus::SURE == $status ||
+//            OrderSureStatus::SUREPAY == $status;
+//    }
 }
 // 打印机规格
 // js/cfg.js-->PrinterSpec
@@ -159,8 +193,6 @@ class PrinterSize
     const SPEC_80MM = 1;      // 80mm
     const SPEC_58MM = 2;      // 58mm
 }
-
-
 // 打印机规格
 // js/cfg.js-->PrinterCategory
 class PrinterCategory
@@ -169,7 +201,6 @@ class PrinterCategory
     const PRINT_FOODNAME = 2;      // 只打印菜名（适用于后厨打印等）
     const PRINT_SPECIFY  = 3;      // 只打印指定菜类别时（如酒水、凉菜等指定类型菜单）
 }
-
 // 餐桌状态
 class SeatStatus
 {
@@ -177,7 +208,6 @@ class SeatStatus
     const INUSE  = 1; // 使用中
     const ALERT  = 2; // 有提示
 }
-
 // 支付方式
 class PayWay
 {
@@ -191,14 +221,12 @@ class PayWay
         return $pay_way == PayWay::WEIXIN;
     }
 }
-
 // 是否会员
 class IsVipCustomer
 {
     const YES = 1;
     const NO  = 0;
 }
-
 // 员工职务
 class EmployeeDuty
 {
@@ -217,7 +245,6 @@ class EmployeeDuty
         return EmployeeDuty::SYS_SHOP_ADMIN == $duty;
     }
 }
-
 
 // 员工权限
 // "permission" : {
@@ -265,15 +292,12 @@ class EmployeePermission
         return !!$permission["report_read"];
     }
 }
-
-
 // 本餐品是否需要服务员确认
 class NeedWaiterConfirm
 {
     const NO   = 0;   // 不需要服务员确认
     const YES  = 1;   // 需要服务员确认
 }
-
 // 店铺是否暂停
 class ShopIsSuspend
 {
@@ -288,7 +312,6 @@ class ShopIsSuspend
                 || ShopIsSuspend::BY_SHOP_ADMIN == $suspend);
     }
 }
-
 // 菜品价格类型
 class PriceType
 {
@@ -297,7 +320,6 @@ class PriceType
     const VIP        = 4;   // vip价格
     const FESTIVAL   = 8;   // 节日价格
 }
-
 // 营业时间段
 class OpenTime
 {
@@ -315,26 +337,28 @@ class SetPayWay
 //职级权限值
 class Position
 {
-    const ALLBACKSTAGE   = 1;      // 后台全部权限
-    const ALLWEB         = 2;      // 前端全部权限
-    const ORDERING       = 4;      // 使用点餐
-    const GIVING         = 8;      // 赠送
-    const NEW_ORDER      = 16;     // 使用新订单管理
-    const USRPREDETET    = 32;     // 使用预定
-    const USRHISTORORDER = 64;     // 使用历史订单管理
-    const CHECKOUT       = 128;    // 结账
-    const ORDEROUT       = 256;    // 下单并结账
-    const CLOSEOUT       = 512;    // 关闭并结账
-    const USROUT         = 1024;   // 使用退款申请
-    const FCHECKOUT      = 2048;   // 使用反结账
-    const REFUND         = 4096;   // 退款
-    const CLOSEROREDER   = 8192;   // 关闭订单
-    const INVOICE        = 16384;  // 开发票
-    const REDDASHED      = 32768;  // 红冲
-    const USERSILVER     = 65536;  // 使用收银
-    const GUAZHANG       = 131072; // 挂账
-    const MALING         = 262144; // 抹零
-    const SETTING        = 524288; // 基础设置
+    const ALLBACKSTAGE   = 1;       // 后台全部权限
+    const ALLWEB         = 2;       // 前端全部权限
+    const ORDERING       = 4;       // 使用点餐
+    const GIVING         = 8;       // 赠送
+    const NEW_ORDER      = 16;      // 使用新订单管理
+    const USRPREDETET    = 32;      // 使用预定
+    const USRHISTORORDER = 64;      // 使用历史订单管理
+    const CHECKOUT       = 128;     // 结账
+    const ORDEROUT       = 256;     // 下单并结账
+    const CLOSEOUT       = 512;     // 关闭并结账
+    const USROUT         = 1024;    // 使用退款申请
+    const FCHECKOUT      = 2048;    // 使用反结账
+    const REFUND         = 4096;    // 退款
+    const CLOSEROREDER   = 8192;    // 关闭订单
+    const INVOICE        = 16384;   // 开发票
+    const REDDASHED      = 32768;   // 红冲
+    const USERSILVER     = 65536;   // 使用收银
+    const GUAZHANG       = 131072;  // 挂账
+    const MALING         = 262144;  // 抹零
+    const CLOSEREFUND    = 524288;  // 关闭并退款
+    const HISTORYPAY     = 1048576; // 结账(历史订单)
+    const SETTING        = 2097152; // 基础设置
     //时候拥有后台管理权限
     public static function IsAdmin($position_permission)
     {
@@ -358,10 +382,23 @@ class PaySetingWay
     const PAYTWO   = 2;             // 微信/支付宝端支付方式
 
 }
-
 //店铺消息设置
 class ShopNewsDay
 {
     const NUM   = 5;             // 店铺每日群发消息限制数
+}
+//图片类型
+class ImgType
+{
+    const NONE   = 0;             // 无定义
+    const USER   = 1;             // 用户图片
+}
+// 餐桌餐位费结算方式
+class SeatPriceType
+{
+    const NO       = 0;   // 不收餐位费
+    const NUM      = 1;   // 按人数
+    const FIXED    = 2;   // 固定数
+    const RATIO    = 3;   // 按订单总额比例
 }
 ?>

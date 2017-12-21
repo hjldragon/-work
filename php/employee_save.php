@@ -8,7 +8,7 @@ require_once("mgo_employee.php");
 require_once("mgo_user.php");
 require_once("redis_id.php");
 
-
+Permission::PageCheck();
 // 修改或注册用户
 // 注：$userinfo->userid中返回注册的id
 function EmployeeUserSetting($userinfo)
@@ -206,52 +206,7 @@ function FreezeEmployee(&$resp)
     LogInfo("freeze ok");
     return 0;
 }
-//邀请员工第一步获取手机号验证码并获取手机号用户信息
-function InviteGetUserInfo(&$resp)
-{	
-	
-    $_ = $GLOBALS["_"];
-    if (!$_)
-    {
-        LogErr("param err");
-        return errcode::PARAM_ERR;
-    }
-
-    $token      = $_['token'];
-    $phone      = $_['phone'];
-    $user       = new \DaoMongodb\User;
-    $userinfo   = $user->QueryByPhone($phone);
-    if(!$userinfo->phone)
-    {
-        return errcode::USER_NOT_ZC;
-    }
-    $phone_code = $_['phone_code'];//手机验证码
-    $result     = PageUtil::VerifyPhoneCode($token, $phone, $phone_code);
-    //验证手机结果
-    if ($result != 0)
-    {
-        LogDebug($result);
-        return errcode::PHONE_VERIFY_ERR;
-    }
-        $user                            = new DaoMongodb\User;
-        $userinfo                         = $user->QueryByPhone($phone);
-        $userid                           = $userinfo->userid;
-        $user_info                        = [];
-        $user_info['real_name']           = $userinfo->real_name;
-        $user_info['identity']            = $userinfo->identity;
-        $user_info['sex']                 = $userinfo->sex;
-        $user_info['$health_certificate'] = $userinfo->health_certificate;
-        $user_info['$is_weixin']          = $userinfo->is_weixin;
-
-    $resp = (object)[
-        'userid'    => $userid,
-        'user_info' => $userinfo,
-    ];
-    LogDebug($resp);
-    LogInfo("--ok--");
-    return 0;
-}
-//邀请员工第二部,保存信息
+//第一步邀请获取验证信息并获取用户信息在get中,邀请员工第二部,保存信息。这是第二部
 function InviteEmployee(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -260,9 +215,12 @@ function InviteEmployee(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $userid               = $_['userid'];
-    $real_name            = $_['real_name'];
-    $phone                = $_['phone'];
+    $userid               = $_['user_id'];
+
+    if(!$userid)
+    {
+        return errcode::PARAM_ERR;
+    }
     $department_id        = $_['department_id'];
     $position_id          = $_['position_id'];
     $shop_id              = \Cache\Login::GetShopId();
@@ -270,16 +228,24 @@ function InviteEmployee(&$resp)
     {
         return errcode::USER_NOLOGIN;
     }
-    $employee_id          = \DaoRedis\Id::GenEmployeeId();
     $entry                = new DaoMongodb\EmployeeEntry;
     $mgo                  = new DaoMongodb\Employee;
+    $info                 = $mgo->QueryByUserId($shop_id,$userid);
+    if($info->userid)
+    {
+        LogDebug($info);
+        return errcode::EMPLOYEE_IS_EXIT;
+    }
+    $user      = new DaoMongodb\User;
+    $user_info = $user->QueryById($userid);
+    $employee_id          = \DaoRedis\Id::GenEmployeeId();
     $entry->userid        = $userid;
     $entry->delete        = 0;
     $entry->is_freeze     = 0;
     $entry->is_admin      = 0;
     $entry->shop_id       = $shop_id;
-    $entry->phone         = $phone;
-    $entry->real_name     = $real_name;
+    $entry->phone         = $user_info->phone;
+    $entry->real_name     = $user_info->real_name;
     $entry->employee_id   = $employee_id;
     $entry->department_id = $department_id;
     $entry->position_id   = $position_id;
@@ -346,10 +312,6 @@ else if(isset($_['del_employee']) || isset($_['del']))
 else if(isset($_['freeze_employee']))
 {
     $ret = FreezeEmployee($resp);
-}
-else if(isset($_['get_user_info']))
-{
-    $ret = InviteGetUserInfo($resp);
 }
 else if(isset($_['shop_employee_save']))
 {

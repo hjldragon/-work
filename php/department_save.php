@@ -9,7 +9,7 @@ require_once("redis_id.php");
 require_once("mgo_department.php");
 require_once("mgo_employee.php");
 Permission::PageCheck();
-//$_=$_REQUEST;
+
 //保存部门信息
 function SaveDepartment(&$resp)
 {

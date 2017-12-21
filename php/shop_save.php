@@ -1,7 +1,7 @@
 <?php
 /*
  * [Rocky 2017-05-05 11:44:02]
- * 店铺信息保存类
+ * 新建店铺生成的数据文件
  */
 require_once("current_dir_env.php");
 require_once("mgo_shop.php");
@@ -9,6 +9,7 @@ require_once("mgo_category.php");
 require_once("permission.php");
 require_once("mgo_position.php");
 require_once("redis_id.php");
+require_once("redis_login.php");
 Permission::PageCheck();
 function SaveShopinfo(&$resp)
 {
@@ -23,10 +24,11 @@ function SaveShopinfo(&$resp)
     $shop_name     = $_['shop_name'];
     $shop_logo     = $_['shop_logo'];
     $shop_area     = $_['shop_area'];
-    $address_num   = $_['address_num'];
     $address       = $_['address'];
     $shop_model    = $_['shop_model'];
-    if(!$shop_name || !$shop_logo || !$shop_area || !$address_num){
+    $telephone     = $_['telephone'];
+    $token         = $_['token'];
+    if(!$shop_name || !$shop_logo || !$shop_area || !$address || !$shop_model || !$telephone){
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
@@ -36,10 +38,10 @@ function SaveShopinfo(&$resp)
     $entry->shop_id        = $shop_id;
     $entry->shop_name      = $shop_name;
     $entry->shop_logo      = $shop_logo;
-    $entry->address_num    = $address_num;
     $entry->shop_area      = $shop_area;
     $entry->address        = $address;
     $entry->shop_model     = $shop_model;
+    $entry->telephone      = $telephone;
     $ret = $mgo->Save($entry);
     if(0 != $ret)
     {
@@ -47,7 +49,8 @@ function SaveShopinfo(&$resp)
         return errcode::SYS_ERR;
     }
     // 添加管理员
-    $ret = InviteEmployee($shop_id);
+    $employee = (object)array();
+    $ret = InviteEmployee($shop_id, $employee);
     if(0 != $ret)
     {
         LogErr("Employee Entry err");
@@ -66,7 +69,23 @@ function SaveShopinfo(&$resp)
         LogErr("Position Entry err");
         return errcode::SYS_ERR;
     }
+    $redis = new \DaoRedis\Login();
+    $info = new \DaoRedis\LoginEntry();
+
+    // 注：$info->key字段在终端初次提交时设置
+    $info->token    = $token;
+    $info->shop_id  = $shop_id;
+    LogDebug($info);
+
+   $ret = $redis->Save($info);
+    if(0 != $ret)
+    {
+        LogErr("SaveKey err");
+        return errcode::SYS_ERR;
+    }
     $resp = (object)array(
+        'employeeinfo' => $employee,
+        'shopinfo' => $entry
     );
     LogInfo("save ok");
     return 0;
@@ -272,7 +291,7 @@ function EntryCategory($shop_id)
     return 0;
 }
 
-function InviteEmployee($shop_id)
+function InviteEmployee($shop_id, &$info)
 {
     $employee_id = \DaoRedis\Id::GenEmployeeId();
     $userinfo = \Cache\Login::UserInfo();
@@ -292,6 +311,7 @@ function InviteEmployee($shop_id)
         LogErr("Save err, ret=[$ret]");
         return errcode::SYS_ERR;
     }
+    $info = $entry;
     LogInfo("--ok--");
     return 0;
 }
@@ -377,6 +397,86 @@ function EntryPosition($shop_id)
         return errcode::SYS_ERR;
     }
 
+    LogInfo("save ok");
+    return 0;
+}
+// 设置PAD端基础设置到服务器
+function SyncBaseSettings(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if(!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+
+    $shop_id = \DaoRedis\Id::GenShopId();
+    $shop_name     = $_['shop_name'];
+    $shop_logo     = $_['shop_logo'];
+    $shop_area     = $_['shop_area'];
+    $address       = $_['address'];
+    $shop_model    = $_['shop_model'];
+    $telephone     = $_['telephone'];
+    $token         = $_['token'];
+    if(!$shop_name || !$shop_logo || !$shop_area || !$address || !$shop_model || !$telephone){
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $mgo = new \DaoMongodb\Shop;
+    $entry = new \DaoMongodb\ShopEntry;
+
+    $entry->shop_id        = $shop_id;
+    $entry->shop_name      = $shop_name;
+    $entry->shop_logo      = $shop_logo;
+    $entry->shop_area      = $shop_area;
+    $entry->address        = $address;
+    $entry->shop_model     = $shop_model;
+    $entry->telephone      = $telephone;
+    $ret = $mgo->Save($entry);
+    if(0 != $ret)
+    {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+    // 添加管理员
+    $employee = (object)array();
+    $ret = InviteEmployee($shop_id, $employee);
+    if(0 != $ret)
+    {
+        LogErr("Employee Entry err");
+        return errcode::SYS_ERR;
+    }
+    // 创建固定品类
+    $ret = EntryCategory($shop_id);
+    if(0 != $ret)
+    {
+        LogErr("Category Entry err");
+        return errcode::SYS_ERR;
+    }
+    $ret = EntryPosition($shop_id);
+    if(0 != $ret)
+    {
+        LogErr("Position Entry err");
+        return errcode::SYS_ERR;
+    }
+    $redis = new \DaoRedis\Login();
+    $info = new \DaoRedis\LoginEntry();
+
+    // 注：$info->key字段在终端初次提交时设置
+    $info->token    = $token;
+    $info->shop_id  = $shop_id;
+    LogDebug($info);
+
+    $ret = $redis->Save($info);
+    if(0 != $ret)
+    {
+        LogErr("SaveKey err");
+        return errcode::SYS_ERR;
+    }
+    $resp = (object)array(
+        'employeeinfo' => $employee,
+        'shopinfo' => $entry
+    );
     LogInfo("save ok");
     return 0;
 }

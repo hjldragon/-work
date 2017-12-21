@@ -13,6 +13,7 @@ require_once("util.php");
 class Cfg
 {
     static private $instance = null;
+    static private $prefix = "shop"; // 店铺端
     public $db   = null;
     public $log  = null;
     public $rsa  = null;
@@ -50,7 +51,7 @@ class Cfg
 
         $cfg = array();
         $dao = new \DaoMongodb\Cfg();
-        $ret = $dao->QueryByKeyPrefix("");
+        $ret = $dao->QueryByKeyPrefix($prefix);
         foreach($ret as $item)
         {
             $cfg[$item->key] = $item->value;
@@ -59,16 +60,15 @@ class Cfg
          //error_log(json_encode($cfg));
 
         // 日志配置
-        // $path = Util::EmptyToDefault($cfg['log.path'], "/home/log/ordering/log.txt");
-        $path = "/log/ordering/www.ob.com/log.txt";
+        $path = Util::EmptyToDefault($cfg["$prefix.log.path"], "/log/shop.jzzwlcm.com/log.txt");
         if(file_exists($path))
         {
             $path = realpath($path);    // 注：若文件不存在时，realpath()调用返回空
         }
         $this->log = (object)array(
-        'path'  => $path,
-        'level' => Util::EmptyToDefault($cfg['log.level'], "3")
-    );
+            'path'  => $path,
+            'level' => Util::EmptyToDefault($cfg["$prefix.log.level"], "3")
+        );
         $log_path = dirname($this->log->path);
         Util::DirCheck($log_path);
         Log::instance()->SetFile($this->log->path);
@@ -76,7 +76,7 @@ class Cfg
 
 
         // 数据根目录
-        $this->data_basedir = "/data/ordering";
+        $this->data_basedir = "/data/ordering";  // <<<<<<<<<<<<<<<<<<<
         Util::DirCheck($this->data_basedir);
 
         // 临时目录
@@ -84,13 +84,13 @@ class Cfg
 
         // img.filepath
         $this->img = (object)array(
-            'filepath' => Util::EmptyToDefault($cfg['img.filepath'], "/data/ordering/imgfile")
+            'filepath' => Util::EmptyToDefault($cfg["$prefix.img.filepath"], "/data/ordering/imgfile")
         );
         Util::DirCheck($this->img->filepath);
 
-        // 订餐服务
+        // 订餐后台服
         $this->orderingsrv = (object)[
-            "webserver_url" => Util::EmptyToDefault($cfg['orderingsrv.webserver_url'], "http://120.24.40.134:21121/webserver")
+            "webserver_url" => Util::EmptyToDefault($cfg["$prefix.orderingsrv.webserver_url"], "http://120.24.40.134:13010/webserver")
         ];
 
         static $publickey = <<<eof
@@ -125,10 +125,18 @@ eof;
         );
 
         // 点餐页面地址
-        $this->ordering_url = "http://of.jzzwlcm.com/menu.php";
-        $this->menu_url = "http://www.of.com:8080/index.php";
-        $this->food_url = 'http://www.ob.com:8080';
-        $this->login_url = 'http://wx.jzzwlcm.com/wx_login_tmp.php';
+        // $this->ordering_url = "http://of.jzzwlcm.com/menu.php";
+        // $this->menu_url     = "http://192.168.5.117/www.of.com/index.php";
+        // $this->food_url     = 'http://www.ob.com:8080';
+        // $this->login_url    = 'http://wx.jzzwlcm.com/wx_login.php';
+        // $this->jump_url     = 'http://wx.jzzwlcm.com/jumpto.php';
+        // $this->binding_url  = 'http://wx.jzzwlcm.com/wx_binding.php';
+        $this->ordering_url = Util::EmptyToDefault($cfg["$prefix.ordering_url"], "http://of.jzzwlcm.com/menu.php");
+        $this->menu_url     = Util::EmptyToDefault($cfg["$prefix.menu_url"], "http://customer.jzzwlcm.com/index.php");
+        $this->food_url     = Util::EmptyToDefault($cfg["$prefix.food_url"], "http://shop.jzzwlcm.com");
+        $this->login_url    = Util::EmptyToDefault($cfg["$prefix.login_url"], "http://wx.jzzwlcm.com/wx_login.php");
+        $this->jump_url     = Util::EmptyToDefault($cfg["$prefix.jump_url"], "http://wx.jzzwlcm.com/jumpto.php");
+        $this->binding_url  = Util::EmptyToDefault($cfg["$prefix.binding_url"], "http://wx.jzzwlcm.com/wx_binding.php");
         // LogInfo("cfg:" . json_encode($this));
         return 0;
     }
@@ -138,24 +146,24 @@ eof;
         $db = new \DaoMongodb\Cfg;
 
         // log
-        $db->Set("log.path", $this->log->path);
-        $db->Set("log.level", $this->log->level);
+        $db->Set("$prefix.log.path", $this->log->path);
+        $db->Set("$prefix.log.level", $this->log->level);
 
         // rsa
-        $db->Set("rsa.publickey", $this->rsa->publickey);
-        $db->Set("rsa.privatekey", $this->rsa->privatekey);
+        $db->Set("$prefix.rsa.publickey", $this->rsa->publickey);
+        $db->Set("$prefix.rsa.privatekey", $this->rsa->privatekey);
 
         // img
-        $db->Set("img.filepath", $this->img->filepath);
+        $db->Set("$prefix.img.filepath", $this->img->filepath);
 
         // 订餐后台服务
-        $db->Set("orderingsrv.webserver_url", $this->orderingsrv->webserver_url);
+        $db->Set("$prefix.orderingsrv.webserver_url", $this->orderingsrv->webserver_url);
 
         // 数据跟目录
-        $db->Set("data_basedir", $this->data_basedir);
+        $db->Set("$prefix.data_basedir", $this->data_basedir);
 
         // 点餐页面地址
-        $db->Set("ordering_url", $this->ordering_url);
+        $db->Set("$prefix.ordering_url", $this->ordering_url);
 
         //
     }
@@ -177,7 +185,7 @@ eof;
 
     // 取店铺餐位二维码内容
     public function GetSeatQrcodeContect($seat_id)
-    {   
+    {
         //'http://www.of.com:8080/index.php?seat=199'
         //return "{$this->ordering_url}?shop={$shop_id}&seat={$seat_id}";
         return "{$this->menu_url}?seat={$seat_id}";
@@ -194,7 +202,7 @@ eof;
 
     // 取餐品二维码内容
     public function GetFoodQrcodeContect($food_id)
-    {   
+    {
         //'http://www.of.com:8080/index.php?seat=199'
         //return "{$this->ordering_url}?food={$food_id}";
         return "{$this->food_url}?food={$food_id}";
@@ -202,10 +210,21 @@ eof;
 
     // 取登录二维码内容
     public function GetLoginQrcodeContect($token)
-    {   
-        //'http://www.of.com:8080/index.php?seat=199'
-        //return "{$this->ordering_url}?food={$food_id}";
+    {
         return "{$this->login_url}?token={$token}";
+
+    }
+
+    // 二维码内容
+    public function GetUrlQrcodeContect($url)
+    {
+        return "{$this->jump_url}?url={$url}";
+    }
+
+    // 绑定微信二维码内容
+    public function GetBindingQrcodeContect($userid, $token, $type)
+    {
+        return "{$this->binding_url}?userid={$userid}&token={$token}&type={$type}";
     }
 
     public function GetTmpPath($filename)
@@ -250,9 +269,7 @@ eof;
         }
         return "$dir/$filename";
     }
-
-
-
 };
 
+Cfg::instance();
 ?>

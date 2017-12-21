@@ -60,7 +60,8 @@ function SaveImgFileHtml5(&$resp=NULL)
         return errcode::PARAM_ERR;
     }
 
-    $userid = (int)$_["userid"];
+    $token = $_["token"];
+    
     $file = $_FILES["imgfile"];
     
     // LogDebug($file);

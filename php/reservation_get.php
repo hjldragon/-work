@@ -11,9 +11,7 @@ require_once("mgo_reservation.php");
 require_once("mgo_seat.php");
 require_once("mgo_employee.php");
 
-//Permission::EmployeePermissionCheck(
-//     Permission::CHK_ORDER_R
-//);
+//Permission::PageCheck();
 
 function GetAllReservationList(&$resp)
 {
@@ -32,6 +30,7 @@ function GetAllReservationList(&$resp)
     $end_time           = $_["end_time"];    //结束时间
     $page_size          = $_['page_size'];
     $page_no            = $_['page_no'];
+    $reservation_time   = $_['reservation_time']; //PAD端的时间搜索
     //排序字段
     $sort_reservation_time = (int)$_['sort_reservation_time'];
     $sort_customer_num     = (int)$_['sort_customer_num'];
@@ -48,26 +47,35 @@ function GetAllReservationList(&$resp)
     {
         $sort['sign_time'] = (int)$sort_sign_time;
     }
-    if (!$page_size)
-    {
-        $page_size = 7;//如果没有传默认10条
-    }
-    if (!$page_no)
-    {
-        $page_no = 1; //第一页开始
-    }
+//    if (!$page_size)
+//    {
+//        $page_size = 7;//如果没有传默认10条
+//    }
+//    if (!$page_no)
+//    {
+//        $page_no = 1; //第一页开始
+//    }
 
+    if($reservation_time)
+    {
+        $begin_time = strtotime($reservation_time);
+        $end_time   = $begin_time+86399;
+    }
     if (!$begin_time && $end_time)
     {
         $begin_time = -28800; //默认时间戳开始时间
     }
     if (!$end_time && $begin_time)
     {
-        $end_time = time(); //默认当前时间
+        $end_time = 1922354460; //默认无穷大时间戳
     }
 
     LogDebug("begin_time:$begin_time, end_time:$end_time");
-    $shop_id    = \Cache\Login::GetShopId();
+    $shop_id      = $_['shop_id'];
+    if(!$shop_id)
+    {
+        $shop_id  = \Cache\Login::GetShopId();
+    }
     LogDebug("shop_id:[$shop_id]");
     $total      = 0; //总计
     if($employee_name){
@@ -88,26 +96,31 @@ function GetAllReservationList(&$resp)
             'customer_phone'     => $customer_phone,
             'employee_id'        => $employee_id,
             'reservation_status' => $reservation_status,
+            'reservation_time'   => $reservation_time,
             'begin_time'         => $begin_time,
             'end_time'           => $end_time,
+
         ],
         $sort,
-        $page_size,
-        $page_no,
+        //$page_size,
+        //$page_no,
         $total
     );
     foreach ($reservation_list as &$v)
     {
         $employee         = new \DaoMongodb\Employee;
         $employee_info    = $employee->GetEmployeeInfo($shop_id,$v->employee_id);
+        $employee_info2    = $employee->GetEmployeeInfo($shop_id,$v->reserve_info->employee_id);
         $v->employee_name = $employee_info->real_name;
+        $v->reserve_info->employee_name = $employee_info2->real_name;
         $seat             = new \DaoMongodb\Seat;
         $seat_info        = $seat->GetSeatById($v->seat_id);
         $v->seat_name     = $seat_info->seat_name;
         $v->seat_type     = $seat_info->seat_type;
+        if($v->reservation_status == 2 ){
+            $v->sign_time = $v->reserve_info->made_time;
+        }
     }
-
-
     $resp = (object)[
         'reservation_list' => $reservation_list,
         'total'            => $total
@@ -123,12 +136,18 @@ if(isset($_["get_reservation_all"]))
 {
     $ret = GetAllReservationList($resp);
 }
+$result = (object)array(
+    'ret' => $ret,
+    'data' => $resp
+);
 
-$html = json_encode((object)array(
-    'ret'   => $ret,
-    'data'  => $resp
-    // 'crypt' => 1, // 是加密数据标记
-    // 'data'  => PageUtil::EncRespData(json_encode($resp))
-));
+if($GLOBALS['need_json_obj'])
+{
+    Output($result);
+}
+else
+{
+    $html =  json_encode($result);
+    echo $html;
+}
 ?><?php /******************************以下为html代码******************************/?>
-<?=$html?>

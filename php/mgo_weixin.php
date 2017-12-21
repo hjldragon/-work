@@ -146,7 +146,7 @@ class Weixin
         return 0;
     }
 
-    public function QueryByOpenId($openid)
+    public function QueryByOpenId($openid, $src)
     {   
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());

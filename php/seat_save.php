@@ -7,7 +7,7 @@ require_once("current_dir_env.php");
 require_once("mgo_seat.php");
 require_once("redis_id.php");
 require_once("const.php");
-//$_=$_REQUEST;
+Permission::PageCheck();
 function SaveSeatInfo(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -17,8 +17,24 @@ function SaveSeatInfo(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
+    $shop_id = \Cache\Login::GetShopId();
     $seat_id     = $_['seat_id'];//这是唯一的
+    //如果没有id就是自动创建
+    if(!$seat_id)
+    {
+        $seat_id = \DaoRedis\Id::GenSeatId();
+    }
     $seat_name   = $_['seat_name'];
+    $mgo         = new \DaoMongodb\Seat;
+    //查询店铺中的餐桌是否存在相同的名字
+    if(!$seat_id)
+    {
+        $info = $mgo ->GetSeatByName($shop_id,$seat_name);
+        if($info->seat_name)
+        {
+            return errcode::SEAT_IS_EXIST;
+        }
+    }
     $seat_size   = $_['seat_size'];
     $price       = $_['price'];
     $seat_region = $_['seat_region'];
@@ -33,9 +49,9 @@ function SaveSeatInfo(&$resp)
 
     //$url = 'http://www.ob.com:8080/php/img_get.php?get_seat_qrcode=1&shop_id=4&seat_id=5';二维码地址
     $entry              = new \DaoMongodb\SeatEntry;
-    $mgo                = new \DaoMongodb\Seat;
+
     $entry->seat_id     = $seat_id;
-    $entry->shop_id     = \Cache\Login::GetShopId();
+    $entry->shop_id     = $shop_id;
     $entry->seat_name   = $seat_name;
     $entry->seat_size   = $seat_size;
     $entry->price       = $price;
@@ -77,6 +93,7 @@ function DeleteSeatInfo(&$resp)
     $entry   = new \DaoMongodb\SeatEntry;
     $mongodb = new \DaoMongodb\Seat;
     $ret     = $mongodb->BatchDelete($seat_id_list);
+
     if (0 != $ret) {
         LogErr("delete err");
         return errcode::SYS_ERR;

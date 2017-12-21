@@ -13,10 +13,9 @@ class ValidateCode {
    private $fontcolor;//指定字体颜色
    //构造方法初始化
    public function __construct($width=130, $height=50, $codelen=4,$fontsize=20) {
-      $this->font = Cfg::instance()->GetFontFile();  // '../static/js/Motley2.TTF';//注意字体路径要写对，否则显示不了图片   <<<<<<<<<<<<<<<<<<<可配置
-      if(!is_file($path)) // <<<<<<<<<<<<<<<<<<<<<<<
-      {
-        LogErr("font not exist:[$path]");
+      $this->font = Cfg::instance()->GetFontFile();  // '../static/js/Motley2.TTF';//注意字体路径要写对，否则显示不了图片  
+      if(!is_file($this->font)) {
+        LogErr("font not exist:[$this->font]");
         //return;
       }
       $this->width    = $width;

@@ -17,9 +17,9 @@ function SaveFoodinfo(&$resp)
         return errcode::PARAM_ERR;
     }
 
-    $food_id             = (string)$_['food_id'];
+    $food_id             = $_['food_id'];
     $food_name           = $_['food_name'];
-    $category_id         = (string)$_['category_id'];
+    $category_id         = $_['category_id'];
     $food_price          = $_['food_price'];
     $composition         = json_decode($_['composition']);
     $feature             = json_decode($_['feature']);
@@ -36,7 +36,7 @@ function SaveFoodinfo(&$resp)
     $food_attach_list    = json_decode($_['food_attach_list']);
     $food_unit           = $_['food_unit'];
     $need_waiter_confirm = $_['need_waiter_confirm'];
-    $food_num_day        = $_['food_num_day'];
+    $stock_num_day       = $_['stock_num_day'];
     $is_draft            = $_['is_draft'];
     $type                = $_['type'];
     $sale_way            = json_decode($_['sale_way']);
@@ -90,7 +90,7 @@ function SaveFoodinfo(&$resp)
     $entry->shop_id             = $shop_id;
     $entry->category_id         = $category_id;
     $entry->food_name           = $food_name;
-    $entry->food_num_day        = $food_num_day;
+    $entry->stock_num_day       = $stock_num_day;
     $entry->food_price          = $food_price;
     $entry->food_img_list       = $food_img_list;
     $entry->food_intro          = $food_intro;
@@ -150,8 +150,7 @@ function DeleteFood(&$resp)
     LogInfo("delete ok");
     return 0;
 }
-
-        // 批量上、下架操作
+// 批量上、下架操作
 function SetSaleOff(&$resp)
 {
     $_ = $GLOBALS["_"];

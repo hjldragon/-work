@@ -75,24 +75,24 @@ function GetShopBaseInfo(&$resp)
     $entry                   = $mgo2->QueryById($userid);
     $info                    = $mgo->GetShopById($shop_id);
     $shopinfo                = [];
-    $shopinfo['username']    = $entry->username;
-    $shopinfo['is_weixin']   = $entry->is_weixin;
-    $shopinfo['telephone']   = $info->telephone;
-    $shopinfo['email']       = $info->email;
-    $shopinfo['contact']     = $info->contact;
-    $shopinfo['shop_id']     = $info->shop_id;
+    $shopinfo['phone']       = $entry->phone;
+//    $shopinfo['is_weixin']   = $entry->is_weixin;
+//    $shopinfo['telephone']   = $info->telephone;
+//    $shopinfo['email']       = $info->email;
+//    $shopinfo['contact']     = $info->contact;
+//    $shopinfo['shop_id']     = $info->shop_id;
     $shopinfo['shop_name']   = $info->shop_name;
     $shopinfo['shop_logo']   = $info->shop_logo;
     $shopinfo['shop_area']   = $info->shop_area;
     $shopinfo['address']     = $info->address;
     $shopinfo['address_num'] = $info->address_num;
-
-
+    $shopinfo['shop_model']  = $info->shop_model;
+    $shopinfo['telephone']   = $info->telephone;
 
     $resp = (object)[
         'shopinfo' => $shopinfo,
     ];
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -132,8 +132,8 @@ function GetShopEditInfo(&$resp)
     $resp = (object)array(
         'shopinfo' => $shopinfo
     );
-    //die;
-    LogDebug($resp);
+
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -161,7 +161,7 @@ function GetShopBusinessInfo(&$resp)
     $resp = (object)[
         'shopsbusiness' => $shopinfo,
     ];
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -189,7 +189,7 @@ function GetShopBusinessStatus(&$resp)
     $resp = (object)[
         'shop_bs_status' => $shopinfo,
     ];
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -274,7 +274,7 @@ function GetShopPaySet(&$resp)
     $resp = (object)[
         'collection_set' => $shopinfo,
     ];
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -402,6 +402,7 @@ function SaveWeixinSelectSet(&$resp)
 
     return 0;
 }
+
 $ret = -1;
 $resp = (object)array();
 if(isset($_["get_shop_info"]))
@@ -435,6 +436,9 @@ elseif(isset($_["shoplist"]))
 }elseif(isset($_['select_weixin_set']))
 {
     $ret = SaveWeixinSelectSet($resp);
+}elseif(isset($_['shop_info']))
+{
+    $ret = GetPadShopInfo($resp);
 }
 
 $html = json_encode((object)array(

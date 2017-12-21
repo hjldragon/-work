@@ -20,7 +20,7 @@ class UserEntry
     public $passwd_prompt      = null;   // 密码提示
     //public $property         = null;   // 用户属性(位字段，见class UserProperty)
     public $ctime              = null;   // 创建时间
-    public $mtime              = null;   // 修改时间
+    public $lastmodtime        = null;   // 修改时间
     public $delete             = null;   // 0:未删除; 1:已删除
     public $phone              = null;   // 手机号
     public $identity           = null;   // 身份证号
@@ -54,7 +54,7 @@ class UserEntry
         $this->answer             = $cursor['answer'];
         $this->passwd_prompt      = $cursor['passwd_prompt'];
         $this->ctime              = $cursor['ctime'];
-        $this->mtime              = $cursor['mtime'];
+        $this->lastmodtime        = $cursor['lastmodtime'];
         $this->delete             = $cursor['delete'];
         $this->user_avater        = $cursor['user_avater'];
         $this->phone              = $cursor['phone'];
@@ -103,21 +103,16 @@ class User
         $table = $db->selectCollection($this->Tablename());
 
         $cond = array(
-            'userid' => (int)$info->userid
+            'userid' => (int)$info->userid,
+
         );
 
         $bit = null;
         $set = [
-            "userid"    => (int)$info->userid,
+            "userid"      => (int)$info->userid,
+            "lastmodtime" => (int)time(),
         ];
-        if(null !== $info->mtime)
-        {
-            $set["mtime"] = (int)$info->mtime;
-        }
-        else
-        {
-            $set["mtime"] = time();
-        }
+
         if(null !== $info->key)
         {
             $set["key"] = (string)$info->key;

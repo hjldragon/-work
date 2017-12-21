@@ -11,8 +11,9 @@ require_once("redis_id.php");
 require_once("cache.php");
 require_once("mgo_department.php");
 require_once("mgo_position.php");
+require_once("mgo_user.php");
 Permission::PageCheck();
-// $_=$_REQUEST;
+
 function GetEmployeeInfo(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -59,7 +60,7 @@ function GetEmployeeList(&$resp)
     $resp = (object)array(
         'list' => $list
     );
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -110,7 +111,7 @@ function GetEmployeeOneInfo(&$resp)
         'employee_info' => $employee_info,
         'userinfo'      => $user_info,
     ];
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -149,11 +150,62 @@ function GetEmployeeAllList(&$resp)
     $resp = (object)[
         'employee_list' => $list,
     ];
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
 
+//邀请员工第一步获取手机号无图形验证码并获取手机号用户信息,第二部邀请成功在save中。这是第一步
+function InviteGetUserInfo(&$resp)
+{
+
+    $_ = $GLOBALS["_"];
+    if (!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+
+    $token      = $_['token'];
+    $phone      = $_['phone'];
+    if (!preg_match('/^1[34578]\d{9}$/', $phone))
+    {
+        LogErr("phone err");
+        return errcode::PHONE_ERR;
+    }
+    $user       = new \DaoMongodb\User;
+    $userinfo   = $user->QueryByPhone($phone);
+    if(!$userinfo->phone)
+    {
+        return errcode::USER_NOT_ZC;
+    }
+    $phone_code = $_['phone_code'];//手机验证码
+    $result     = PageUtil::VerifyPhoneCode($token, $phone, $phone_code);
+
+    //验证手机结果
+    if ($result != 0)
+    {
+        LogDebug($result);
+        return $result;
+    }
+    $user                             = new DaoMongodb\User;
+    $userinfo                         = $user->QueryByPhone($phone);
+    $userid                           = $userinfo->userid;
+    $user_info                        = [];
+    $user_info['real_name']           = $userinfo->real_name;
+    $user_info['identity']            = $userinfo->identity;
+    $user_info['sex']                 = $userinfo->sex;
+    $user_info['$health_certificate'] = $userinfo->health_certificate;
+    $user_info['$is_weixin']          = $userinfo->is_weixin;
+
+    $resp = (object)[
+        'userid'    => $userid,
+        'user_info' => $userinfo,
+    ];
+    LogDebug($resp);
+    LogInfo("--ok--");
+    return 0;
+}
 $ret = -1;
 $resp = (object)array();
 if(isset($_["info"]))
@@ -169,6 +221,9 @@ elseif(isset($_["list"]))
 }elseif(isset($_["get_employee_list"]))
 {
     $ret = GetEmployeeAllList($resp);
+}else if(isset($_['get_user_info']))
+{
+    $ret = InviteGetUserInfo($resp);
 }
 else
 {

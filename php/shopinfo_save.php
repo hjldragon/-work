@@ -57,6 +57,8 @@ function SaveShopInfo(&$resp)
     $opening_time        = json_decode($_['opening_time']);
     $img_list            = json_decode($_['img_list']);
     $shop_bs_status      = json_decode($_['shop_bs_status']);
+    $shop_model          = $_['shop_model'];
+    $telephone           = $_['telephone'];
     $mgo                 = new \DaoMongodb\Shop;
     $entry               = new \DaoMongodb\ShopEntry;
     $entry->shop_id        = $shop_id;
@@ -77,6 +79,9 @@ function SaveShopInfo(&$resp)
     $entry->is_invoice_vat = $is_invoice_vat;
     $entry->invoice_remark = $invoice_remark;
     $entry->shop_bs_status = $shop_bs_status;
+    $entry->shop_model     = $shop_model;
+    $entry->telephone      = $telephone;
+
 
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
@@ -117,12 +122,12 @@ function SaveShopBusiness(&$resp)
         LogDebug($shop_id,$login_shop_id);
         return errcode::SHOP_NOT_WEIXIN;
     }
-    //$shop_id                               = (string)$_['shop_id'];//<<<<<<<<<<<<<这里是测试数据
     $company_name                          = $_['company_name'];
     if (!$company_name) {
         LogErr("company_name  is empty");
         return errcode::PARAM_ERR;
     }
+
     $legal_person                          = $_['legal_person'];
     if (!$legal_person) {
         LogErr("legal_person  is empty");
@@ -133,18 +138,20 @@ function SaveShopBusiness(&$resp)
         LogErr("legal_card  is empty");
         return errcode::PARAM_ERR;
     }
+
     $legal_card_photo                      = json_decode($_['legal_card_photo']);
     //$legal_card_photo                      = explode(',',$_['legal_card_photo']);
     if (!$legal_card_photo) {
         LogErr("legal_card_photo  is empty");
         return errcode::PARAM_ERR;
     }
+
     $business_num                          = $_['business_num'];
     if (!$business_num) {
         LogErr("business_num  is empty");
         return errcode::PARAM_ERR;
     }
-    $business_date                         = $_['business_date'];
+    $business_date                         = json_decode($_['business_date']);
     //$business_date                         = explode(',',$_['business_date']);
     if (!$business_date) {
         LogErr("business_date is empty");
@@ -155,6 +162,7 @@ function SaveShopBusiness(&$resp)
         LogErr("business_photo  is empty");
         return errcode::PARAM_ERR;
     }
+
     $repast_permit_identity                = $_['repast_permit_identity'];
     if (!$repast_permit_identity) {
         LogErr("repast_permit_identity  is empty");
@@ -199,11 +207,15 @@ function SaveShopBusiness(&$resp)
     $shop_business->repast_permit_photo    = $repast_permit_photo;
     $shop_business->confirmation           = $confirmation;
     $shop_business->business_scope         = $business_scope;
-
+    $shop_bs_status->bs_code = 1;
+    $shop_bs_status->id_code = 1;
+    $shop_bs_status->rs_code = 1;
     $mgo                                   = new \DaoMongodb\Shop;
     $entry                                 = new \DaoMongodb\ShopEntry;
     $entry->shop_id                        = $shop_id;
     $entry->shop_business                  = $shop_business;
+    $entry->shop_bs_status                 = $shop_bs_status;
+
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
         LogErr("Save err");
@@ -591,7 +603,41 @@ function SaveAlipaySet(&$resp)
     LogInfo("save ok");
     return 0;
 }
-
+// 设置PAD端基础设置到服务器
+function SyncBaseSettings(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if(!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $shop_id       = $_['shop_id'];
+    if(!$shop_id)
+    {
+        return errcode::SHOP_NOT_WEIXIN;
+    }
+    $auto_order     = $_['auto_order'];
+    $custom_screen  = $_['custom_screen'];
+    $menu_sort      = $_['menu_sort'];
+     LogDebug($_);
+    $mgo = new \DaoMongodb\Shop;
+    $entry = new \DaoMongodb\ShopEntry;
+    $entry->shop_id        = $shop_id;
+    $entry->auto_order     = $auto_order;
+    $entry->custom_screen  = $custom_screen;
+    $entry->menu_sort      = $menu_sort;
+    $ret = $mgo->Save($entry);
+    if(0 != $ret)
+    {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
+    $resp = (object)array(
+    );
+    LogInfo("save ok");
+    return 0;
+}
 
 $ret = -1;
 $resp = (object)array();
@@ -626,16 +672,28 @@ elseif(isset($_['save_shop_business']))
 }elseif(isset($_['save_alipay_set']))
 {
     $ret = SaveAlipaySet($resp);
+}elseif(isset($_['sync_base_settings']))
+{
+    $ret = SyncBaseSettings($resp);
 }
 else
 {
     $ret = errcode::PARAM_ERR;
     LogErr("param err");
 }
-
-$html = json_encode((object)array(
+$result = (object)array(
     'ret' => $ret,
     'data' => $resp
-));
+);
+
+if($GLOBALS['need_json_obj'])
+{
+    Output($result);
+}
+else
+{
+    $html =  json_encode($result);
+    echo $html;
+}
 ?><?php /******************************以下为html代码******************************/?>
-<?=$html?>
+

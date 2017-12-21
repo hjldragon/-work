@@ -141,12 +141,14 @@ class Seat
         $cond = [
             'seat_id' => ['$in' => $seat_id_list],
         ];
+
         $value = array(
             '$set' => array(
-                'delete'  => ['$ne'=>1],
+                'delete'  => 1,
                 "lastmodtime" => time()
             )
         );
+
         try {
             $ret = $table->update($cond, $value, ['safe' => true, 'upsert' => true, 'multiple' => true]);
             LogDebug("ret:" . $ret["ok"]);
@@ -177,14 +179,15 @@ class Seat
         $table = $db->selectCollection($this->Tablename());
 
         $cond = [
-            'seat_name' => (string)$seat_name,
+            //'seat_name' => (string)$seat_name,
+            'seat_name' => new \MongoRegex("/$seat_name/"),
             'shop_id'   => (string)$shop_id,
             'delete'    => ['$ne' => 1],
         ];
 
-        $cursor = $table->findOne($cond);
+        $cursor = $table->find($cond);
 
-        return new SeatEntry($cursor);
+        return SeatEntry::ToList($cursor);
     }
 
     public function GetList($shop_id)
@@ -199,7 +202,24 @@ class Seat
         $cursor = $table->find($cond, ["_id" => 0])->sort(["seat_id" => 1]);
         return SeatEntry::ToList($cursor);
     }
+
+    public function GetSeatID($shop_id, $seat_name)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = [
+            'shop_id'     => (string)$shop_id,
+            'seat_name'   => (string)$seat_name,
+            'delete'      => ['$ne' => 1],
+        ];
+        $cursor = $table->findOne($cond);
+        return new SeatEntry($cursor);
+    }
 }
+
+
+
 
 
 ?>

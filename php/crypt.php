@@ -122,22 +122,39 @@ class Crypt
     }
 }
 
+// "AES/CBC/NoPadding"
+class Aes
+{
+    public static function Encrypt($passwd, $data)
+    {
+        $key = substr(md5($passwd), 0, 16);
+        $iv = $key;
 
-//$data = '现22在';
-////
-////$s1 = Swap::doit(120, $data);
-////echo "$s1 \n";
-////
-////$s2 = Swap::undo(120, $s1);
-////echo "$s2 \n";
-////
-////echo "-----------------------------------------------------------------------\n";
-////
-//$s1 = Crypt::encode('12345678', $data);
-//LogDebug($s1);
-//
-////$s1 = '17770112100170007102732703011d11201c474a';
-//$s2 = Crypt::decode('12345678', $s1);
-//LogDebug($s2);
+        //加密
+        $encrypted = mcrypt_encrypt(
+            MCRYPT_RIJNDAEL_128,
+            $key,
+            $data,
+            MCRYPT_MODE_CBC,
+            $iv
+        );
+        return base64_encode($encrypted);
+    }
 
+    public static function Decrypt($passwd, $enc)
+    {
+        $key = substr(md5($passwd), 0, 16);
+        $iv = $key;
+
+        //解密
+        $dec = mcrypt_decrypt(
+            MCRYPT_RIJNDAEL_128,
+            $key,
+            base64_decode($enc), // 要先解 base64编码
+            MCRYPT_MODE_CBC,
+            $iv
+        );
+        return rtrim($dec, "\0");
+    }
+}
 ?>

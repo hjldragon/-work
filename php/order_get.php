@@ -11,11 +11,11 @@ require_once("mgo_order.php");
 require_once("mgo_seat.php");
 require_once("mgo_customer.php");
 require_once ("mgo_employee.php");
+require_once("mgo_order_status.php");
 
 //Permission::EmployeePermissionCheck(
 //     Permission::CHK_ORDER_R
 //);
-
 function GetOrderInfo(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -25,24 +25,63 @@ function GetOrderInfo(&$resp)
         return errcode::PARAM_ERR;
     }
     $order_id = $_['order_id'];
-
-    $mgo = new \DaoMongodb\Order;
-    $info = $mgo->GetOrderById($order_id);
-    $info->seat = \Cache\Seat::Get($info->seat_id);
-    if($info->seat)
+    $mgo                              = new \DaoMongodb\Order;
+    $info                             = $mgo->GetOrderById($order_id);
+    $order_status                     = new \DaoMongodb\OrderStatus;
+    $status_info                      = $order_status->GetOrderById($order_id);
+    $shop_id                          = $_['shop_id'];
+    if(!$shop_id)
     {
-        $info->seat->seat_price = Util::FenToYuan($info->seat->seat_price);
+        $shop_id                       = \Cache\Login::GetShopId();
     }
-    $info->customer = \Cache\Customer::Get($info->customer_id);
-
+    $customer                         = new \DaoMongodb\Customer;
+    $customer_info                    = $customer->QueryById($info->customer_id);
+    $customer_name                    = $customer_info->usernick;
+    $seat                             = new \DaoMongodb\Seat;
+    $seat_info                        = $seat->GetSeatById($info->seat_id);
+    $employee                         = new \DaoMongodb\Employee;
+    $employee_info                    = $employee->GetEmployeeInfo($shop_id, $info->employee_id);
+    $employee_name                    = $employee_info->real_name;
+    if($info->order_status == 8)
+    {
+        $info->order_status = 2;
+    }
+    $status_infos = [];
+    foreach ($status_info as $s)
+    {
+        $employee_info2          = $employee->GetEmployeeInfo($shop_id, $s->employee_id);
+        $employee_name2          = $employee_info2->real_name;
+        $customer_info2          = $customer->QueryById($s->customer_id);
+        $customer_phone          = $customer_info2->phone;
+        $customer_name2          = $customer_info2->usernick;
+        $infos['order_status']   = $s->order_status;
+        $infos['customer_phone'] = $customer_phone;
+        $infos['employee_name']  = $employee_name2;
+        $infos['customer_name']  = $customer_name2;
+        $infos['made_time']      = $s->made_time;
+        $infos['made_reson']     = $s->made_reson;
+        $infos['made_cz_reson']  = $s->made_cz_reson;
+        array_push($status_infos,$infos);
+    }
+    $info->seat->seat_id              = $seat_info->seat_id;
+    $info->seat->seat_name            = $seat_info->seat_name;
+    $info->seat->seat_type            = $seat_info->seat_type;
+    $info->seat->seat_region          = $seat_info->seat_region;
+    $info->employee_name              = $employee_name;
+    if($info->order_from == 1)
+    {
+        $info->customer_name = $employee_name;
+    }else{
+        $info->customer_name = $customer_name;
+    }
+    $info->status_info                = $status_infos;
     $resp = (object)array(
-        'info' => $info
+        'order_info' => $info,
     );
-    // LogDebug($resp);
+    LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
-
 function GetOrderList(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -97,7 +136,6 @@ function GetOrderList(&$resp)
             $value->seat->seat_price = Util::FenToYuan($value->seat->seat_price);
         }
     }
-
     $resp = (object)array(
         'list' => $order_list
     );
@@ -126,17 +164,8 @@ function GetOrderAllList(&$resp)
     $end_time         = $_["end_time"];    //各种状态结束时间
     $page_size        = $_['page_size'];
     $page_no          = $_['page_no'];
+    $shop_id          = $_['shop_id'];
     //排序字段
-    $sort_order_id      = $_['sort_order_id'];
-    $sort_order_time    = $_['sort_order_time'];
-    $sort_order_fee     = $_['sort_order_fee'];
-    $sort_pay_time      = $_['sort_pay_time'];
-    $sort_order_payable = $_['sort_order_payable'];
-    $sort_paid_price    = $_['sort_paid_price'];
-    $sort_sc_time       = $_['sort_sc_time'];
-    $sort_fd_time       = $_['sort_fd_time'];
-    $sort_close_time    = $_['sort_close_time'];
-    $sort_out_time      = $_['sort_out_time'];
     if (!$page_size)
     {
         $page_size = 7;//如果没有传默认10条
@@ -147,11 +176,11 @@ function GetOrderAllList(&$resp)
     }
     if (!$order_begin_time && $order_end_time)
     {
-        $order_begin_time = -28800; //默认时间戳开始时间
+        $order_begin_time = -28800; //默认后面很长时间
     }
     if (!$order_end_time && $order_begin_time)
     {
-        $order_end_time = time(); //默认当前时间
+        $order_end_time = 1922354460; //默认当前时间
     }
     if (!$begin_time && $end_time)
     {
@@ -159,70 +188,41 @@ function GetOrderAllList(&$resp)
     }
     if (!$end_time && $begin_time)
     {
-        $end_time = time(); //默认当前时间
+        $end_time = 1922354460; //默认后面很长时间
     }
-    if ($sort_order_id)
+    $sort_name = $_['sort_name'];
+    $desc      = $_['desc'];
+    if ($sort_name)
     {
-        $sort["order_id"] = (int)$sort_order_id;
+        $sort[$sort_name] = (int)$desc;
     }
-    if ($sort_order_time)
+
+
+    //LogDebug("begin_time:$order_begin_time, end_time:$order_end_time");
+    //LogDebug("begin_time:$begin_time, end_time:$end_time");
+    if(!$shop_id)
     {
-        $sort["order_time"] = (int)$sort_order_time;
+        $shop_id    = \Cache\Login::GetShopId();
     }
-    if ($sort_order_fee)
-    {
-        $sort["order_fee"] = (int)$sort_order_fee;
-    }
-    if ($sort_order_payable)
-    {
-        $sort["order_payable"] = (int)$sort_order_payable;
-    }
-    if ($sort_paid_price)
-    {
-        $sort["paid_price"] = (int)$sort_paid_price;
-    }
-    if ($sort_sc_time)
-    {
-        $sort["refunds_time"] = (int)$sort_sc_time;
-    }
-    if ($sort_fd_time)
-    {
-        $sort["refunds_fail_time"] = (int)$sort_fd_time;
-    }
-    if ($sort_close_time)
-    {
-        $sort["close_time"] = (int)$sort_close_time;
-    }
-    if ($sort_out_time)
-    {
-        $sort["checkout_time"] = (int)$sort_out_time;
-    }
-    if ($sort_pay_time)
-    {
-        $sort["pay_time"] = (int)$sort_pay_time;
-    }
-    LogDebug("begin_time:$order_begin_time, end_time:$order_end_time");
-    LogDebug("begin_time:$begin_time, end_time:$end_time");
-    $shop_id    = \Cache\Login::GetShopId();
     LogDebug("shop_id:[$shop_id]");
     $total      = 0; //总单合计
     if($seat_name){
         $seat       = new \DaoMongodb\Seat;
         $seat_info  = $seat->GetSeatByName($shop_id,$seat_name);
-        $seat_id    = $seat_info->seat_id;
-        if(!$seat_id)
-        {
-            $seat_id = 0;
+        foreach ($seat_info as $s){
+            $seat_id    = $s->seat_id;
+            $seat_id_list [] =$seat_id;
         }
     }
     $pirce_list = [];
     $mgo        = new \DaoMongodb\Order;
-    LogDebug($_);
+    //LogDebug($_);
+
     $order_list = $mgo->GetOrderAllList(
         [
             'shop_id'          => $shop_id,
             'order_id'         => $order_id,
-            'seat_id'          => $seat_id,
+            'seat_id_list'     => $seat_id_list,
             'is_invoicing'     => $is_invoicing,
             'dine_way'         => $dine_way,
             'pay_way'          => $pay_way,
@@ -238,7 +238,7 @@ function GetOrderAllList(&$resp)
         $total,
         $pirce_list
     );
-    LogDebug($pirce_list);
+    //LogDebug($pirce_list);
     if ($pirce_list == null) {
         //return errcode::SYS_BUSY;
         $pirce_list = [];
@@ -246,16 +246,20 @@ function GetOrderAllList(&$resp)
 
     foreach ($order_list as &$v)
     {
-        $customer         = new \DaoMongodb\Customer;
-        $customer_info    = $customer->QueryById($v->customer_id);
-        $v->customer_name = $customer_info->usernick;
-        $employee         = new \DaoMongodb\Employee;
-        $employee_info    = $employee->GetEmployeeInfo($shop_id,$v->employee_id);
-        $v->employee_name = $employee_info->real_name;
-        $employee_info2    = $employee->GetEmployeeInfo($shop_id,$v->status_info->employee_id);
+        $customer                      = new \DaoMongodb\Customer;
+        $customer_info                 = $customer->QueryById($v->customer_id);
+        $v->customer_name              = $customer_info->usernick;
+        $v->customer_phone             = $customer_info->phone;
+        $employee                      = new \DaoMongodb\Employee;
+        $employee_info                 = $employee->GetEmployeeInfo($shop_id, $v->employee_id);
+        $v->employee_name              = $employee_info->real_name;
+        $employee_info2                = $employee->GetEmployeeInfo($shop_id, $v->status_info->employee_id);
         $v->status_info->employee_name = $employee_info2->real_name;
+        $seat                          = new \DaoMongodb\Seat;
+        $seat_info                     = $seat->GetSeatById($v->seat_id);
+        $v->seat_name                  = $seat_info->seat_name;
     }
-    LogDebug($order_list['customer_name']);
+    //LogDebug($order_list['customer_name']);
     //订单金额总价
     $all_order_fee       = $pirce_list['all_order_fee'];
     //订单总客人数
@@ -266,28 +270,33 @@ function GetOrderAllList(&$resp)
     $order_average_price = $all_order_fee / $total;
     //客单价格
     $order_people_price  = $all_order_fee / $all_customer_num;
+
     foreach ($order_list as $key => &$value)
     {
         $value->seat = \Cache\Seat::Get($value->seat_id);
         if (!$value->seat)
         {
             $value->seat = [];
-        } 
+        }
         else
         {
             $value->seat->seat_price = Util::FenToYuan($value->seat->seat_price);
         }
     }
 
+    $page_all = ceil($total/$page_size);//总共页数
     $resp = (object)[
-        'order_list'          => $order_list,
-        'total'               => $total,                                  //总单数
-        'all_order_fee'       => round($all_order_fee,2),        //订单金额总价
-        'get_real_order'      => round($order_payable,2),        //实收总价
-        'order_average_price' => round($order_average_price,2),  //订单平均价
-        'order_people_price'  => round($order_people_price,2)    //客单价
+       'order_list'          => $order_list,
+       'total'               => $total,                                  //总单数
+       'all_order_fee'       => round($all_order_fee,2),        //订单金额总价
+       'get_real_order'      => round($order_payable,2),        //实收总价
+       'order_average_price' => round($order_average_price,2),  //订单平均价
+       'order_people_price'  => round($order_people_price,2),    //客单价
+       'order_status'        => $order_status,
+       'page_all'            => $page_all,
+       'page_no'             => $page_no
     ];
-    LogDebug($resp);
+
     LogInfo("--ok--");
     return 0;
 }
@@ -407,10 +416,72 @@ function GetOrderStat(&$resp)
     LogInfo("--ok--");
     return 0;
 }
+//pad端新订单列表和退款列表
+function GetOrderPending(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if (!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
 
+
+    $order_status_list = [1,2,8];
+    $shop_id = $_['shop_id'];
+    $shop_info = new \DaoMongodb\Shop;
+    if (!$shop_id) {
+        $shop_id = \Cache\Login::GetShopId();
+    }
+    $shop_s = $shop_info->GetShopById($shop_id);
+    if(!$shop_s->shop_id)
+    {
+        return errcode::SHOP_NOT_WEIXIN;
+    }
+    LogDebug("shop_id:[$shop_id]");
+    $mgo        = new \DaoMongodb\Order;
+    $infos      = $mgo->GetOrderList(
+        [
+            'shop_id'           => $shop_id,
+            'order_status_list' => $order_status_list,
+        ]
+    );
+    $order_info = [];
+    foreach ($infos as $v)
+    {
+        if($v->order_status == NewOrderStatus::PAY || $v->order_status == NewOrderStatus::NOPAY)
+        {
+            $type = 0; //新订单
+        }
+        if($v->order_status == NewOrderStatus::REFUNDING)
+        {
+            $type = 1; //退款订单
+        }
+        $info['order_id']      = $v->order_id;
+        $info['serial_number'] = $v->order_water_num;
+        $info['type']          = $type;
+        $info['serial_time']   = date('Y-m-d H:i:s',$v->order_time);
+        $info['price']         = $v->order_fee;
+        if ($v->order_status == NewOrderStatus::NOPAY)
+        {
+            $info['is_pay'] = false;
+        }
+        if ($v->order_status == NewOrderStatus::PAY || $v->order_status == NewOrderStatus::REFUNDING)
+        {
+            $info['is_pay'] = true;
+        }
+        array_push($order_info, $info);
+    }
+    $resp = (object)[
+        'pendding' => $order_info,
+    ];
+
+    LogInfo("--ok--");
+    return 0;
+}
 $ret = -1;
 $resp = (object)array();
-if(isset($_["orderinfo"]))
+if(isset($_["order_info"]))
 {
     $ret = GetOrderInfo($resp);
 }
@@ -421,17 +492,29 @@ elseif(isset($_["orderlist"]))
 elseif(isset($_["get_order_list"]))
 {
     $ret = GetOrderAllList($resp);
+
 }
 elseif(isset($_["orderstat"]))
 {
     $ret = GetOrderStat($resp);
 }
+elseif(isset($_["get_order_pendding"]))
+{
+    $ret = GetOrderPending($resp);
+}
+$result = (object)array(
+    'ret' => $ret,
+    'data' => $resp
+);
 
-$html = json_encode((object)array(
-    'ret'   => $ret,
-    'data'  => $resp
-    // 'crypt' => 1, // 是加密数据标记
-    // 'data'  => PageUtil::EncRespData(json_encode($resp))
-));
+if($GLOBALS['need_json_obj'])
+{
+    Output($result);
+}
+else
+{
+    $html =  json_encode($result);
+    echo $html;
+}
 ?><?php /******************************以下为html代码******************************/?>
-<?=$html?>
+

@@ -245,15 +245,29 @@ class Employee
         $cursor = $table->findOne($cond);
         return new EmployeeEntry($cursor);
     }
-    public function GetEmployeeID($shop_id,$employee_name)
+    public function GetEmployeeId($shop_id,$employee_name)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
 
         $cond = [
-            'shop_id'     => (string)$shop_id,
-            'employee_id' => (string)$employee_name,
-            'delete'      => ['$ne' => 1],
+            'shop_id'       => (string)$shop_id,
+            'real_name' => (string)$employee_name,
+            'delete'        => ['$ne' => 1],
+        ];
+
+        $cursor = $table->findOne($cond);
+        return new EmployeeEntry($cursor);
+    }
+    public function GetEmployeeByPhone($shop_id,$phone)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = [
+            'shop_id' => (string)$shop_id,
+            'phone'   => (string)$phone,
+            'delete'  => ['$ne' => 1],
         ];
         $cursor = $table->findOne($cond);
         return new EmployeeEntry($cursor);
@@ -268,6 +282,7 @@ class Employee
             'is_admin' => ['$ne' => 1],
             'shop_id'  => (string)$shop_id,
         ];
+
         if(null != $filter)
         {
             $userid = $filter['userid'];
@@ -295,14 +310,15 @@ class Employee
         return EmployeeEntry::ToList($cursor);
     }
 
-    public function QueryByPhone($phone)
+    public function QueryByUserId($shop_id,$userid)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
 
         $cond = array(
-            'phone' => (string)$phone,
-            'delete' => ['$ne' => 1],
+            'shop_id' => (string)$shop_id,
+            'userid'  => (int)$userid,
+            'delete'  => ['$ne' => 1],
         );
 
         $ret = $table->findOne($cond);

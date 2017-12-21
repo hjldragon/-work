@@ -15,7 +15,7 @@ class NewsEntry
     public $news_id     = null;    // 消息id
     public $shop_id     = null;    // 店铺id
     public $title       = null;    // 标题
-    public $content     = null;    // 规格值
+    public $content     = null;    // 内容
     public $is_draft    = null;    // 是否草稿（0:不是, 1:是）
     public $delete      = null;    // 0:未删除; 1:已删除
     public $lastmodtime = null;    // 最后修改时间
@@ -127,7 +127,7 @@ class News
             '$set' => $set
         );
 
-
+		
         try
         {
             $ret = $table->update($cond, $value, ['upsert'=>true]);
@@ -210,7 +210,7 @@ class News
     }
 
     //查找消息列表
-    public function GetnNewsList($filter=null)
+    public function GetnNewsList($filter=null,$sortby=[])
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
@@ -235,7 +235,10 @@ class News
                 $cond['is_system'] = (int)$is_system;
             }
         }
-        $sortby['ctime'] = -1;
+        if(empty($sortby))
+        {
+            $sortby['ctime'] = -1;
+        }
         $field["_id"] = 0;
         $cursor = $table->find($cond, $field)->sort($sortby);
         return NewsEntry::ToList($cursor);
@@ -374,7 +377,7 @@ class NewsReady
         return new NewsReadyEntry($cursor);
     }
 
-    public function GetNewsReadyByShopId($shop_id)
+    public function GetNewsReadyByShopId($shop_id,$page_no,$page_size,&$total=null)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
@@ -382,10 +385,14 @@ class NewsReady
             'shop_id'   => (string)$shop_id,
             'is_system' => 1,
             'delete'    => ['$ne'=>1],
+            'ctime'     => ['$lte'=>time()]
         );
         $field["_id"] = 0;
         $sortby['ctime'] = -1;
-        $cursor = $table->find($cond, $field)->sort($sortby);
+        $cursor = $table->find($cond, $field)->sort($sortby)->skip(($page_no - 1) * $page_size)->limit($page_size);
+        if(null !== $total){
+            $total = $table->count($cond);
+        }
         return NewsReadyEntry::ToList($cursor);
     }
 
@@ -396,6 +403,7 @@ class NewsReady
         $table = $db->selectCollection($this->Tablename());
         $cond = [
             'delete'  => ['$ne'=>1],
+            'ctime'   => ['$lte'=>time()]
         ];
         if (null != $filter)
         {
@@ -455,14 +463,12 @@ class NewsReady
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
-
         foreach($id_list as $i => &$id)
         {
             $id = (string)$id;
         }
-
         $cond = array(
-            'news_id' => array('$in' => $id_list)
+            'id' => array('$in' => $id_list)
         );
         if($type){
             $value = array(
@@ -477,6 +483,8 @@ class NewsReady
                 )
             );
         }
+        LogDebug($cond);
+        LogDebug($value);
         try
         {
             $ret = $table->update($cond, $value, ['safe'=>true, 'upsert'=>true, 'multiple' => true]);
@@ -491,6 +499,40 @@ class NewsReady
         return 0;
     }
 
+
+    //批量删除
+    public function BatchDeleteByNewsId($id_list)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        foreach($id_list as $i => &$id)
+        {
+            $id = (string)$id;
+        }
+
+        $cond = array(
+            'news_id' => array('$in' => $id_list)
+        );
+        
+        $value = array(
+            '$set'=>array(
+                'delete'  => 1
+            )
+        );
+        try
+        {
+            $ret = $table->update($cond, $value, ['safe'=>true, 'upsert'=>true, 'multiple' => true]);
+            LogDebug("ret:" . json_encode($ret));
+        }
+        catch(MongoCursorException $e)
+        {
+            LogErr($e->getMessage());
+            return errcode::DB_OPR_ERR;
+        }
+       
+        return 0;
+    }
 
 }
 

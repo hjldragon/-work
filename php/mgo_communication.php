@@ -1,13 +1,9 @@
 <?php
-//留言表操作
-//设置文字格式
+//留言表
 declare(encoding='UTF-8');
-//数据库命名空间
 namespace DaoMongodb;
-//加载数据文件
 require_once ("db_pool.php");
 require_once ("const.php");
-//设置留言版的定义
 class CommunicationEntry{
     //设置留言字段
     public $content_id = null; //留言id
@@ -21,12 +17,10 @@ class CommunicationEntry{
     {
         LogDebug($cursor);
         $this->FromMgo($cursor);
-
     }
     //命名查询结果转为结构体的方法
     public  function FromMgo($cursor){
         LogDebug($cursor);
-
         //如果没有这个变量就直接返回
         if(!$cursor)
         {
@@ -41,12 +35,8 @@ class CommunicationEntry{
         $this->delete     = $cursor['delete'];
 
     }
-    //数据显示列表
     public static function ToList($cursor){
-        //设置变量来保存数组
         $list=array();
-
-        //遍历出所有数据结果
         foreach ($cursor as $item){
             $entry= new self($item);
             array_push($list,$entry);
@@ -56,30 +46,24 @@ class CommunicationEntry{
 };
 class Communication
 {
-    //数据库名
+
     private function Tablename()
     {
         return 'communication';
     }
-    //保存数据设置
+
     public function Save(&$info){
         LogDebug($info);
-        //连接数据库
         $db=\DbPool::GetMongoDb();
-        LogDebug($db);//保存时候连接成功了
-        //查询数据库连接
         $table = $db->selectCollection($this->Tablename());
-        LogDebug($table);
         $cond = array(
             'content_id'=>(string)$info->content_id
         );
         LogDebug($cond);
-
         $set = array(
           'content_id'=>(string)$info->content_id,
             'c_time'=>time()
         );
-        //定义字段样式
         if(null !== $info->content){
             $set['content']=(string)$info->content;
         }
@@ -96,9 +80,6 @@ class Communication
         $value = array(
             '$set'=>$set
         );
-        //var_dump($value);die;
-        LogDebug($value);//保存的时候没有自动生成id
-        //事物回滚
         try
         {
 
@@ -106,26 +87,18 @@ class Communication
             LogDebug("ret:".$ret['ok']);//1
         }
         catch (\MongoCursorException $e){
-            //提示错误信息
             LogDebug($e->getMessage());
             return \errcode::DB_OPR_ERR;
-
         }
         return 0;
     }
-    //获取留言列表
     public function GetContentList(){
         $db   = \DbPool::GetMongoDb();
         $table= $db->selectCollection($this->Tablename());
         $cond = [
             'delete'=>1,
         ];
-        //查找所有留言列表，并根据时间排序、
-        LogDebug($cond);
-
         $cursor=$table->find($cond,array("_id"=>0))->sort(['c_time'=>-1]);
-
-        //返回结果
         return CommunicationEntry::ToList($cursor);
 
     }

@@ -35,11 +35,21 @@ function SaveNewsinfo(&$resp)
     $is_draft  = $_['is_draft'];
     $send_time = $_['send_time'];
     $time      = time();
+    if(!$content || !$title)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
     $shop_id = \Cache\Login::GetShopId();
-    $day = date('Ymd',$time);
     $mgo = new \DaoMongodb\StatNews;
-    $send_num = $mgo->GetNewsStatByDay($shop_id, $day)->send_num;
-    if($send_num >= new ShopNewsDay::NUM){
+    $type = 0;
+    if(!$is_draft){
+        $day = date('Ymd',$time);
+        $send_num = $mgo->GetNewsStatByDay($shop_id, $day)->send_num;
+        $type = 1;
+    }
+    
+    if((int)$send_num >= ShopNewsDay::NUM){
         LogErr("send num err");
         return errcode::NEWS_NUM_MAX;
     }
@@ -56,12 +66,8 @@ function SaveNewsinfo(&$resp)
 
     $entry = new \DaoMongodb\NewsEntry;
     $mongodb = new \DaoMongodb\News;
-    $send = NewsSend($news_id, $shop_id);
-    if(0 != $send){
-        LogErr("Send err");
-        return errcode::SYS_ERR;
-    }
-    if($send_time){
+    
+    if($send_time > $time || $is_draft){
         $is_send = 0; 
     }else{
         $is_send = 1; 
@@ -74,6 +80,7 @@ function SaveNewsinfo(&$resp)
     $entry->is_draft  = $is_draft;
     $entry->send_time = $send_time;
     $entry->is_send   = $is_send;
+    $entry->ctime     = $ctime;
     $entry->is_system = 0;
     $entry->delete    = 0;
     $ret = $mongodb->Save($entry);
@@ -84,13 +91,21 @@ function SaveNewsinfo(&$resp)
         return errcode::SYS_ERR;
     }
     LogDebug($entry);
-    // 今日发送数加1
-    $ret = $mgo->SellNumAdd($shop_id, $day, 1);
-    if(0 != $ret)
-    {
-        LogErr("Save err");
-        return errcode::SYS_ERR;
+    if(1 == $type){
+        $send = NewsSend($news_id, $shop_id, $send_time);
+        if(0 != $send){
+            LogErr("Send err");
+            return errcode::SYS_ERR;
+        }
+        // 今日发送数加1
+        $ret = $mgo->SellNumAdd($shop_id, $day, 1);
+        if(0 != $ret)
+        {
+            LogErr("Save err");
+            return errcode::SYS_ERR;
+        }
     }
+   
     $resp = (object)array(
     );
     
@@ -122,41 +137,21 @@ function DeleteNews(&$resp)
         LogErr("Save err");
         return errcode::SYS_ERR;
     }
-
+    $mgo = new \DaoMongodb\NewsReady;
+    $ret = $mgo->BatchDeleteByNewsId($news_id_list);
+    if(0 != $ret)
+    {
+        LogErr("Save err");
+        return errcode::SYS_ERR;
+    }
     $resp = (object)array(
     );
     LogInfo("save ok");
     return 0;
 }
-// 定时检测消息发送
-function NewsSendTime(){
-    $mgo =  new \DaoMongodb\News;
-    $entry = new \DaoMongodb\NewsEntry;
-    $time = time(); 
-    $news_list = $mgo->GetNewsBySendTime($time);
-    $entry->is_send = 1;
-    if($news_list){
-        foreach ($news_list as $item) {
-           $ret = NewsSend($item->news_id, $item->shop_id);
-           if(0 != $ret)
-            {
-                LogErr("Send err");
-                return errcode::SYS_ERR;
-            }
-            //改变状态为已发送
-            $entry->news_id = $item->news_id;
-            $ret = $mongodb->Save($entry);
-            if(0 != $ret)
-            {
-                LogErr("Save err");
-                return errcode::SYS_ERR;
-            }
-        }
-    }
-    return 0;
-}
 
-function NewsSend($news_id, $shop_id){
+
+function NewsSend($news_id, $shop_id, $send_time){
     $mgo = new \DaoMongodb\Customer;
     $list = $mgo->QueryByShopid($shop_id);
     $entry   = new \DaoMongodb\NewsReadyEntry;
@@ -165,7 +160,7 @@ function NewsSend($news_id, $shop_id){
     $entry->news_id   = $news_id;
     $entry->delete    = 0;
     $entry->is_ready  = 0;
-    $entry->ctime     = time();
+    $entry->ctime     = $send_time;
     $entry->is_system = 0;
     foreach ($list as  $item) {
         $entry->id = \DaoRedis\Id::GenNewsReadyId();
@@ -196,7 +191,7 @@ function ReadyNews(&$resp, $type=null)
     }
 
     $id_list = json_decode($_['id_list']);
-
+    LogDebug($id_list);
     $mongodb = new \DaoMongodb\NewsReady;
     $ret = $mongodb->BatchReady($id_list, $type);
     if(0 != $ret)

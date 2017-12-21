@@ -81,7 +81,7 @@ class StatNews
             LogErr($e->getMessage());
             return errcode::DB_OPR_ERR;
         }
-        return $ret;
+        return 0;
     }
 
     public function GetNewsStatByDay($shop_id, $day)
@@ -107,7 +107,7 @@ class StatNews
         ];
         //
         $shop_id = $filter['shop_id'];
-        if($shop_id )
+        if($shop_id)
         {
             $cond['shop_id'] = (string)$shop_id;
         }

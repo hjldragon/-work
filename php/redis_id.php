@@ -32,88 +32,98 @@ class Id
 
     static public function GenLoginId()
     {
-        return (int)self::GenId("login");
+        return "LO" . self::GenId("login");
     }
 
     static public function GenFoodId()
     {
-        return (int)self::GenId("food");
+        return "FO" . self::GenId("food");
     }
 
     static public function GenCategoryId()
     {
-        return (int)self::GenId("category");
+        return "CA" . self::GenId("category");
     }
 
+    static public function GenPrstringerId()
+    {
+        return "PS" . self::GenId("prstringer");
+    }
     static public function GenPrinterId()
     {
-        return (int)self::GenId("printer");
+        return "PR" . self::GenId("printer");
     }
-
     static public function GenShopId()
     {
-        return (int)self::GenId("shop");
+        return "SH" . self::GenId("shop");
     }
 
     static public function GenOrderId()
     {
-        return (int)self::GenId("order");
+        return "OR" . self::GenId("order");
     }
-
+    static public function GenOrderStatusId()
+    {
+        return "OS" . self::GenId("order_status");
+    }
     // 订单中餐品id
     // Rocky 2017-07-10 12:25:32
     static public function GenOrderFoodId()
     {
-        return (int)self::GenId("order_food");
+        return "OF" . self::GenId("order_food");
     }
 
     static public function GenCustomerId()
     {
-        return self::GenId("customer");
+        return "CU" . self::GenId("customer");
     }
 
     static public function GenSeatId()
     {
-        return (int)self::GenId("seat");
+        return "SE" . self::GenId("seat");
     }
 
     static public function GenSpecId()
     {
-        return (string)self::GenId("spec");
+        return "SP" . self::GenId("spec");
     }
 
     static public function GenSubSpecId()
     {
-        return (string)self::GenId("sub_spec");
+        return "SS" . self::GenId("sub_spec");
     }
 
     static public function GenInvoiceId()
     {
-        return (string)self::GenId("invoice");
+        return "IN" . self::GenId("invoice");
     }
     static public function GenDepartmentId()
     {
-        return (string)self::GenId("department");
+        return "DE" . self::GenId("department");
     }
     static public function GenEmployeeId()
     {
-        return (string)self::GenId("employee");
+        return "EM" . self::GenId("employee");
     }
     static public function GenPositionId()
     {
-        return (string)self::GenId("position");
+        return "PO" . self::GenId("position");
     }
     static public function GenReservationId()
     {
-        return (string)self::GenId("reservation");
+        return "RE" . self::GenId("reservation");
     }
     static public function GenNewsId()
     {
-        return (string)self::GenId("news");
+        return "NE" . self::GenId("news");
     }
     static public function GenNewsReadyId()
     {
-        return (string)self::GenId("newsready");
+        return "NS" . self::GenId("newsready");
+    }
+    static public function GenOrderWNId()
+    {
+        return (string)self::GenId("invoice");
     }
 
 }

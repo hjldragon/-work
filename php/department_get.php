@@ -13,7 +13,7 @@ require_once("mgo_employee.php");
 require_once("mgo_position.php");
 
 Permission::PageCheck();
-//$_=$_REQUEST;
+
 function GetAllDepartment(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -113,7 +113,7 @@ function GetDepartmentEmployee(&$resp)
     $resp = (object)[
         'employee_list' => $employee_list,
     ];
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }

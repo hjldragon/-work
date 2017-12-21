@@ -16,10 +16,9 @@ function SavePosition(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $position_id = $_['position_id'];
-
-    $mgo   = new \DaoMongodb\Position;
-    $entry = new \DaoMongodb\PositionEntry;
+    $position_id         = $_['position_id'];
+    $mgo                 = new \DaoMongodb\Position;
+    $entry               = new \DaoMongodb\PositionEntry;
     $position_name       = $_['position_name'];
     $position_permission = json_decode($_['position_permission']);
     $position_note       = $_['position_note'];
@@ -34,7 +33,6 @@ function SavePosition(&$resp)
         $permission = $permission | $v;
     }
     $position_info       = $mgo->QueryByName($shop_id,$position_name,$position_id);
-
     if($position_info->position_name)
     {
         LogDebug($position_name,'this shop have this position name:'.$position_info->position_name);
@@ -46,13 +44,13 @@ function SavePosition(&$resp)
         $ctime       = time();
     }
     $position_info2   = $mgo->GetPositionById($shop_id,$position_id);
+
     if ($position_info2->entry_type == \PositionType::SYSTEMTYPEONE)
-    {
-        if ($position_name || $position_note)
+    {    //系统录入的名称不能被修改
+        if ($position_name != $position_info2->position_name)
         {
             return errcode::PARAM_ERR;
         }
-        //系统录入的不能被修改
         $entry_type = 1;
     } else {
         $entry_type = 2;

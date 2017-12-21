@@ -25,7 +25,7 @@ function GetCategoryInfo(&$resp)
     $resp = (object)array(
         'info' => $info
     );
-    LogDebug($resp);
+   // LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -45,7 +45,7 @@ function GetCategoryList(&$resp)
     $mgo = new \DaoMongodb\Category;
     $list = $mgo->GetList($shop_id, $type);
     
-    $data = getTree($list,0);
+    $data = getTree($list,"0");
 
     $resp = (object)array(
         'list' => $data

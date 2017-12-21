@@ -100,6 +100,36 @@ class StatFood
         return new StatFoodEntry($cursor);
     }
 
+    public function GetFoodStatByTime($food_id, $start, $day)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = [
+            'food_id' => (string)$food_id,
+            'day' => [
+                '$gte' => (int)$start,
+                '$lte' => (int)$day
+            ]
+        ];
+        $pipe = [
+            ['$match' => $cond],
+            [
+                '$group' => [
+                    '_id'               => null,
+                    'all_sold_num'  => ['$sum' => '$sold_num']
+                ],
+            ],
+        ];
+        //LogDebug($pipe);
+        $all_list = $table->aggregate($pipe);
+        if ($all_list['ok'] == 1) {
+            return $all_list['result'][0];
+        } else {
+            return null;
+        }
+    }
+
     public function GetStatList($filter)
     {
         $db = \DbPool::GetMongoDb();

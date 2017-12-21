@@ -1,7 +1,7 @@
 <?php
 /*
  * [Rocky 2017-05-04 11:35:11]
- * 打印机表操作类
+ * 职位表操作类
  */
 declare(encoding='UTF-8');
 namespace DaoMongodb;

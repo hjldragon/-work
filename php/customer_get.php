@@ -11,8 +11,7 @@ require_once("mgo_user.php");
 require_once("redis_id.php");
 require_once("cache.php");
 
-// Permission::PageCheck();
-//$_=$_REQUEST;
+Permission::PageCheck();
 LogDebug($_);
 //获取客户信息
 function GetCustomerInfo(&$resp){

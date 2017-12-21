@@ -44,8 +44,8 @@ class FoodSaleTime
 
 class Attach
 {
-    public $title  = null;   //口味名称
-    public $list   = null;   //口味属性
+    public $title       = null;   //口味名称
+    public $spc_value   = null;   //口味属性
 
     function __construct($cursor = null)
     {
@@ -59,8 +59,8 @@ class Attach
         if (!$cursor) {
             return;
         }
-        $this->title  = $cursor['title'];
-        $this->list   = $cursor['list'];
+        $this->title     = $cursor['title'];
+        $this->spc_value = $cursor['spc_value'];
     }
 
     public static function ToList($cursor)
@@ -74,10 +74,9 @@ class Attach
     }
 }
 
-
 class Price
 {
-    public $title          = null;      // 份量名称,无份量为空
+    public $spec_type      = null;      // 份量规格(0:无份量,1:大份,2:中份,3:小份)
     public $original_price = null;      // 原价
     public $discount_price = null;      // 折扣价
     public $vip_price      = null;      // 会员价
@@ -96,7 +95,7 @@ class Price
         {
             return;
         }
-        $this->title            = $cursor['title'];
+        $this->spec_type        = $cursor['spec_type'];
         $this->original_price   = $cursor['original_price'];
         $this->discount_price   = $cursor['discount_price'];
         $this->vip_price        = $cursor['vip_price'];
@@ -156,7 +155,7 @@ class MenuInfoEntry
     public $shop_id             = null;             // 餐馆店铺id
     public $food_name           = null;             // 餐品名
     public $category_id         = null;             // 餐品分类id
-    public $food_num_day        = null;             // 每天预备份数
+    public $stock_num_day       = null;             // 每天预备份数
     public $food_price          = null;             // 餐品单价(分为单位)
     public $food_intro          = null;             // 餐品介绍
     //public $food_num_mon        = null;           // 当月销售量
@@ -197,7 +196,7 @@ class MenuInfoEntry
         $this->shop_id             = $cursor['shop_id'];
         $this->food_name           = $cursor['food_name'];
         $this->category_id         = $cursor['category_id'];
-        $this->food_num_day        = $cursor['food_num_day'];
+        $this->stock_num_day       = $cursor['stock_num_day'];
         //$this->food_num_mon        = $cursor['food_num_mon'];
         $this->praise_num          = $cursor['praise_num'];
         $this->food_intro          = $cursor['food_intro'];
@@ -269,8 +268,8 @@ class MenuInfo
         if (null !== $info->category_id) {
             $set["category_id"] = (string)$info->category_id;
         }
-        if (null !== $info->food_num_day) {
-            $set["food_num_day"] = (int)$info->food_num_day;
+        if (null !== $info->stock_num_day) {
+            $set["stock_num_day"] = (int)$info->stock_num_day;
         }
         if (null !== $info->type) {
             $set["type"] = (int)$info->type;
@@ -282,7 +281,7 @@ class MenuInfo
                 $price_list = [];
                 foreach ($info->food_price->price as $val) {
                     $p = new Price();
-                    $p->title = (string)$val->title;
+                    $p->spec_type      = (int)$val->spec_type;
                     $p->original_price = (float)$val->original_price;
                     $p->discount_price = (float)$val->discount_price;
                     $p->vip_price      = (float)$val->vip_price;
@@ -317,8 +316,8 @@ class MenuInfo
             $attach = [];
             foreach ($info->food_attach_list as $v) {
                 array_push($attach, new Attach([
-                    "title"  => (string)$v->title,
-                    "list"   => (array)$v->list
+                    "title"       => (string)$v->title,
+                    "spc_value"   => (array)$v->spc_value
                 ]));
             }
             $set["food_attach_list"] = $attach;
@@ -449,7 +448,7 @@ class MenuInfo
         return 0;
     }
 
-    public function GetFoodList($shop_id, $filter = null, $page_size, $page_no, $sortby = [], &$total=null)
+    public function GetFoodList($shop_id, $filter = null, $sortby = [], &$total=null)
     {   
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
@@ -488,7 +487,7 @@ class MenuInfo
                 if (!empty($food_name)) {
                     $cond['$or'] = [
                         ["food_name" => new \MongoRegex("/$food_name/i")],
-                        ["food_id" => (string)$food_name]
+                        ["food_id" => new \MongoRegex("/$food_name/i")]
                     ];
                 }
                 // 草稿
@@ -510,12 +509,12 @@ class MenuInfo
         }
         $field["_id"] = 0;
         LogDebug($cond);
-        $cursor = $table->find($cond, $field)->sort($sortby)->skip(($page_no-1)*$page_size)->limit($page_size);
+        $cursor = $table->find($cond, $field)->sort($sortby);
         if(null !== $total){
             $total = $table->count($cond);
         }
         
-        LogDebug(iterator_to_array($cursor));
+        //LogDebug(iterator_to_array($cursor));
         return MenuInfoEntry::ToList($cursor);
     }
 
@@ -537,7 +536,8 @@ class MenuInfo
         $table = $db->selectCollection($this->Tablename());
 
         $cond = array(
-            'food_name' => $food_name
+            'food_name' => $food_name,
+            'delete'    =>['$ne'=>1],
         );
 
         $cursor = $table->findOne($cond);
@@ -557,6 +557,53 @@ class MenuInfo
         $cursor = $table->findOne($cond);
 
         return new MenuInfoEntry($cursor);
+    }
+
+    public function GetOrderFoodList($shop_id, $filter = null, $field = [])
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = [
+            'delete'  => ['$ne' => 1],
+            'shop_id' => (string)$shop_id
+        ];
+        if (null != $filter) {
+            $food_id = $filter['food_id'];
+            if (!empty($food_id)) {
+                $cond['food_id'] = (string)$food_id;
+            } else {
+                $food_id_list = $filter['food_id_list'];
+                if (!empty($food_id_list)) {
+                    for ($i = 0; $i < count($food_id_list); $i++) {
+                        $food_id_list[$i] = (string)$food_id_list[$i];
+                    }
+                    $cond['food_id'] = [
+                        '$in' => $food_id_list
+                    ];
+                }
+
+                $sale_off = $filter['sale_off'];
+                if (null !== $sale_off) {
+                    $sale_off = (int)$sale_off;
+                    if (0 == $sale_off) {
+                        $cond['sale_off'] = ['$ne' => 1]; // ==0 或 ==null
+                    } else {
+                        $cond['sale_off'] = 1;
+                    }
+                }
+
+                $food_name = $filter['food_name'];
+                if (!empty($food_name)) {
+                    $cond['food_name'] = new \MongoRegex("/$food_name/i");
+                }
+            }
+        }
+        $field["_id"] = 0;
+        LogDebug($cond);
+        $cursor = $table->find($cond, $field)->sort(["food_category" => 1, "_id" => 1]);
+        //LogDebug(iterator_to_array($cursor));
+        return MenuInfoEntry::ToList($cursor);
     }
 }
 

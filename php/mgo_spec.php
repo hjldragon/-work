@@ -10,6 +10,7 @@ require_once("redis_id.php");
 
 
 
+
 class SpecListItem
 {
     public $id             = null;      // 规格id

@@ -8,9 +8,8 @@ require_once("db_pool.php");
 require_once("redis_login.php");
 require_once("mgo_customer.php");
 require_once("mgo_employee.php");
-require_once("ChuanglanSmsHelper/ChuanglanSmsApi.php");
-//Permission::PageCheck();
-//$_=$_REQUEST;
+
+Permission::PageCheck();
 //保存客户信息
 function SaveCustomer(&$resp)
 {
@@ -67,125 +66,16 @@ function DeleteCustomer(&$resp)
     LogInfo("delete ok");
     return 0;
 }
-//发送图形手机验证码
-function GetCoke(&$resp){
-    $_ = $GLOBALS["_"];
-    if (!$_)
-    {
-        LogErr("param err");
-        return errcode::PARAM_ERR;
-    }
-    $token      = $_['token'];
-    $phone      = $_['phone'];
-    $page_code  = strtolower($_['page_code']);
-    $db         = new \DaoRedis\Login;
-    $redis      = $db->Get($token);
-    $radis_code = $redis->page_code;
-    //验证验证码
-    if ($radis_code != $page_code)
-    {
-        LogErr("coke err");
-        return errcode::COKE_ERR;
-    }
 
-    if (!preg_match('/^1([0-9]{9})/', $phone))
-    {
-        LogErr("phone err");
-        return errcode::PHONE_ERR;
-    }
-
-        $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
-    //$code = mt_rand(100000, 999999);
-//    $clapi  = new ChuanglanSmsApi();
-//    $msg    = '【赛领新吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
-//    $result = $clapi->sendSMS($phone, $msg);
-//    LogDebug($result);
-//    if (!is_null(json_decode($result)))
-//    {
-//        $output = json_decode($result, true);
-//        if (isset($output['code']) && $output['code'] == '0')
-//        {
-//            LogDebug('短信发送成功！');
-//        } else {
-//            return $output['errorMsg'] . errcode::PHONE_SEND_FAIL;
-//        }
-//    }
-
-    $redis            = new \DaoRedis\Login();
-    $data             = new \DaoRedis\LoginEntry();
-    $data->phone      = $phone;
-    $data->token      = $token;
-    $data->phone_code = $code;
-    $data->code_time  = time() + 5 * 60 * 1000;
-    LogDebug($data);
-    $redis->Save($data);
-    $resp = (object)[
-        'phone_code' => $code,
-    ];
-    return 0;
-}
-//无图形验证码发送手机验证码
-function GetPhoneCode(&$resp){
-    $_ = $GLOBALS["_"];
-    if (!$_)
-    {
-        LogErr("param err");
-        return errcode::PARAM_ERR;
-    }
-    $token      = $_['token'];
-    $phone      = $_['phone'];
-    if (!preg_match('/^1([0-9]{9})/', $phone))
-    {
-        LogErr("phone err");
-        return errcode::PHONE_ERR;
-    }
-
-    $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
-    //$code = mt_rand(100000, 999999);
-//    $clapi  = new ChuanglanSmsApi();
-//    $msg    = '【赛领新吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
-//    $result = $clapi->sendSMS($phone, $msg);
-//    LogDebug($result);
-//    if (!is_null(json_decode($result)))
-//    {
-//        $output = json_decode($result, true);
-//        if (isset($output['code']) && $output['code'] == '0')
-//        {
-//            LogDebug('短信发送成功！');
-//        } else {
-//            return $output['errorMsg'] . errcode::PHONE_SEND_FAIL;
-//        }
-//    }
-
-    $redis            = new \DaoRedis\Login();
-    $data             = new \DaoRedis\LoginEntry();
-    $data->phone      = $phone;
-    $data->token      = $token;
-    $data->phone_code = $code;
-    $data->code_time  = time() + 5 * 60 * 1000;
-    LogDebug($data);
-    $redis->Save($data);
-    $resp = (object)[
-        'phone_code' => $code,
-    ];
-    return 0;
-}
 $ret = -1;
 $resp = (object)array();
 if (isset($_['customer_save']))
 {
     $ret = SaveCustomer($resp);
-}elseif (isset($_['get_coke'])) {
-
-    $ret = GetCoke($resp);
 }elseif (isset($_['del_customer']) || isset($_['del']))
 {   
     $ret = DeleteCustomer($resp);
-}elseif (isset($_['get_phone_code'])) {
-
-    $ret = GetPhoneCode($resp);
-}
-else
+} else
 {
     LogErr("param err");
     $ret = errcode::PARAM_ERR;

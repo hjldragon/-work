@@ -24,10 +24,10 @@ class Permission {
             return errcode::USER_NOLOGIN;
         }
         // 是否系统管理员
-        if(($chk & Permission::CHK_ADMIN) && !Cfg::instance()->IsAdmin(\Cache\Login::GetUsername()))
-        {
-            return errcode::USER_PERMISSION_ERR;
-        }
+        // if(($chk & Permission::CHK_ADMIN) && !Cfg::instance()->IsAdmin(\Cache\Login::GetUsername()))
+        // {
+        //     return errcode::USER_PERMISSION_ERR;
+        // }
         return 0;
     }
 

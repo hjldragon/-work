@@ -6,7 +6,7 @@
 require_once("current_dir_env.php");
 require_once("mgo_printer.php");
 
-
+Permission::PageCheck();
 function SavePrinter(&$resp)
 {
 
@@ -26,7 +26,7 @@ function SavePrinter(&$resp)
 
     $printer_id            = $_['printer_id'];
     $printer_name          = $_['printer_name'];
-    $printer_category      = json_decode($_['printer_category']);
+    $receipt_type          = json_decode($_['printer_category']);
     $printer_size          = $_['printer_size'];
     $printer_brand         = $_['printer_brand'];
     $printer_note          = $_['printer_note'];
@@ -36,7 +36,7 @@ function SavePrinter(&$resp)
     $print_position_height = $_['print_position_height'];
     $food_category_list    = json_decode($_['food_category_list']);
     LogDebug($food_category_list);
-    if(!$printer_id || !$printer_name || !$printer_category || !$printer_size){
+    if(!$printer_id || !$printer_name || !$receipt_type || !$printer_size){
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
@@ -47,7 +47,7 @@ function SavePrinter(&$resp)
 
     $entry->printer_id            = $printer_id;
     $entry->printer_name          = $printer_name;
-    $entry->printer_category      = $printer_category;
+    $entry->receipt_type          = $receipt_type;
     $entry->printer_size          = $printer_size;
     $entry->printer_brand         = $printer_brand;
     $entry->printer_note          = $printer_note;
@@ -67,21 +67,21 @@ function SavePrinter(&$resp)
     }
 
     // 通知到golang服务器，再转到店服务器（以便打印处理等）
-    $url = Cfg::instance()->orderingsrv->webserver_url;
+    //$url = Cfg::instance()->orderingsrv->webserver_url;
     //LogDebug("post to:[$url]");//http://192.168.56.1:21121/webserver//这是打印的地址吗？
-    $ret = PageUtil::HttpPostJsonData($url, [
-        'Opr' => "UpdatePrinter",
-        'ShopId' => $shop_id,
-    ]);
-     LogDebug("post, ret:[$ret], url:[$url]");
+    // $ret = PageUtil::HttpPostJsonData($url, [
+    //     'Opr' => "UpdatePrinter",
+    //     'ShopId' => $shop_id,
+    // ]);
+     //LogDebug("post, ret:[$ret], url:[$url]");
     //LogDebug($ret);
-    $ret = json_decode($ret);
+    // $ret = json_decode($ret);
 
-    if(0 != $ret->Ret)
-    {
-        LogErr("post err: {$ret->Msg}, url:[$url]");
-        return errcode::SYS_ERR;
-    }
+    // if(0 != $ret->Ret)
+    // {
+    //     LogErr("post err: {$ret->Msg}, url:[$url]");
+    //     return errcode::SYS_ERR;
+    // }
 
     $resp = (object)array(
     );

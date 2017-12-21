@@ -14,7 +14,7 @@ require_once("mgo_stat_food_byday.php");
 
 //Permission::PageCheck();
 
-// 取餐品已售数
+// 取餐品日销量
 function GetTodayFoodSoldNum($food_id)
 {
     $mgo_stat = new \DaoMongodb\StatFood;
@@ -22,6 +22,25 @@ function GetTodayFoodSoldNum($food_id)
     $info = $mgo_stat->GetFoodStatByDay($food_id, $today);
     //LogDebug($info);
     return $info->sold_num?:0;
+}
+// 取餐品周销量
+function GetWeekFoodSoldNum($food_id)
+{
+    $mgo_stat = new \DaoMongodb\StatFood;
+    $today = date("Ymd");
+    $start = date("Ymd",strtotime("$today -1 Sunday"));
+    $info = $mgo_stat->GetFoodStatByTime($food_id, $start, $today);
+    return $info['all_sold_num']?:0;
+}
+
+// 取餐品月销量
+function GetMonFoodSoldNum($food_id)
+{
+    $mgo_stat = new \DaoMongodb\StatFood;
+    $today = date("Ymd");
+    $start = date("Ym01",strtotime($today));
+    $info = $mgo_stat->GetFoodStatByTime($food_id, $start, $today);
+    return $info['all_sold_num']?:0;
 }
 
 function GetFoodInfo(&$resp)
@@ -62,14 +81,14 @@ function GetFoodInfo(&$resp)
     }else{
         $info = array();
     }
-    
+
 
     //$info->food_sold_num_day = GetTodayFoodSoldNum($food_id);<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<销量暂没做
 
     $resp = (object)array(
         'info' => $info
     );
-    LogDebug($resp);
+   // LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -85,7 +104,7 @@ function GetCategory(&$data,$parent_id){
 }
 //递归查找子级品类id
 function getTree(&$cate_list,$parent_id)
-{   
+{
     $mgo = new \DaoMongodb\Category;
     $info = $mgo->GetByParentList($parent_id);
     if(!$info){
@@ -114,19 +133,28 @@ function GetFoodList(&$resp)
     $type        = $_['type'];
     $page_size   = $_['page_size'];
     $page_no     = $_['page_no'];
+    $token       = $_['token'];
+    $sortby      = $_['sortby']; //(排序1:日销量,2:周销量,3:月销量,4:余量)
+    $sort        = $_['sort'];   //(1:正序,-1:倒序)
     if(!$page_size)
     {
-
-        $page_size = 10;//如果没有传默认10条
+       $page_size = 1000;//如果没有传默认10条
     }
     if(!$page_no)
     {
-        $page_no = 1; //第一页开始
+       $page_no = 1; //第一页开始
     }
-    $shop_id = \Cache\Login::GetShopId();
-    
+    $shop_id = $_['shop_id'];
+    if(!$shop_id)
+    {
+        $shop_id = \Cache\Login::GetShopId();
+    }
+    $shop      = new \DaoMongodb\Shop;
+    $shop_info = $shop->GetShopById($shop_id);
+    $pad_sort  = $shop_info->menu_sort;
     LogDebug("shop_id:[$shop_id]");
-    if($category_id){
+    if($category_id)
+    {
         $cate_list = array();
         $cateinfo = \Cache\Category::Get($category_id);
         getTree($cate_list,$cateinfo->category_id);
@@ -143,25 +171,137 @@ function GetFoodList(&$resp)
         'is_draft'     => $is_draft,
         'type'         => $type
     ];
-
+    //LogDebug($cond);
     $mgo = new \DaoMongodb\MenuInfo;
     $total = 0;
-    $list = $mgo->GetFoodList($shop_id, $cond, $page_size, $page_no,[],$total);
-
-    LogDebug($list);
+    $menu_sort = [];
+    if($pad_sort == 2)
+    {
+        $menu_sort['entry_time'] = -1;
+    }
+    $list = $mgo->GetFoodList($shop_id, $cond, $menu_sort, $total);
+    //LogDebug($list);
     foreach($list as $i => &$item)
-    {   
+    {
         $item->category_name = \Cache\Category::Get($item->category_id)->category_name;
-        
-        //$item->food_sold_num_day = GetTodayFoodSoldNum($item->food_id);
+        $item->food_num_day  = GetTodayFoodSoldNum($item->food_id);
+        $item->food_num_week = GetWeekFoodSoldNum($item->food_id);
+        $item->food_num_mon  = GetMonFoodSoldNum($item->food_id);
+        if($item->stock_num_day > 0)
+        {
+            $stock_num_day = (int)$item->stock_num_day - (int)$item->food_num_day; // 余量
+            if ($stock_num_day < 0) 
+            {
+                $item->stock_num_day = 0;
+            }else
+            {
+                $item->stock_num_day = $stock_num_day;
+            }
+        }
+        else
+        {
+            $item->stock_num_day = 99999; // 库存不限量
+        }
+
+        //只取出普通价格
+        $p_all = [];
+        foreach ($item->food_price->price as $price)
+        {
+            if($price->is_use == 1 || $item->food_price->type == 1)
+            {   $p= (object)[];
+                $p->spec_type      = $price->spec_type;
+                $p->original_price = $price->original_price;
+                array_push($p_all,$p);
+            }
+        }
+        $item->food_price->price = $p_all;
     }
     
+    if(1 == $sortby)//日销量排序
+    {
+        //$sortby = "food_num_day";
+        if(1 == $sort)
+        {
+            usort($list, function($a, $b){
+                return ($a->food_num_day - $b->food_num_day);
+            });
+        }
+        else
+        {
+            usort($list, function($a, $b){
+                return ($b->food_num_day - $a->food_num_day);
+            });
+        }
+    }
+    if(2 == $sortby)//周销量排序
+    {
+        //$sortby = "food_num_week";
+        if(1 == $sort)
+        {
+            usort($list, function($a, $b){
+                return ($a->food_num_week - $b->food_num_week);
+            });
+        }
+        else
+        {
+            usort($list, function($a, $b){
+                return ($b->food_num_week - $a->food_num_week);
+            });
+        }
+    }
+    if(3 == $sortby || $pad_sort == 1)//月销量排序
+    {
+        //$sortby = "food_num_mon";
+        if(1 == $sort)
+        {
+            usort($list, function($a, $b){
+                return ($a->food_num_mon - $b->food_num_mon);
+            });
+        }
+        else
+        {
+            usort($list, function($a, $b){
+                return ($b->food_num_mon - $a->food_num_mon);
+            });
+        }
+    }
+    if(4 == $sortby)//余量排序
+    {
+        //$sortby = "stock_num_day";
+        if(1 == $sort)
+        {
+            usort($list, function($a, $b){
+                return ($a->stock_num_day - $b->stock_num_day);
+            });
+        }
+        else
+        {
+            usort($list, function($a, $b){
+                return ($b->stock_num_day - $a->stock_num_day);
+            });
+        }
+    }
+    // if(isset($list[0]->$sortby))
+    // {
+    //     usort($list, function($a, $b){
+    //         if(1 == $sort)
+    //         {  
+    //            return ($a->$sortby - $b->$sortby);
+    //         }
+    //         else
+    //         {
+    //             return ($b->$sortby - $a->$sortby);
+    //         }
+    //     });
+    // }
+    //分页
+    $list = array_slice($list, ($page_no-1)*$page_size, $page_size);
     $resp = (object)array(
-        'list' => $list,
-        'total' => $total
+        'list'  => $list,
+        'token' =>$token,
+        'total' => $total,
     );
-
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -185,9 +325,7 @@ function GetAccessoryList(&$resp)
     }
     $mgo = new \DaoMongodb\MenuInfo;
     $cond['cate_id_list'] = [$cate_info->category_id];
-    $page_size = 100;
-    $page_no = 1;
-    $info = $mgo->GetFoodList($shop_id, $cond, $page_size, $page_no);
+    $info = $mgo->GetFoodList($shop_id, $cond);
     $resp = (object)array(
         'list' => $info
     );
@@ -215,13 +353,19 @@ else
     $ret = errcode::PARAM_ERR;
     LogErr("param err");
 }
-//LogDebug($resp);
-$html = json_encode((object)array(
-    'ret'   => $ret,
-    'data'  => $resp
-    // 'crypt' => 1, // 是加密数据标记
-    // 'data'  => PageUtil::EncRespData(json_encode($resp))
-));
-//LogDebug($html);
+$result = (object)array(
+    'ret' => $ret,
+    'data' => $resp
+);
+
+if($GLOBALS['need_json_obj'])
+{
+    Output($result);
+}
+else
+{
+    $html =  json_encode($result);
+    echo $html;
+}
 ?><?php /******************************以下为html代码******************************/?>
-<?=$html?>
+

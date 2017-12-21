@@ -33,6 +33,7 @@ if(isset($_REQUEST['data']))
 
 //解析
 $_ = PageUtil::DecSubmitData();
+
 //$_=$_REQUEST;
 LogDebug($_);
 $cur_page = PageUtil::GetCurPage();

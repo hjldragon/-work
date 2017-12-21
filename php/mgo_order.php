@@ -16,13 +16,17 @@ class OrderFoodInfo
     public $food_id          = null;     // 餐品id（每个餐品唯一，但在加菜时可能重复）
     public $food_name        = null;     // 餐品名
     public $food_price       = null;     // 餐品单价(单位元)
-    public $food_num         = null;     //
+    public $food_num         = null;     // 点餐数量
+    public $pack_num         = null;     // 打包数量
     public $food_category    = null;     // 餐品分类
     public $food_price_sum   = null;     // 餐品费用(=food_price*food_num，及food_unit、unit_num)
-    public $food_attach_list = null;     // 口味附加属性list（加辣等）
+    public $food_attach_list = null;     // 规格list（加辣等）
     public $food_unit        = null;     // 店铺餐品单位（份、碗、斤等）
-    public $unit_num         = null;     // 餐品量(即点了多少斤等)
+    //public $unit_num         = null;     // 餐品量(即点了多少斤等)
     public $food_remark      = null;     // 餐品备注
+    public $is_pack          = null;     // 是属于否打包（1.打包,0:不打包）
+    public $is_send          = null;     // 是否属于赠送（1.赠送,0:不赠送）
+    public $send_remark      = null;     // 赠送理由
 
     function __construct($cursor=null)
     {
@@ -41,12 +45,16 @@ class OrderFoodInfo
         $this->food_name        = $cursor['food_name'];
         $this->food_price       = $cursor['food_price'];
         $this->food_num         = $cursor['food_num'];
+        $this->pack_num         = $cursor['pack_num'];
         $this->food_category    = $cursor['food_category'];
         $this->food_price_sum   = $cursor['food_price_sum'];
         $this->food_attach_list = $cursor['food_attach_list'];
         $this->food_unit        = $cursor['food_unit'];
         $this->unit_num         = $cursor['unit_num'];
         $this->food_remark      = $cursor['food_remark'];
+        $this->is_pack          = $cursor['is_pack'];
+        $this->is_send          = $cursor['is_send'];
+        $this->send_remark      = $cursor['send_remark'];
     }
 
     public static function ToList($cursor)
@@ -61,13 +69,58 @@ class OrderFoodInfo
     }
 }
 
+class InvoiceOrederInfo
+{
+    public $type           = null;   // 发票类型(1:普通发票,2:专用发票)
+    public $title_type     = null;   // 发票抬头类型(1:单位,2:个人)
+    public $invoice_title  = null;   // 发票抬头名称
+    public $duty_paragraph = null;   // 税号
+    public $phone          = null;   // 电话号码
+    public $address        = null;   // 地址
+    public $bank_name      = null;   // 单位的开户行名称
+    public $bank_account   = null;   // 单位的银行账号
+    public $email          = null;   // 电子邮箱
+    public $invoice_type   = null;   // 发票材质类型(0:不开发票,1:纸质,2:电子)
+
+
+
+
+    // // 具体业务数据
+    // public $shop_id = null;     // 当前用户所属的店 （注，此这段分出到员工表）
+
+    function __construct($cursor=null)
+    {
+        $this->FromMgo($cursor);
+    }
+
+    // mongodb查询结果转为结构体
+    public function FromMgo($cursor)
+    {
+        if(!$cursor)
+        {
+            return;
+        }
+        $this->type           = $cursor['type'];
+        $this->title_type     = $cursor['title_type'];
+        $this->invoice_title  = $cursor['invoice_title'];
+        $this->duty_paragraph = $cursor['duty_paragraph'];
+        $this->phone          = $cursor['phone'];
+        $this->address        = $cursor['address'];
+        $this->bank_name      = $cursor['bank_name'];
+        $this->bank_account   = $cursor['bank_account'];
+        $this->email          = $cursor['email'];
+        $this->invoice_type   = $cursor['invoice_type'];
+    }
+
+};
+
 class StatusInfo
 {
     public $order_status     = null;     // 订单状态(1:未支付,2:已支付,3:已反结,4:退款成功,5:退款失败,6:已关闭,7:挂账)
     public $employee_id      = null;     // 操作人id
     public $made_time        = null;     // 操作时间
-    public $made_reson       = null;     // 状态原因
-    public $made_sf_reson    = null;     // 状态失败原因
+    public $made_reson       = null;     // 状态申请原因
+    public $made_sf_reson    = null;     // 状态操作原因
 
     function __construct($cursor=null)
     {
@@ -109,12 +162,14 @@ class OrderEntry
     public $order_water_num  = null;    // 订单流水号
     public $shop_id          = null;    // 餐馆id
     public $dine_way         = null;    // 用餐方式(1:在店吃, 2:自提, 3:打包, 4:外卖)
-    public $pay_way          = null;    // 支付方式(0:未确定,1:现金支付, 2:微信支付, 3:支付宝支付, 4:银行卡支付,5:挂账)
+    public $pay_way          = null;    // 支付方式(0:未确定,1:现金支付, 2:微信支付, 3:支付宝支付, 4:银行卡支付,5:挂账,6:餐后支付（需要pad端确认)
+    public $pay_status       = null;    // 支付状态(0:未确定,1:未支付, 2:已支付)
+    public $order_sure_status= null;    // 订单确定状态(1:未下单,2:下单,3:下单并支付)
+    public $order_status     = null;    // 订单状态(1:未支付(待付款),2:已支付(交易完成),3:已反结,4:退款成功,5:退款失败,6:已关闭,7:挂账,8:退款中)
     public $customer_num     = null;    // 顾客人数
     public $seat_id          = null;    // 餐桌座位
     public $food_list        = null;    // 餐品列表
-    public $order_status     = null;    // 订单状态(1:未支付,2:已支付,3:已反结,4:退款成功,5:退款失败,6:已关闭,7:挂账)
-    public $status_info      = null;    // 状态信息
+    //public $status_info      = null;    // 状态信息
     public $order_time       = null;    // 下单时间及创建时间(时间戳)
     public $pay_time         = null;    // 支付时间(时间戳)
     public $checkout_time    = null;    // 反结时间(时间戳)
@@ -132,7 +187,13 @@ class OrderEntry
     public $seat_price       = null;    // 餐位费
     public $order_fee        = null;    // 订单金额（按定价算出来的当前消费额）
     public $order_remark     = null;    // 订单备注
-    public $is_invoicing     = null;    // 是否开票（1:已开票,0:未开票)
+    public $invoice          = null;    // 发票信息
+    public $is_appraise      = null;    // 是否评价（1:已评价,0:待评价)
+    public $is_urge          = null;    // 是否催单（1:已催单,0:未催单)
+    public $is_invoicing     = null;    // 是否开票（1:已普通开票,0:未普通开票)
+    public $red_dashed       = null;    // 是否红冲（1:红冲,0:2未红冲前提已开票才能红冲)
+    public $plate            = null;    // 餐牌号advance
+    public $is_advance       = null;    // 是否预结账（1:已预结,0:未预结）（只有未支付的状态下才能预结账）
 
     function __construct($cursor=null)
     {
@@ -147,16 +208,20 @@ class OrderEntry
             return;
         }
         $this->order_id          = $cursor['order_id'];
-        $this->shop_id           = $cursor['shop_id'];
         $this->customer_id       = $cursor['customer_id'];
         $this->employee_id       = $cursor['employee_id'];
+        $this->order_from        = $cursor['order_from'];
+        $this->order_water_num   = $cursor['order_water_num'];
+        $this->shop_id           = $cursor['shop_id'];
         $this->dine_way          = $cursor['dine_way'];
         $this->pay_way           = $cursor['pay_way'];
+        $this->pay_status        = $cursor['pay_status'];
+        $this->order_status      = $cursor['order_status'];
+        $this->order_sure_status = $cursor['order_sure_status'];
         $this->customer_num      = $cursor['customer_num'];
         $this->seat_id           = $cursor['seat_id'];
         $this->food_list         = OrderFoodInfo::ToList($cursor['food_list']);
-        $this->order_status      = $cursor['order_status'];
-        $this->status_info       = New StatusInfo($cursor['status_info']);
+        //$this->status_info       = New StatusInfo($cursor['status_info']);
         $this->order_time        = $cursor['order_time'];
         $this->pay_time          = $cursor['pay_time'];
         $this->checkout_time     = $cursor['checkout_time'];
@@ -169,14 +234,18 @@ class OrderEntry
         $this->food_price_all    = $cursor['food_price_all'];
         $this->order_waiver_fee  = $cursor['order_waiver_fee'];
         $this->order_payable     = $cursor['order_payable'];
-        $this->seat_price        = $cursor['seat_price'];
         $this->paid_price        = $cursor['paid_price'];
+        $this->maling_price      = $cursor['maling_price'];
+        $this->seat_price        = $cursor['seat_price'];
         $this->order_fee         = $cursor['order_fee'];
         $this->order_remark      = $cursor['order_remark'];
+        $this->invoice           = $cursor['invoice'];
+        $this->is_appraise       = $cursor['is_appraise'];
+        $this->is_urge           = $cursor['is_urge'];
         $this->is_invoicing      = $cursor['is_invoicing'];
-        $this->order_from        = $cursor['order_from'];
-        $this->order_water_num   = $cursor['order_water_num'];
-        $this->maling_price      = $cursor['maling_price'];
+        $this->red_dashed        = $cursor['red_dashed'];
+        $this->plate             = $cursor['plate'];
+        $this->is_advance        = $cursor['is_advance'];
     }
 
     public static function ToList($cursor)
@@ -220,6 +289,14 @@ class Order
         {
             $set["employee_id"] = (string)$info->employee_id;
         }
+        if(null !== $info->order_from)
+        {
+            $set["order_from"] = (int)$info->order_from;
+        }
+        if(null !== $info->order_water_num)
+        {
+            $set["order_water_num"] = (string)$info->order_water_num;
+        }
         if(null !== $info->shop_id)
         {
             $set["shop_id"] = (string)$info->shop_id;
@@ -231,6 +308,20 @@ class Order
         if(null !== $info->pay_way)
         {
             $set["pay_way"] = (int)$info->pay_way;
+        }
+        if(null !== $info->pay_status)
+        {
+            $set["pay_status"] = (int)$info->pay_status;
+        }
+        if(null !== $info->order_status)
+        {
+            $set["order_status"] = (int)$info->order_status;
+        }
+
+        if(null !== $info->order_sure_status)
+        {
+
+            $set["order_sure_status"] = (int)$info->order_sure_status;
         }
         if(null !== $info->customer_num)
         {
@@ -261,24 +352,40 @@ class Order
                     'food_attach_list' => (array)$item->food_attach_list,
                     'food_unit'        => (string)$item->food_unit,
                     'unit_num'         => (float)$item->unit_num,
+                    'is_pack'          => (int)$item->is_pack,
+                    'is_send'          => (int)$item->is_send,
+                    'send_remark'      => (string)$item->send_remark,
+                    'pack_num'         => (int)$item->pack_num,
+
                 ]));
             }
             $set["food_list"] = $food_list;
         }
-        if(null !== $info->order_status)
-        {
-            $set["order_status"] = (int)$info->order_status;
-        }
-        if(null !== $info->status_info)
-        {
-            $set["status_info"] = new StatusInfo([
-                'order_status'  => (int)$info->status_info->order_status,
-                'employee_id'   => (string)$info->status_info->employee_id,
-                'made_time'     => (int)$info->status_info->made_time,
-                'made_reson'    => (string)$info->status_info->made_reson,
-                'made_sf_reson' => (string)$info->status_info->made_sf_reson,
-            ]);
-        }
+//        if(null !== $info->status_info)
+//        {
+////            $set["status_info"] = new StatusInfo([
+////                'order_status'  => (int)$info->status_info->order_status,
+////                'employee_id'   => (string)$info->status_info->employee_id,
+////                'made_time'     => (int)$info->status_info->made_time,
+////                'made_reson'    => (string)$info->status_info->made_reson,
+////                'made_sf_reson' => (string)$info->status_info->made_sf_reson,
+////            ]);
+//            if(null !== $info->status_info->order_status){
+//                $set["status_info.order_status"] = (int)$info->status_info->order_status;
+//            }
+//            if(null !== $info->status_info->employee_id){
+//                $set["status_info.employee_id"] = (string)$info->status_info->employee_id;
+//            }
+//            if(null !== $info->status_info->made_time){
+//                $set["status_info.made_time"] = (int)$info->status_info->made_time;
+//            }
+//            if(null !== $info->status_info->made_reson){
+//                $set["status_info.made_reson"] = (string)$info->status_info->made_reson;
+//            }
+//            if(null !== $info->status_info->made_sf_reson){
+//                $set["status_info.made_sf_reson"] = (string)$info->status_info->made_sf_reson;
+//            }
+//        }
         if(null !== $info->order_time)
         {
             $set["order_time"] = (int)$info->order_time;
@@ -303,7 +410,6 @@ class Order
         {
             $set["close_time"] = (int)$info->close_time;
         }
-
         if(null !== $info->delete)
         {
             $set["delete"] = (int)$info->delete;
@@ -311,31 +417,6 @@ class Order
         if(null !== $info->food_num_all)
         {
             $set["food_num_all"] = (int)$info->food_num_all;
-
-        }
-
-        if(null === $info->order_fee
-            && null !== $info->food_price_all
-            && null !== $info->seat_price
-            && null !== $info->customer_num )
-        {
-            $info->order_fee = (float)$info->food_price_all  // 餐品总费用
-                + (float)$info->seat_price * (int)$info->customer_num;  // 餐位费
-        }
-
-        if(null !== $info->order_waiver_fee
-            && null !== $info->order_fee )
-        {
-            $info->order_payable = (float)$info->order_fee - (float)$info->order_waiver_fee;  //减免的费用
-        }
-        //
-        if(null !== $info->seat_price)
-        {
-            $set["seat_price"] = (float)$info->seat_price;
-        }
-        if(null !== $info->order_fee)
-        {
-            $set["order_fee"] = (float)$info->order_fee;
         }
         if(null !== $info->food_price_all)
         {
@@ -345,33 +426,81 @@ class Order
         {
             $set["order_waiver_fee"] = (float)$info->order_waiver_fee;
         }
+        if(null !== $info->order_waiver_fee
+            && null !== $info->order_fee )
+        {
+            $info->order_payable = (float)$info->order_fee - (float)$info->order_waiver_fee;  //减免的费用
+        }
         if(null !== $info->order_payable)
         {
             $set["order_payable"] = (float)$info->order_payable;
-        }
-        if(null !== $info->order_remark)
-        {
-            $set["order_remark"] = (string)$info->order_remark;
-        }
-        if(null !== $info->is_invoicing)
-        {
-            $set["is_invoicing"] = (int)$info->is_invoicing;
         }
         if(null !== $info->paid_price)
         {
             $set["paid_price"] = (float)$info->paid_price;
         }
-        if(null !== $info->order_from)
-        {
-            $set["order_from"] = (int)$info->order_from;
-        }
-        if(null !== $info->order_water_num)
-        {
-            $set["order_water_num"] = (string)$info->order_water_num;
-        }
         if(null !== $info->maling_price)
         {
             $set["maling_price"] = (float)$info->maling_price;
+        }
+        if(null !== $info->seat_price)
+        {
+            $set["seat_price"] = (float)$info->seat_price;
+        }
+        if(null !== $info->order_fee)
+        {
+            $set["order_fee"] = (float)$info->order_fee;
+        }
+        if(null === $info->order_fee
+            && null !== $info->food_price_all
+            && null !== $info->seat_price
+            && null !== $info->customer_num )
+        {
+            $info->order_fee = (float)$info->food_price_all  // 餐品总费用
+                + (float)$info->seat_price * (int)$info->customer_num;  // 餐位费
+        }
+        if(null !== $info->order_remark)
+        {
+            $set["order_remark"] = (string)$info->order_remark;
+        }
+        if(null !== $info->invoice)
+        {
+//            $set["invoice"] = new  InvoiceOrederInfo([
+//                'type'           => (int)$info->invoice->type,
+//                'title_type'     => (int)$info->invoice->title_type,
+//                'invoice_title'  => (string)$info->invoice->invoice_title,
+//                'duty_paragraph' => (string)$info->invoice->duty_paragraph,
+//                'phone'          => (string)$info->invoice->phone,
+//                'address'        => (string)$info->invoice->address,
+//                'bank_name'      => (string)$info->invoice->bank_name,
+//                'email'          => (string)$info->invoice->email,
+//                'invoice_type'   => (int)$info->invoice->invoice_type
+//            ]);
+            $set["invoice"] = $info->invoice;
+        }
+        if(null !== $info->is_appraise)
+        {
+            $set["is_appraise"] = (int)$info->is_appraise;
+        }
+        if(null !== $info->is_urge)
+        {
+            $set["is_urge"] = (int)$info->is_urge;
+        }
+        if(null !== $info->is_invoicing)
+        {
+            $set["is_invoicing"] = (int)$info->is_invoicing;
+        }
+        if(null !== $info->red_dashed)
+        {
+            $set["red_dashed"] = (int)$info->red_dashed;
+        }
+        if(null !== $info->plate)
+        {
+            $set["plate"] = (string)$info->plate;
+        }
+        if(null !== $info->is_advance)
+        {
+            $set["is_advance"] = (int)$info->is_advance;
         }
         $value = array(
             '$set' => $set
@@ -450,7 +579,7 @@ class Order
             $customer_id = $filter['customer_id'];
             if(!empty($customer_id))
             {
-                $cond['customer_id'] = (int)$customer_id;
+                $cond['customer_id'] = (string)$customer_id;
             }
             $shop_id = $filter['shop_id'];
             if(!empty($shop_id))
@@ -497,9 +626,11 @@ class Order
         }
         // LogDebug($cond);
         $field["_id"] = 0;
+
         $cursor = $table->find($cond, $field)->sort($sortby);
         return OrderEntry::ToList($cursor);
     }
+
     public function GetOrderAllList($filter=null,$sortby=[],$page_size, $page_no,&$total=null,&$price_list=null)
     {
 
@@ -524,10 +655,16 @@ class Order
             {
                 $cond['shop_id'] = (string)$shop_id;
             }
-            $seat_id = $filter['seat_id'];
-            if (null !== $seat_id)
+
+            $seat_id_list = $filter['seat_id_list'];
+            if (null !== $seat_id_list)
             {
-                $cond['seat_id'] = (string)$seat_id;
+                foreach ($seat_id_list as $i => &$item) {
+                    $item = (string)$item;
+                }
+                $cond = [
+                    'seat_id' => ['$in' => $seat_id_list],
+                ];
             }
             $dine_way = $filter['dine_way'];
             if (null !== $dine_way)
@@ -572,7 +709,7 @@ class Order
                     $cond['order_status'] = (int)$order_status;
                 }
             }
-            LogDebug($cond['order_status']);
+            //LogDebug($cond['order_status']);
             $begin_time = $filter['begin_time'];
             $end_time   = $filter['end_time'];
             if (!empty($begin_time))
@@ -614,15 +751,11 @@ class Order
                 }
             }
         }
-        LogDebug($sortby);
         if (empty($sortby))
         {
             $sortby['_id'] = -1;
         }
-
-        LogDebug($sortby);
-
-        LogDebug($cond);
+        // LogDebug($cond);
         $field["_id"] = 0;
         $cursor       = $table->find($cond,$field)->sort($sortby)->skip(($page_no - 1) * $page_size)->limit($page_size);
         if (null !== $total)
@@ -642,7 +775,7 @@ class Order
                 ],
             ],
         ];
-        LogDebug($pipe);
+        //LogDebug($pipe);
         $all_list = $table->aggregate($pipe);
         if ($all_list['ok'] == 1) {
             $price_list = $all_list['result'][0];

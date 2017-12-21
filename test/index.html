@@ -101,8 +101,10 @@ $(function() {
                 window.Store.SetPageData("id_test_1508382004.prefix", $prefix.Value());
                 window.Store.SetPageData("id_test_1508382004.req", $req.Value());
                 window.Store.SetPageData("id_test_1508382004.file", $file.Value());
-                if($req.Value() != req_history[0].req ||
-                    $file.Value() != req_history[0].file)
+                let req_history_first = req_history[0];
+                if(!req_history_first
+                    || $req.Value() != req_history_first.req
+                    || $file.Value() != req_history_first.file)
                 {
                     req_history.unshift({
                         req: $req.Value(),

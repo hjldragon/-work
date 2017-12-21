@@ -11,7 +11,6 @@ require_once("const.php");
 include_once("3rd/phpqrcode.php");
 ob_end_clean();
 
-
 function GetImg(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -23,8 +22,13 @@ function GetImg(&$resp)
 
     $width   = (int)$_["width"];
     $imgname = $_["imgname"];
-
-    $imgpath = PageUtil::GetImgFullname($imgname);
+    $type    = (int)$_["type"];
+    if($type == ImgType::NONE){
+        $imgpath = PageUtil::GetImgFullname($imgname);
+    }
+    if($type == ImgType::USER){
+        $imgpath = Cfg::GetUserImgFullname($imgname);
+    }
     if("" == $imgpath)
     {
         LogErr("get dest file err: [$imgpath]");
@@ -63,6 +67,11 @@ function GetSeatQrcode(&$resp)
 
     $shop_id = $_["shop_id"];
     $seat_id = $_["seat_id"];
+    if(!$shop_id || !$seat_id)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
 
     $seat_name = \Cache\Seat::GetSeatName($seat_id);
     $seat_qrcode_img = PageUtil::GetSeatQrcodeImg($shop_id, $seat_id);
@@ -83,8 +92,12 @@ function GetFoodQrcode(&$resp)
         return errcode::PARAM_ERR;
     }
     $shop_id = $_["shop_id"];
-    $seat_id = $_["food_id"];
-    
+    $food_id = $_["food_id"];
+    if(!$shop_id || !$food_id)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
     $food_qrcode_img = PageUtil::GetFoodQrcodeImg($shop_id, $food_id);
     
     LogDebug("food_qrcode_img:[$food_qrcode_img]");
@@ -102,14 +115,59 @@ function GetLoginQrcode(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $token = $_["token"];
     
+    $token = $_["token"];
+    if(!$token)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $tokendata = \Cache\Login::Get($token);
     $login_qrcode_img = PageUtil::GetLoginQrcodeImg($token);
     
     LogDebug("login_qrcode_img:[$login_qrcode_img]");
 
     header('Content-type: image/jpg'); //输出图片头
     readfile($login_qrcode_img);
+    exit(0);
+}
+
+function GetUrlQrcode(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if(!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $url = $_["url"];
+    $url = urlencode($url);
+    $url_qrcode_img = PageUtil::GetUrlQrcodeImg($url);
+    
+    LogDebug("url_qrcode_img:[$url_qrcode_img]");
+
+    header('Content-type: image/jpg'); //输出图片头
+    readfile($url_qrcode_img);
+    exit(0);
+}
+
+function GetBindingQrcode(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if(!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $userid  = $_["userid"];
+    $type    = $_["type"];  // 0:解绑,1:绑定
+    $token   = $_["token"];
+    $url_qrcode_img = PageUtil::GetBindingQrcodeImg($userid, $token, $type);
+    
+    LogDebug("url_qrcode_img:[$url_qrcode_img]");
+
+    header('Content-type: image/jpg'); //输出图片头
+    readfile($url_qrcode_img);
     exit(0);
 }
 
@@ -174,6 +232,14 @@ else if($_["get_food_qrcode"])
 else if($_["get_login_qrcode"])
 {
     $ret =  GetLoginQrcode($resp);
+}
+else if($_["get_binding_qrcode"])
+{
+    $ret =  GetBindingQrcode($resp);
+}
+else if($_["get_url_qrcode"])
+{
+    $ret =  GetUrlQrcode($resp);
 }
 else if($_["batch_export_seat_qrcode"])
 {

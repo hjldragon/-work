@@ -38,7 +38,6 @@ function SaveRandKey(&$resp)
     $redis = new \DaoRedis\Login();
     $redis->SaveKey($token, $key);
 
-    return $data;
     $resp = (object)array(
     );
     return 0;
@@ -55,9 +54,18 @@ elseif(isset($_['save_key']))
     $ret = SaveRandKey($resp);
 }
 
-$html = json_encode((object)array(
+$result = (object)array(
     'ret' => $ret,
     'data' => $resp
-));
+);
+
+if($GLOBALS['need_json_obj'])
+{
+    Output($result);
+}
+else
+{
+    $html =  json_encode($result);
+    echo $html;
+}
 ?><?php /******************************以下为html代码******************************/?>
-<?=$html?>

@@ -375,7 +375,6 @@ class CollectionSet
     public $is_mailing              = null;    // 是否支持抹零（1:是,0:否）
     public $mailing_type            = null;    // 抹零方式(1:抹除分,2:取整数元）
 
-
     function __construct($cursor = null)
     {
         $this->FromMgo($cursor);
@@ -512,6 +511,10 @@ class ShopEntry
     public $alipay_set        = null;               // 微信支付设置
     public $weixin_seting     = null;               // 微信支付是否设置(0:不启用,1启用)
     public $alipay_seting     = null;               // 支付宝支付是否设置(0:不启用,1启用)
+    public $auto_order        = null;               // 是否自动下单(0:否,1是)
+    public $menu_sort         = null;               // 0.未确定,1热度排序,2 时间排序
+    public $custom_screen     = null;               // 客屏是否显示(0:否,1是)
+
 
 
     function __construct($cursor = null)
@@ -571,6 +574,9 @@ class ShopEntry
         $this->alipay_set          = new AlipaySet($cursor['alipay_set']);
         $this->weixin_seting       = $cursor['weixin_seting'];
         $this->alipay_seting       = $cursor['alipay_seting'];
+        $this->auto_order          = $cursor['auto_order'];
+        $this->custom_screen       = $cursor['custom_screen'];
+        $this->menu_sort           = $cursor['menu_sort'];
     }
 
     public static function ToList($cursor)
@@ -859,7 +865,15 @@ class Shop
         if (null !== $info->alipay_seting){
             $set["alipay_seting"] = $info->alipay_seting;
         }
-
+        if (null !== $info->auto_order){
+            $set["auto_order"] = (int)$info->auto_order;
+        }
+        if (null !== $info->custom_screen){
+            $set["custom_screen"] = (int)$info->custom_screen;
+        }
+        if (null !== $info->menu_sort){
+            $set["menu_sort"] = (int)$info->menu_sort;
+        }
         $value = array(
             '$set' => $set
         );

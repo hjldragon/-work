@@ -31,7 +31,7 @@ static function LoginCheck()
     $userid = $_["userid"];
     LogDebug($userid);
     $logininfo = \Cache\Login::Get($token);
-
+    LogDebug($logininfo);
     if(1 == $logininfo->login && $logininfo->userid == $userid)
     {
         return true;
@@ -63,19 +63,19 @@ static function CurLoginEmployeePermission()
 // 取当前登录员工是否是超级管理员不需要权限
 static function IsLoginEmployeePermission($shop_id)
 {
-        $logininfo = \Cache\Login::Get(null);
-        if(!$logininfo)
+        $userid = \Cache\Login::GetUserid();
+        if(!$userid)
         {
             LogErr("not login");
             return null;
         }
 
         // 取用户信息
-        $employeeinfo = \Cache\Employee::GetInfo($logininfo->userid,$shop_id);
+        $employeeinfo = \Cache\Employee::GetInfo($userid,$shop_id);
 
         if(!$employeeinfo)
         {
-            LogErr("permisson is not enough, id:[{$logininfo->userid}]");
+            LogErr("permisson is not enough, id:[{$userid}]");
             return null;
         }
         return $employeeinfo->is_admin;
@@ -127,8 +127,6 @@ static function DecSubmitData()
         if(isset($_REQUEST['is_plain']))
         {
             $param['err'] = "is_plain, don't decrypt";
-
-
             LogInfo(json_encode($param));
             return $param;
         }
@@ -137,6 +135,7 @@ static function DecSubmitData()
         {
             $login = \Cache\Login::Get($token);
             LogDebug($login);
+            LogDebug($_REQUEST);
             $key = $login->key;
             // 后台中不存在此key，可能是数据过期后自动删除了，直接返回给前端.
             if(!$key)
@@ -157,11 +156,17 @@ static function DecSubmitData()
                 {
                     $data   = Crypt::decode($key, $data);
                 }
+                if("aes" == $encmode)
+                {
+                    $data   = Aes::Decrypt($key, $data);
+                }
                 $param = Util::ParseUrlParam($data);
             }
             else
             {
-                $param['err'] = "md5 error";
+                $param['key'] = $key;
+                $param['data'] = $data;
+                $param['err'] = "md5 error, md5:[$md5]";
                 LogErr(json_encode($param));
             }
             if(empty($param['token']))
@@ -288,6 +293,25 @@ static function GetImgFullname($filename)
     return "$dir/$filename";
 }
 
+// 使用签名加密形式发送
+// $opt -- 可选设置项
+static function HttpPostJsonEncData($url, $data, $opt=[])
+{
+    $data = (object)$data;
+    $opt = (object)$opt;
+    $timeout = (NULL !== $opt->timeout)?$opt->timeout:10;
+    $encmode = (NULL !== $opt->encmode)?$opt->encmode:"";
+    // 签名发送
+    $token = \Cache\Login::Token();
+    $datakey = \Cache\Login::GetKey();
+    $paramstr = $data->param;
+    $data->token = $token;
+    $data->datakey = $datakey;
+    $data->encmode = $encmode;
+    $data->sign = md5($paramstr . $datakey);
+    return PageUtil::HttpPostJsonData($url, $data, $timeout);
+}
+
 // 发送post
 static function HttpPostJsonData($url, $data, $timeout=10)
 {
@@ -351,8 +375,30 @@ static function GetLoginQrcodeImg($token)
         'L',        // 容错级别
         20,         // 生成图片大小
         1);         // 边框
-    
+
     return $login_qrcode_img;
+}
+
+static function GetUrlQrcodeImg($url)
+{
+    $url_qrcode_contect = Cfg::instance()->GetUrlQrcodeContect($url);
+    QRcode::png($url_qrcode_contect, $url_qrcode_img,
+        'L',        // 容错级别
+        20,         // 生成图片大小
+        1);         // 边框
+
+    return $url_qrcode_img;
+}
+
+static function GetBindingQrcodeImg($userid, $token, $type)
+{
+    $binding_qrcode_contect = Cfg::instance()->GetBindingQrcodeContect($userid, $token, $type);
+    QRcode::png($binding_qrcode_contect, $binding_qrcode_img,
+        'L',        // 容错级别
+        20,         // 生成图片大小
+        1);         // 边框
+
+    return $binding_qrcode_img;
 }
 
 // 查检订单是否可修改
@@ -406,12 +452,12 @@ static function UpdateFoodDauSoldNum($order_id)
         return;
     }
 
-    // 订单是否处于已确认状态
-    if(!OrderStatus::HadConfirmed($orderinfo->order_status))
-    {
-        LogDebug("order status err:[{$orderinfo->order_status}]");
-        return;
-    }
+    // 订单是否处于已下单确认状态
+//    if(!OrderSureStatus::HadConfirmed($orderinfo->order_status))
+//    {
+//        LogDebug("order status err:[{$orderinfo->order_status}]");
+//        return;
+//    }
 
     $mgo_stat = new \DaoMongodb\StatFood;
     $day = date("Ymd");
@@ -422,7 +468,7 @@ static function UpdateFoodDauSoldNum($order_id)
     }
 }
 
-// 检查餐品库存够不够（有不不够的餐品时，返回其餐品信息，满足要求时返回null）
+// 检查餐品库存够不够（有不够的餐品时，返回其餐品信息，满足要求时返回null）
 static function CheckFoodStockNum($shop_id, $need_food_list)
 {
     // 取出id列表
@@ -430,42 +476,35 @@ static function CheckFoodStockNum($shop_id, $need_food_list)
         return $v->food_id;
     }, $need_food_list);
     // LogDebug($food_id_list);
-
     // 读出当前餐品每天备货量
     $mgo_food = new \DaoMongodb\MenuInfo;
-    $list = $mgo_food->GetFoodList(
+    $list = $mgo_food->GetOrderFoodList(
         $shop_id,
         [
             'food_id_list' => $food_id_list,
-        ],
-        [
-            'food_id' => 1,
-            'food_num_day' => 1,
         ]
     );
     // LogDebug($list);
-
     // food_id --> 备货量
-    $id2food_num_day = [];
+    $id2stock_num_day = [];
     foreach($list as $i => $v)
     {
-        $id2food_num_day[$v->food_id] = $v->food_num_day;
+        $id2stock_num_day[$v->food_id] = (int)$v->stock_num_day;
     }
-    // LogDebug($id2food_num_day);
-
+    // LogDebug($id2stock_num_day);
     // 读出当前已售出量
     $mgo_stat = new \DaoMongodb\StatFood;
     $today = date("Ymd");
-    $list = $mgo_stat->GetStatList([
+    $list_two = $mgo_stat->GetStatList([
         'food_id_list' => $food_id_list,
-        'begin_day' => $today,
-        'end_day' => $today,
+        'shop_id'      => $shop_id,
+        'begin_day'    => $today,
+        'end_day'      => $today,
     ]);
     // LogDebug($list);
-
     // food_id --> 已售出量
     $id2food_sold_num = [];
-    foreach($list as $i => $v)
+    foreach($list_two as $i => $v)
     {
         $id2food_sold_num[$v->food_id] = $v->sold_num;
     }
@@ -474,23 +513,27 @@ static function CheckFoodStockNum($shop_id, $need_food_list)
     // 查看餐品存量
     foreach($need_food_list as $i => $food)
     {
-        $food_num_day = (int)$id2food_num_day[$food->food_id];
-        if($food_num_day <= 0)
+         //每日限售量
+        $stock_num_day = (int)$id2stock_num_day[$food->food_id];
+        if($stock_num_day <= 0)
         {
             continue;
         }
+        //日出售量
         $food_sold_num = (int)$id2food_sold_num[$food->food_id];
-
-        // LogDebug("food_id:[{$food->food_id}], food_num:[{$food->food_num}], food_num_day:[{$food_num_day}], food_sold_num:[{$food_sold_num}]");
-
+        LogDebug("food_id:[{$food->food_id}], food_num:[{$food->food_num}], stock_num_day:[{$stock_num_day}], food_sold_num:[{$food_sold_num}]");
         // 库存够吗？
-        if($food->food_num > $food_num_day - $food_sold_num)
+        if($food->food_num > $stock_num_day - $food_sold_num)
         {
+            //如果库存不足计算出菜品中限量的剩余的库存
+            foreach($list as  &$v)
+            {
+                $v->stock_num_day = $stock_num_day - $food_sold_num;
+            }
             LogDebug("not enough");
-            return $food;
+            return $list;
         }
     }
-
     return null;
 }
 
@@ -563,30 +606,26 @@ if ($resp->result->success) {
 }
 //发送手机验证码
 static function GetCoke($token,$phone,$page_code){
-
-$db         = new \DaoRedis\Login;
-$redis      = $db->Get($token);
-$radis_code = $redis->page_code;
+    $db         = new \DaoRedis\Login;
+    $redis      = $db->Get($token);
+    $radis_code = $redis->page_code;
 //验证验证码
-if ($radis_code != $page_code)
-{
-    LogErr("coke err");
-    return errcode::COKE_ERR;
-}
+    if ($radis_code != $page_code) {
+        LogErr("coke err");
+        return errcode::COKE_ERR;
+    }
 
-if (!preg_match('/^1([0-9]{9})/', $phone))
-{
-    LogErr("phone err");
-    return errcode::PHONE_ERR;
-}
-$mgo       = new \DaoMongodb\User;
-$info      = $mgo->QueryByPhone($phone);
-if ($info->phone)
-{
-    LogErr("phone is exist");
-    return errcode::PHONE_IS_EXIST;
-}
-$code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
+    if (!preg_match('/^1[34578]\d{9}$/', $phone)) {
+        LogErr("phone err");
+        return errcode::PHONE_ERR;
+    }
+    $mgo  = new \DaoMongodb\User;
+    $info = $mgo->QueryByPhone($phone);
+    if ($info->phone) {
+        LogErr("phone is exist");
+        return errcode::PHONE_IS_EXIST;
+    }
+    $code = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
 //$code = mt_rand(100000, 999999);
 //    $clapi  = new ChuanglanSmsApi();
 //    $msg    = '【赛领新吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
@@ -602,44 +641,44 @@ $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
 //            return $output['errorMsg'] . errcode::PHONE_SEND_FAIL;
 //        }
 //    }
-LogDebug($code);
-$redis            = new \DaoRedis\Login();
-$data             = new \DaoRedis\LoginEntry();
-$data->phone      = $phone;
-$data->token      = $token;
-$data->phone_code = $code;
-$data->code_time  = time() + 5 * 60 * 1000;
-LogDebug($data);
-$redis->Save($data);
+    LogDebug($code);
+    $redis            = new \DaoRedis\Login();
+    $data             = new \DaoRedis\LoginEntry();
+    $data->phone      = $phone;
+    $data->token      = $token;
+    $data->phone_code = $code;
+    $data->code_time  = time() + 5 * 60 * 1000;
+    LogDebug($data);
+    $redis->Save($data);
 
-return 0;
+    return 0;
 }
 //验证手机验证码
 static function VerifyPhoneCode($token,$phone,$phone_code){
-if (!preg_match('/^1([0-9]{9})/', $phone))
-{
-    LogErr("phone err");
-    return errcode::PHONE_ERR;
-}
+    if (!preg_match('/^1[34578]\d{9}$/', $phone))
+    {
+        LogErr("phone err");
+        return errcode::PHONE_ERR;
+    }
 
-$redis      = new \DaoRedis\Login();
-$data       = $redis->Get($token);//获取手机号上面的验证码
-if ($phone_code != $data->phone_code)
-{
-    LogErr("phone_code is err");
-    return errcode::PHONE_COKE_ERR;
-}
-if (time() > $data->code_time)
-{
-    LogErr("phone_code is lapse");
-    return errcode::PHONE_CODE_LAPSE;
-}
-if ($phone != $data->phone)
-{
-    LogErr("phone is not true");
-    return errcode::PHONE_ERR;
-}
-return 0;
+    $redis = new \DaoRedis\Login();
+    $data  = $redis->Get($token);//获取手机号上面的验证码
+    if ($phone_code != $data->phone_code)
+    {
+        LogErr("phone_code is err");
+        return errcode::PHONE_COKE_ERR;
+    }
+    if (time() > $data->code_time)
+    {
+        LogErr("phone_code is lapse");
+        return errcode::PHONE_CODE_LAPSE;
+    }
+    if ($phone != $data->phone)
+    {
+        LogErr("phone is not true");
+        return errcode::PHONE_TWO_NOT;
+    }
+    return 0;
 }
 
 }// end of class PageUtil{...

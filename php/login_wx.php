@@ -1,114 +1,122 @@
 <?php
+header('Content-Type:text/html;charset=utf-8');
 require_once("current_dir_env.php");
-require_once("mgo_login.php");
-require_once("mgo_user.php");
+require_once("cache.php");
 require_once("redis_login.php");
-require_once("redis_id.php");
-require_once("mgo_employee.php");
-function Login(&$resp)
+
+
+//LoginSave();
+function Login()
 {
-    $_ = $GLOBALS["_"];
-    LogDebug($_);
-    if(!$_)
+    $_      = $_REQUEST;
+    $token  = $_['token'];
+    $openid = $_['openid'];
+    if(!$token || !$openid)
     {
-        LogErr("param err");
-        return errcode::PARAM_ERR;
+        LogErr("token err");
+        echo "系统忙...";exit(0);
     }
 
-    $token   = $_["token"];
-    $userid  = $_["userid"];
+    $weixin = \Cache\Weixin::Get($openid,2);
 
-    $user = new \DaoMongodb\User();
-    
-    $userinfo = \Cache\Login::Get($userid);
-    LogDebug($userinfo);
-   
-    if(null == $userinfo)
+    if(!$weixin->userid)
     {
-        LogErr("param err");
-        return errcode::PARAM_ERR;
+        LogErr("WeixinUser err");
+        echo "此微信未注册,不能登录";exit(0);
     }
-    $employee = (object)array();
-    $shopinfo = array();
-    // 再查员工表
-    $employee_mgo = new \DaoMongodb\Employee;
-    $employee = $employee_mgo->GetEmployeeById($userid);
-    
-    foreach ($employee as $key => $value) {
-        if($value->shop_id){
-           $shop =  \Cache\Shop::Get($value->shop_id);
-           array_push($shopinfo, $shop);
-        }
-    }
-
-    $mongodb = new \DaoMongodb\Login();
-    $entry   = new \DaoMongodb\LoginEntry();
-
-    $now = time();
-    $entry->id          = \DaoRedis\Id::GenLoginId();
-    $entry->userid      = $userid;
-    $entry->ip          = $_SERVER['REMOTE_ADDR'];
-    $entry->login_time  = $now;
-    $entry->logout_time = 0;
-    $entry->ctime       = $now;
-    $entry->mtime       = $now;
-    $entry->delete      = 0;
-    $ret = $mongodb->Save($entry);
-    if(0 != $ret)
-    {
-        LogErr("SaveKey err");
-        return errcode::SYS_ERR;
-    }
-
     $redis = new \DaoRedis\Login();
     $info = new \DaoRedis\LoginEntry();
 
     // 注：$info->key字段在终端初次提交时设置
     $info->token    = $token;
-    $info->userid   = $userid;
-    $info->username = $userinfo->username;
+    $info->userid   = $weixin->userid;
+    $info->username = '';
     $info->shop_id  = '';
     $info->login    = 1;
     LogDebug($info);
 
-    $redis->Save($info);
+   $ret = $redis->Save($info);
     if(0 != $ret)
     {
         LogErr("SaveKey err");
-        return errcode::SYS_ERR;
+        echo "系统忙...";exit(0);
+    }
+   
+
+    // // 登录成功，发送通知到前端
+    $url = 'http://192.168.5.117:13010/wbv';  // cfg.php --> orderingsrv -->webserver_url
+    $ret_json = PageUtil::HttpPostJsonData($url, [
+        'name' => "cmd_publish",
+        'param' => json_encode([
+            'opr'   => "general",
+            'param' => [
+                'topic' => "login_qrcode@$token",
+                'data'=> [
+                    'info' => $info
+                ]
+            ],
+        ])
+    ]);
+    LogDebug($ret_json);
+
+    echo '登录成功...';
+}
+
+function LoginSave()
+{
+    $_      = $_REQUEST;
+    $token  = $_['token'];
+    if(!$token)
+    {
+        LogErr("token err");
+        echo "系统忙...";exit(0);
+    }
+    $redis = new \DaoRedis\Login();
+    $info  = new \DaoRedis\LoginEntry();
+    $openid = $redis->Get($token)->openid;
+    if(!$openid)
+    {
+        LogErr("openid err");
+        echo "系统忙...";exit(0);
+    }
+    $weixin = \Cache\Weixin::Get($openid,2);
+    if(!$weixin->userid)
+    {
+        LogErr("WeixinUser err");
+        echo "此微信未注册,不能登录";exit(0);
+    }
+    // 注：$info->key字段在终端初次提交时设置
+    $info->token    = $token;
+    $info->userid   = $weixin->userid;
+    $info->username = '';
+    $info->shop_id  = '';
+    $info->login    = 1;
+    LogDebug($info);
+
+   $ret = $redis->Save($info);
+    if(0 != $ret)
+    {
+        LogErr("SaveKey err");
+        echo "系统忙...";exit(0);
     }
 
-    $userinfo->answer = null;
-    $userinfo->password = null;
+   
 
-    $resp = (object)array(
-        'logininfo'    => $entry,
-        'userinfo'     => $userinfo,
-        'shopinfo'     => $shopinfo
-    );
-    LogInfo("login ok, userid:{$userinfo->userid}");
-    return 0;
+    // // 登录成功，发送通知到前端
+    $url = 'http://192.168.5.117:13010/wbv';  // cfg.php --> orderingsrv -->webserver_url
+    $ret_json = PageUtil::HttpPostJsonData($url, [
+        'name' => "cmd_publish",
+        'param' => json_encode([
+            'opr'   => "general",
+            'param' => [
+                'topic' => "login_qrcode@$token",
+                'data'=> [
+                    'info' => $info
+                ]
+            ],
+        ])
+    ]);
+    LogDebug($ret_json);
+
+    echo '登录成功...';
 }
-
-
-
-
-$_=$_REQUEST;
-$ret = -1;
-$resp = (object)array();
-if(isset($_['userid']))
-{
-    $ret = Login($resp);
-}
-else
-{
-    $ret = -1;
-    LogErr("param err");
-}
-
-$html = json_encode((object)array(
-    'ret' => $ret,
-    'data' => $resp
-));
-?><?php /******************************以下为html代码******************************/?>
-<?=$html?>

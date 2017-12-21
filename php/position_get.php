@@ -30,7 +30,6 @@ function GetPositionInfo(&$resp)
     $mgo         = new \DaoMongodb\Position;
     $info        = $mgo->GetPositionById($shop_id, $position_id);
     $permission  = PermissionSplit($info->position_permission);
-
     $resp = (object)[
         'position_info' => $info,
         'permission'    => $permission,

@@ -11,7 +11,7 @@ require_once("mgo_seat.php");
 require_once("mgo_order.php");
 
 Permission::PageCheck();
- //$_=$_REQUEST;
+ 
 
 function GetOrderListBySeat($shop_id, $seat_id)
 {
@@ -98,7 +98,7 @@ function GetSeatInfo(&$resp)
     $resp = (object)array(
         'info' => $info
     );
-    LogDebug($resp);
+   // LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -172,7 +172,7 @@ function GetSeatListAll(&$resp)
     $resp = (object)[
         'seatlist' => $seatlist,
     ];
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -190,12 +190,19 @@ elseif(isset($_["list"]))
 {
     $ret = GetSeatListAll($resp);
 }
+$result = (object)array(
+    'ret' => $ret,
+    'data' => $resp
+);
 
-$html = json_encode((object)array(
-    'ret'   => $ret,
-    'data'  => $resp
-    // 'crypt' => 1, // 是加密数据标记
-    // 'data'  => PageUtil::EncRespData(json_encode($resp))
-));
+if($GLOBALS['need_json_obj'])
+{
+    Output($result);
+}
+else
+{
+    $html =  json_encode($result);
+    echo $html;
+}
 ?><?php /******************************以下为html代码******************************/?>
-<?=$html?>
+

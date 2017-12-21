@@ -12,10 +12,11 @@ class PrinterEntry
 {
     public $printer_id            = null;     // 打印机id
     public $printer_name          = null;     // 打印机名
-    public $printer_category      = null;     // 支持单据类型  1:'点菜单（后厨）'2:'作废单（后厨）'3:'点菜单（消费者）'4:'结账单'5:'预结账单'
-    public $printer_size          = null;     // 打印机规格
+    // 注：printer_category字段改名为receipt_type [Rocky 2017-12-14]
+    public $receipt_type          = null;     // 支持单据类型  1:'点菜单（后厨）'2:'作废单（后厨）'3:'点菜单（消费者）'4:'结账单'5:'预结账单'
+    public $printer_size          = null;     // 打印机规格（58、80）
     public $printer_brand         = null;     // 打印机型号
-    public $food_category_list    = null;     // 指定的菜类别
+    public $food_category_list    = null;     // 指定的菜类别（不指定时，为全部）
     public $shop_id               = null;     // 餐馆id
     public $lastmodtime           = null;     // 数据最后修改时间
     public $delete                = null;     // 0:正常, 1:已删除
@@ -39,7 +40,7 @@ class PrinterEntry
         }
         $this->printer_id            = $cursor['printer_id'];
         $this->printer_name          = $cursor['printer_name'];
-        $this->printer_category      = $cursor['printer_category'];
+        $this->receipt_type          = $cursor['receipt_type'];
         $this->printer_size          = $cursor['printer_size'];
         $this->printer_brand         = $cursor['printer_brand'];
         $this->food_category_list    = $cursor['food_category_list'];
@@ -98,9 +99,14 @@ class Printer
         {
             $set["printer_name"] = $info->printer_name;
         }
-        if(null !== $info->printer_category)
+        if(null !== $info->receipt_type)
         {
-            $set["printer_category"] = $info->printer_category;
+            $info->receipt_type = (array)$info->receipt_type;
+            foreach($info->receipt_type as &$item)
+            {
+                $item = (int)$item;
+            }
+            $set["receipt_type"] = $info->receipt_type;
         }
         if(null !== $info->printer_size)
         {

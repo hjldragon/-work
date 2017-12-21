@@ -22,6 +22,7 @@ class LoginEntry
     public $code_time  = null;     //手机验证码过期时间
     public $page_code  = null;     // 页面验证码
     public $phone      = null;     //输入手机号
+    public $openid     = null;
 
 
     function __construct($cursor=null)
@@ -45,7 +46,8 @@ class LoginEntry
         $this->phone_code = $cursor['phone_code'];
         $this->code_time  = $cursor['code_time'];
         $this->page_code  = $cursor['page_code'];
-        $this->phone       = $cursor['phone'];
+        $this->phone      = $cursor['phone'];
+        $this->openid     = $cursor['openid'];
     }
 };
 
@@ -66,6 +68,9 @@ class Login
         }
         $db = \DbPool::GetRedis($this->Tablename());
         $data = [];
+
+        $data["token"] = $entry->token;
+
         if(null !== $entry->userid)
         {
             $data["userid"] = $entry->userid;
@@ -102,26 +107,32 @@ class Login
         {
             $data["phone"] = $entry->phone;
         }
+        if(null !== $entry->openid)
+        {
+            $data["openid"] = $entry->openid;
+        }
 
         $ret = $db->hmset($entry->token, $data);
-        LogDebug("ret:$ret");
-        if($ret > 0)
+        if($ret < 0)
         {
-            return 0; // 正确
+            LogErr("hmset err");
+            return $ret;
         }
-        return $ret;
+        // 正确
+        //$db->expire($entry->token, 60*60*24*7); // 暂时去掉，后台不过期
+        return 0;
     }
 
     public function SaveKey($token, $key)
     {
         $db = \DbPool::GetRedis($this->Tablename());
         $ret = $db->hset("${token}", "key", $key);
-        LogDebug("ret:$ret");
-        if($ret > 0)
+        if($ret < 0)
         {
-            return 0; // 正确
+            LogErr("hset err");
+            return $ret;
         }
-        return $ret;
+        return 0;
     }
 
     public function Get($token)

@@ -9,7 +9,7 @@ require_once("const.php");
 require_once("cache.php");
 require_once("mgo_printer.php");
 require_once("mgo_category.php");
-// $_=$_REQUEST;
+Permission::PageCheck();
 
 function GetPrinterInfo(&$resp)
 {
@@ -25,13 +25,22 @@ function GetPrinterInfo(&$resp)
     $mgo = new \DaoMongodb\Printer;
     $info = $mgo->GetPrinterById($printer_id);
     $info->category = array();
-    foreach ($info->food_category_list as $key => $value) {
-        $cateinfo = \Cache\Category::Get($value);
-        $data = array();
-        array_push($data, $cateinfo);
-        GetCategory($data,$cateinfo->parent_id);
-        array_push($info->category, $data);
+    foreach ($info->food_category_list as $key => $value)
+    {
+        if('0' == $value)
+        {
+            $info->category = ['0'];
+        }
+        else
+        {
+            $cateinfo = \Cache\Category::Get($value);
+            $data = array();
+            array_push($data, $cateinfo);
+            GetCategory($data,$cateinfo->parent_id);
+            array_push($info->category, $data);
+        }
     }
+    $info->printer_category = $info->receipt_type; // 暂时字段兼容，后面清理掉 [XXX] <<<<<<<<<<<
     $resp = (object)array(
         'info' => $info
     );
@@ -41,7 +50,7 @@ function GetPrinterInfo(&$resp)
 }
 
 //递归查找父级品类
-function GetCategory(&$data,$parent_id){
+function GetCategory(&$data, $parent_id){
     $info = \Cache\Category::Get($parent_id);
     if($info){
         array_unshift($data, $info);
@@ -68,16 +77,38 @@ function GetPrinterList(&$resp)
     foreach($list as $i => &$item)
     {
         $category_name = [];
-        foreach($item->food_category_list as $j => $category_id)
-        {   
-            if(0 == $category_id){
-                $category_name[] = '全部';
-            }else{
-               $category_name[] = \Cache\Category::Get($category_id)->category_name; 
+        if($item->food_category_list)
+        {
+            foreach($item->food_category_list as $j => $category_id)
+            {
+                // if(0 == $category_id)
+                // {
+                //     $category_name[] = '全部';
+                // }
+                // else
+                // {
+                //     $category_name[] = \Cache\Category::Get($category_id)->category_name;
+                // }
+                if("0" == $category_id)
+                {
+                    $category_name[] = '全部';
+                }
+                else
+                {
+                    $category = \Cache\Category::Get($category_id);
+                    if($category)
+                    {
+                        $category_name[] = $category->category_name;
+                    }
+                }
             }
-            
+        }
+        else
+        {
+            $category_name[] = '全部';
         }
         $item->food_category_name = $category_name;
+        $item->printer_category = $item->receipt_type; // 暂时字段兼容，后面清理掉 [XXX] <<<<<<<<<<<
     }
 
     $resp = (object)array(
@@ -107,6 +138,7 @@ function NeedPrintFoodCategory(&$resp)
         {
             $exist[$food_category] = true;
         }
+        $printer_info->printer_category = $printer_info->receipt_type; // 暂时字段兼容，后面清理掉 [XXX] <<<<<<<<<<<
     }
 
     $shop_id = \Cache\Login::GetShopId();
