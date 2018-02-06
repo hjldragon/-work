@@ -32,7 +32,7 @@ function SaveShopinfo(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $mgo = new \DaoMongodb\Shop;
+    $mgo   = new \DaoMongodb\Shop;
     $entry = new \DaoMongodb\ShopEntry;
 
     $entry->shop_id        = $shop_id;
@@ -42,6 +42,9 @@ function SaveShopinfo(&$resp)
     $entry->address        = $address;
     $entry->shop_model     = $shop_model;
     $entry->telephone      = $telephone;
+    $entry->suspend        = 0; //正常使用
+    $entry->business_status= 0; //工商认证状态变成0
+    $entry->is_signing     = 0; //0未签约
     $ret = $mgo->Save($entry);
     if(0 != $ret)
     {
@@ -262,7 +265,7 @@ function EntryCategory($shop_id)
     }
 
     $inf["category_id"]   = \DaoRedis\Id::GenCategoryId();
-    $inf["category_name"] = "配件";
+    $inf["category_name"] = "餐具";
     $inf["type"]          = 2;
     $inf["parent_id"]     = 0;
     $inf["entry_time"]    = time()+2;

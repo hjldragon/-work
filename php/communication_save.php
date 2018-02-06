@@ -19,11 +19,11 @@ function SaveContent(&$resp){
         return errcode::PARAM_ERR;
     }
 
-    $content=$_['content'];
-    $content_id=$_['content_id'];
-    $title=$_['title'];
-    $delete = 1;
-    $c_name='yy1';
+    $content    = $_['content'];
+    $content_id = $_['content_id'];
+    $title      = $_['title'];
+    $delete     = 1;
+    $c_name     = 'yy1';
     LogDebug($c_name);//这里获取了登录用户的名字
 
     //连接留言信息的数据库

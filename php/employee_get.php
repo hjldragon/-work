@@ -12,7 +12,8 @@ require_once("cache.php");
 require_once("mgo_department.php");
 require_once("mgo_position.php");
 require_once("mgo_user.php");
-Permission::PageCheck();
+
+//Permission::PageCheck();
 
 function GetEmployeeInfo(&$resp)
 {
@@ -98,7 +99,7 @@ function GetEmployeeOneInfo(&$resp)
     $employee_info['position_name']   = $position_info->position_name;
 
     $user                             = new \DaoMongodb\User;
-    LogDebug($userid);
+    //LogDebug($userid);
     $userinfo                         = $user->QueryById($userid);
     $user_info                        = [];
     $user_info['real_name']           = $userinfo->real_name;
@@ -125,7 +126,6 @@ function GetEmployeeAllList(&$resp)
         return errcode::PARAM_ERR;
     }
     $shop_id = \Cache\Login::GetShopId();
-    LogDebug($shop_id);
     if (!$shop_id)
     {
         LogDebug($shop_id);
@@ -150,7 +150,6 @@ function GetEmployeeAllList(&$resp)
     $resp = (object)[
         'employee_list' => $list,
     ];
-    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -173,8 +172,13 @@ function InviteGetUserInfo(&$resp)
         LogErr("phone err");
         return errcode::PHONE_ERR;
     }
+    $src        = $_['src'];
+    if(!$src)
+    {
+        $src  = 2;
+    }
     $user       = new \DaoMongodb\User;
-    $userinfo   = $user->QueryByPhone($phone);
+    $userinfo   = $user->QueryByPhone($phone,$src);
     if(!$userinfo->phone)
     {
         return errcode::USER_NOT_ZC;
@@ -189,7 +193,7 @@ function InviteGetUserInfo(&$resp)
         return $result;
     }
     $user                             = new DaoMongodb\User;
-    $userinfo                         = $user->QueryByPhone($phone);
+    $userinfo                         = $user->QueryByPhone($phone,$src);
     $userid                           = $userinfo->userid;
     $user_info                        = [];
     $user_info['real_name']           = $userinfo->real_name;
@@ -230,16 +234,18 @@ else
     $ret = errcode::PARAM_ERR;
     LogErr("param err");
 }
-
-
-$html = json_encode((object)array(
+$result = (object)array(
     'ret' => $ret,
-    'data'  => $resp
-));
-echo $html;
-LogDebug($html);
-// $callback = $_['callback'];
-// $js =<<< eof
-// $callback($html);
-// eof;
-?>
+    'data' => $resp
+);
+
+if($GLOBALS['need_json_obj'])
+{
+    Output($result);
+}
+else
+{
+    $html =  json_encode($result);
+    echo $html;
+}
+?><?php /******************************以下为html代码******************************/?>

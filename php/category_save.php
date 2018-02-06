@@ -27,10 +27,14 @@ function SaveCategory(&$resp)
 
     $category_id   = $_['category_id'];
     $category_name = $_['category_name'];
-    //$printer_id    = $_['printer_id'];
     $type          = $_['type'];
     $opening_time  = json_decode($_['opening_time']);
     $parent_id     = $_['parent_id'];
+    $shop_id       = $_['shop_id'];
+    if(!$shop_id)
+    {
+        $shop_id       = \Cache\Login::GetShopId();
+    }
     if(!$category_name || !$opening_time){
         LogErr("param err");
         return errcode::PARAM_ERR;
@@ -39,11 +43,17 @@ function SaveCategory(&$resp)
         $parent_id = 0;
     }
     $mongodb = new \DaoMongodb\Category;
-    $time = array();
+    $time    = array();
     if(!$category_id)
     {
         $category_id = \DaoRedis\Id::GenCategoryId();
-        $entry_time = time();
+        $entry_time  = time();
+        $cate_info   = $mongodb->QueryByName($category_name, $shop_id);
+        if($cate_info->category_name)//在新建的情况下要判断
+        {
+            LogDebug($category_name,'this category_name have:'.$cate_info->category_name);
+            return errcode::NAME_IS_EXIST;
+        }
     }else{
         $list = $mongodb->GetByParentList($category_id);
         if($list){

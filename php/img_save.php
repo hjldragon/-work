@@ -61,10 +61,9 @@ function SaveImgFileHtml5(&$resp=NULL)
     }
 
     $token = $_["token"];
-    
     $file = $_FILES["imgfile"];
-    
-    // LogDebug($file);
+
+    //LogDebug($file);
     if($file["error"] > 0)
     {
         LogErr("file upload err: " . json_encode($file));

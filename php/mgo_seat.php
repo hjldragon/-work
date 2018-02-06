@@ -22,7 +22,7 @@ class SeatEntry
     public $seat_shape  = null; // 桌形
     public $price_type  = null; // 餐位费结算方式（0:无餐位费,1:按人数,2:固定数,3:餐费百分比）
     public $consume_min = null; // 最低消费
-    public $qr_code     = null; //餐桌二维码
+    public $qr_code     = null; // 餐桌二维码
 
     function __construct($cursor = null)
     {
@@ -185,8 +185,7 @@ class Seat
             'delete'    => ['$ne' => 1],
         ];
 
-        $cursor = $table->find($cond);
-
+        $cursor = $table->find($cond, ["_id" => 0])->sort(["seat_id" => 1]);
         return SeatEntry::ToList($cursor);
     }
 

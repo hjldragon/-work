@@ -10,7 +10,7 @@ require_once("cache.php");
 require_once("mgo_shop.php");
 require_once("permission.php");
 
-Permission::PageCheck();
+//Permission::PageCheck();
 // $_=$_REQUEST;
 
 
@@ -42,8 +42,6 @@ function GetShopInfo(&$resp)
     $shopinfo['shop_area']   = $info->shop_area;
     $shopinfo['address']     = $info->address;
     $shopinfo['address_num'] = $info->address_num;
-
-
 
     $resp = (object)array(
         'shopinfo' => $shopinfo

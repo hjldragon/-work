@@ -232,15 +232,15 @@ class Employee
         return EmployeeEntry::ToList($cursor);
     }
 
-    public function GetEmployeeInfo($shop_id,$employee_id)
+    public function GetEmployeeInfo($shop_id, $employee_id)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
 
         $cond = [
-            'shop_id' => (string)$shop_id,
+            'shop_id'    => (string)$shop_id,
             'employee_id'=>(string)$employee_id,
-            'delete' => ['$ne' => 1]
+            'delete'     => ['$ne' => 1]
         ];
         $cursor = $table->findOne($cond);
         return new EmployeeEntry($cursor);
@@ -252,12 +252,26 @@ class Employee
 
         $cond = [
             'shop_id'       => (string)$shop_id,
-            'real_name' => (string)$employee_name,
+            'real_name'     => (string)$employee_name,
             'delete'        => ['$ne' => 1],
         ];
 
         $cursor = $table->findOne($cond);
         return new EmployeeEntry($cursor);
+    }
+    public function GetEmployeeByName($shop_id, $employee_name)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = [
+            'shop_id'       => (string)$shop_id,
+            'real_name'     => new \MongoRegex("/$employee_name/"),
+            'delete'        => ['$ne' => 1],
+        ];
+
+        $cursor = $table->find($cond, ["_id" => 0])->sort(["employee_id" => 1]);
+        return EmployeeEntry::ToList($cursor);
     }
     public function GetEmployeeByPhone($shop_id,$phone)
     {

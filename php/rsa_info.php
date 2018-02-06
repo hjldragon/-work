@@ -9,7 +9,8 @@ LogDebug($_);
 function GetPublicKey(&$resp)
 {
     $resp = (object)array(
-        'publickey' => Cfg::instance()->rsa->publickey
+        'publickey' => Cfg::instance()->rsa->publickey,
+        'expire' => 1715579637, // 公钥有效期（单位：秒），这里暂写死一个比较大的值
     );
     // LogDebug($resp);
     return 0;
@@ -23,9 +24,9 @@ function SaveRandKey(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $token = $_["token"];
+    $token   = $_["token"];
     $key_enc = $_["key_enc"];
-    LogDebug("key_end:[$key_enc]");
+    LogDebug("key_enc:[$key_enc]");
 
     $key = "";
     if(!openssl_private_decrypt(base64_decode($key_enc), $key, Cfg::instance()->rsa->privatekey))
@@ -33,10 +34,9 @@ function SaveRandKey(&$resp)
         LogErr("rsa err");
         return errcode::PARAM_ERR;
     }
-    LogDebug("key:[$key]");
-
     $redis = new \DaoRedis\Login();
-    $redis->SaveKey($token, $key);
+    $ret = $redis->SaveKey($token, $key);
+    LogDebug("token:[$token], key:[$key], ret:[$ret]");
 
     $resp = (object)array(
     );

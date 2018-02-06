@@ -21,21 +21,28 @@ function SaveReservation(&$resp)
     $customer_sex     = $_['customer_sex'];
     $account          = $_['account'];   //创建人账号
     $customer_phone   = $_['customer_phone'];
+    if (!preg_match('/^1[34578]\d{9}$/', $customer_phone))
+    {
+        LogErr("phone err");
+        return errcode::PHONE_ERR;
+    }
     $customer_num     = $_['customer_num'];
     $seat_name        = $_['seat_name'];
     $reservation_time = $_['reservation_time'];
+    if($reservation_time < time())
+    {
+        LogErr('reservation_time err'.$reservation_time);
+        return errcode::RESERVATION_TIME_GO;
+    }
     $note             = $_['remark'];
     $shop_id          = $_['shop_id'];
     if (!$shop_id)
     {
+        LogErr("no shop");
         return errcode::SHOP_NOT_WEIXIN;
     }
     $seat          = new \DaoMongodb\Seat;
     $seat_info     = $seat->GetSeatID($shop_id,$seat_name);
-    if($seat_info->seat_name)
-    {
-     return errcode::SEAT_IS_EXIST;
-    }
     $employee      = new \DaoMongodb\Employee;
     $employee_info = $employee->GetEmployeeByPhone($shop_id, $account);
     $mgo           = new \DaoMongodb\Reservation;
@@ -64,7 +71,7 @@ function SaveReservation(&$resp)
         return errcode::SYS_ERR;
     }
     $resp = (object)[
-    ];
+           ];
     LogInfo("save ok");
     return 0;
 }
@@ -82,6 +89,7 @@ function SaveReservationState(&$resp)
     $reservation_status = $_['reservation_status'];
     $account            = $_['account'];
     $reson              = $_['reson'];
+    //LogDebug($_);
     $mgo                = new \DaoMongodb\Reservation;
     $employee           = new \DaoMongodb\Employee;
     $reservation        = $mgo->GetReservationById($reservation_id);
@@ -90,6 +98,7 @@ function SaveReservationState(&$resp)
         return errcode::RESERVATION_NOT_EXIST;
     }
     $employee_info = $employee->GetEmployeeByPhone($reservation->shop_id, $account);
+    LogDebug($employee_info);
     if ($reservation_status == 2)
     {
         $reserve_info->reservation_status = $reservation_status;
@@ -104,7 +113,6 @@ function SaveReservationState(&$resp)
         $reserve_info->made_time          = time();
         $reserve_info->employee_id        = $employee_info->employee_id;
         $reserve_info->reson              = $reson;
-
     }
 
     $entry                     = new \DaoMongodb\ReservationEntry;

@@ -320,7 +320,7 @@ function OrderPrintManual(&$resp)
     LogInfo("ok");
     return 0;
 }
-//外包PAD端订单信息操作
+//外包PAD端订单信息操作(下单,结账,红冲等)
 function MadeOrderStatus(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -333,17 +333,22 @@ function MadeOrderStatus(&$resp)
     $admin_pwd     = md5($_['admin_pwd']);     //操作事件的密码
     $order_id      = $_['order_id'];
     $oper_id       = (int)$_['oper_id'];       //外包操作id(eg:红冲，结账等）
-    LogDebug($_);
+    //LogDebug($_);
     if(!$order_id)
     {
+        LogErr('no order');
         return errcode::ORDER_NOT_EXIST;
     }
+    //找到订单状态信息
+    $order_s = new \DaoMongodb\OrderStatus;
+    $order_status_info = $order_s->GetOrderById($order_id);
+
     $oper_reason      = $_['oper_reason'];      //操作原因
     //用于idpad端点餐结账
     $maling_price     = $_['maling_price'];     //抹零金额
     $order_waiver_fee = $_['order_waiver_fee']; //减免金额
-    $orderinfo     = \Cache\Order::Get($order_id);
-    $shop_id       = $_['shop_id'];
+    $orderinfo        = \Cache\Order::Get($order_id);
+    $shop_id          = $_['shop_id'];
     if(!$shop_id)
     {
         $shop_id   = \Cache\Login::GetShopId();
@@ -357,9 +362,10 @@ function MadeOrderStatus(&$resp)
     $mgo                     = new \DaoMongodb\Order;
     $entry                   = new \DaoMongodb\OrderEntry;
     $order_info              = $mgo->GetOrderById($order_id);
+    LogDebug($oper_id);
     switch ($oper_id)
     {
-        case 0:
+        case 0://结账
             $order_status = 2;
             $pay_time     = time();
             $pay_status   = 2;
@@ -373,7 +379,7 @@ function MadeOrderStatus(&$resp)
             }
             $paid_price = $order_info->order_payable;
             break;
-        case 1:
+        case 1://开发票
             $is_invoicing = 1;
             if ($orderinfo->order_status == OrderStatus::PAID)
             {
@@ -384,7 +390,7 @@ function MadeOrderStatus(&$resp)
                 $checkout_time = time();
             }
             break;
-        case 2:
+        case 2://反结账
             $userinfo                  = MadeOrderValidation($admin_account, $admin_pwd);
             if(!$userinfo->phone)
             {
@@ -396,9 +402,10 @@ function MadeOrderStatus(&$resp)
             $employee_id               = $employee_info->employee_id;
             $customer_id               = $order_info->customer_id;
             $made_time                 = time();
-            $made_reson                = $oper_reason;
+            $made_ce_reson             = $oper_reason;
+            $paid_price                = 0;
             break;
-        case 3:
+        case 3://退款
             $userinfo                  = MadeOrderValidation($admin_account, $admin_pwd);
             if(!$userinfo->phone)
             {
@@ -408,10 +415,12 @@ function MadeOrderStatus(&$resp)
             $order_status  = 4;
             $employee_id   = $employee_info->employee_id;
             $made_time     = time();
-            $made_reson    = $oper_reason;
+            $made_ce_reson = $oper_reason;
+            $is_confirm    = 1;
             $refunds_time  = time();
+            $paid_price    = 0;
             break;
-        case 4:
+        case 4: //红冲
             $userinfo                  = MadeOrderValidation($admin_account, $admin_pwd);
             if(!$userinfo->phone)
             {
@@ -432,12 +441,12 @@ function MadeOrderStatus(&$resp)
                 $checkout_time = time();
             }
             $order_status = $orderinfo->order_status;
-            $made_reson   = $oper_reason;
+            $made_ce_reson= $oper_reason;
             $employee_id  = $employee_info->employee_id;
             $customer_id  = $order_info->customer_id;
             $made_time    = time();
             break;
-        case  5:
+        case  5://关闭订单
             $userinfo                  = MadeOrderValidation($admin_account, $admin_pwd);
             if(!$userinfo->phone)
             {
@@ -447,16 +456,72 @@ function MadeOrderStatus(&$resp)
             $order_status  = 6;
             $employee_id   = $employee_info->employee_id;
             $made_time     = time();
-            $made_reson    = $oper_reason;
+            $made_ce_reson = $oper_reason;
             $customer_id   = $order_info->customer_id;
             $close_time    = time();
             break;
-        case 6:
-            $order_time   = time();
+        case 6://下单
+            $order_time        = time();
+            $is_confirm        = 1;
+            $order_sure_status = 2;
+            $food_list    = $order_info->food_list;
+            if ($food_list) {
+                // 检查这个单中餐品库存是否足够
+                $food = PageUtil::CheckFoodStockNum($shop_id, $food_list);
+                foreach ($food as $v) {
+                    $food_id   = $v->food_id;
+                    $food_name = $v->food_name;
+                    $num       = $v->stock_num_day;
+                }
+                if (null != $food) {
+                    $resp = (object)[
+                        'food_id'     => $food_id,
+                        'food_name'   => $food_name,
+                        'surplus_num' => $num,   //提示限量中剩余的库存
+                    ];
+                    LogErr("not enough, food_id:[{$food_id}]");
+                    return errcode::FOOD_NOT_ENOUGH;
+                }
+            }
+            PageUtil::UpdateFoodDauSoldNum($order_info->order_id);
             break;
-        case 7:
-            $order_status = 2;
+        case 7://下单并结账
+            $order_status = 2;//订单状态
+            $pay_status   = 2;//支付状态
+            $is_confirm   = 1;//确认状态
             $pay_time     = time();
+            PageUtil::UpdateFoodDauSoldNum($order_info->order_id);
+            break;
+        case 8://拒绝退款
+//            $userinfo                  = MadeOrderValidation($admin_account, $admin_pwd);
+//            if(!$userinfo->phone)
+//            {
+//                return $userinfo;
+//            }
+//            $employee_info      = $employee->QueryByShopId($userinfo->userid, $shop_id);
+            $order_status       = 5;
+            $employee_id        = $order_info->employee_id;
+            $made_time          = time();
+            $made_ce_reson         = $oper_reason;
+            $customer_id        = $order_info->customer_id;
+            $refunds_fail_time  = time();
+            $is_confirm         = 1;  //这个属于pad点击后属于已确定
+            break;
+        case 9://关闭并退款
+            $userinfo                  = MadeOrderValidation($admin_account, $admin_pwd);
+            if(!$userinfo->phone)
+            {
+                return $userinfo;
+            }
+            $employee_info = $employee->QueryByShopId($userinfo->userid, $shop_id);
+            $order_status  = 4;
+            $employee_id   = $employee_info->employee_id;
+            $made_time     = time();
+            $made_ce_reson = $oper_reason;
+            $customer_id   = $order_info->customer_id;
+            $is_confirm    = 1;
+            $refunds_time  = time();
+            $paid_price    = 0;
             break;
         default:
             break;
@@ -476,24 +541,36 @@ function MadeOrderStatus(&$resp)
     $entry->pay_status          = $pay_status;
     $entry->maling_price        = $maling_price;
     $entry->paid_price          = $paid_price;
+    $entry->is_confirm          = $is_confirm;
+    $entry->refunds_fail_time   = $refunds_fail_time;
     $entry->order_waiver_fee    = $order_waiver_fee;
-    //保存到订单操作表中
-    $entry_status->id           = \DaoRedis\Id::GenOrderStatusId();
-    $entry_status->order_status = $order_status;
-    $entry_status->order_id     = $order_id;
-    $entry_status->employee_id  = $employee_id;
-    $entry_status->customer_id  = $customer_id;
-    $entry_status->made_time    = $made_time;
-    $entry_status->made_reson   = $made_reson;
-    $entry_status->delete       = 0;
-    LogDebug($entry_status);
-    LogDebug($entry);
+    $entry->order_sure_status   = $order_sure_status;
+
+
     $ret     = $mgo->Save($entry);
-    $ret_two = $mgo_status->Save($entry_status);
-    if (0 != $ret || 0 != $ret_two) {
+    if (0 != $ret) {
         LogErr("Save err");
         return errcode::SYS_ERR;
     }
+    //保存到订单操作表中
+    if(in_array($oper_id,[2,3,4,5,8,9])){ //<<<<<<pad只有这几个操作才有保存状态信息表
+        $id = \DaoRedis\Id::GenOrderStatusId();
+        $entry_status->id           = $id;
+        $entry_status->order_status = $order_status;
+        $entry_status->order_id     = $order_id;
+        $entry_status->employee_id  = $employee_id;
+        $entry_status->customer_id  = $customer_id;
+        $entry_status->made_time    = $made_time;
+        //$entry_status->made_reson   = $made_reson;
+        $entry_status->made_cz_reson= $made_ce_reson;
+        $entry_status->delete       = 0;
+        $ret_two = $mgo_status->Save($entry_status);
+        if ( 0 != $ret_two) {
+            LogErr("Save err");
+            return errcode::SYS_ERR;
+        }
+    }
+
     $resp = (object)[
         'oper_desc' => '操作成功',
     ];
@@ -504,19 +581,22 @@ function MadeOrderStatus(&$resp)
 function MadeOrderValidation($admin_account, $admin_pwd)
 {
     LogDebug($admin_pwd);
+
     if(!$admin_account || !$admin_pwd)
     {
-        return errcode::USER_NOLOGIN;
+        LogErr("param err no admin_account");
+        return errcode::PARAM_ERR;
     }
     $user     = new DaoMongodb\User;
-    $userinfo = $user->QueryUser($admin_account, $admin_account, $admin_pwd);
+    $userinfo = $user->QueryUser($admin_account, $admin_account, $admin_pwd, UserSrc::SHOP);
     if (!$userinfo->phone)
     {
+        LogErr("admin_account:[$admin_account], admin_pwd:[$admin_pwd]");
         return errcode::USER_PASSWD_ERR;
     }
     return $userinfo;
 }
-//pad下单操作
+//pad点餐下单操作
 function SaveOrderInfo(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -540,7 +620,6 @@ function SaveOrderInfo(&$resp)
     $order_from        = $_['order_from'];
     $order_remark      = $_['order_remark'];
     $maling_price      = $_['maling_price'];
-
     $plate             = $_['plate'];
     $order_id          = \DaoRedis\Id::GenOrderId();
     $order_water_num   = date('Ymd', time()) . \DaoRedis\Id::GenOrderWNId();
@@ -549,8 +628,7 @@ function SaveOrderInfo(&$resp)
     $dine_way          = 1;   //默认在店吃
     $order_status      = NewOrderStatus::NOPAY; //未支付状态
     $is_appraise       = 0;   //未评价
-    $order_sure_status = 2;  //已下单
-
+    //$order_sure_status = 2;   //已下单
     $shopinfo = \Cache\Shop::Get($shop_id);
     if (!$shopinfo) {
         LogErr("get shopinfo err, shop_id:[$shop_id]");
@@ -562,8 +640,15 @@ function SaveOrderInfo(&$resp)
         return errcode::SHOP_SUSPEND;
     }
     if ($food_list) {
+        $need_food_list = [];
+        //因为一个订单中相同的菜品可能会存在多个(打包,赠送情况)
+          foreach ($food_list as $v)
+          {
+              $need_food_list[$v->food_id]->food_num += $v->food_num;
+              $need_food_list[$v->food_id]->food_id   = $v->food_id;
+          }
         // 检查餐品库存够不够
-        $food = PageUtil::CheckFoodStockNum($shop_id, $food_list);
+        $food = PageUtil::CheckFoodStockNum($shop_id, $need_food_list);
         foreach ($food as $v) {
             $food_id   = $v->food_id;
             $food_name = $v->food_name;
@@ -578,19 +663,33 @@ function SaveOrderInfo(&$resp)
             LogErr("not enough, food_id:[{$food_id}]");
             return errcode::FOOD_NOT_ENOUGH;
         }
-
         // 取餐品信息
         $food_all = [];
         foreach ($food_list as $i => &$item) {
             $db_food_info = \Cache\Food::Get($item->food_id);
-            if (!$db_food_info) {
+            if (!$db_food_info || !$item->food_id) {
                 LogErr("food err:[{$item->food_id}]");
                 return errcode::FOOD_ERR;
             }
+            $sale_off = PageUtil::GetFoodSaleOff($db_food_info);
+            if(1 == $sale_off)
+            {
+                $resp = (object)[
+                    'food_list' => [
+                        'food_name'   => $item->name,]
+                ];
+                LogErr("Food Sale_off:[{$item->food_id}]");
+                return errcode::FOOD_SALE_OFF;
+            }
+            //先判断该餐品是否属于有规格的餐品，没有提示错误
+            if($db_food_info->food_price->type != 2 && $item->weight)
+            {
+                return errcode::FOOD_NO_SPC;
+            }
             $food_price = getPrice($item, $price);//计算单种菜品总价格(包含如果有打包就有打包费,数量也在里面）及菜品单价
-            if (null == $food_price) {             //如果菜品没有价格就报错
+            if (null === $food_price) {             //如果菜品没有价格就报错
                 LogErr("price error");
-                return errcode::ORDER_ST_ERR;
+                return errcode::ORDER_OPR_ERR;
             }
 //            //与传的总价对比
 //            if($all_price!= round((float)$food_price_all,2)){
@@ -610,11 +709,13 @@ function SaveOrderInfo(&$resp)
             $food_list_all->food_attach_list = $item->attribute;
             $food_list_all->food_unit        = $db_food_info->food_unit;
             $food_list_all->food_num         = $item->food_num;
-            $food_list_all->pack_num         = $item->food_num;
+            if($item->istake)
+            {
+                $food_list_all->pack_num         = $item->food_num;
+            }
             $food_list_all->is_pack          = $item->istake;
             $food_list_all->is_send          = $item->isgive;
             $food_list_all->send_remark      = $item->giveremark;//赠送理由
-
             array_push($food_all, $food_list_all);
             $price_all += $food_price;//累计菜品总价
             $count_all += $item->food_num;
@@ -649,11 +750,10 @@ function SaveOrderInfo(&$resp)
         } else {
             $seat_price = 0;
         }
-        $all_price = round($price_all + round($seat_price, 2), 2);
+        $all_price = round($price_all,2) + round($seat_price, 2);
     } else {
         $food_list = null;
     }
-    //LogDebug($all_price);
     $mgo                      = new \DaoMongodb\Order;
     $employee                 = new \DaoMongodb\Employee;
     $employee_info            = $employee->GetEmployeeByPhone($shop_id, $phone);
@@ -675,17 +775,18 @@ function SaveOrderInfo(&$resp)
     $entry->food_num_all      = $count_all;
     $entry->food_price_all    = $price_all;
     $entry->maling_price      = $maling_price;
-    $entry->order_sure_status = $order_sure_status;
+    //$entry->order_sure_status = $order_sure_status;
     $entry->delete            = 0;
     $entry->is_appraise       = $is_appraise;
     $entry->order_from        = 1;//<<<<<<这里是用在PAD端的方法所以来源是扫码
     $entry->plate             = $plate;
     $entry->pay_status        = $pay_status;
     $entry->seat_price        = $seat_price;
-    $entry->order_fee         = (float)$all_price;
-    $entry->order_payable     = (float)$all_price;
+    $entry->order_fee         = $all_price;
+    $entry->order_payable     = $all_price;
+    $entry->is_confirm        = 1;//因为是pad端操作，所以属于已确认
     //$entry->order_payable     = (float)$price_all + (float)$seat_price - (float)$entry->order_waiver_fee;//应付价格=菜品总价+餐位费-减免费 order_waiver_fee可能由服务员修改（与客人端无关）
-
+    LogDebug($entry);
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
         LogErr("Save err");
@@ -694,7 +795,8 @@ function SaveOrderInfo(&$resp)
     $resp = (object)[
         'order_id'    => $entry->order_id,
         'table_price' => $entry->seat_price,
-        'is_order'    => $is_order
+        'is_order'    => $is_order,
+        'all_price'   => $all_price
     ];
     // 增加餐品售出数
     PageUtil::UpdateFoodDauSoldNum($entry->order_id);
@@ -727,6 +829,7 @@ function getPrice($food,&$price){
     {
         return $db_food_info->food_price;
     }
+
     //算出餐品的价格,spec_type = 0(无规格的价格),1,2,3大中小
     foreach ($db_food_info->food_price->price as $key => $value) {
         if($food->weight == $value->spec_type){
@@ -751,21 +854,21 @@ function SaveOrderPay(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-
     $order_id       = $_['order_id'];
     $pay_way        = $_['pay_way'];
     $shop_id        = $_['shop_id'];
     $paid_price     = $_['paid_price'];
     $account        = $_['account'];
-    $customer_name  = $_['customer_name'];
-    $customer_phone = $_['customer_phone'];
+    $customer_name  = $_['custom_name'];//<<<<<<<<<<这是PAD那边传过来的
+    $customer_phone = $_['custom_phone'];//<<<<<<<<<<这是PAD那边传过来的
     $cause          = $_['cause'];
+    $maling_price   = $_['maling_price'];
     //如果有顾客信息就保存到顾客表，并标明属于pad端用户
     if ($customer_phone)
     {
-        $customer                        = new \DaoMongodb\Customer;
-        $customer_entry                  = new \DaoMongodb\CustomerEntry;
-        $customer_info = $customer->QueryByPhone($shop_id,$customer_phone);
+        $customer       = new \DaoMongodb\Customer;
+        $customer_entry = new \DaoMongodb\CustomerEntry;
+        $customer_info  = $customer->QueryByPhone($shop_id,$customer_phone);
         if($customer_info->customer_id)
         {
             $customer_id  =  $customer_info->customer_id;
@@ -776,8 +879,14 @@ function SaveOrderPay(&$resp)
             $customer_entry->phone           = $customer_phone;
             $customer_entry->usernick        = $customer_name;
             $customer_entry->is_pad_customer = 1;
-            $customer->Save($customer_entry);
+           $ret2 = $customer->Save($customer_entry);
+            if (0 != $ret2) {
+                LogErr("Save err");
+                return errcode::SYS_ERR;
+            }
         }
+    }else{
+        $customer_id = null; //用于保存
     }
     $shopinfo = \Cache\Shop::Get($shop_id);
     if (!$shopinfo)
@@ -801,11 +910,6 @@ function SaveOrderPay(&$resp)
     {
         return errcode::FEE_MONEY_ERR;
     }
-    //<<<<<<<<<抹零金额
-//    if((int)$order_fee==(int)$paid_price)
-//    {
-//        $maling_price            = (float)$order_fee-(int)$paid_price;
-//    }
     $entry           = new \DaoMongodb\OrderEntry;
     $entry->order_id = $order_id;
     $entry->shop_id  = $shop_id;
@@ -814,16 +918,18 @@ function SaveOrderPay(&$resp)
     {
         $entry->pay_status   = 1;
         $entry->order_status = 7;
+        $paid_price          = 0;
         //保存挂账信息
         $status_entry               = new \DaoMongodb\OrderStatusEntry;
         $status                     = new \DaoMongodb\OrderStatus;
+        $status_entry->id           = \DaoRedis\Id::GenOrderStatusId();
         $status_entry->customer_id  = $customer_id;
         $status_entry->order_id     = $order_id;
         $status_entry->order_status = 7;
         $status_entry->employee_id  = $employee_id;
         $status_entry->delete       = 0;
         $status_entry->made_time    = time();
-        $status_entry->made_reson   = $cause;
+        $status_entry->made_cz_reson= $cause;
         $status->Save($status_entry);
     } else {
         $entry->pay_status   = 2;
@@ -831,9 +937,11 @@ function SaveOrderPay(&$resp)
         $entry->pay_time     = time();
     }
     //改变并保存订单信息
+    $entry->customer_id      = $customer_id;
     $entry->paid_price       = (float)$paid_price;
-    $entry->order_waiver_fee = (float)$order_waiver_fee;
-    $entry->maling_price     = 0;  //<<<<<<<<<<<<抹零现在写死的
+    $entry->order_waiver_fee = round((float)$order_waiver_fee,2);
+    $entry->maling_price     = round($maling_price,2);
+    $entry->is_confirm       = 1;//因为是pad端操作，所以属于已确认订单
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
         LogErr("Save err");
@@ -863,7 +971,7 @@ function OrderAdvance(&$resp)
         return errcode::SHOP_NOT_EXIST;
     }
 
-    $mgo                      = new \DaoMongodb\Order;
+    $mgo        = new \DaoMongodb\Order;
     $order_info = $mgo->GetOrderById($order_id);
     if(!$order_info->order_id)
     {
@@ -877,8 +985,10 @@ function OrderAdvance(&$resp)
    }
     $entry              = new \DaoMongodb\OrderEntry;
     $entry->order_id    = $order_id;
+
     $entry->shop_id     = $shop_id;
     $entry->is_advance  = 1;
+    $entry->is_confirm  = 1;//因为是pad端操作，所以属于已确认订单
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
         LogErr("Save err");
@@ -931,7 +1041,7 @@ $result = (object)array(
     'ret' => $ret,
     'data' => $resp
 );
-
+LogDebug($result);
 if($GLOBALS['need_json_obj'])
 {
     Output($result);

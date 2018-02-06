@@ -377,18 +377,21 @@ class NewsReady
         return new NewsReadyEntry($cursor);
     }
 
-    public function GetNewsReadyByShopId($shop_id,$page_no,$page_size,&$total=null)
+    public function GetNewsReadyByShopId($shop_id, $sortby=[],$page_no,$page_size,&$total=null)
     {
-        $db = \DbPool::GetMongoDb();
+        $db    = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
-        $cond = array(
+        $cond  = array(
             'shop_id'   => (string)$shop_id,
             'is_system' => 1,
             'delete'    => ['$ne'=>1],
             'ctime'     => ['$lte'=>time()]
         );
-        $field["_id"] = 0;
-        $sortby['ctime'] = -1;
+        $field["_id"]    = 0;
+        if (empty($sortby))
+        {
+            $sortby['_id'] = -1;
+        }
         $cursor = $table->find($cond, $field)->sort($sortby)->skip(($page_no - 1) * $page_size)->limit($page_size);
         if(null !== $total){
             $total = $table->count($cond);

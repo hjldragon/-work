@@ -11,7 +11,7 @@ class CommunicationEntry{
     public $title      = null ;//留言标题
     public $c_name     = null; //留言人
     public $c_time     = null;//留言时间
-    public $delete     =null ;//删除字段
+    public $delete     = null ;//删除字段
     //私有构造函数
     function  __construct($cursor=null)
     {
@@ -36,9 +36,9 @@ class CommunicationEntry{
 
     }
     public static function ToList($cursor){
-        $list=array();
+        $list = array();
         foreach ($cursor as $item){
-            $entry= new self($item);
+            $entry = new self($item);
             array_push($list,$entry);
         }
         return $list;
@@ -57,28 +57,28 @@ class Communication
         $db=\DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
         $cond = array(
-            'content_id'=>(string)$info->content_id
+            'content_id' => (string)$info->content_id
         );
         LogDebug($cond);
         $set = array(
-          'content_id'=>(string)$info->content_id,
-            'c_time'=>time()
+          'content_id' => (string)$info->content_id,
+            'c_time' => time()
         );
         if(null !== $info->content){
-            $set['content']=(string)$info->content;
+            $set['content'] = (string)$info->content;
         }
         if(null !== $info->title){
-            $set['title']=(string)$info->title;
+            $set['title'] = (string)$info->title;
         }
         if(null !== $info->c_name){
-            $set['c_name']=(string)$info->c_name;
+            $set['c_name'] = (string)$info->c_name;
         }
         if(null !== $info->delete){
-            $set['delete']=(int)$info->delete;
+            $set['delete'] = (int)$info->delete;
         }
         LogDebug($set);
         $value = array(
-            '$set'=>$set
+            '$set' => $set
         );
         try
         {

@@ -18,7 +18,8 @@ class OrderStatusEntry
     public $made_time        = null;     // 操作时间
     public $made_reson       = null;     // 状态申请原因
     public $made_cz_reson    = null;     // 状态操作原因
-    public $lastmodtime      = null;       // 最后修改时间(时间戳)
+    public $lastmodtime      = null;     // 最后修改时间(时间戳)
+    public $apply_time       = null;     // 申请时间（用于手机端申请退款）
     public $delete           = null;     // 0:未删除; 1:已删除
 
     function __construct($cursor=null)
@@ -43,6 +44,7 @@ class OrderStatusEntry
         $this->made_cz_reson = $cursor['made_cz_reson'];
         $this->lastmodtime   = $cursor['lastmodtime'];
         $this->delete        = $cursor['delete'];
+        $this->apply_time    = $cursor['apply_time'];
     }
 
     public static function ToList($cursor)
@@ -117,6 +119,10 @@ class OrderStatus
         {
             $set["lastmodtime"] = (int)$info->lastmodtime;
         }
+        if(null !== $info->apply_time)
+        {
+            $set["apply_time"] = (int)$info->apply_time;
+        }
         $value = array(
             '$set' => $set
         );
@@ -171,7 +177,7 @@ class OrderStatus
             'delete'   => ['$ne'=>1]
         );
         $cursor = $table->find($cond);
-        return OrderStatusEntry::Tolist($cursor);
+        return OrderStatusEntry::ToList($cursor);
     }
 
 

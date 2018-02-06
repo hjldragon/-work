@@ -141,8 +141,7 @@ class Customer
         if (null !== $info->is_pad_customer) {
             $set["is_pad_customer"] = (int)$info->is_pad_customer;
         }
-        
-        LogDebug($set);
+        //LogDebug($set);
         $value = array(
             '$set' => $set
         );
@@ -263,7 +262,7 @@ class Customer
                 $cond['usernick'] = new \MongoRegex("/$nickname/");
             }
             $sex = $filter['sex'];
-            if(!empty($sex))
+            if(null != $sex)
             {
                 $cond['sex'] = (int)$sex;
             }

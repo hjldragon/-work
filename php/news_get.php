@@ -94,6 +94,8 @@ function GetSysNewsList(&$resp)
     $page_num   = $_['page_num'];
     $page_index = $_['page_index'];
     $shop_id    = $_['shop_id'];
+    $sort_name  = $_['sort_name'];
+    $desc       = $_['desc'];
     if(!$page_num)
     {
         $page_num = 10;//如果没有传默认10条
@@ -110,9 +112,14 @@ function GetSysNewsList(&$resp)
     {
         return errcode::SHOP_NOT_WEIXIN;
     }
-    $total = 0;
+
+    if ($sort_name)
+    {
+        $sort[$sort_name] = (int)$desc;
+    }
+    $total   = 0;
     $mongodb = new \DaoMongodb\NewsReady;
-    $list    = $mongodb->GetNewsReadyByShopId($shop_id,$page_index,$page_num,$total);
+    $list    = $mongodb->GetNewsReadyByShopId($shop_id, $sort,$page_index,$page_num,$total);
     $mgo     = new \DaoMongodb\News;
     foreach ($list as $i => &$item) {
         $info = $mgo->GetNewsById($item->news_id);

@@ -145,15 +145,15 @@ function GetSeatListAll(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-
-    $shop_id = \Cache\Login::GetShopId();
+    $seat_name = $_['seat_name'];
+    $shop_id   = \Cache\Login::GetShopId();
     if (!$shop_id) {
         LogErr("shop_id err or maybe not login");
         return errcode::SEAT_NOT_EXIST;
     }
     //$shop_id = $_['shop_id']; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<测试输入的
     $mgo       = new \DaoMongodb\Seat;
-    $seat_list = $mgo->GetList($shop_id);
+    $seat_list = $mgo->GetSeatByName($shop_id,$seat_name);
     $seatlist  = [];
     foreach ($seat_list as $list) {
         $listall['seat_id']      = $list->seat_id;

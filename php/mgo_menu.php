@@ -307,7 +307,7 @@ class MenuInfo
             $set["food_intro"] = (string)$info->food_intro;
         }
         if (null !== $info->food_img_list) {
-            $set["food_img_list"] = $info->food_img_list;
+            $set["food_img_list"] = (array)$info->food_img_list;
         }
         if (null !== $info->entry_time) {
             $set["entry_time"] = (int)$info->entry_time;
@@ -603,6 +603,25 @@ class MenuInfo
         LogDebug($cond);
         $cursor = $table->find($cond, $field)->sort(["food_category" => 1, "_id" => 1]);
         //LogDebug(iterator_to_array($cursor));
+        return MenuInfoEntry::ToList($cursor);
+    }
+    //获取pad端菜品列表
+    public function GetPadFoodList($shop_id)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = [
+            'delete'   => ['$ne' => 1],
+            'is_draft' => ['$ne' => 1],
+            'sale_off' => ['$ne' => 1],
+            'shop_id'  => (string)$shop_id
+        ];
+
+        $sortby['entry_time'] = -1;
+        $field["_id"] = 0;
+        LogDebug($cond);
+        $cursor = $table->find($cond)->sort($sortby);
         return MenuInfoEntry::ToList($cursor);
     }
 }

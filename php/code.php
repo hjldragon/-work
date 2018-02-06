@@ -5,7 +5,6 @@ require_once("db_pool.php");
 require_once("validatecode.php");
 require_once("redis_login.php");
 ob_end_clean();
-
 function main()
 {
     $token    = $_REQUEST['token'];

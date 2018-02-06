@@ -47,14 +47,14 @@ function GetAllReservationList(&$resp)
     {
         $sort['sign_time'] = (int)$sort_sign_time;
     }
-//    if (!$page_size)
-//    {
-//        $page_size = 7;//如果没有传默认10条
-//    }
-//    if (!$page_no)
-//    {
-//        $page_no = 1; //第一页开始
-//    }
+    if (!$page_size)
+    {
+        $page_size = 100000;//如果没有传默认10条
+    }
+    if (!$page_no)
+    {
+        $page_no = 1; //第一页开始
+    }
 
     if($reservation_time)
     {
@@ -80,11 +80,14 @@ function GetAllReservationList(&$resp)
     $total      = 0; //总计
     if($employee_name){
         $employee       = new \DaoMongodb\Employee;
-        $employee_info  = $employee->GetEmployeeInfo($shop_id,$employee_name);
-        $employee_id    = $employee_info->employee_id;
-        if(!$employee_id)
-        {
-            $employee_id = 0;
+        $employee_info  = $employee->GetEmployeeByName($shop_id, $employee_name);
+        if(count($employee_info)>0){
+            foreach ($employee_info as $s){
+                $employee_id    = $s->employee_id;
+                $employee_id_list [] =$employee_id;
+            }
+        }else{
+            $employee_id_list = ['0'];
         }
     }
     $mgo        = new \DaoMongodb\Reservation;
@@ -94,25 +97,27 @@ function GetAllReservationList(&$resp)
             'shop_id'            => $shop_id,
             'customer_name'      => $customer_name,
             'customer_phone'     => $customer_phone,
-            'employee_id'        => $employee_id,
+            'employee_id_list'   => $employee_id_list,
             'reservation_status' => $reservation_status,
             'reservation_time'   => $reservation_time,
             'begin_time'         => $begin_time,
             'end_time'           => $end_time,
-
         ],
         $sort,
-        //$page_size,
-        //$page_no,
+        $page_size,
+        $page_no,
         $total
     );
     foreach ($reservation_list as &$v)
     {
         $employee         = new \DaoMongodb\Employee;
         $employee_info    = $employee->GetEmployeeInfo($shop_id,$v->employee_id);
-        $employee_info2    = $employee->GetEmployeeInfo($shop_id,$v->reserve_info->employee_id);
+        if($v->reservation_status != 1)
+        {
+            $employee_info2   = $employee->GetEmployeeInfo($shop_id,$v->reserve_info->employee_id);
+            $v->reserve_info->employee_name = $employee_info2->real_name;
+        }
         $v->employee_name = $employee_info->real_name;
-        $v->reserve_info->employee_name = $employee_info2->real_name;
         $seat             = new \DaoMongodb\Seat;
         $seat_info        = $seat->GetSeatById($v->seat_id);
         $v->seat_name     = $seat_info->seat_name;
@@ -123,9 +128,11 @@ function GetAllReservationList(&$resp)
     }
     $resp = (object)[
         'reservation_list' => $reservation_list,
-        'total'            => $total
+        'total'            => $total,
+        'page_size'        => $page_size,
+        'page_no'          => $page_no
     ];
-    LogDebug($resp);
+    //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }

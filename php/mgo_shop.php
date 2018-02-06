@@ -162,7 +162,7 @@ class ShopBusiness
 {
     public $company_name            = null;    //企业名称
     public $legal_person            = null;    //法人代表
-    public $legal_phone             = null;    //法人电话
+    //public $legal_phone             = null;    //法人电话
     public $legal_card              = null;    //法人身份证
     public $legal_card_photo        = null;    //法人身份照片
     public $business_num            = null;    //营业执照注册号
@@ -188,7 +188,7 @@ class ShopBusiness
         }
         $this->company_name           = $cursor['company_name'];
         $this->legal_person           = $cursor['legal_person'];
-        $this->legal_phone            = $cursor['legal_phone'];
+        //$this->legal_phone            = $cursor['legal_phone'];
         $this->legal_card             = $cursor['legal_card'];
         $this->legal_card_photo       = $cursor['legal_card_photo'];
         $this->business_num           = $cursor['business_num'];
@@ -276,7 +276,7 @@ class OpenTime
 {
     public $type = null;    //1:全天,2:早市,3:午市,4:晚市,5:夜宵
     public $from = null;    //时间开始（大于等于）
-    public $to = null;      //时间终止（小于等于）（可能是第二天）
+    public $to   = null;      //时间终止（小于等于）（可能是第二天）
 
     function __construct($cursor = null)
     {
@@ -400,7 +400,8 @@ class WeixinPaySet
     public $code_img                = null;    // 个人付款码图片
     public $code_show               = null;    // 付款码展示（1:展示,0:不展示)
     public $sub_mch_id              = null;    // 微信支付商户号
-    public $api_key                 = null;    // 微信密钥
+    public $appid                   = null;    // 微信密钥
+    public $secret                  = null;    // 微信secret
     public $spc_sub                 = null;    // 特约商户（1:是,0:不是)
     public $tenpay_img              = null;    // 财付通商户证书
 
@@ -419,7 +420,8 @@ class WeixinPaySet
         $this->code_img   = $cursor['code_img'];
         $this->sub_mch_id = $cursor['sub_mch_id'];
         $this->code_show  = $cursor['code_show'];
-        $this->api_key    = $cursor['api_key'];
+        $this->appid      = $cursor['appid'];
+        $this->secret     = $cursor['secret'];
         $this->spc_sub    = $cursor['spc_sub'];
         $this->tenpay_img = $cursor['tenpay_img'];
 
@@ -491,8 +493,8 @@ class ShopEntry
     public $suspend           = null;               // 店铺是否暂停（0:正常使用, 1:被系统管理员暂停, 2:被店铺管理员暂停，参见const.php::ShopSuspend)
     public $is_seat_enable    = null;               // 店铺餐位费是否启用(0:不启用,1启用)
     public $opening_time      = null;               // 营业时间
-    public $shop_pay_way      = null;               // 店铺启用支付方式 1.现金支付 2:刷卡支付 3:微信支付 4:支付宝支付
-    public $pay_time          = null;               // 付款时间 1：餐前 2:餐后
+    public $shop_pay_way      = null;               // 店铺启用支付方式 1.现金支付 2:刷卡支付 3:微信支付 4:支付宝支付 5.挂账
+    public $pay_time          = null;               //  1：餐前 2:餐后
     public $sale_way          = null;               // 销售方式 1:在店吃 2:外卖 3:打包 4:自提
     public $shop_label        = null;               // 店铺标签
     public $invoice_remark    = null;               // 发票备注消息
@@ -505,7 +507,7 @@ class ShopEntry
     public $mail_vali         = null;               // 邮箱验证
     public $shop_bs_status    = null;               // 店铺工商信息认证状态
     public $shop_food_attach  = null;               // 店铺口味标签
-    public $shop_model        = null;               // 营业模式 1:快餐,2:中餐
+    public $shop_model        = null;               // 营业模式 1:简餐,2:中餐
     public $collection_set    = null;               // 收银设置
     public $weixin_pay_set    = null;               // 微信支付设置
     public $alipay_set        = null;               // 微信支付设置
@@ -514,6 +516,21 @@ class ShopEntry
     public $auto_order        = null;               // 是否自动下单(0:否,1是)
     public $menu_sort         = null;               // 0.未确定,1热度排序,2 时间排序
     public $custom_screen     = null;               // 客屏是否显示(0:否,1是)
+    public $meal_after        = null;               // 是否支持餐前（1.支持,0.不支持）
+    public $agent_id          = null;               // 代理商id
+    public $agent_type        = null;               // 签约类型(1:区域，2:行业)
+    public $province          = null;               // 省
+    public $city              = null;               // 市
+    public $area              = null;               // 区
+    public $from              = null;               // 来源
+    public $from_salesman     = null;               // 来源销售
+    public $shop_bs_time      = null;               // 店铺工商信息认证申请时间
+    public $logo_img_time     = null;               // logo时间（用于判断是否超过一个月）
+    public $business_status   = null;               // 工商认证状态(0:未提交,1:认证中,2:认证通过,3:认证不通过)
+    public $shop_sh_time      = null;               // 店铺工商信息认证审核时间
+    public $is_signing        = null;               // 店铺是否签约（1:签约，0未签约）
+    public $service_status    = null;               // 店铺服务状态（0:无服务，1:服务中,2:服务已过期）
+    public $is_freeze         = null;               // 店铺是否冻结（1:冻结，0未冻结,）
 
 
 
@@ -577,6 +594,22 @@ class ShopEntry
         $this->auto_order          = $cursor['auto_order'];
         $this->custom_screen       = $cursor['custom_screen'];
         $this->menu_sort           = $cursor['menu_sort'];
+        $this->meal_after          = $cursor['meal_after'];
+        $this->agent_id            = $cursor['agent_id'];
+        $this->agent_type          = $cursor['agent_type'];
+        $this->province            = $cursor['province'];
+        $this->city                = $cursor['city'];
+        $this->area                = $cursor['area'];
+        $this->from                = $cursor['from'];
+        $this->from_salesman       = $cursor['from_salesman'];
+        $this->shop_bs_time        = $cursor['shop_bs_time'];
+        $this->logo_img_time       = $cursor['logo_img_time'];
+        $this->business_status     = $cursor['business_status'];
+        $this->shop_sh_time        = $cursor['shop_sh_time'];
+        $this->is_signing          = $cursor['is_signing'];
+        $this->service_status      = $cursor['service_status'];
+        $this->is_freeze           = $cursor['is_freeze'];
+
     }
 
     public static function ToList($cursor)
@@ -731,7 +764,7 @@ class Shop
             $set["shop_business"] = new ShopBusiness([
                 'company_name'           => (string)$info->shop_business->company_name,
                 'legal_person'           => (string)$info->shop_business->legal_person,
-                'legal_phone'            => (string)$info->shop_business->legal_phone,
+                //'legal_phone'            => (string)$info->shop_business->legal_phone,
                 'legal_card'             => (string)$info->shop_business->legal_card,
                 'legal_card_photo'       => $info->shop_business->legal_card_photo,
                 'business_date'          => $info->shop_business->business_date,
@@ -776,8 +809,8 @@ class Shop
         if (null !== $info->food_unit_list){
             $set["food_unit_list"] = $info->food_unit_list;
         }
-        if (null !== $info->shop_model){
-            $set["shop_model"] = $info->shop_model;
+        if (null !== (int)$info->shop_model){
+            $set["shop_model"] = (int)$info->shop_model;
         }
         if (null !== $info->collection_set){
             $set["collection_set"] = new CollectionSet([
@@ -799,8 +832,11 @@ class Shop
             if (null !== $info->weixin_pay_set->sub_mch_id) {
                 $set["weixin_pay_set.sub_mch_id"] = (string)$info->weixin_pay_set->sub_mch_id;
             }
-            if (null !== $info->weixin_pay_set->api_key) {
-                $set["weixin_pay_set.api_key"] = (string)$info->weixin_pay_set->api_key;
+            if (null !== $info->weixin_pay_set->appid) {
+                $set["weixin_pay_set.appid"] = (string)$info->weixin_pay_set->appid;
+            }
+            if (null !== $info->weixin_pay_set->secret) {
+                $set["weixin_pay_set.secret"] = (string)$info->weixin_pay_set->secret;
             }
             if (null !== $info->weixin_pay_set->spc_sub) {
                 $set["weixin_pay_set.spc_sub"] = (int)$info->weixin_pay_set->spc_sub;
@@ -813,7 +849,7 @@ class Shop
 //                $p->code_show          = (int)$info->weixin_pay_set->code_show;
 //                $p->code_img           = (string)$info->weixin_pay_set->code_img;
 //                $p->sub_mch_id         = (string)$info->weixin_pay_set->sub_mch_id;
-//                $p->api_key            = (string)$info->weixin_pay_set->api_key;
+//                $p->appid            = (string)$info->weixin_pay_set->appid;
 //                $p->spc_sub            = (int)$info->weixin_pay_set->spc_sub;
 //                $p->tenpay_img         = (string)$info->weixin_pay_set->tenpay_img;
 //                $set["weixin_pay_set"] = $p;
@@ -874,6 +910,55 @@ class Shop
         if (null !== $info->menu_sort){
             $set["menu_sort"] = (int)$info->menu_sort;
         }
+        if (null !== $info->meal_after){
+            $set["meal_after"] = (int)$info->meal_after;
+        }
+        if (null !== $info->menu_sort){
+            $set["menu_sort"] = (int)$info->menu_sort;
+        }
+        if (null !== $info->agent_id){
+            $set["agent_id"] = (string)$info->agent_id;
+        }
+        if (null !== $info->agent_type){
+            $set["agent_type"] = (int)$info->agent_type;
+        }
+        if (null !== $info->province){
+            $set["province"] = (string)$info->province;
+        }
+        if (null !== $info->city){
+            $set["city"] = (string)$info->city;
+        }
+        if (null !== $info->area){
+            $set["area"] = (string)$info->area;
+        }
+        if (null !== $info->from_salesman){
+            $set["from_salesman"] = (string)$info->from_salesman;
+        }
+        if (null !== $info->from){
+            $set["from"] = (string)$info->from;
+        }
+        if (null !== $info->shop_bs_time){
+            $set["from"] = (int)$info->shop_bs_time;
+        }
+        if (null !== $info->logo_img_time){
+            $set["logo_img_time"] = (int)$info->logo_img_time;
+        }
+        if (null !== $info->business_status){
+            $set["business_status"] = (int)$info->business_status;
+        }
+        if (null !== $info->shop_sh_time){
+            $set["shop_sh_time"] = (int)$info->shop_sh_time;
+        }
+        if (null !== $info->is_signing){
+            $set["is_signing"] = (int)$info->is_signing;
+        }
+        if (null !== $info->service_status){
+            $set["service_status"] = (int)$info->service_status;
+        }
+        if (null !== $info->is_freeze){
+            $set["is_freeze"] = (int)$info->is_freeze;
+        }
+
         $value = array(
             '$set' => $set
         );
@@ -917,9 +1002,7 @@ class Shop
             'shop_id' => (string)$shop_id
         );
 
-
         $cursor = $table->findOne($cond);
-
         return new ShopEntry($cursor);
     }
 

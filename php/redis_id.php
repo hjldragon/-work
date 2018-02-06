@@ -125,6 +125,10 @@ class Id
     {
         return (string)self::GenId("invoice");
     }
+    static public function GenFeedbackId()
+    {
+        return "FB" . self::GenId("user_feedback");
+    }
 
 }
 

@@ -162,7 +162,7 @@ class OrderEntry
     public $order_water_num  = null;    // 订单流水号
     public $shop_id          = null;    // 餐馆id
     public $dine_way         = null;    // 用餐方式(1:在店吃, 2:自提, 3:打包, 4:外卖)
-    public $pay_way          = null;    // 支付方式(0:未确定,1:现金支付, 2:微信支付, 3:支付宝支付, 4:银行卡支付,5:挂账,6:餐后支付（需要pad端确认)
+    public $pay_way          = null;    // 支付方式(0:未确定,1:现金支付, 2:微信支付, 3:支付宝支付, 4:银行卡支付,5:挂账,6:餐后支付（需要pad端确认))
     public $pay_status       = null;    // 支付状态(0:未确定,1:未支付, 2:已支付)
     public $order_sure_status= null;    // 订单确定状态(1:未下单,2:下单,3:下单并支付)
     public $order_status     = null;    // 订单状态(1:未支付(待付款),2:已支付(交易完成),3:已反结,4:退款成功,5:退款失败,6:已关闭,7:挂账,8:退款中)
@@ -171,7 +171,7 @@ class OrderEntry
     public $food_list        = null;    // 餐品列表
     //public $status_info      = null;    // 状态信息
     public $order_time       = null;    // 下单时间及创建时间(时间戳)
-    public $pay_time         = null;    // 支付时间(时间戳)
+    public $pay_time         = null;    // 支付时间(时间戳)//<<<<<<<<<<<<<所有的的状态时间与order_status里面的操作时间made_time重复了,这些字段可以进行删除的。
     public $checkout_time    = null;    // 反结时间(时间戳)
     public $refunds_time     = null;    // 退款时间(时间戳)
     public $refunds_fail_time= null;    // 退款失败时间(时间戳)
@@ -193,7 +193,8 @@ class OrderEntry
     public $is_invoicing     = null;    // 是否开票（1:已普通开票,0:未普通开票)
     public $red_dashed       = null;    // 是否红冲（1:红冲,0:2未红冲前提已开票才能红冲)
     public $plate            = null;    // 餐牌号advance
-    public $is_advance       = null;    // 是否预结账（1:已预结,0:未预结）（只有未支付的状态下才能预结账）
+    public $is_advance       = null;    // 是否预结账    （1:已预结,0:未预结）（只有未支付的状态下才能预结账）
+    public $is_confirm       = null;    // 是否已确认订单（pad端的下单功能） （1:已确认,0:未确认）手机端的订单都属于未确认
 
     function __construct($cursor=null)
     {
@@ -246,6 +247,7 @@ class OrderEntry
         $this->red_dashed        = $cursor['red_dashed'];
         $this->plate             = $cursor['plate'];
         $this->is_advance        = $cursor['is_advance'];
+        $this->is_confirm        = $cursor['is_confirm'];
     }
 
     public static function ToList($cursor)
@@ -502,6 +504,10 @@ class Order
         {
             $set["is_advance"] = (int)$info->is_advance;
         }
+        if(null !== $info->is_confirm)
+        {
+            $set["is_confirm"] = (int)$info->is_confirm;
+        }
         $value = array(
             '$set' => $set
         );
@@ -527,7 +533,6 @@ class Order
         $cond = array(
             'order_id' => (string)$order_id
         );
-
         $value = array(
             '$set' => array(
                 'delete'      => 1,
@@ -568,7 +573,9 @@ class Order
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
 
-        $cond = ['delete'  => ['$ne'=>1]];
+        $cond = [
+            'delete'      => ['$ne'=>1],
+        ];
         if(null != $filter)
         {
             $order_id = $filter['order_id'];
@@ -641,7 +648,10 @@ class Order
 
         $db    = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
-        $cond  = ['delete' => ['$ne' => 1]];
+        $cond  = [
+                  //'delete'      => ['$ne' => 1],
+                  'is_confirm'  => 1
+                 ];
         if (null != $filter)
         {
             $order_id = $filter['order_id'];
@@ -662,9 +672,7 @@ class Order
                 foreach ($seat_id_list as $i => &$item) {
                     $item = (string)$item;
                 }
-                $cond = [
-                    'seat_id' => ['$in' => $seat_id_list],
-                ];
+                $cond['seat_id'] = ['$in' => $seat_id_list];
             }
             $dine_way = $filter['dine_way'];
             if (null !== $dine_way)
@@ -690,16 +698,15 @@ class Order
                     '$lte' => (int)$order_end_time,
                 ];
             }
-            // 订单状态(1:未支付,2:已支付,3:已反结,4:退款成功,5:退款失败,6:已关闭,7:挂账)
+            // 订单状态(1:未支付,2:已支付,3:已反结,4:退款成功,5:退款失败,6:已关闭,7:挂账,8.退款中)
             $order_status = $filter['order_status'];
             if (!empty($order_status))
             {
                 if($order_status == \NewOrderStatus::PAY)
                 {
                         $cond['order_status'] = [
-                            '$in'=>[2,3,4,5]
+                            '$in'=>[2,5,8]
                         ];
-
                 }elseif($order_status == \NewOrderStatus::NOPAY)
                 {
                     $cond['order_status'] = [
@@ -755,7 +762,7 @@ class Order
         {
             $sortby['_id'] = -1;
         }
-        // LogDebug($cond);
+        LogDebug($cond);
         $field["_id"] = 0;
         $cursor       = $table->find($cond,$field)->sort($sortby)->skip(($page_no - 1) * $page_size)->limit($page_size);
         if (null !== $total)
@@ -771,6 +778,7 @@ class Order
                     '_id'               => null,
                     'all_customer_num'  => ['$sum' => '$customer_num'],
                     'all_order_fee'     => ['$sum' => '$order_fee'],
+                    'all_paid_price'    => ['$sum' => '$paid_price'],
                     'all_order_payable' => ['$sum' => '$order_payable'],
                 ],
             ],
@@ -815,6 +823,56 @@ class Order
         );
         $cursor = $table->findOne($cond);
         return new OrderEntry($cursor);
+    }
+    //该店铺的订单统计
+    public function GetOrderStat($filter=null, $field=[], $sortby=[])
+    {
+        if(!$filter['shop_id'])
+        {
+            return [];
+        }
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = [
+            'delete'     => ['$ne'=>1],
+            'is_confirm' => 1
+        ];
+        if(null != $filter)
+        {
+            $shop_id = $filter['shop_id'];
+            if(!empty($shop_id))
+            {
+                $cond['shop_id'] = (string)$shop_id;
+            }
+
+            $begin_time = $filter['begin_time'];
+            $end_time   = $filter['end_time'];
+            if(!empty($begin_time))
+            {
+                $cond['order_time'] = [
+                    '$gte' => (int)$begin_time,
+                    '$lte' => (int)$end_time
+                ];
+            }
+//            $order_status_list = $filter['order_status_list'];
+//            if(!empty($order_status_list))
+//            {
+//                foreach($order_status_list as $i => &$item)
+//                {
+//                    $item = (int)$item;
+//                }
+//                $cond["order_status"] = ['$in' => $order_status_list];
+//            }
+        }
+        if(empty($sortby))
+        {
+            $sortby['_id'] = -1;
+        }
+
+        $field["_id"] = 0;
+        $cursor = $table->find($cond, $field)->sort($sortby);
+        return OrderEntry::ToList($cursor);
     }
 }
 

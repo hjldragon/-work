@@ -1,9 +1,55 @@
 <?php
+ob_start();
+require_once("current_dir_env.php");
+ini_set('date.timezone','Asia/Shanghai');
+header('Content-Type:text/html;charset=utf-8');
+require_once("const.php");
+require_once("cache.php");
+require_once("cfg.php");
+ob_end_clean();
+function Index(&$resp)
+{ 
+    $text    = $_REQUEST["text"];
+    $openid  = $_REQUEST["openid"];
+    //$shop_id = \Cache\Login::GetShopId();
+    $shop_id = "SH21";
+    $msg = "";
+    if(!$openid || !$text)
+    {
+        LogErr("param err");
+        $msg = "系统忙...";
+        alt($msg);
+    }
+    
+    if(!$shop_id)
+    {
+        LogErr("no login");
+        $msg = "系统忙...";
+        alt($msg);
+    }
 
-$user = 'http://wx.qlogo.cn/mmopen/vi_32/nbJian2Dg5w9xhORXfaKVyHdbqWx3l5CwT8DAs9WZcApXvmyricwqajQdWl6ezsJwLquog2aU4nIdc735zFU98Eg/0';
-// $user = 'http://shop.jzzwlcm.com/php/img_get.php?img=1&imgname=648536f4f0d92a403962b36034272e82.jpg';
-$data = file_get_contents($user);
+    $resp = (object)array(
+        'text'    => $text,
+        'openid'  => $openid,
+        'shop_id' => $shop_id
+    );
 
-// var_dump($data);
-echo $data;
+    $url = "http://wx.jzzwlcm.com/wx_send.php?".http_build_query($resp);
+    header("Location: $url");
+    exit();
+}
+
+function alt($msg){
+echo <<<eof
+<script>
+alert("$msg");
+</script>
+eof;
+exit(0);
+}
+
+Index($resp);
+
+
+
 ?>

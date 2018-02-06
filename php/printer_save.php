@@ -26,7 +26,7 @@ function SavePrinter(&$resp)
 
     $printer_id            = $_['printer_id'];
     $printer_name          = $_['printer_name'];
-    $receipt_type          = json_decode($_['printer_category']);
+    $receipt_type          = json_decode($_['receipt_type']);
     $printer_size          = $_['printer_size'];
     $printer_brand         = $_['printer_brand'];
     $printer_note          = $_['printer_note'];
@@ -35,6 +35,8 @@ function SavePrinter(&$resp)
     $print_position_width  = $_['print_position_width'];
     $print_position_height = $_['print_position_height'];
     $food_category_list    = json_decode($_['food_category_list']);
+    $print_ip              = $_['print_ip'];
+    $copies_num            = $_['copies_num'];
     LogDebug($food_category_list);
     if(!$printer_id || !$printer_name || !$receipt_type || !$printer_size){
         LogErr("param err");
@@ -58,6 +60,8 @@ function SavePrinter(&$resp)
     $entry->print_position_top    = $print_position_top;
     $entry->print_position_width  = $print_position_width;
     $entry->print_position_height = $print_position_height;
+    $entry->print_ip              = $print_ip;
+    $entry->copies_num            = $copies_num;
 
     $ret = $mongodb->Save($entry);
     if(0 != $ret)

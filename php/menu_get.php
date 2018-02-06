@@ -9,7 +9,7 @@ require_once("const.php");
 require_once("cache.php");
 require_once("mgo_menu.php");
 require_once("mgo_category.php");
-require_once("mgo_spec.php");
+require_once("mgo_praise.php");
 require_once("mgo_stat_food_byday.php");
 
 //Permission::PageCheck();
@@ -32,7 +32,6 @@ function GetWeekFoodSoldNum($food_id)
     $info = $mgo_stat->GetFoodStatByTime($food_id, $start, $today);
     return $info['all_sold_num']?:0;
 }
-
 // 取餐品月销量
 function GetMonFoodSoldNum($food_id)
 {
@@ -76,15 +75,12 @@ function GetFoodInfo(&$resp)
         if($using & PriceType::FESTIVAL){
             array_push($price, PriceType::FESTIVAL);
         }
-        LogDebug($price);
+        //LogDebug($price);
         $info->food_price->using = $price;
     }else{
         $info = array();
     }
-
-
     //$info->food_sold_num_day = GetTodayFoodSoldNum($food_id);<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<销量暂没做
-
     $resp = (object)array(
         'info' => $info
     );
@@ -120,7 +116,7 @@ function getTree(&$cate_list,$parent_id)
 function GetFoodList(&$resp)
 {
     $_ = $GLOBALS["_"];
-    LogDebug($_);
+    //LogDebug($_);
     if(!$_)
     {
         LogErr("param err");
@@ -133,12 +129,11 @@ function GetFoodList(&$resp)
     $type        = $_['type'];
     $page_size   = $_['page_size'];
     $page_no     = $_['page_no'];
-    $token       = $_['token'];
     $sortby      = $_['sortby']; //(排序1:日销量,2:周销量,3:月销量,4:余量)
     $sort        = $_['sort'];   //(1:正序,-1:倒序)
     if(!$page_size)
     {
-       $page_size = 1000;//如果没有传默认10条
+       $page_size = 10000;//如果没有传默认10000条
     }
     if(!$page_no)
     {
@@ -151,6 +146,18 @@ function GetFoodList(&$resp)
     }
     $shop      = new \DaoMongodb\Shop;
     $shop_info = $shop->GetShopById($shop_id);
+    if(!$shop_info->shop_id)
+    {
+        LogErr("no shop");
+        return errcode::SHOP_NOT_WEIXIN;
+    }
+    //判断店铺是否可以进行打包
+    if(in_array(SALEWAY::SINCE, $shop_info->sale_way))
+    {
+        $shop_pack = 1; //可以进行打包
+    }else{
+        $shop_pack = 0;
+    }
     $pad_sort  = $shop_info->menu_sort;
     LogDebug("shop_id:[$shop_id]");
     if($category_id)
@@ -181,12 +188,15 @@ function GetFoodList(&$resp)
     }
     $list = $mgo->GetFoodList($shop_id, $cond, $menu_sort, $total);
     //LogDebug($list);
+    $praise = new \DaoMongodb\Praise;
     foreach($list as $i => &$item)
     {
         $item->category_name = \Cache\Category::Get($item->category_id)->category_name;
         $item->food_num_day  = GetTodayFoodSoldNum($item->food_id);
         $item->food_num_week = GetWeekFoodSoldNum($item->food_id);
         $item->food_num_mon  = GetMonFoodSoldNum($item->food_id);
+        $item->praise_num    = $praise->GetFoodAllCount($item->food_id);//点赞数
+        $item->collect_num   = $praise->GetFoodAllCount($item->food_id, 2);//收藏数
         if($item->stock_num_day > 0)
         {
             $stock_num_day = (int)$item->stock_num_day - (int)$item->food_num_day; // 余量
@@ -208,7 +218,8 @@ function GetFoodList(&$resp)
         foreach ($item->food_price->price as $price)
         {
             if($price->is_use == 1 || $item->food_price->type == 1)
-            {   $p= (object)[];
+            {
+                $p= (object)[];
                 $p->spec_type      = $price->spec_type;
                 $p->original_price = $price->original_price;
                 array_push($p_all,$p);
@@ -216,7 +227,6 @@ function GetFoodList(&$resp)
         }
         $item->food_price->price = $p_all;
     }
-    
     if(1 == $sortby)//日销量排序
     {
         //$sortby = "food_num_day";
@@ -297,9 +307,9 @@ function GetFoodList(&$resp)
     //分页
     $list = array_slice($list, ($page_no-1)*$page_size, $page_size);
     $resp = (object)array(
-        'list'  => $list,
-        'token' =>$token,
-        'total' => $total,
+        'list'      => $list,
+        'total'     => $total,
+        'shop_pack' => $shop_pack
     );
     //LogDebug($resp);
     LogInfo("--ok--");
@@ -333,7 +343,89 @@ function GetAccessoryList(&$resp)
     LogInfo("--ok--");
     return 0;
 }
+//获取pad端所有菜品
+function GetPadFoodList(&$resp)
+{
+    $_ = $GLOBALS["_"];
+    if(!$_)
+    {
+        LogErr("param err");
+        return errcode::PARAM_ERR;
+    }
+    $shop_id = (string)$_['shop_id'];
+    if(!$shop_id)
+    {
+      LogErr('no shop[{'.$shop_id.'}]');
+      return errcode::SHOP_NOT_WEIXIN;
+    }
+    $shop_info = \Cache\Shop::Get($shop_id);
+    $food      = new \DaoMongodb\MenuInfo;
+    //获取店铺所有的菜品
+    $food_list = $food->GetPadFoodList($shop_id);
+    // 判断店铺是否支持打包
+    $shop_pack = 0;
+    if(in_array(SALEWAY::PACK, $shop_info->sale_way))
+    {
+        $shop_pack = 1;
+    }
+    $food_all_list = [];
+    foreach ($food_list as &$food_value)
+    {
+        //判断菜品是否设置了出售时间
+        //找出餐品的出售时间
+        if($food_value->sale_off_way == SaleFoodSetTime::SETTIME || $food_value->sale_off_way == SaleFoodSetTime::SETWEEK)
+        {
+            $b                = 0;
+            $time_range_stamp = isset($food_value->food_sale_time) ? $food_value->food_sale_time : '';
+            $time_range_week  = isset($food_value->food_sale_week) ? $food_value->food_sale_week : '';
+            //菜品时间戳判断
+            if($time_range_stamp != '' || $time_range_week != '')
+                {
+                    if($time_range_stamp != '')
+                    {
+                        foreach ($time_range_stamp as $food_time)
+                        {
+                            $start_time = $food_time->start_time;
+                            $end_time   = $food_time->end_time;
 
+                            if($start_time < time() && time() < $end_time)
+                            {
+                                $b++;
+                            }
+                        }
+                    }
+                    //菜品时间周判断
+                    if($time_range_week != ''){
+                        if(in_array(date('w'), $time_range_week))//国际判断周是用0-6,0表示周日
+                        {
+                            $b++;
+                        }
+                    }
+                    if($b == 0)
+                    {
+                        continue;
+                    }
+                }
+            }
+            $category = \Cache\Category::Get($food_value->category_id);
+            $food_value->food_num_mon  = GetMonFoodSoldNum($food_value->food_id);
+            $food_value->category_name = $category->category_name;
+            $food_all_list[]           = $food_value;
+    }
+
+    if($shop_info->menu_sort == 1)
+    {
+        usort($food_all_list, function($a, $b){
+            return ($a->food_num_mon - $b->food_num_mon);
+        });
+    }
+    $resp = (object)array(
+        'list'      => $food_all_list,
+        'shop_pack' => $shop_pack
+    );
+    LogInfo("--ok--");
+    return 0;
+}
 $ret = -1;
 $resp = (object)array();
 if(isset($_["foodinfo"]))
@@ -347,6 +439,9 @@ elseif(isset($_["foodlist"]))
 elseif(isset($_["accessory"]))
 {
     $ret = GetAccessoryList($resp);
+}elseif(isset($_["pad_food_list"]))
+{
+    $ret = GetPadFoodList($resp);
 }
 else
 {

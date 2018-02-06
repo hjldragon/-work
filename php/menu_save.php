@@ -5,8 +5,12 @@
  */
 require_once("current_dir_env.php");
 require_once("mgo_menu.php");
+require_once("redis_id.php");
+require_once("page_util.php");
+require_once("const.php");
+require_once("cache.php");
 
-Permission::PageCheck();
+//Permission::PageCheck();
 
 function SaveFoodinfo(&$resp)
 {
@@ -16,7 +20,6 @@ function SaveFoodinfo(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-
     $food_id             = $_['food_id'];
     $food_name           = $_['food_name'];
     $category_id         = $_['category_id'];
@@ -42,6 +45,7 @@ function SaveFoodinfo(&$resp)
     $sale_way            = json_decode($_['sale_way']);
     $sale_num            = $_['sale_num'];
     $sale_off_way        = $_['sale_off_way'];
+    //LogDebug($_);
     if(null != $food_price && null == $type){
         LogErr("type err");
         return errcode::PARAM_ERR;
@@ -77,8 +81,6 @@ function SaveFoodinfo(&$resp)
     {
         $food_id = \DaoRedis\Id::GenFoodId();
     }
-    
-    
     if($entry_type)
     {
         $entry_time = time();
@@ -112,14 +114,14 @@ function SaveFoodinfo(&$resp)
     $entry->sale_way            = $sale_way;
     $entry->sale_num            = $sale_num;
     $entry->sale_off_way        = $sale_off_way;
+
     $ret = $mongodb->Save($entry);
-    LogDebug($ret);
+    //LogDebug($ret);
     if(0 != $ret)
     {
         LogErr("Save err");
         return errcode::SYS_ERR;
     }
-    LogDebug($entry);
 
     $resp = (object)array(
     );

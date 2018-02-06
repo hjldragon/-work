@@ -7,13 +7,12 @@ require_once("current_dir_env.php");
 require_once("mgo_shop.php");
 require_once("permission.php");
 require_once("redis_id.php");
-Permission::PageCheck();
-//$_=$_REQUEST;
+//Permission::PageCheck();
 //编辑店铺设置
 function SaveShopInfo(&$resp)
 {
     $_ = $GLOBALS["_"];
-    LogDebug($_);
+    //LogDebug($_);
     if (!$_) {
         LogErr("param err");
         return errcode::PARAM_ERR;
@@ -32,6 +31,7 @@ function SaveShopInfo(&$resp)
         LogErr("shop_id err or maybe not login");
         return errcode::USER_NOLOGIN;
     }
+    LogDebug($login_shop_id);
     $shop_id = $_['shop_id'];
     if ($login_shop_id != $shop_id)
     {
@@ -46,6 +46,26 @@ function SaveShopInfo(&$resp)
     $address_num         = $_['address_num'];
     $address             = $_['address'];
     $suspend             = $_['suspend'];
+    if($suspend)
+    {
+        $suspend = 2;
+    }
+    $mgo                 = new \DaoMongodb\Shop;
+    $entry               = new \DaoMongodb\ShopEntry;
+
+    $info = $mgo->GetShopById($shop_id);
+    $img  = $info->shop_logo;
+    if($shop_logo){
+        if($shop_logo != $img)
+        {
+            if(($info->logo_img_time+30*24*60*60)>=time())
+            {
+                LogErr("The logo was changed less than a month.");
+                return errcode::IMG_NOT_MORE;
+            }
+        }
+    }
+
     $shop_pay_way        = json_decode($_['shop_pay_way']);
     //$shop_pay_way        = explode(',',$_['shop_pay_way']);//<<<<<<<<后端测试用的
     $pay_time            = json_decode($_['pay_time']);
@@ -59,8 +79,9 @@ function SaveShopInfo(&$resp)
     $shop_bs_status      = json_decode($_['shop_bs_status']);
     $shop_model          = $_['shop_model'];
     $telephone           = $_['telephone'];
-    $mgo                 = new \DaoMongodb\Shop;
-    $entry               = new \DaoMongodb\ShopEntry;
+    $meal_after          = $_['meal_after'];
+
+
     $entry->shop_id        = $shop_id;
     $entry->shop_name      = $shop_name;
     $entry->contact        = $contact;
@@ -81,7 +102,8 @@ function SaveShopInfo(&$resp)
     $entry->shop_bs_status = $shop_bs_status;
     $entry->shop_model     = $shop_model;
     $entry->telephone      = $telephone;
-
+    $entry->meal_after     = $meal_after;
+    $entry->logo_img_time  = time();
 
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
@@ -127,7 +149,6 @@ function SaveShopBusiness(&$resp)
         LogErr("company_name  is empty");
         return errcode::PARAM_ERR;
     }
-
     $legal_person                          = $_['legal_person'];
     if (!$legal_person) {
         LogErr("legal_person  is empty");
@@ -138,14 +159,16 @@ function SaveShopBusiness(&$resp)
         LogErr("legal_card  is empty");
         return errcode::PARAM_ERR;
     }
-
+    if (!preg_match('/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/', $legal_card))
+    {
+        LogErr("legal_card err");
+        return errcode::IDCARD_ERR;
+    }
     $legal_card_photo                      = json_decode($_['legal_card_photo']);
-    //$legal_card_photo                      = explode(',',$_['legal_card_photo']);
     if (!$legal_card_photo) {
         LogErr("legal_card_photo  is empty");
         return errcode::PARAM_ERR;
     }
-
     $business_num                          = $_['business_num'];
     if (!$business_num) {
         LogErr("business_num  is empty");
@@ -162,7 +185,6 @@ function SaveShopBusiness(&$resp)
         LogErr("business_photo  is empty");
         return errcode::PARAM_ERR;
     }
-
     $repast_permit_identity                = $_['repast_permit_identity'];
     if (!$repast_permit_identity) {
         LogErr("repast_permit_identity  is empty");
@@ -215,6 +237,8 @@ function SaveShopBusiness(&$resp)
     $entry->shop_id                        = $shop_id;
     $entry->shop_business                  = $shop_business;
     $entry->shop_bs_status                 = $shop_bs_status;
+    $entry->shop_bs_time                   = time();
+    $entry->business_status                = 1;
 
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
@@ -369,7 +393,6 @@ function SaveShopLabel(&$resp)
         LogDebug($shop_id,$login_shop_id);
         return errcode::SHOP_NOT_WEIXIN;
     }
-
     $mgo            = new \DaoMongodb\Shop;
     $entry          = new \DaoMongodb\ShopEntry;
     $entry->shop_id = $shop_id;
@@ -436,22 +459,22 @@ function SaveCollectionSet(&$resp)
         LogDebug($shop_id,$login_shop_id);
         return errcode::SHOP_NOT_WEIXIN;
     }
-    $is_debt                          = $_['is_debt'];
-    $is_mailing                       = $_['is_mailing'];
-    $mailing_type                     = $_['mailing_type'];
-
-    if (null==$is_debt || null==$is_mailing) {
+    //$is_debt       = $_['is_debt'];
+    $is_mailing    = $_['is_mailing'];
+    $mailing_type  = $_['mailing_type'];
+    $shop_pay_way  = json_decode($_['shop_pay_way']);
+    if (null == $is_mailing) {
         LogErr("some word  is empty");
         return errcode::PARAM_ERR;
     }
 
-    $collection_set->is_debt      = $is_debt;
+    //$collection_set->is_debt      = $is_debt;
     $collection_set->is_mailing   = $is_mailing;
     $collection_set->mailing_type = $mailing_type;
-
     $mgo                                   = new \DaoMongodb\Shop;
     $entry                                 = new \DaoMongodb\ShopEntry;
     $entry->shop_id                        = $shop_id;
+    $entry->shop_pay_way                   = $shop_pay_way;
     $entry->collection_set                 = $collection_set;
     $ret = $mgo->Save($entry);
     if (0 != $ret) {
@@ -620,8 +643,8 @@ function SyncBaseSettings(&$resp)
     $auto_order     = $_['auto_order'];
     $custom_screen  = $_['custom_screen'];
     $menu_sort      = $_['menu_sort'];
-     LogDebug($_);
-    $mgo = new \DaoMongodb\Shop;
+    LogDebug($_);
+    $mgo   = new \DaoMongodb\Shop;
     $entry = new \DaoMongodb\ShopEntry;
     $entry->shop_id        = $shop_id;
     $entry->auto_order     = $auto_order;

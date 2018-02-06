@@ -93,7 +93,7 @@ function GetPadShopInfo(&$resp)
         array_push($seat_info, $ss);
     }
     $pay = [];
-    if ($info->weixin_seting == 1)
+    if (in_array(ShopSaleWAY::WEIXIN,$info->shop_pay_way))
     {
         $weixin['type'] = "weixin";
         if ($info->weixin_pay_set->pay_way == 2)
@@ -111,7 +111,7 @@ function GetPadShopInfo(&$resp)
         array_push($pay, $weixin);
     }
 
-    if ($info->alipay_seting == 1)
+    if (in_array(ShopSaleWAY::APAY,$info->shop_pay_way))
     {
         $alipay['type'] = "zhifu";
         if ($info->alipay_set->pay_way == 2)
@@ -128,8 +128,9 @@ function GetPadShopInfo(&$resp)
         array_push($pay, $alipay);
     }
 
-  if($info->collection_set->is_debt == 1)
+  if(in_array(ShopSaleWAY::GUAZ,$info->shop_pay_way))
   {
+      $collpay['type']        = "guazhang";
       $collpay['bookkeeping'] = $info->collection_set->is_debt;
       array_push($pay, $collpay);
   }
@@ -138,14 +139,15 @@ function GetPadShopInfo(&$resp)
     $shop_info['auto_order']    = $info->auto_order;
     $shop_info['custom_screen'] = $info->custom_screen;
     $shop_info['menu_sort']     = $info->menu_sort;
-    $shop_info['phone']         = $info->telephone;
+    $shop_info['shop_phone']    = $info->telephone;
+    $shop_info['shop_address']  = $info->address;
     $shop_info['tables']        = $seat_info;
     $shop_info['print_info']    = $print_info;
     $shop_info['pay_type']      = $pay;
-    $resp                    = (object)[
+    $resp = (object)[
         'shop_info' => $shop_info,
         'token'     => $_['token'],
-    ];
+                     ];
     //LogDebug($resp);
     LogInfo("--ok--");
     return 0;
@@ -186,33 +188,7 @@ function GetPadShopCode(&$resp)
     LogInfo("--ok--");
     return 0;
 }
-//pad端店铺支付宝或微信二维码
-function GetShopPostQr(&$resp)
-{
-    $_ = $GLOBALS["_"];
-    if (!$_)
-    {
-        LogErr("param err");
-        return errcode::PARAM_ERR;
-    }
-    $shop_id  = (string)$_['shop_id'];
-    $pay_type = (int)$_['pay_type'];
-    $url      = $_['url'];
-    $token    = $_['token'];
-    $mgo        = new \DaoMongodb\Shop;
-    $shop_info = $mgo->GetShopById($shop_id);
-    if(!$shop_id || !$shop_info->shop_id)
-    {
-        return errcode::SHOP_NOT_WEIXIN;
-    }
-    $resp  = (object)[
-        'is_pay'=> true,
-        'token' => $token
-    ];
-    //LogDebug($resp);
-    LogInfo("--ok--");
-    return 0;
-}
+
 $ret = -1;
 $resp = (object)array();
 if(isset($_["shopinfo"]))
@@ -228,9 +204,6 @@ elseif(isset($_["shoplist"]))
 }elseif(isset($_['get_shop_qrcode']))
 {
     $ret = GetPadShopCode($resp);
-}elseif(isset($_['shop_post_qr']))
-{
-    $ret = GetShopPostQr($resp);
 }
 $result = (object)array(
     'ret' => $ret,

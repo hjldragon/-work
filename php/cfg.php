@@ -133,7 +133,7 @@ eof;
         // $this->binding_url  = 'http://wx.jzzwlcm.com/wx_binding.php';
         $this->ordering_url = Util::EmptyToDefault($cfg["$prefix.ordering_url"], "http://of.jzzwlcm.com/menu.php");
         $this->menu_url     = Util::EmptyToDefault($cfg["$prefix.menu_url"], "http://customer.jzzwlcm.com/index.php");
-        $this->food_url     = Util::EmptyToDefault($cfg["$prefix.food_url"], "http://shop.jzzwlcm.com");
+        $this->food_url     = Util::EmptyToDefault($cfg["$prefix.food_url"], "http://customer.jzzwlcm.com/#/shareFoodDetail");
         $this->login_url    = Util::EmptyToDefault($cfg["$prefix.login_url"], "http://wx.jzzwlcm.com/wx_login.php");
         $this->jump_url     = Util::EmptyToDefault($cfg["$prefix.jump_url"], "http://wx.jzzwlcm.com/jumpto.php");
         $this->binding_url  = Util::EmptyToDefault($cfg["$prefix.binding_url"], "http://wx.jzzwlcm.com/wx_binding.php");
@@ -205,7 +205,7 @@ eof;
     {
         //'http://www.of.com:8080/index.php?seat=199'
         //return "{$this->ordering_url}?food={$food_id}";
-        return "{$this->food_url}?food={$food_id}";
+        return "{$this->food_url}?food_id={$food_id}";
     }
 
     // 取登录二维码内容

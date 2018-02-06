@@ -304,6 +304,21 @@ class Category
         }
         return 0;
     }
+
+    public function QueryByName($category_name, $shop_id)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+        $cond = array(
+            'category_name' => $category_name,
+            'shop_id'       => $shop_id,
+            'delete'        => array('$ne' => 1),
+        );
+
+        $ret = $table->findOne($cond);
+
+        return new CategoryEntry($ret);
+    }
 }
 
 

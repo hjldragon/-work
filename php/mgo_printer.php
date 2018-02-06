@@ -24,6 +24,8 @@ class PrinterEntry
     public $print_position_top    = null;     // 打印位置调整
     public $print_position_width  = null;     // 打印位置调整
     public $print_position_height = null;     // 打印位置调整
+    public $print_ip              = null;     // ip地址
+    public $copies_num            = null;     // 打印份数
     public $printer_note          = null;     // 备注
 
     function __construct($cursor=null)
@@ -50,6 +52,8 @@ class PrinterEntry
         $this->print_position_top    = $cursor['print_position_top'];
         $this->print_position_width  = $cursor['print_position_width'];
         $this->print_position_height = $cursor['print_position_height'];
+        $this->copies_num            = $cursor['copies_num'];
+        $this->print_ip              = $cursor['print_ip'];
         $this->printer_note          = $cursor['printer_note'];
     }
 
@@ -151,6 +155,14 @@ class Printer
         if(null !== $info->printer_note)
         {
             $set["printer_note"] = (string)$info->printer_note;
+        }
+        if(null !== $info->print_ip)
+        {
+            $set["print_ip"] = (string)$info->print_ip;
+        }
+        if(null !== $info->copies_num)
+        {
+            $set["copies_num"] = (int)$info->copies_num;
         }
 
         $value = array(

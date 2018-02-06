@@ -5,9 +5,11 @@ require_once("mgo_user.php");
 require_once("redis_login.php");
 require_once("redis_id.php");
 require_once("mgo_employee.php");
+require_once("mgo_position.php");
+require_once("mgo_department.php");
 require_once("mgo_user.php");
 require_once("ChuanglanSmsHelper/ChuanglanSmsApi.php");
-
+require_once("/www/public.sailing.com/php/send_sms.php");
 function Login(&$resp)
 {
     $_ = $GLOBALS["_"];
@@ -20,32 +22,29 @@ function Login(&$resp)
     $token        = $_["token"];
     $phone        = $_["phone"];
     $password_md5 = $_["password_md5"];
+    //$password_md5 = md5($_["password_md5"]);//<<<<<<<<<<接口测试用的
     $page_code    = strtolower($_['page_code']);
     $no_need_code = $GLOBALS["no_need_code"];
-
-
     $logininfo = (object)array();
-
     if(empty($phone))
     {
         LogErr("param err, phone empty");
         return errcode::USER_NAME_EMPTY;
     }
 
-    // if(!$no_need_code)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    // {
-    //     $db = new \DaoRedis\Login();
-    //     $radis = $db->Get($token);
-    //     $radis_code = $radis->page_code;
-    //     if($radis_code != $page_code){
-    //         LogErr("coke err");
-    //         return errcode::COKE_ERR;
-    //     }
-    // }
-
+     if(!$no_need_code)
+     {
+         $db = new \DaoRedis\Login();
+         $radis = $db->Get($token);
+         $radis_code = $radis->page_code;
+         if($radis_code != $page_code){
+             LogErr("coke err");
+             return errcode::COKE_ERR;
+         }
+     }
     $user = new \DaoMongodb\User();
-    $userinfo = $user->QueryUser($phone, $phone, $password_md5);
-    LogDebug($userinfo);
+    $userinfo = $user->QueryUser($phone, $phone, $password_md5, UserSrc::SHOP);
+    //LogDebug($userinfo);
     if(null == $userinfo)
     {
         LogErr("user err:[$username]");
@@ -98,7 +97,24 @@ function LoginSave($userinfo, $token, &$resp)
         if($value->shop_id){
            $shop =  \Cache\Shop::Get($value->shop_id);
            if($shop){
-           	 array_push($shopinfo, $shop);
+               $shop_info['shop_id']        = $shop->shop_id;
+               $shop_info['shop_name']      = $shop->shop_name;
+               $shop_info['shop_logo']      = $shop->shop_logo;
+               $shop_info['is_freeze']      = $shop->is_freeze;
+               if($value->is_admin != 1){
+                   $position                    = new \DaoMongodb\Position;
+                   $position_info               = $position->GetPositionById($shop->shop_id, $shop->position_id);
+                   $department                  = new \DaoMongodb\Department;
+                   $department_info             = $department->QueryByDepartmentId($shop->shop_id, $shop->department_id);
+                   $shop_info['position_name']  = $position_info->position_name;
+                   $shop_info['department_name']= $department_info->department_name;
+                   $shop_info['is_myshop']      = 0;
+               }else{
+                   $shop_info['position_name']  = '超级管理员';
+                   $shop_info['department_name']= '--';
+                   $shop_info['is_myshop']      = 1;
+               }
+           	 array_push($shopinfo, $shop_info);
            }
         }
     }
@@ -234,7 +250,7 @@ function GetCoke(&$resp){
     $name  = $_['name'];
     $mgo   = new \DaoMongodb\User;
     // 查找手机号码
-    $ret = $mgo->QueryByPhone($phone);
+    $ret = $mgo->QueryByPhone($phone,UserSrc::SHOP);
     LogDebug($ret);
     switch ($name)
     {
@@ -268,24 +284,8 @@ function GetCoke(&$resp){
         LogErr("phone err");
         return errcode::PHONE_ERR;
     }
-
-    $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
-//    $code = mt_rand(100000, 999999);
-//    $clapi  = new ChuanglanSmsApi();
-//    $msg    = '【赛领新吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
-//    $result = $clapi->sendSMS($phone, $msg);
-//    LogDebug($result);
-//    if (!is_null(json_decode($result)))
-//    {
-//        $output = json_decode($result, true);
-//        if (isset($output['code']) && $output['code'] == '0')
-//        {
-//            LogDebug('短信发送成功！');
-//        } else {
-//            return $output['errorMsg'] . errcode::PHONE_SEND_FAIL;
-//        }
-//    }
-
+    $code   = mt_rand(100000, 999999);
+    Sms::GetSms($phone,$code);//发送手机验证码
     $redis            = new \DaoRedis\Login();
     $data             = new \DaoRedis\LoginEntry();
     $data->phone      = $phone;
@@ -295,7 +295,7 @@ function GetCoke(&$resp){
     LogDebug($data);
     $redis->Save($data);
     $resp = (object)[
-        'phone_code' => $code,
+        //'phone_code' => $code,
     ];
     return 0;
 }
@@ -310,44 +310,32 @@ function GetPhoneCode(&$resp){
     $token      = $_['token'];
     $phone      = $_['phone'];
     $user       = new \DaoMongodb\User;
-    $userinfo   = $user->QueryByPhone($phone);
-    if(!$userinfo->phone)
+    if(!$_['srctype'])
     {
-        return errcode::USER_NOT_ZC;
+        $userinfo   = $user->QueryByPhone($phone, UserSrc::SHOP);
+        if(!$userinfo->phone)
+        {
+            LogDebug("not user message");
+            return errcode::USER_NOT_ZC;
+        }
     }
     if (!preg_match('/^1[34578]\d{9}$/', $phone))
     {
         LogErr("phone err");
         return errcode::PHONE_ERR;
     }
-
-    $code    = 654321;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<调试写死数据
-    //$code = mt_rand(100000, 999999);
-//    $clapi  = new ChuanglanSmsApi();
-//    $msg    = '【赛领新吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
-//    $result = $clapi->sendSMS($phone, $msg);
-//    LogDebug($result);
-//    if (!is_null(json_decode($result)))
-//    {
-//        $output = json_decode($result, true);
-//        if (isset($output['code']) && $output['code'] == '0')
-//        {
-//            LogDebug('短信发送成功！');
-//        } else {
-//            return $output['errorMsg'] . errcode::PHONE_SEND_FAIL;
-//        }
-//    }
-
+    $code   = mt_rand(100000, 999999);
+    Sms::GetSms($phone,$code);//发送手机验证码
     $redis            = new \DaoRedis\Login();
     $data             = new \DaoRedis\LoginEntry();
     $data->phone      = $phone;
     $data->token      = $token;
     $data->phone_code = $code;
     $data->code_time  = time() + 5 * 60 * 1000;
-    LogDebug($data);
+    //LogDebug($data);
     $redis->Save($data);
     $resp = (object)[
-        'phone_code' => $code,
+        //'phone_code' => $code,
     ];
     return 0;
 }
@@ -363,7 +351,7 @@ function UserNewPasswd(&$resp)
     $token      = $_['token'];
     $phone      = $_['phone'];
     $mgo        = new \DaoMongodb\User;
-    $user = $mgo->QueryByPhone($phone);
+    $user = $mgo->QueryByPhone($phone, UserSrc::SHOP);
 
     if(!$user->userid)
     {
@@ -419,9 +407,17 @@ function UserEmployeeSetting(&$resp)
         LogErr("name is empty,have to");
         return errcode::PARAM_ERR;
     }
-    $token      = $_['token'];
-    $phone      = $_['phone'];
-    $phone_code = $_['phone_code'];//手机验证码
+    $sex        = $_['sex'];
+//    if(!$sex)
+//    {
+//        LogErr("sex is no,have to");
+//        return errcode::PARAM_ERR;
+//    }
+    $health_certificate  = json_decode($_['health_certificate']);
+    $identity            = $_['identity'];
+    $token               = $_['token'];
+    $phone               = $_['phone'];
+    $phone_code          = $_['phone_code'];//手机验证码
     $result     = PageUtil::VerifyPhoneCode($token, $phone, $phone_code);
     //验证手机结果
     if ($result != 0)
@@ -435,6 +431,7 @@ function UserEmployeeSetting(&$resp)
         'userid'    => $userid,
         'real_name' => $real_name,
         'phone'     => $phone,
+        'src'       => UserSrc::SHOP
     ]);
     LogDebug($ret);
     if (null != $ret) {
@@ -458,13 +455,16 @@ function UserEmployeeSetting(&$resp)
 
     //创建生成用户表
     $user   = new \DaoMongodb\UserEntry;
-
     $user->userid             = $userid;
+    $user->sex                = $sex;
     $user->real_name          = $real_name;
     $user->delete             = 0;
     $user->password           = $passwd;
     $user->phone              = $phone;
+    $user->src                = UserSrc::SHOP;
     $user->ctime              = time();
+    $user->health_certificate = $health_certificate;
+    $user->identity           = $identity;
     $ret                      = $mgo->Save($user);
     if ($ret != 0) {
         LogErr("Save err, ret=[$ret]");
@@ -474,6 +474,7 @@ function UserEmployeeSetting(&$resp)
     ];
     return 0;
 }
+
 
 $ret = -1;
 $resp = (object)array();
@@ -515,7 +516,6 @@ else
 //     'ret' => $ret,
 //     'data' => $resp
 // ));
-
 $result = (object)array(
     'ret' => $ret,
     'data' => $resp

@@ -17,7 +17,7 @@ require_once("mgo_printer.php");
 require_once("mgo_employee.php");
 require_once("mgo_customer.php");
 require_once ("mgo_position.php");
-
+require_once ("mgo_menu.php");
 // 登录相关信息
 class Login
 {

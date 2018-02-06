@@ -10,7 +10,7 @@ require_once("cache.php");
 require_once("mgo_shop.php");
 require_once("permission.php");
 
-Permission::PageCheck();
+//Permission::PageCheck();
 //$_=$_REQUEST;
 function GetShopInfo(&$resp)
 {
@@ -63,7 +63,12 @@ function GetShopBaseInfo(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $shop_id = \Cache\Login::GetShopId();
+    $shop_id  = $_['shop_id'];
+    if(!$shop_id)
+    {
+        $shop_id = \Cache\Login::GetShopId();
+    }
+
     $userid  = \Cache\Login::GetUserid();
     if (!$shop_id || !$userid)
     {
@@ -88,6 +93,7 @@ function GetShopBaseInfo(&$resp)
     $shopinfo['address_num'] = $info->address_num;
     $shopinfo['shop_model']  = $info->shop_model;
     $shopinfo['telephone']   = $info->telephone;
+    $shopinfo['admin']       = $entry->phone;
 
     $resp = (object)[
         'shopinfo' => $shopinfo,
@@ -105,16 +111,21 @@ function GetShopEditInfo(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $shop_id = \Cache\Login::GetShopId();
+    $shop_id = $_['shop_id'];
+    if(!$shop_id)
+    {
+        $shop_id = \Cache\Login::GetShopId();
+    }
     if (!$shop_id) {
         LogErr("shop_id err or maybe not login");
         return errcode::SEAT_NOT_EXIST;
     }
 
     //$shop_id = (string)$_['shop_id'];//<<<<<<<<<<<<<<<<<测试用的
-    $mgo = new \DaoMongodb\Shop;
+    $mgo  = new \DaoMongodb\Shop;
     $info = $mgo->GetShopById($shop_id);
-    LogDebug($info->opening_time);
+    LogDebug($info);
+    //LogDebug($info->opening_time);
     $shopinfo = [];
     $shopinfo['shop_pay_way']   = $info->shop_pay_way;
     $shopinfo['pay_time']       = $info->pay_time;
@@ -125,15 +136,21 @@ function GetShopEditInfo(&$resp)
     $shopinfo['opening_time']   = $info->opening_time;
     $shopinfo['is_invoice_vat'] = $info->is_invoice_vat;
     $shopinfo['img_list']       = $info->img_list;
-    $shopinfo['suspend']        = $info->suspend;
+    if($info->suspend != 0)
+    {
+        $shopinfo['suspend']    = 1;
+    }else{
+        $shopinfo['suspend']    = $info->suspend;
+    }
     $shopinfo['invoice_remark'] = $info->invoice_remark;
+    $shopinfo['meal_after']     = $info->meal_after;
 
 
     $resp = (object)array(
         'shopinfo' => $shopinfo
     );
 
-    //LogDebug($resp);
+    LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -159,7 +176,7 @@ function GetShopBusinessInfo(&$resp)
     $shopinfo = $info->shop_business;
 
     $resp = (object)[
-        'shopsbusiness' => $shopinfo,
+        'shopsbusiness'   => $shopinfo,
     ];
     //LogDebug($resp);
     LogInfo("--ok--");
@@ -184,10 +201,11 @@ function GetShopBusinessStatus(&$resp)
 
     $mgo                       = new \DaoMongodb\Shop;
     $info                      = $mgo->GetShopById($shop_id);
-    $shopinfo = $info->shop_bs_status;
+    $shopinfo                  = $info->shop_bs_status;
 
     $resp = (object)[
-        'shop_bs_status' => $shopinfo,
+        'shop_bs_status'  => $shopinfo,
+        'business_status' => $info->business_status,
     ];
     //LogDebug($resp);
     LogInfo("--ok--");
@@ -248,7 +266,6 @@ function GetShopLabel(&$resp)
     $resp = (object)[
         $name => $shop_info,
     ];
-
     LogInfo("get ok");
     return 0;
 }
@@ -265,11 +282,14 @@ function GetShopPaySet(&$resp)
     if (!$shop_id)
     {
         LogErr("shop_id err or maybe not login");
-        return errcode::SEAT_NOT_EXIST;
+        return errcode::SHOP_NOT_EXIST;
     }
     $mgo         = new \DaoMongodb\Shop;
     $info        = $mgo->GetShopById($shop_id);
-    $shopinfo    = $info->collection_set;
+    $shopinfo    = [];
+    $shopinfo['shop_pay_way']  = $info->shop_pay_way;
+    $shopinfo['is_mailing']    = $info->collection_set->is_mailing;
+    $shopinfo['mailing_type']  = $info->collection_set->mailing_type;
 
     $resp = (object)[
         'collection_set' => $shopinfo,

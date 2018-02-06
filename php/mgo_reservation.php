@@ -210,6 +210,7 @@ class Reservation
         $value = array(
             '$set' => $set
         );
+        LogDebug($value);
 
         try
         {
@@ -257,10 +258,18 @@ class Reservation
             {
                 $cond['shop_id'] = (string)$shop_id;
             }
-            $employee_id = $filter['employee_id'];
-            if(!empty($employee_id))
+//            $employee_id = $filter['employee_id'];
+//            if(!empty($employee_id))
+//            {
+//                $cond['employee_id'] = (string)$employee_id;
+//            }
+            $employee_id_list = $filter['employee_id_list'];
+            if (null !== $employee_id_list)
             {
-                $cond['employee_id'] = (string)$employee_id;
+                foreach ($employee_id_list as $i => &$item) {
+                    $item = (string)$item;
+                }
+                $cond['employee_id'] = ['$in' => $employee_id_list];
             }
             $reservation_status = $filter['reservation_status'];
             if(null !== $reservation_status)
@@ -289,8 +298,8 @@ class Reservation
 
          LogDebug($cond);
         $field["_id"] = 0;
-        //$cursor = $table->find($cond, $field)->sort($sortby)->skip(($page_no - 1) * $page_size)->limit($page_size);
-        $cursor = $table->find($cond, $field)->sort($sortby);
+        $cursor = $table->find($cond, $field)->sort($sortby)->skip(($page_no - 1) * $page_size)->limit($page_size);
+        //$cursor = $table->find($cond, $field)->sort($sortby);
         if (null !== $total)
         {
             $total = $table->count($cond);

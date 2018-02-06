@@ -149,7 +149,8 @@ function UserSetting(&$resp)
 
     if(!$userid)
     {
-        $userid = \DaoRedis\Id::GenUserId();
+        $id = \DaoRedis\Id::GenUserId();
+        $userid = GetUserId($id);
     }
     $dao = new \DaoMongodb\User;
     // 是否已注册过
@@ -222,6 +223,22 @@ function UserSetting(&$resp)
     LogInfo("register ok, userid=[{$userid}], ip:[{$_SERVER['REMOTE_ADDR']}]");
     return 0;
 }
+
+function GetUserId($userid)
+{
+    $mgo = new \DaoMongodb\User;
+    $data = $mgo->QueryById($userid);
+    if($data->userid)
+    {
+        $uid = \DaoRedis\Id::GenUserId();
+        $id = GetUserId($uid);
+    }
+    else
+    {
+        $id = $userid;
+    }
+    return $id;
+}
 //修改用户密码
 function EditUserPassword(&$resp)
 {
@@ -249,11 +266,11 @@ function EditUserPassword(&$resp)
     }
     if($password === $new_password)
     {
-        return errcode::PASSWORD_TWO_SAME;
+        return errcode::PASSWORD_SAME;
     }
     if ($new_password != $new_password_again)
     {
-        return errcode::DATA_PASSWD_ERR;
+        return errcode::PASSWORD_TWO_DIF;
     }
 
     $entry->userid   = $userid;
@@ -514,8 +531,9 @@ function EditUserInfo(&$resp)
         return errcode::IDCARD_ERR;
     }
     $sex                = $_['sex'];
-    $health_certificate = $_['health_certificate'];
+    $health_certificate = json_decode($_['health_certificate']);
     $is_weixin          = $_['is_weixin'];
+    $user_avater        = $_['user_avater'];
     //默认未未绑定微信
     if(!$is_weixin)
     {
@@ -528,6 +546,7 @@ function EditUserInfo(&$resp)
     $user->identity           = $identity;
     $user->sex                = $sex;
     $user->is_weixin          = $is_weixin;
+    $user->user_avater        = $user_avater;
     $user->health_certificate = $health_certificate;
     $ret                      = $mgo->Save($user);
     if (0 != $ret) {
@@ -586,6 +605,7 @@ function GetUserEditInfo(&$resp)
             array_push($info, $list_all);
         }
     }
+    $userinfo->password = '';
     $resp = (object)[
         'userinfo'       => $userinfo,
         'work_info_list' => $info,

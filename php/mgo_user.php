@@ -18,7 +18,6 @@ class UserEntry
     public $question           = null;   // 问题
     public $answer             = null;   // 答案
     public $passwd_prompt      = null;   // 密码提示
-    //public $property         = null;   // 用户属性(位字段，见class UserProperty)
     public $ctime              = null;   // 创建时间
     public $lastmodtime        = null;   // 修改时间
     public $delete             = null;   // 0:未删除; 1:已删除
@@ -32,8 +31,9 @@ class UserEntry
     public $is_weixin          = null;   // 是否绑定微信(0:没绑定,1:绑定)
     public $health_certificate = null;   // 健康证
     public $real_name          = null;   // 真实姓名
+    public $src                = null;   // 用户平台类型:1客户端,2商户端,3运营端
     // // 具体业务数据
-    // public $shop_id = null;     // 当前用户所属的店 （注，此这段分出到员工表）
+   
 
     function __construct($cursor=null)
     {
@@ -66,6 +66,7 @@ class UserEntry
         $this->is_weixin          = $cursor['is_weixin'];
         $this->health_certificate = $cursor['health_certificate'];
         $this->real_name          = $cursor['real_name'];
+        $this->src                = $cursor['src'];
     }
 
     public static function ToList($cursor)
@@ -78,16 +79,7 @@ class UserEntry
         }
         return $list;
     }
-
-    // public function IsShopUser()
-    // {
-    //     return ($this->property & \UserProperty::SHOP_USER) != 0;
-    // }
-
-    // public function IsShopAdmin()
-    // {
-    //     return ($this->property & \UserProperty::SYS_ADMIN) != 0;
-    // }
+    
 };
 
 class User
@@ -137,12 +129,6 @@ class User
         {
             $set["passwd_prompt"] = (string)$info->passwd_prompt;
         }
-        // if(null !== $info->property)
-        // {
-        //     $bit["property"] = [
-        //         'or' => (int)$info->property
-        //     ];
-        // }
         if((int)$info->ctime > 0)
         {
             $set["ctime"] = (int)$info->ctime;
@@ -182,10 +168,13 @@ class User
             $set["is_weixin"] = (int)$info->is_weixin;
         }
         if (null !== $info->health_certificate) {
-            $set["health_certificate"] = (string)$info->health_certificate;
+            $set["health_certificate"] = $info->health_certificate;
         }
         if (null !== $info->real_name) {
             $set["real_name"] = (string)$info->real_name;
+        }
+        if (null !== $info->src) {
+            $set["src"] = (int)$info->src;
         }
         LogDebug($set);
 
@@ -209,6 +198,7 @@ class User
         }
         return 0;
     }
+    
 
     public function IsExist($filter)
     {
@@ -235,6 +225,7 @@ class User
         }
         $cond = [
             'delete'=> ['$ne'=>1],
+            'src' => $filter['src'],
             '$or' => $or,
         ];
         LogDebug($cond);
@@ -246,18 +237,20 @@ class User
         return null;
     }
 
-    public function QueryUser($username, $phone, $password_md5)
+    public function QueryUser($username, $phone, $password_md5, $src)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
         $cond = [
             'delete' => ['$ne' => 1],
+            'src' => (int)$src,
             '$or' => [
                 ["username" => (string)$username],
                 ["phone"    => (string)$phone]
             ]
         ];
         $cursor = $table->findOne($cond, ["_id"=>0]);
+
         if($password_md5 == md5($cursor['password']) && $cursor['password'])
         {
             return new UserEntry($cursor);
@@ -313,13 +306,14 @@ class User
     }
 
     // 返回 UserEntry
-    public function QueryByPhone($phone)
+    public function QueryByPhone($phone, $src)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
 
         $cond = array(
             'phone' => (string)$phone,
+            'src' => (int)$src,
             'delete' => ['$ne' => 1],
         );
 
