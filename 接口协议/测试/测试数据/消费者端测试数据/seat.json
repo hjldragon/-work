@@ -1,0 +1,45 @@
+//seat餐桌表？？？？？？
+//1.合法数据
+
+db.seat.insert({
+	"seat_id" : "61",
+	"lastmodtime" : 1505809039,
+	"shop_id" : "101",
+	"seat_name" : "川菜店1桌",
+	"seat_size" : 6,
+	"seat_price" : 5,
+	"delete" : 0
+})
+
+//2.合法数据
+db.seat.insert({
+	"seat_id" : "62",
+	"lastmodtime" : 1505809163,
+	"shop_id" : "101",
+	"seat_name" : "川菜店2桌",
+	"seat_size" : 4,
+	"seat_price" : 8,
+	"delete" : 0
+})
+
+//3.合法数据（无餐位费）
+db.seat.insert({
+	"seat_id" : "63",
+	"lastmodtime" : 1505809200,
+	"shop_id" : "101",
+	"seat_name" : "川菜店3桌",
+	"seat_size" : 8,
+	"seat_price" : 0,
+	"delete" : 0
+})
+
+//4.逻辑删除（数据库保留）
+db.seat.insert({
+	"seat_id" : "64",
+	"lastmodtime" : 1505809250,
+	"shop_id" : "101",
+	"seat_name" : "川菜店4桌",
+	"seat_size" : 8,
+	"seat_price" : 0,
+	"delete" : 1
+})

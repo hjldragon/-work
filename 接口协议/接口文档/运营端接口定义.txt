@@ -1,0 +1,2257 @@
+
+
+术语说明
+req  -- 接口请求
+resp -- 接口返回的数据
+
+一般性接口定义形式：
+=== 接口名称 ===
+req = {
+    get_img_data: 1　        // 接口
+    param1: 'xxx',          // 接口参数1
+    param2: xxx,　　          // 接口参数２
+    param3: 'json串' 　　　    // 接口参数３
+}
+resp = {
+    ret : 0     // 0:正常，非0出错（见cfg.js、const.php等定义）
+    data: {
+        // 接口返回的数据
+        // ...
+        // ...
+    }
+}
+
+
+================================================================================
+=== 登录 ===
+url = login_save.php
+##################输入
+req ={
+    login : 1,                // 参数
+    phone :"13712345678",     // 登录账号（账号或手机号）
+    password_md5 : "123456",   // 登录密码
+    page_code : "1234"        // 页面验证码
+}
+#################输出
+resp ={
+  "ret": 0,
+  "data": {
+    "type":1, //1运营人员2区域代理商人员3行业代理商人员
+    "logininfo": {},
+    "userinfo": { // 用户信息
+      "userid": 1,
+      "username": "admin"
+    },
+    "agentinfo": {  // 代理商信息(代理商用户登录)
+      "agent_id": "4",
+      "agent_type":1,           // 代理类型(1:区域，2:行业)
+      "agent_level": 1,           // 代理级别(1:一级，2:二级，3:三级)
+      "agent_name": "代理商名称",
+      "ag_employee_id": "11",
+      "real_name": "名字",
+      "is_freeze": 0
+    },
+    "platforminfo": {
+        "platformer_id": "PL3",
+        "platform_id": "1",
+        "userid": 458,
+        "pl_position_id": null,
+        "pl_department_id": null,
+        "pl_name": null,
+        "remark": null,
+        "ctime": 1515403861,
+        permission:[1, 16]  //该员工的职位权限 [1.运营平台全部权限,2.首页权限,4.代理商管理权限,8.商户管理权限,16.组织管理权限,32.消息管理权限]
+        "lastmodtime": 1515403861,
+        "delete": null,
+        "from_record": null,
+        "salesman_record": null,
+        "is_admin": 1
+    }
+  }
+}
+=== 注销登录 ===
+url = login_save.php
+req ={
+    logout : 1,
+    token : "dc2y398577v5f203"
+}
+resp ={
+    "ret": 0,
+    "data": {}
+  }
+
+=== 创建代理商 ===
+url = agent_save.php
+##################输入
+req ={
+    agent_save : 1,                    // 参数
+    platformer_id : "1",               // 登录管理员id
+    phone :"13888881234",              // 登录账号（账号或手机号）
+    password : "admin",                // 登录密码
+    re_password : "",                  // 重复密码
+    agent_type : 1,                    // 代理类型(1:区域，2:行业)
+    agent_level :1,                    // 代理级别(1:一级，2:二级，3:三级)
+    agent_name : "admin",              // 代理商名称
+    telephone : "1234"                 // 联系电话
+    real_name :"13888881234",          // 联系人
+    email : "1244@qq.com",             // 邮箱
+    address : "1234"                   // 地址
+    agent_province :"13888881234",     // 省
+    agent_city : "admin",              // 市
+    agent_area : "1234"                // 区
+    from :"13888881234",               // 来源
+    from_salesman : "admin",           // 所属销售      
+
+}
+#################输出
+resp ={
+  "ret": 0,
+  "data": {
+
+  }
+}
+=== 代理商信息(行业) ===
+url = agent_get.php
+req = {
+    agent_info: 1,      //保存参数
+    agent_id:"1"        //(string)代理商id
+}
+resp = {
+    "ret": 0,
+    "data": {
+       "agent_info": {
+                   "agent_id": "AG145",  // 代理商id
+                   "parent_id": null,     // 父级id
+                   "agent_type": 2,        // 代理类型(1:区域，2:行业)
+                   "agent_level": 1,        // 代理级别(1:一级，2:二级，3:三级)
+                   "agent_name": "风雷神教",    // 代理商名称
+                   "telephone": "13878787878", // 联系电话
+                   "ctime": 1516014259,
+                   "lastmodtime": 1516014259,
+                   "delete": null,
+                   "email": null,              // 邮箱
+                   "address": "敦霍尔德营地",  // 地址
+                   "agent_province": "",     // 省
+                   "agent_city": "",         // 市
+                   "agent_area": 0,          // 区
+                   "from": "222",           // 来源
+                   "from_salesman": "666",         // 所属销售
+                   "is_freeze": null,          // 是否冻结(0:否，1:是)
+                   "agent_business": {          //工商信息
+                       "company_name": null,        //企业名称
+                       "legal_person": null,       //法人代表
+                       "legal_card": [1.JPG,2.PNG],         //法人身份证
+                       "legal_card_photo": null,     //法人身份照片
+                       "business_num": null,         //营业执照注册号
+                       "business_date": [1,2],        //营业期限
+                       "business_photo": 3.JPG,       //营业执照照片
+                       "business_scope": null        //经营范围
+                   },
+                   "business_status": 1,  //工商信息认证状态(0:未提交,1:认证中,2:认证通过,3:认证不通过)
+                   "business_time": null,     // 工商信息审核时间
+                   "bs_submit_time": null      // 工商信息提交时间
+               }
+    }
+}
+}
+=== 代理商列表 ===
+url = agent_get.php
+##################输入
+req ={
+    agent_list : 1,                 // 参数
+    agent_type : 1,                 // 代理类型(1:区域，2:行业)
+    agent_level :1,                 // 代理级别(1:一级，2:二级，3:三级)
+    agent_name : "admin",           // 代理商名称
+    begin_time : 1214525,           // 创建时间开始
+    end_time :124144,               // 创建时间结束
+    business_status : 1,            // 认证状态(0:未提交,1:认证中,2:认证成功,3:认证失败)
+    begin_bs_time : 12415,          // 认证时间开始
+    end_bs_time :12415,             // 认证时间结束
+    begin_bsus_time : 124      15,        // 提交认证时间开始
+    end_bsus_time :12415,           // 提交认证时间结束
+    page_size : 10,                 // 每页条数
+    page_no :1,                     // 页数
+    sort_name : "1244@qq.com",      // 排序名称(级别'agent_level',创建时间'ctime'...)
+    desc : -1,                      // 排序(1正序,-1倒序)
+    agent_province :"1388",         // 省
+    agent_city : "admin",           // 市
+    agent_area : "1234"             // 区 
+}
+
+#################输出
+resp ={
+  "ret": 0,
+  "data": {
+  }
+}
+
+=== 获取代理商 ===
+url = agent_get.php
+req ={
+    get_agent_list: 1,   // 参数
+    agent_type: 1 // 代理类型(1:区域，2:行业)
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "agent_list": [{
+            "agent_id": "1",
+            "agent_name": "代理商名称"
+        }]
+}
+
+=== 修改用户密码 ===
+url = user_info.php
+req = {
+    save_password: 1,         //保存参数
+    //userid:"2",              //通过用户登录获取
+    old_password:"123456",        //(string)旧密码
+    new_password:"456123",        //(string)新密码
+    new_password_again:"456123"  //(string)再次输入新密码
+}
+resp = {
+    ret : 0,                   // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+=== 商户工商信息认证状态 ===
+url = shop_save.php
+req = {
+    bs_status_save: 1,         //保存参数
+    shop_id:"123",                       //(string)店铺id
+   "business_status":2                    //(int)工商认证状态(0:未提交,1:认证中,2:认证通过,3:认证不通过)
+}
+resp = {
+    ret : 0,                   // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+=== 商户冻结状态 ===
+url = shop_save.php
+req = {
+    shop_is_freeze: 1,         //保存参数
+    shop_id:"123",                       //(string)店铺id
+   "is_freeze":2                    //(int)店铺是否冻结（1:冻结，0未冻结,）
+}
+resp = {
+    ret : 0,                   // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+=== 找回密码 ===
+url = login_save.php
+req ={
+    save_new_passwd: 1,                                          //参数
+    phone: "1345678989",                                          //手机号,登录账号（用户个人信息获取是登录时就获取了在登录接口（p1）
+    phone_code:"654321"                                          //手机验证码）//所以发送手机验证都连接->手机发送验证码接口(P1053)
+    token: "T16yRk5WVrNtlRE5",                                   //token值
+    new_passwd:"123456"                                          //密码
+    new_passwd_again:"123456"                                    //再次输入密码
+
+}
+resp ={
+    "ret": 0,
+    "data": {
+}
+=== 创建/编辑平台员工 ===
+   url = platformer_save.php
+   ##################输入
+   req ={
+       platformer_save : 1,                    // 参数
+       platformer_id : "1",               // 员工id(编辑时传)
+       pl_name :"张",                     // 姓名
+       phone :"13888881234",              // 登录账号（账号或手机号）
+       password : "admin",                // 登录密码
+       re_password : "",                  // 重复密码
+       remark :"备注",                    // 备注
+       pl_position_id : "1",              // 平台职位id
+       pl_department_id : "1",            // 平台部门id
+
+   }
+   #################输出
+   resp ={
+     "ret": 0,
+     "data": {
+     }
+   }
+   === 删除员工 ===
+    url = platformer_save.php
+    ##################输入
+    req ={
+        platformer_del : 1,                    // 参数
+        platformer_id : "PL12",               // 员工id(编辑时传)
+    }
+    #################输出
+    resp ={
+      "ret": 0,
+      "data": {
+      }
+    }
+   === 冻结员工 ===
+        url = platformer_save.php
+        ##################输入
+        req ={
+            platformer_freeze : 1,                   // 参数
+            platformer_id : "PL12",               // 员工id(编辑时传)
+            is_freeze:1                           // 员工冻结 0:正常, 1:已冻结
+        }
+        #################输出
+        resp ={
+          "ret": 0,
+          "data": {
+          }
+        }
+=== 平台员工信息 ===
+url = platformer_get.php
+req = {
+    get_platformer_info: 1,      //保存参数
+    platformer_id:"1"            //(string)员工id
+}
+resp = {
+    "ret": 0,
+    "data": {
+        "platformer": {
+            "platformer_id": "PL3",
+            "platform_id": "1",
+            "userid": 458,
+            "pl_position_id": "1",
+            "pl_department_id": "1",
+            "pl_name": "名称",
+            "remark": "备注",
+            "ctime": 1515403861,
+            "lastmodtime": 1515735841,
+            "delete": null,
+            "from_record": [              // 来源历史输入记录
+                "小美",
+                "给的d"
+            ],
+            "salesman_record": [          // 所属销售历史输入记录
+                "大龙",
+                "阿什顿发"
+            ],
+            "is_admin": 1,                // 是否管理员(0否1是)
+            "position_name": "职位",
+            "department_name": "部门"
+        }
+    }
+}
+}
+=== 平台员工列表 ===
+url = platformer_get.php
+req ={
+    get_platformer_list: 1,   //参数
+    page_siez:10 , //每页条数
+    page_no:1,      //页数
+    is_freeze:1,  //冻结状态搜索
+    pl_name:"冉总",  //姓名搜索（含模糊）
+    sort_name:"is_freeze", //排序  is_freeze状态排序，platformer_id员工id排序
+    desc:1        //1正序,-1倒序
+    pl_department_id:"fa1" //部门id
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "platformer_list": [
+            {
+                "platformer_id": "PL3",
+                "platform_id": "1",
+                "userid": 458,
+                "pl_position_id": "1",
+                "pl_department_id": "1",
+                "pl_name": "名称",
+                "remark": "备注",
+                "ctime": 1515403861,
+                "lastmodtime": 1515735841,
+                "delete": null,
+                "from_record": [
+                    "小美",
+                    "给的d"
+                ],
+                "salesman_record": [
+                    "大龙",
+                    "阿什顿发"
+                ],
+                "is_admin": 0,
+                "phone": "13812345678",
+                "position_name": "职位",
+                "department_name": "部门"
+                "is_freeze":  1,   //1.冻结，0正常
+            }
+        ]，
+        "total":100,  //总条数
+        "page_size":1,
+        "page_no":1
+
+    }
+}
+=== 创建/编辑平台部门 ===
+url = department_save.php
+##################输入
+req ={
+        pl_department_save : 1,                // 参数
+        pl_department_id : "1",               // 部门id(编辑时传)
+        pl_department_name : "1",               // 平台部门名称
+}
+#################输出
+resp ={
+      "ret": 0,
+      "data": {
+            }
+}
+=== 平台部门名称 ===
+url = department_get.php
+##################输入
+req ={
+        get_pl_department_info : 1,                // 参数
+        pl_department_id : "PLD25",               // 部门id
+}
+#################输出
+resp ={
+      "ret": 0,
+      "data": {
+      "pl_department_name": "部落"
+            }
+}
+=== 获取平台所有部门及部门下的员工 ===
+ url = department_get.php
+ ##################输入
+ req ={
+        get_pl_department_list: 1,                // 参数
+ }
+ #################输出
+ resp ={
+       "ret": 0,
+       "data": {
+       "pl_department_list": [
+                   {
+                       "pl_department_id": "PLD14",
+                       "pl_department_name": "采花部",
+                       "employee_list": [
+                           {
+                               "platformer_id": "PL12",
+                               "pl_name": "冉大"
+                           }
+                       ]
+                   },
+                   {
+                       "pl_department_id": "PLD19",
+                       "pl_department_name": "天使部",
+                       "employee_list": []
+                   },
+                   {
+                       "pl_department_id": "PLD25",
+                       "pl_department_name": "部落",
+                       "employee_list": []
+                   },
+                   {
+                       "pl_department_id": "PLD33",
+                       "pl_department_name": "联盟",
+                       "employee_list": []
+                   }
+               ]
+             }
+ }
+ === 获取平台一个部下的所有员工 ===
+ url = department_get.php
+ ##################输入
+ req ={
+        get_department_platformer: 1,                // 参数
+        pl_department_id:"PL142" ,                  //部门id
+ }
+ #################输出
+ resp ={
+       "ret": 0,
+       "data": {
+       "platformer_list": [
+                  {
+                      "platformer_id": "PL12", //员工id
+                      "platform_id": "1",
+                      "userid": 757,
+                      "pl_position_id": "1",
+                      "pl_department_id": "PLD14",
+                      "pl_name": "冉大",       //员工姓名
+                      "remark": "来源名啊来源名啊来源名啊",  //备注
+                      "ctime": 1516175585,
+                      "lastmodtime": 1516179119,
+                      "delete": 0,
+                      "from_record": null,
+                      "salesman_record": null,
+                      "phone": "13812345678",
+                      "is_admin": null,
+                      "is_freeze": 0,
+                      "pl_position_name": null,    //职位
+                      "pl_department_name": "采花部"  //部门
+                  }
+              ]
+             }
+ }
+   === 删除平台部门 ===
+    url = department_save.php
+    ##################输入
+    req ={
+        pl_department_del : 1,                // 参数
+        pl_department_id : "PLD14",               // 员工id(编辑时传)
+    }
+    #################输出
+    resp ={
+      "ret": 0,
+      "data": {
+      }
+    }
+    === 创建/编辑代理商员工 ===
+       url = ag_employee_save.php
+       ##################输入
+       req ={
+           ag_employee_save : 1,                    // 参数
+           ag_employee_id : "1",               // 员工id(编辑时传)
+           agent_id : "PL12",               // 代理商id
+           real_name :"张",                     // 姓名
+           phone :"13888881234",              // 登录账号（账号或手机号）
+           password : "admin",                // 登录密码
+           re_password : "",                  // 重复密码
+           remark :"备注",                    // 备注
+           ag_position_id : "1",              // 平台职位id
+           ag_department_id : "1",            // 平台部门id
+
+       }
+       #################输出
+       resp ={
+         "ret": 0,
+         "data": {
+         }
+       }
+       === 删除代理商员工 ===
+        url = ag_employee_save.php
+        ##################输入
+        req ={
+            ag_employee_del : 1,                    // 参数
+            ag_employee_id : "PL12",               // 员工id
+            agent_id : "PL12",               // 代理商id
+        }
+        #################输出
+        resp ={
+          "ret": 0,
+          "data": {
+          }
+        }
+       === 冻结代理商员工 ===
+            url = ag_employee_save.php
+            ##################输入
+            req ={
+                ag_employee_freeze : 1,                   // 参数
+                ag_employee_id : "PL12",               // 员工id
+                agent_id : "PL12",               // 代理商id
+                is_freeze:1                           // 员工冻结 0:正常, 1:已冻结
+            }
+            #################输出
+            resp ={
+              "ret": 0,
+              "data": {
+              }
+
+       === 创建/代理商平台部门 ===
+        url = department_save.php
+        ##################输入
+        req ={
+            ag_department_save : 1,                // 参数
+            ag_department_id : "1",               // 员工id(编辑时传)
+            agent_id:"代理商ID"                   //
+            ag_department_name : "1",               // 平台部门名称
+        }
+        #################输出
+        resp ={
+          "ret": 0,
+          "data": {
+          }
+        }
+=== 删除代理商部门 ===
+url = department_save.php
+##################输入
+req ={
+      ag_department_del : 1,                // 参数
+      ag_department_id : "PLD14",               // 员工id(编辑时传)
+      }
+#################输出
+resp ={
+      "ret": 0,
+      "data": {
+       }
+}
+=== 代理商员工列表 ===
+url =ag_employee_get.php
+req ={
+    get_ag_employee_list: 1,   //参数
+    page_size:10 , //每页条数
+    page_no:1,      //页数
+    is_freeze:1,  //冻结状态搜索
+    real_name:"冉总",  //姓名搜索（含模糊）
+    sort_name:"is_freeze", //排序  is_freeze状态排序，ag_employee_id员工id排序
+    desc:1        //1正序,-1倒序
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "platformer_list": [
+            {
+                "platformer_id": "PL3",
+                "platform_id": "1",
+                "userid": 458,
+                "pl_position_id": "1",
+                "pl_department_id": "1",
+                "pl_name": "名称",
+                "remark": "备注",
+                "ctime": 1515403861,
+                "lastmodtime": 1515735841,
+                "delete": null,
+                "from_record": [
+                    "小美",
+                    "给的d"
+                ],
+                "salesman_record": [
+                    "大龙",
+                    "阿什顿发"
+                ],
+                "is_admin": 0,
+                "phone": "13812345678",
+                "position_name": "职位",
+                "department_name": "部门"
+                "is_freeze":  1,   //1.冻结，0正常
+            }
+        ]，
+        "total":100,  //总条数
+        "page_size":1,
+        "page_no":1
+
+    }
+}
+=== 代理商员工详情信息 ===
+url = ag_employee_get.php
+req = {
+    get_ag_employee_info: 1,      //保存参数
+    ag_employee_id:"1"            //(string)代理商员工id
+}
+resp = {
+    "ret": 0,
+    "data": {
+        "agemployee  ": {
+            "platformer_id": "PL3",
+            "platform_id": "1",
+            "userid": 458,
+            "pl_position_id": "1",
+            "pl_department_id": "1",
+            "pl_name": "名称",
+            "remark": "备注",
+            "ctime": 1515403861,
+            "lastmodtime": 1515735841,
+            "delete": null,
+            "from_record": [              // 来源历史输入记录
+                "小美",
+                "给的d"
+            ],
+            "salesman_record": [          // 所属销售历史输入记录
+                "大龙",
+                "阿什顿发"
+            ],
+            "is_admin": 1,                // 是否管理员(0否1是)
+            "position_name": "职位",
+            "department_name": "部门"
+        }
+    }
+}
+}
+=== 获取代理商部门名称 ===
+url = department_get.php
+##################输入
+req ={
+        get_ag_department_info : 1,                // 参数
+        ag_department_id : "PLD25",               // 部门id
+}
+#################输出
+resp ={
+      "ret": 0,
+      "data": {
+      "ag_department_name": "部落"
+            }
+}
+=== 获取代理商所有部门及部门下的员工 ===
+ url = department_get.php
+ ##################输入
+ req ={
+        get_ag_department_list: 1,                // 参数
+        agent_id:"fa1",          //代理商id
+ }
+ #################输出
+ resp ={
+       "ret": 0,
+       "data": {
+       "ag_department_list": [
+                   {
+                       "ag_department_id": "PLD14",
+                       "ag_department_name": "采花部",
+                       "employee_list": [
+                           {
+                               "platformer_id": "PL12",
+                               "ag_name": "冉大"
+                           }
+                       ]
+                   },
+                   {
+                       "ag_department_id": "PLD19",
+                       "ag_department_name": "天使部",
+                       "employee_list": []
+                   },
+                   {
+                       "pl_department_id": "PLD25",
+                       "pl_department_name": "部落",
+                       "employee_list": []
+                   },
+                   {
+                       "ag_department_id": "PLD33",
+                       "ag_department_name": "联盟",
+                       "employee_list": []
+                   }
+               ]
+             }
+ }
+=== 获取代理商员工职位列表 ===
+                 url = ag_position_get.php
+                 ##################输入
+                 req ={
+                     get_ag_position_list: 1,                // 参数
+                     agent_id:"1",        //代理商id
+                    page_szie:1,          //每页条数（默认7条）
+                    page_no:1,            //页数（默认第一页）
+                 }
+                 #################输出
+                 resp ={
+                   "ret": 0,
+                   "data": {
+                          "position_list": [
+                                {
+                                    "pl_position_id": "PLP9",    //职位id
+                                    "pl_position_name": "CEO123",//职位名称
+                                    "pl_position_permission": 11,//权限需要前台位运算
+                                    "pl_position_note": "备注",//职位备注
+                                    "platform_id": "1",
+                                    "delete": 0,
+                                    "is_edit": null,
+                                    "lastmodtime": 1516254357,
+                                    "ctime": 1516246535,
+                                    "entry_type": null
+                                },
+                                {
+                                    "pl_position_id": "PLP12",
+                                    "pl_position_name": "产品推广员",
+                                    "pl_position_permission": 3,
+                                    "pl_position_note": "赛领公司的",
+                                    "platform_id": "1",
+                                    "delete": 0,
+                                    "is_edit": null,
+                                    "lastmodtime": 1516254487,
+                                    "ctime": 1516254487,
+                                    "entry_type": null
+                                }
+                            ],
+                            "total": 2,  //总共个数
+                            "page_size": 7, //每页个数
+                            "page_no": 1   //页数
+                   }
+                 }
+=== 保存/编辑 代理商员工职位 ===
+url = ag_position_save.php
+##################输入
+req ={
+                             ag_position_save: 1,                // 参数
+                             ag_position_id : "PLD14",           // 职位id(编辑时传)
+                             ag_position_name : "CEO",           // 职位名
+                             ag_position_permission : [1,2,4,8,16], // 职位权限（参看const.php中PlPosition)
+                             ag_position_note : "备注",           // 职位备注
+                             agent_id : "PLD14",           // 代理商id
+                         }
+ #################输出
+resp ={
+                           "ret": 0,
+                           "data": {
+                           }
+ }
+=== 获取代理商员工职位详情 ===
+                 url = ag_position_get.php
+##################输入
+req ={
+                     get_ag_position_info: 1,                // 参数
+                     ag_position_id : "PLD14",           // 职位id
+}
+#################输出
+resp ={
+                   "ret": 0,
+                   "data": {
+                         "position_info": {
+                               "pl_position_id": "PLP9",    //职位id
+                               "pl_position_name": "CEO",   //职位名称
+                               "pl_position_permission": 3,
+                               "pl_position_note": null,    //职位备注
+                               "platform_id": "1",
+                               "delete": 0,
+                               "is_edit": null,
+                               "lastmodtime": 1516246535,
+                               "ctime": 1516246535,
+                               "entry_type": null
+                           },
+                           "permission": [   //权限列表（参看const.php中PlPosition)
+                               1,
+                               2
+                           ]
+                   }
+}
+=== 删除代理商职位 ===
+url = ag_position_save.php
+##################输入
+req ={
+      del_ag_position : 1,                // 参数
+      agent_id : "PLD14",           // 代理商id
+      ag_position_id : "PLD14",           // 职位id(编辑时传)
+      }
+ === 获取平台一个部下的所有员工 ===
+ url = department_get.php
+ ##################输入
+ req ={
+        get_department_agent: 1,                // 参数
+        ag_department_id:"PL142" ,                  //部门id
+ }
+ #################输出
+ resp ={
+       "ret": 0,
+       "data": {
+       "platformer_list": [
+                  {
+                      "platformer_id": "PL12", //员工id
+                      "platform_id": "1",
+                      "userid": 757,
+                      "ag_position_id": "1",
+                      "ag_department_id": "PLD14",
+                      "ag_name": "冉大",       //员工姓名
+                      "remark": "来源名啊来源名啊来源名啊",  //备注
+                      "ctime": 1516175585,
+                      "lastmodtime": 1516179119,
+                      "delete": 0,
+                      "from_record": null,
+                      "salesman_record": null,
+                      "is_admin": null,
+                      "is_freeze": 0,
+                      "ag_position_name": null,    //职位
+                      "ag_department_name": "采花部"  //部门
+                  }
+              ]
+             }
+ }
+       === 保存/编辑 平台员工职位 ===
+        url = pl_position_save.php
+        ##################输入
+        req ={
+            pl_position_save: 1,                // 参数
+            pl_position_id : "PLD14",           // 职位id(编辑时传)
+            pl_position_name : "CEO",           // 职位名
+            pl_position_permission : [1,2,4,8,16], // 职位权限（参看const.php中PlPosition)
+            pl_position_note : "备注",           // 职位备注
+        }
+        #################输出
+        resp ={
+          "ret": 0,
+          "data": {
+          }
+        }
+               === 获取平台员工职位详情 ===
+                url = pl_position_get.php
+                ##################输入
+                req ={
+                    get_pl_position_info: 1,                // 参数
+                    pl_position_id : "PLD14",           // 职位id
+                }
+                #################输出
+                resp ={
+                  "ret": 0,
+                  "data": {
+                        "position_info": {
+                              "pl_position_id": "PLP9",    //职位id
+                              "pl_position_name": "CEO",   //职位名称
+                              "pl_position_permission": 3,
+                              "pl_position_note": null,    //职位备注
+                              "platform_id": "1",
+                              "delete": 0,
+                              "is_edit": null,
+                              "lastmodtime": 1516246535,
+                              "ctime": 1516246535,
+                              "entry_type": null
+                          },
+                          "permission": [   //权限列表（参看const.php中PlPosition)
+                              1,
+                              2
+                          ]
+                  }
+                }
+            === 获取平台员工职位列表 ===
+                url = pl_position_get.php
+                ##################输入
+                req ={
+                    get_pl_position_list: 1,                // 参数
+                   page_szie:1,          //每页条数（默认7条）
+                   page_no:1,            //页数（默认第一页）
+                }
+                #################输出
+                resp ={
+                  "ret": 0,
+                  "data": {
+                         "position_list": [
+                               {
+                                   "pl_position_id": "PLP9",    //职位id
+                                   "pl_position_name": "CEO123",//职位名称
+                                   "pl_position_permission": 11,//权限需要前台位运算
+                                   "pl_position_note": "备注",//职位备注
+                                   "platform_id": "1",
+                                   "delete": 0,
+                                   "is_edit": null,
+                                   "lastmodtime": 1516254357,
+                                   "ctime": 1516246535,
+                                   "entry_type": null
+                               },
+                               {
+                                   "pl_position_id": "PLP12",
+                                   "pl_position_name": "产品推广员",
+                                   "pl_position_permission": 3,
+                                   "pl_position_note": "赛领公司的",
+                                   "platform_id": "1",
+                                   "delete": 0,
+                                   "is_edit": null,
+                                   "lastmodtime": 1516254487,
+                                   "ctime": 1516254487,
+                                   "entry_type": null
+                               }
+                           ],
+                           "total": 2,  //总共个数
+                           "page_size": 7, //每页个数
+                           "page_no": 1   //页数
+                  }
+                }
+=== 删除平台职位 ===
+url = pl_position_save.php
+##################输入
+req ={
+      del_pl_position : 1,                // 参数
+      pl_position_id : "PLD14",           // 职位id(编辑时传)
+      }
+#################输出
+resp ={
+      "ret": 0,
+      "data": {
+       }
+}
+=== 图形验证   手机发送验证码接口 ===（就是输入手机发送的验证码接口）
+url = login_save.php
+req = {
+    get_coke:1                  //参数
+    //token: fvasihih1,         //前台给的数据
+    page_code:ACF1              //(string)图形验证码
+    phone:18280156916           //(string)手机号码
+    name:"registrate"           //registrate注册，forgetPwd忘记密码（找回密码）
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+    'phone_code':1549498,        //返回的手机验证码
+     }
+}
+=== 无图形验证   手机发送验证码接口 ===（就是输入手机发送的验证码接口）
+url = login_save.php
+req = {
+    get_phone_code:1                  //参数
+    //token: fvasihih1,         //前台给的数据
+    phone:18280156916           //(string)手机号码
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+    'phone_code':1549498,        //返回的手机验证码
+     }
+}
+=== 代理商工商信息提交 ===
+url = agent_save.php
+req = {
+    agent_business_save: 1,         //保存参数
+    agent_id:"123",                //(string)代理商id
+   "company_name": "赛铃"                     //(string)企业名称
+   "legal_person": "Randa"                   //(string)法人代表
+   "legal_card": "51302319922012345x"        //(string)法人身份证
+   "legal_card_photo": ["Randa.jpg","Randa.jpg"]           //(string)法人身份照片
+    "business_num":12345678910                //(int)营业执照注册号
+    "business_date": [123456,654321]          //(int)营业期限(eg:2018-1-1,2018-2-2)
+    "business_photo":"business.jpg"           //(string)营业执照照
+    "business_scope":"餐饮"                    //(string)经营范围
+}
+resp = {
+    ret : 0,                   // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+=== 代理商工商信息认证状态 ===
+url = agent_save.php
+req = {
+    agent_business_status_save: 1,         //保存参数
+    agent_id:"123",                       //(string)代理商id
+   "business_status":2                    //(string)工商认证状态(0:未提交,1:认证中,2:认证通过,3:认证不通过)
+}
+resp = {
+    ret : 0,                   // 0:正常，非0出错（见cfg.js定义）
+    data: {}
+}
+
+
+
+=== 创建店铺第一步:创建用户 ===
+url = shop_save.php
+req ={
+    save_shop_user: 1,                        // 参数
+    shop_userid: 1,                           // 返回编辑时传
+    phone: "1345678989",                      // 手机号,登录账号
+    real_name:"姓名"                          // 
+    sex: 1,                                   // 性别值为1时是男性，值为2时是女性，值为0时是未知
+    password:"123456"                         // 密码
+    re_password:"123456"                      // 再次输入密码
+
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+
+=== 创建店铺第二步:创建店铺 ===
+url = shop_save.php
+req ={
+    shop_save: 1,     // 参数
+    shop_id:"1",           // 返回编辑时传
+    shop_userid: 1,        // 第一步生成的用户id
+    shop_name:"店铺名",    // 
+    shop_logo:"店铺logo",  // 
+    shop_area:50,          // 店铺大小
+    address:"地址",        // 
+    shop_model:1,          // （int)营业模式 1:快餐,2:中餐
+    telephone:"134543647"  // 联系电话
+    province:"省"          //
+    city:"市"              //
+    area:"区"              //
+      
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+
+
+=== 创建店铺第三步:修改店铺签约信息 ===
+url = shop_save.php
+req ={
+    save_shop_sign: 1,        //  参数
+    platformer_id: "1",       //  登录员工id
+    shop_id: "12",            //  第2步生成的店铺id
+    agent_type: 1,            //  代理类型(1:区域，2:行业)
+    agent_id: "50",           //  选择行业代理时选折代理商id
+    from: "来源",             //
+    from_salesman: "销售来源" //
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+
+=== 保存店铺登录授权信息 ===
+url = shop_save.php
+req = {
+    save_authorize:1,     //参数
+    shop_id:'PFD1"     //店铺id
+    pc_num:2,        // pc登录名额
+    pad_num:2,       // pad登录名额
+    cashier_num:2,   // 收银机登录名额
+    app_num:2,       // app登录名额
+
+}
+resp = {
+    ret : 0,              // 0:正常，非0出错（见cfg.js定义）
+    data:{
+     }
+}
+
+
+
+=== 获取用户信息 ===
+url = user_info.php
+req ={
+    get_user: 1,   // 参数
+    shop_userid: 1 // 用户id
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "userinfo": {
+            "userid": 1,
+            "username": "admin",
+            "password": "123456",
+            "question": null,
+            "answer": null,
+            "passwd_prompt": ".....[@]1",
+            "ctime": 1494757164,
+            "mtime": 1510816773,
+            "delete": 0,
+            "phone": "13888888888",
+            "identity": null,
+            "usernick": "老大哥哥",
+            "user_avater": "610a0b14f5c74256a028ed6c2a2596a2.jpg",
+            "birthday": null,
+            "sex": null,
+            "email": "18720114512@163.com",
+            "is_weixin": 1,
+            "health_certificate": null,
+            "real_name": null
+        }
+}
+
+
+=== 拉取店铺基本信息 ===
+url = shop_get.php
+req = {
+    get_shop_info : 1,
+    shop_id : "120",  //店铺id(string)
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {
+        shopinfo: {     // 店铺信息
+            phone:"1242455",                                         //(string) 用户账号
+            userid: 1,                                               // 用户id
+            shop_id: "120",                                          //(string) 店铺id
+            shop_name: "肯德基KFC"                                    //(string) 店铺名称
+            shop_logo: "2296b866563f728d72742748a5d4c966.jpg",　　    //（string)商户logo
+            contact: "冉大"                                           //(string)联系人
+            telephone: "12312345678",　　                             //（string)联系电话
+            email: "123456@qq.com",　　                               //（string)邮箱
+            is_weixin: 1,　　                                         //(int)用户是否绑定微信(0:没绑定,1:绑定)
+            shop_area: 128.5,　　                                     //（float)店铺大小
+            address: "深圳洪浪北地铁口1",　　                         //（string)店铺地址
+            //address_num: "130号",　　                                 //（string)门牌号 
+            province: "省",
+            city: "市",   
+            area: "区"   
+        }
+    }
+}
+=== 更换代理商 ===
+url = shop_save.php
+req ={
+    shop_change_agent: 1,        //  参数
+    shop_id: "12",             //  店铺id
+    agent_id: "50",           //  更换代理商id
+
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 代理商冻结 ===
+url = agent_save.php
+req ={
+    agent_freeze: 1,        //  参数
+    agent_id: "12",             //  代理商id
+    is_freeze: 0,             //是否冻结（1:冻结,0:正常）
+
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 删除代理商===
+url = agent_save.php
+req ={
+    agent_del: 1,        //  参数
+    agent_id: "12",             //  代理商id
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+
+
+=== 店铺列表 ===
+url = shop_get.php
+##################输入
+req ={
+    get_shop_list : 1,        // 参数
+    shop_name : "124",        // 店铺名称
+    agent_id :"1",            // 代理商id
+    agent_type : 1,           // 签约类型(1:区域，2:行业)
+    begin_time : 1214525,     // 创建时间开始
+    end_time :124144,         // 创建时间结束
+    shop_model : 1,           // 营业模式 1:快餐,2:中餐
+    page_size : 10,           // 每页条数
+    page_no :1,               // 页数
+    sort_name : "ctime",      // 排序名称(创建时间'ctime'...)
+    desc : -1,                // 排序(1正序,-1倒序)
+    province :"1388",         // 省
+    city : "admin",           // 市
+    area : "1234"             // 区
+    business_status:1         // 工商认证状态(0:未提交,1:认证中,2:认证通过,3:认证不通过)
+}
+ 
+#################输出
+resp ={
+  "ret": 0,
+  "data": {
+  }
+}
+=== 代理商申请列表 ===
+url = agent_apply_get.php
+req ={
+    agent_apply_list: 1,        //  参数
+    begin_time: 1325496,        // 申请开始时间
+    end_time:1644498,           // 申请结束时间
+    page_size:5,               // 每页条数 默认10
+    page_no:1,                 //  页数     默认1
+}
+#################输出
+resp ={
+  "ret": 0,
+  "data": {
+  "apply_list": [
+              {
+                  "apply_id": "AA40",  //代理商申请id
+                  "apply_name": "冉总BOOS", //申请人名称
+                  "company":"冉总666",      //公司名称
+                  "telephone": "13666666666",  //电话号码
+                  "apply_time": 1516350696,   //申请时间
+                  "lastmodtime": 1516350696,
+                  "delete": 0,
+                  "email": "ranzongboss@qq.com",   //邮箱
+                  "address": "颤抖吧骚年们",       // 地址
+                  "apply_status": 0          //申请状态(0:待处理,1:已处理)
+              }
+          ],
+          "total": 5, //总条数
+          "page_size": 10, //每页条数
+          "page_no": 1   //页数
+  }
+}
+=== 代理商申请列表的删除和标记已读===
+url = agent_apply_save.php
+req ={
+    change_apply_status: 1,         //  参数
+    apply_id_list: ["AA12","AA23"], //  代理商申请列表id
+    type:1                          //1是删除,2handle标记已读
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 用户反馈列表===
+url = user_feedback_get.php
+req ={
+    user_feedback_list: 1,         //  参数
+    feedback_type: 1, //  反馈类型(0.默认分类,1.吐槽错误,2.无法使用,3.优化建议)
+    page_size:1,
+    page_no:1,
+    sort_name:feedback_time      //排序名称 目前只有反馈时间排序
+    desc:1    //排序方式。-1正序，1倒序
+    begin_time:16449489489,
+    end_time:16449489489,
+}
+resp ={
+    "ret": 0,
+    "data": {
+    "list": [
+                {
+                    "feedback_id": "FB1", //ID
+                    "feedback_phone": "13888888888",  //用户返回账号
+                    "feedback_time": 1516610021,  //反馈实际
+                    "feedback_type": 1, //反馈类型(0.默认分类,1.吐槽错误,2.无法使用,3.优化建议)
+                    "content": "我是冉总都给我闪开", //反馈内容
+                    "delete": 0,
+                    "lastmodtime": 1516610021
+                },
+                {
+                    "feedback_id": "FB9",
+                    "feedback_phone": "13888888888",
+                    "feedback_time": 1516610029,
+                    "feedback_type": 1,
+                    "content": "冉总6666",
+                    "delete": 0,
+                    "lastmodtime": 1516610029
+                },]
+}
+=== 用户反馈列表删除==
+url = user_feedback_save.php
+req ={
+    user_feedback_del: 1,         //  参数
+    feedback_id_list: ["AA12","AA23"], //  代理商申请列表id
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 系统公告列表===
+url = news_get.php
+req ={
+     sysnews_list: 1,         //  参数
+    send_type: 1, //  发送对象（0:未定,1:商户, 2:代理商）
+    is_send:1,   //是否已发送（0:未发, 1:已发送）
+    page_size:1,
+    page_no:1,
+    sort_name:send_time      //排序名称 目前只有反馈时间排序
+    desc:1    //排序方式。-1正序，1倒序
+    begin_time:16449489489,
+    end_time:16449489489,
+}
+resp ={
+    "ret": 0,
+    "data": {
+    "list": [
+               {
+                               "news_id": "NE978",
+                               "shop_id": null,
+                               "title": "张",//标题
+                               "content": "1213", //内容含html页面，需要前端显示
+                               "is_draft": null,
+                               "delete": 0,
+                               "lastmodtime": 1516172481,
+                               "send_time": "2018-01-17 15:00:00", //发送时间
+                               "is_send": "已发送", //发送状态
+                               "ctime": 1516171273,
+                               "is_system": 1,
+                               "send_type": "商户"  //发送对象
+                           },
+                           {
+                               "news_id": "NE973",
+                               "shop_id": null,
+                               "title": "张",
+                               "content": "1213",
+                               "is_draft": null,
+                               "delete": 0,
+                               "lastmodtime": 1516171245,
+                               "send_time": "2018-01-17 14:40:45",
+                               "is_send": "已发送",
+                               "ctime": 1516171245,
+                               "is_system": 1,
+                               "send_type": "商户"
+                           }]
+}
+=== 代理商公告列表===
+url = news_get.php
+req ={
+    get_agent_news_list: 1,         //  参数
+    page_size:1,
+    page_no:1,
+    sort_name:ctime      //排序名称 接受时间
+    desc:1    //排序方式。-1正序，1倒序
+    begin_time:16449489489,
+    end_time:16449489489,
+    agent_id:'AG420'   //代理商ID
+}
+resp ={
+    "ret": 0,
+    "data": {
+    "list": [
+               {
+                               "news_id": "NE978",
+                               "shop_id": null,
+                               "title": "张",//标题
+                               "content": "1213", //内容含html页面，需要前端显示
+                               "is_draft": null,
+                               "delete": 0,
+                               "lastmodtime": 1516172481,
+                               "send_time": "2018-01-17 15:00:00", //发送时间
+                               "is_send": "已发送", //发送状态
+                               "ctime": 1516171273,
+                               "is_system": 1,
+                               "send_type": "商户"  //发送对象
+                               "is_ready":1;    // 是否已读（0:未读, 1:已读）
+                           },
+                           {
+                               "news_id": "NE973",
+                               "shop_id": null,
+                               "title": "张",
+                               "content": "1213",
+                               "is_draft": null,
+                               "delete": 0,
+                               "lastmodtime": 1516171245,
+                               "send_time": "2018-01-17 14:40:45",
+                               "is_send": "已发送",
+                               "ctime": 1516171245,
+                               "is_system": 1,
+                               "send_type": "商户"
+                           }]
+}
+=== 代理商公告详情===
+url = news_get.php
+req ={
+    agent_news_info: 1,         //  参数
+    news_id:"NE1",      //公告id
+    agent_id:'AG420'   //代理商ID
+}
+resp ={
+    "ret": 0,
+    "data": {
+   "info": {
+               "news_id": "NE1157",
+               "shop_id": null,
+               "title": "SSS",
+               "content": "<p>SSS<br data-mce-bogus=\"1\"></p>",
+               "is_draft": null,
+               "delete": 0,
+               "lastmodtime": 1520575800,
+               "send_time": 1520575800,
+               "is_send": 1,
+               "ctime": 1520575800,
+               "is_system": 1,
+               "send_type": 2,
+               "send_username": "新吃货官方"
+           }
+           }}
+
+=== 代理商公告消息已读==
+url = news_save.php
+req ={
+    agent_ready_news: 1,            //  参数
+    agent_id:"AG1",                //  代理商id
+    news_id_list: ["AA12","AA23"], //  公告消息id（可以多个，可以单个，都是数组形式过来）
+    type:1                         //  1属于系统公告删除,0属于系统公告已读
+
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+
+
+=== 系统公告编辑==
+url = news_save.php
+req ={
+    news_save: 1,         //  参数
+    content: ["AA12","AA23"], //  内容(含html数据）
+    title: ["AA12","AA23"], //  标题
+    news_id: "AA12", //  系统公告id  //传就编辑，不传就是新建 //必须是还未发送的才能编辑,已经发送的无法编辑
+    send_time: 16449489489, //  //发送时间
+    send_type: 1, //  发送对象（0:未定,1:商户, 2:代理商）
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 系统公告详情==
+url = news_get.php
+req ={
+    sysnews_info: 1,         //  参数
+    news_id: "AA12", //  系统公告id
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 系统公告删除==
+url = news_save.php
+req ={
+    del_news: 1,         //  参数
+    news_id_list: ["AA12","AA23"], //  id
+
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 官方文章编辑/创建==
+url = article_save.php
+req ={
+    article_save: 1,   //参数
+    content: "冉大的一生", //内容（含html)（必填）
+    title: "冉大大斗罗大陆传", //标题（必填）
+    article_type: 1，//文章类型（0:未定,1:公司动态）
+    article_id:"AE123" //文章id,传就是编辑不传就是新建
+    send_time:1314584984 //发送时间
+    platformer_id:"121"   //员工id（必填）
+
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 获取文章录入人列表 ===
+url = platformer_get.php
+req ={
+    get_platformer_name: 1,   // 参数
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "platformer_list": [{
+            "platformer_id": "1",
+            "pl_name": "员工姓名"
+        }]
+}
+=== 官方文章删除==
+url = article_save.php
+req ={
+    article_del: 1,   //参数
+    article_id_list: ["AA12","AA23"], //  文章id
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 官方文章关闭/开启==
+url = article_save.php
+req ={
+    article_open: 1,   //参数
+    article_stat: 1，   //文章状态（0:正常,1:关闭）
+    article_id:"AE123" //文章id
+
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 官网文章列表===
+url = article_get.php
+req ={
+    get_article_list: 1: 1,         //  参数
+    platformer_id: "1", //  录入者平台员工id
+    is_send:1,   //是否已发送（0:未发, 1:已发送）
+    title:"1",   //标题(含模糊搜索）
+    article_type:1,   //文章类型（0:未定,1:公司动态）
+    article_state:1,   //文章状态（0:正常,1:关闭）
+    page_size:1,
+    page_no:1,
+    sort_name:send_time      //排序名称 目前只有发送时间排序
+    desc:1    //排序方式。-1正序，1倒序
+    begin_time:16449489489,  //发送时间的开始
+    end_time:16449489489,   //发送时间的结束
+}
+resp ={
+    "ret": 0,
+    "data": {
+    "list": [
+               {
+                              "article_id": "AE21",
+                              "title": "冉大镇魂街",           //标题
+                              "content": "冉大无间道力量",     //内容
+                              "platformer_id": "PL12",
+                              "delete": 0,
+                              "lastmodtime": 1516615823,
+                              "send_time": 1516615823,      //发送时间
+                              "is_send": 1,                 //是否发送
+                              "ctime": 1516615823,
+                              "article_type": 1,            //文章类型
+                              "article_state": 0,           //文章状态
+                              "platfomer_name": "冉大"        //录入这
+                          },
+                          {
+                              "article_id": "AE18",
+                              "title": "冉大大斗罗大陆传",
+                              "content": "冉大的一生",
+                              "platformer_id": "PL12",
+                              "delete": 0,
+                              "lastmodtime": 1516615131,
+                              "send_time": 1516615131,
+                              "is_send": 1,
+                              "ctime": 1516615131,
+                              "article_type": 1,
+                              "article_state": 0,
+                              "platfomer_name": "冉大"
+                          }],
+
+                                  "page_size": 10,
+                                  "page_no": 1,
+                                  "total": 5                //总数
+}
+=== 文章详情===
+url = article_get.php.php
+req ={
+   get_article_info: 1,         //  参数
+     article_id: "AE21", // 文章id
+
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "info": {
+                "article_id": "AE21",
+                "title": "冉大镇魂街",  //标题
+                "content": "冉大无间道力量", //内容（含html)
+                "platformer_id": "PL12",
+                "delete": 0,
+                "lastmodtime": 1516615823,
+                "send_time": 1516615823,
+                "is_send": 1,
+                "ctime": 1516615823,
+                "article_type": 1,  //文章类型
+                "article_state": 0
+            }
+    }
+}
+=== 商城商品编辑/创建==
+url = goods_save.php
+req ={
+       goods_save: 1,   //参数
+      goods_name: "产品名称名称",    //商品名称
+      goods_price: 100000.9,      //商品价格
+      goods_img: "fbcd154da8fcb178fb3c7b2834ed20b3.jpg",   //商品图片
+      describe: "产品描述内容内容内容内容内容内容1",      //商品描述
+      goods_id: "GD5"           //商品id,传就是编辑，不传就是新建
+      sale_off:0                //传就是上架并保存，不传就是保存下架 （1:下架, 0:正常）
+      category_id:"GD1"        //分类id（必填）
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 商城商品删除==
+url = goods_save.php
+req ={
+      goods_del: 1,   //参数
+      goods_id_list: ["GD5","GD9"]           //商品id
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 商城商品修改分类下的排序==
+url = goods_save.php
+req ={
+        goods_sort_change: 1,   //参数
+        goods_id: "GD12",     //商品id
+        goods_sort: 4      //排序大小（int)
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 商城商品上下架==
+url = goods_save.php
+req ={
+      goods_sale_off: 1,   //参数
+      goods_id_list: ["GD5","GD9"] //商品id
+      sale_off:0                   //（1:下架, 0:正常）
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 商品详情===
+url = goods_get.php.php
+req ={
+     goods_info: 1,         //  参数
+     goods_id: "GD22",     // 文章id
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "info": {
+                "goods_id": "GD22",
+               "goods_name": "Matilda De Angelis",
+               "goods_price": 99999.99,
+               "goods_num": null,
+              "goods_img": "25baa2a7cf741fa91682879f90c8daeb.jpg",
+              "entry_time": 1516680043, //录入时间
+              "lastmodtime": 1516680043,
+               "delete": 0,
+                "sale_off": 1,
+                "describe": "i like",
+               "category_id": null  //商品分类id
+            }
+    }
+}
+=== 商品列表===
+url = goods_get.php.php
+req ={
+     goods_list: 1,         //  参数
+     category_id: "GD22",     // 分类id
+     goods_name: "GD22",     // 商品名称（含模糊搜索）
+     sale_off: 0,     // 是否上下架状态
+     page_size: 2,     // 条数
+     page_no: 2,     // 页数
+     sort_name: "GD22",     // 排序名称（依据返回字段来）goods_sort 字段（自定义的）
+     desc: 1,     // //(1:正序,-1:倒序)
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "list": [
+                            {
+                                "goods_id": "GD5",
+                                "goods_name": "产品名称名称",
+                                "goods_price": 100000.9,
+                                "goods_num": null,
+                                "goods_img": "fbcd154da8fcb178fb3c7b2834ed20b3.jpg",
+                                "entry_time": 1516678220,
+                                "lastmodtime": 1516678220,
+                                "delete": 0,
+                                "sale_off": 0,
+                                "describe": "产品描述内容内容内容内容内容内容1",
+                                "category_id": null
+                            },
+                            {
+                                "goods_id": "GD12",
+                                "goods_name": "冉总秘书",
+                                "goods_price": 99999.9,
+                                "goods_num": null,
+                                "goods_img": "7684a2637df0efa8007ee8585657d1c2.jpg",
+                                "entry_time": 1516679375,
+                                "lastmodtime": 1516679375,
+                                "delete": 0,
+                                "sale_off": 1,
+                                "describe": "配置:95分,服务:一套了,包含;你想不到的,描述;各种涨姿势,其他:全能",
+                                "category_id": null
+                            }],
+                                    "total": 5,
+                                    "page_size": 10,
+                                    "page_no": 1
+    }
+}
+=== 商城商品分类编辑/创建==
+url = goods_category_save.php
+req ={
+      save_goods_category: 1,   //参数
+      category_name: "产品名称名称",    //商品分类名称
+      parent_id:"GC1",  //父级分类id 不输入就是1级分类
+      category_id: "GC5",           //分类id 传就是上架并保存，不传就是保存下架 （1:下架, 0:正常）
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 删除商城商品分类==
+url = goods_category_save.php
+req ={
+      delete_goods_category: 1,   //参数
+      category_id: "GC5",           //分类id 传就是上架并保存，不传就是保存下架 （1:下架, 0:正常）
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 商城商品分类详情==
+ url = goods_category_get.php
+ req ={
+          goods_category_info: 1,   //参数
+          category_id: "GC5",           //分类id
+ }
+ resp ={
+     "ret": 0,
+     "data": {
+      "info": {
+                 "category_id": "GC5",     //分类id
+                 "category_name": "套餐",  //分类名称
+                 "lastmodtime": 1516697693,
+                 "delete": 1,
+                 "type": null,
+                 "sortval": null,
+                 "parent_id": "0",   //父级id,没有id就是0
+                 "entry_time": 1516692584
+             }
+     }
+ }
+ === 商城商品分类树状结构列表==
+ url = goods_category_get.php
+ req ={
+          goods_category_list:1,   //参数
+ }
+ resp ={
+     "ret": 0,
+     "data": {
+       "list": [
+                  {
+                      "category_id": "GC10",  //一级分类id
+                      "category_name": "美女", //一级分类名
+                      "lastmodtime": 1516692597,
+                      "delete": 0,
+                      "type": null,
+                      "sortval": null,
+                      "parent_id": "0",
+                      "entry_time": 1516692597,
+                      "son": [
+                          {
+                              "category_id": "GC22",      //二级级分类id
+                              "category_name": "90分系列", //二级分类名
+                              "lastmodtime": 1516692822,
+                              "delete": 0,
+                              "type": null,
+                              "sortval": null,
+                              "parent_id": "GC10",
+                              "entry_time": 1516692822,
+                              "son": []           //三级分类名在这里需要创建 //没有就说明下面没有分类了
+                          },
+                          {
+                              "category_id": "GC29",
+                              "category_name": "爱慕系列",
+                              "lastmodtime": 1516692832,
+                              "delete": 0,
+                              "type": null,
+                              "sortval": null,
+                              "parent_id": "GC10",
+                              "entry_time": 1516692832,
+                              "son": []
+                          }
+                      ]
+                  },
+                  {
+                      "category_id": "GC16",
+                      "category_name": "硬件",
+                      "lastmodtime": 1516692601,
+                      "delete": 0,
+                      "type": null,
+                      "sortval": null,
+                      "parent_id": "0",
+                      "entry_time": 1516692601,
+                      "son": []
+                  },
+                  {
+                      "category_id": "GC20",
+                      "category_name": "软件",
+                      "lastmodtime": 1516692605,
+                      "delete": 0,
+                      "type": null,
+                      "sortval": null,
+                      "parent_id": "0",
+                      "entry_time": 1516692605,
+                      "son": []
+                  }
+              ]
+          }
+     }
+ }
+======================================登录首页看板信息=================================
+=== 运营平台代理商数据看板 ===
+ url = home_board.php
+ req ={
+     get_agent_data: 1,   //参数
+      }
+ resp ={
+     "ret": 0,
+        "data": {
+            "area": [                     //区域代理商前10的数据
+                {
+                    "agent_id": "AG359",  //代理商ID
+                    "agent_name": "问我",  //代理商名称
+                    "all_shop_num": 12    //代理商下属店铺数,
+                    'all_sign_shop_numm':0 //代理商下面签约商户数<<<<<<<<<<<<<<<<<<<<数据来源无法获取
+
+                },
+                {
+                    "agent_id": "AG227",
+                    "agent_name": "闫法涵意",
+                    "all_shop_num": 12
+                },
+                {
+                    "agent_id": "AG448",
+                    "agent_name": "口",
+                    "all_shop_num": 10
+                },
+                {
+                    "agent_id": "AG350",
+                    "agent_name": "猪哇",
+                    "all_shop_num": 10
+                },
+                {
+                    "agent_id": "AG416",
+                    "agent_name": "吃货帮aA666",
+                    "all_shop_num": 0
+                },
+                {
+                    "agent_id": "AG392",
+                    "agent_name": "独孤不败",
+                    "all_shop_num": 0
+                },
+                {
+                    "agent_id": "AG432",
+                    "agent_name": "北京城区不能存在2个",
+                    "all_shop_num": 0
+                },
+                {
+                    "agent_id": "AG408",
+                    "agent_name": "口",
+                    "all_shop_num": 0
+                },
+                {
+                    "agent_id": "AG48",
+                    "agent_name": "大龙哥",
+                    "all_shop_num": 0
+                },
+                {
+                    "agent_id": "AG420",
+                    "agent_name": "幸福西饼省代",
+                    "all_shop_num": 0
+                }
+            ],
+            "guild": [                    //行业代理商前10数据
+                {
+                    "agent_id": "AG201",
+                    "agent_name": "莫立轩",
+                    "all_shop_num": 10
+                },
+                {
+                    "agent_id": "AG425",
+                    "agent_name": "行业11111",
+                    "all_shop_num": 6
+                },
+                {
+                    "agent_id": "AG137",
+                    "agent_name": "影月书院",
+                    "all_shop_num": 5
+                },
+                {
+                    "agent_id": "AG440",
+                    "agent_name": "同一省2个代理商",
+                    "all_shop_num": 4
+                },
+                {
+                    "agent_id": "AG443",
+                    "agent_name": "dfff",
+                    "all_shop_num": 0
+                },
+                {
+                    "agent_id": "AG383",
+                    "agent_name": "西门吹雪",
+                    "all_shop_num": 0,
+                },
+                {
+                    "agent_id": "AG326",
+                    "agent_name": "欢乐颂行业代理",
+                    "all_shop_num": 0
+                },
+                {
+                    "agent_id": "AG153",
+                    "agent_name": "灵元酋长国",
+                    "all_shop_num": 0
+                },
+                {
+                    "agent_id": "AG374",
+                    "agent_name": "阿花要发芽",
+                    "all_shop_num": 0
+                },
+                {
+                    "agent_id": "AG124",
+                    "agent_name": "血网庙",
+                    "all_shop_num": 0
+                }
+            ],
+            "area_total": 18,  //行业代理商总数
+            "guild_total": 39,//区域代理商总数
+            "all_total": 57,   //总数
+            "date": "2018-03-12" //日期
+ }
+ === 代理商数据看板 ===
+  url = agent_get.php
+  req ={
+       get_agent_son_data: 1, //参数
+       agent_id: "AG95"        //登陆的代理商id
+       }
+  resp ={
+      "ret": 0,
+         "data": {
+         "from": [    //来源排行前10的
+                    {
+                        "from_name": "官网",   //来源名称
+                        "from_total": "34"    //通过该来源的数量
+                    },
+                    {
+                        "from_name": "广告营销",
+                        "from_total": "19"
+                    },
+                    {
+                        "from_name": "詹戈洛德瀑布",
+                        "from_total": "10"
+                    },
+                    {
+                        "from_name": "影月书院",
+                        "from_total": "5"
+                    },
+                    {
+                        "from_name": "小美",
+                        "from_total": "3"
+                    }
+                ],
+                "from_salesman": [  //销售排行前10的
+                    {
+                        "from_name": "区域代理",   //销售前10
+                        "from_total": "6"        //通过该销售的数量
+                    },
+                    {
+                        "from_name": "666",
+                        "from_total": "3"
+                    },
+                    {
+                        "from_name": "阿萨",
+                        "from_total": "3"
+                    },
+                    {
+                        "from_name": "赛领公司",
+                        "from_total": "12"
+                    },
+                    {
+                        "from_name": "龙龙龙",
+                        "from_total": "18"
+                    },
+                    {
+                        "from_name": "大龙大龙",
+                        "from_total": "3"
+                    },
+                    {
+                        "from_name": "不知道",
+                        "from_total": "23"
+                    }
+                ]
+            }
+        }
+ === 平台首页商户数据看板 ===
+  url = home_board.php
+  req ={
+       get_shop_data: 1, //参数
+       begin_day: 201803014        //开始日期
+       end_day:201803015         //结束日期
+       }
+  resp ={
+      "ret": 0,
+         "data": {
+         "all": {   //商户总计数据
+                     "all_consume_amount": 10,       //总消费额
+                     "all_new_shop_num": 10,        //店铺总数
+                     "all_sign_shop": 0,           //签约商户总数  <<<<<<<<<<<现在没有签约数据来源
+                     "all_region_shop_num": 0,         //区域商户总数  <<<<<<<<因为没有签约数据来源无法计算
+                     "all_sign_industry_shop_num": 0,  //行业签约商户总数<<<<<<<<因为没有签约数据来源无法计算
+                     "all_sign_region_shop_num": 0,    // 区域签约商户总数<<<<<<<<因为没有签约数据来源无法计算
+                     "region_percent": 0          //区域商户签约率<<<<<<<<因为没有签约数据来源无法计算
+                     "shop_all": 3  //商户总数
+
+                 },
+                 "now": {  //商户当天总计
+                     "consume_amount": 1,   //消费总分
+                     "average_money": 1  //平均销售额度
+                     "average_qr": 1,   //店铺平均扫码次数
+                     "new_shop_num": 1,  //商户总数
+                     "industry_shop_num": 0, //行业商户总数<<<<<<<<因为没有签约数据来源无法计算
+                     "region_shop_num": 0,  //区域商户总户数<<<<<<<<因为没有签约数据来源无法计算
+                 },
+                 "list": [  //搜索列表
+                     {
+                         "day": 20180313,  //日期
+                         "platform_id": "1",
+                         "industry_agent_num": 1,
+                         "region_agent_num": 2,
+                         "consume_amount": 0,
+                         "customer_num": 0,
+                         "qr_order_num": 0,
+                         "new_shop_num": 3,//商户总数
+                         "industry_shop_num": null,
+                         "region_shop_num": null,
+                         "sign_industry_shop_num": null,//行业商户总数<<<<<<<<因为没有签约数据来源无法计算,数据都是null
+                          "sign_region_shop_num": null,//区域商户总户数<<<<<<<<因为没有签约数据来源无法计算,数据都是null
+                         "lastmodtime": 1520929868,
+                         "delete": null,
+                         "average_money": 117.07，//平均销售额度
+                         "average_qr": 1.5//店铺平均扫码次数
+                     }
+                 ]
+             }
+         }
+
+=== 平台客户数据看板 ===
+  url = home_board.php
+  req ={
+       get_customer_data: 1, //参数
+       begin_day: 201803014        //开始日期
+       end_day:201803015         //结束日期
+       }
+  resp ={
+      "ret": 0,
+         "data": {
+         "all": {   //总计数据
+                    "all_customer_num": 10,//消费者数
+                    "all_qr_order_num": 10,//扫码点餐次数
+                    "all_consume_amount": 100//消费总额
+                 },
+                 "now": {  //当天总计
+                      "consume_amount": null, //消费总额
+                      "new_cus_num": null,   //新增消费者数
+                      "active_cus_num": null,//活跃消费者数
+                      "qr_order_num": null,  //扫码点餐次数
+                      "guest_price": false   //客单价格
+                 },
+                 "list": [  //搜索列表
+                     {
+                         "day": 20180313,  //日期
+                         "platform_id": "1",
+                         "shop_id": 1,
+                         "agent_id": 2,
+                         "consume_amount": 0,//消费总额
+                         "customer_num": 0,
+                         "qr_order_num": 0,  //扫码点餐次数
+                         "new_cus_num": null,//新增消费者数
+                         "active_cus_num": null,//活跃消费者数
+                         "lastmodtime": 1520929868,
+                         "delete": null,
+                         "guest_price": false，///客单价格
+
+                     }
+                 ]
+             }
+         }
+== 运营平台待处理数据看板 ===
+ url = home_board.php
+ req ={
+     get_pending_data: 1,   //参数
+      }
+ resp ={
+       "ret": 0,
+         "data": {
+             "shop_status_num": null,  //新认证店铺数量     <<<<<<<<<数据来源创建店铺成功后在PC端提交工商状态
+             "agent_status_num": null,  //新认证代理商数量  <<<<<<<<<数据来源创建代理商成功后在运营端提交工商状态
+             "user_feedback_num": null  //新反馈数量       <<<<<<<<<数据来PAD端用户反馈
+         }
+== 行业代理商数据看板 ===
+ url = agent_get.php
+ req ={
+         get_agent_shop_data: 1, //参数
+         agent_id: "AG2"     //代理商id
+      }
+ resp ={
+       "ret": 0,
+         "data": {
+             "all": {
+                        "all_new_shop_num": null,  //新增签约商户<<<<<<<<<<<<<<<无法获取数据来源
+                        "all_sign_shop_num": null  //新增签约店铺<<<<<<<<<<<<<<<无法获取数据来源
+                     },
+                     "now": {
+                         "new_shop_num": null,<<<<<<<<<<<<<<<无法获取数据来源
+                         "sign_shop_num": null<<<<<<<<<<<<<<<无法获取数据来源
+                     },
+                     "list": [
+                         {
+                             "day": 20180314,//日期
+                             "shop_id": "5",
+                             "agent_id": "AG2",
+                             "qr_order_num": 5,//扫码次数
+                             "consume_amount": 436.15,//消费总额
+                             "customer_num": 33,
+                             "platform_id": 1,
+                             "new_cus_num": 2,//新增顾客数
+                             "active_cus_num": 0,//活跃者人数
+                             "lastmodtime": 1521021880,
+                             "delete": 0,
+                             "guest_price": 13.216666666667//客单价
+                         },
+                         {
+                             "day": 20180315,
+                             "shop_id": "5",
+                             "agent_id": "AG2",
+                             "qr_order_num": 8,
+                             "consume_amount": 0,
+                             "customer_num": 0,
+                             "platform_id": 1,
+                             "new_cus_num": 0,
+                             "active_cus_num": 0,
+                             "lastmodtime": 1521110352,
+                             "delete": 0,
+                             "guest_price": false
+                         },
+                         {
+                             "day": 20180316,
+                             "shop_id": "5",
+                             "agent_id": "AG2",
+                             "qr_order_num": 2,
+                             "consume_amount": 0,
+                             "customer_num": 0,
+                             "platform_id": 1,
+                             "new_cus_num": 0,
+                             "active_cus_num": 0,
+                             "lastmodtime": 1521167022,
+                             "delete": 0,
+                             "guest_price": false
+                         }
+                     ]
+                 }
+             }
+== 区域代理商数据看板 ===
+ url = agent_get.php
+ req ={
+         get_agent_data: 1, //参数
+         agent_id: "AG2"     //代理商id
+      }
+ resp ={
+       "ret": 0,
+         "data": {
+          "all": {
+                      "all_new_shop_num": null,//商户总计<<<<<<<<创建店铺有数据来源
+                      "all_sign_shop_num": null,//签约商户总数 <<<<<<<<<无数据来源
+                      "all_no_sign_shop_num": 0, //未签约商户  <<<<<<<<<无数据来源
+                      "sign_shop_rate": "0%",    //签约率    <<<<<<<<<无数据来源
+                      "area_sign_shop_num": null  //商铺总计<<<<<<<<创建店铺（和商户无区分，现在未有商户和商铺区分（）
+                  },
+                  "now": {
+                      "new_shop_num": null,//新增商户总数   <<<<<<<创建店铺
+                      "sign_shop_num": null,//新增签约商户总数 <<<<<<<<<无数据来源
+                      "shop_num": null//新增店铺总数 <<<<<<<<<无数据来源
+                  },
+                  "list": [
+                      {
+                                     "day": 20180315, //日期
+                                     "agent_id": "AG10",
+                                     "platform_id": 1,
+                                     "new_shop_num": 4, //新增商户数
+                                     "sign_shop_num": null,//签约商户 ,<<<<<<<<<<<<<无数据来源
+                                     "lastmodtime": 1521102999,
+                                     "delete": null,
+                                     "sign_shop_rate": "0%",//签约率
+                                     "no_sign_shop_num": 4//未签约商户
+                                     "shop_num": 4//新增店铺总数
+                                 }
+
+                  ]
+              }
+          }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          =================================================移动端的申请页面
+
+
+=== 代理商申请===
+url = agent_apply_save.php
+req ={
+    agent_apply_save: 1,         //  参数
+    apply_name: "申请人",         //申请人（必填）
+    telephone:"1338821241"       //联系电话   （必填）
+    company:"冉总666"             //公司名称（必填）
+    address:"冉总666"             //地址
+    email:"冉总666@qq.com"        //邮箱
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 产品试用申请===
+url = product_apply_save.php
+req ={
+    product_apply_save: 1,      //  参数
+    apply_name: "申请人",        //申请人（必填）
+    telephone:"1338821241"     //联系电话   （必填）
+    shop_name:"冉总666"         //商户名称（必填）
+    address:"冉总666"           //地址
+    email:"冉总666@qq.com"      //邮箱
+    product_status:[1]         //试用产品(1.小程序,2.微信端,3.PC端)<<<<<<<<<<<<<<<<目前还是先用数组,方便以后多选
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}

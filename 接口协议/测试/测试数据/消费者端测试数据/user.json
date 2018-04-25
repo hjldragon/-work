@@ -1,0 +1,50 @@
+//user用户表
+//1.合法数据
+
+db.user.insert({
+	"ctime" : 1505790753,
+	"delete" : 0,
+	"mtime" : 1505790803,
+	"passwd_prompt" : "",
+	"password" : "",
+	"phone" : "",
+	"property" : 2,
+	"user_avater" : "imgurl.jpg",
+	"userid" : 501,
+	"username" : "美腻腻",
+	"usernick" : "test1"
+})
+
+//user用户表
+//2.合法数据
+
+db.user.insert({
+	"ctime" : 1505790890,
+	"delete" : 0,
+	"mtime" : 1505790893,
+	"passwd_prompt" : "",
+	"password" : "",
+	"phone" : "",
+	"property" : 2,
+	"user_avater" : "imgurl.jpg",
+	"userid" : 502,
+	"username" : "天下第一",
+	"usernick" : "test2"
+})
+
+//user用户表
+//3.逻辑删除（数据库保留记录）
+
+db.user.insert({
+	"ctime" : 1505790930,
+	"delete" : 1,
+	"mtime" : 1505790940,
+	"passwd_prompt" : "",
+	"password" : "",
+	"phone" : "",
+	"property" : 2,
+	"user_avater" : "imgurl.jpg",
+	"userid" : 503,
+	"username" : "天下第一",
+	"usernick" : "test2"
+})

@@ -1,0 +1,60 @@
+//printer打印表
+//1.合法数据
+
+db.printer.insert({
+	"printer_id" : "401",
+	"lastmodtime" : 1505872001,
+	"shop_id" : "101",
+	"printer_name" : "GWOTW12556",
+	"printer_category" : 1,
+	"printer_size" : 1,
+	"printer_brand" : "Canon", 
+	"food_category_list" : [
+		"112"
+	],
+	"delete" : 0,
+	"print_position_top" : 14,
+	"print_position_left" : 20,
+	"print_position_width" : 0,
+	"print_position_height" : 0
+})  
+
+//printer打印表
+//2.逻辑删除（数据库保留）
+
+db.printer.insert({
+	"printer_id" : "402",
+	"lastmodtime" : 1505874767,
+	"shop_id" : "101",
+	"printer_name" : "GTSSD232556",
+	"printer_category" : 1,
+	"printer_size" : 1,
+	"printer_brand" : "Canon2", 
+	"food_category_list" : [
+	],
+	"delete" : 1,
+	"print_position_top" : 14,
+	"print_position_left" : 20,
+	"print_position_width" : 0,
+	"print_position_height" : 0
+})  
+
+//printer打印表
+//3.打印机名包含特殊字符
+
+db.printer.insert({
+	"printer_id" : "403",
+	"lastmodtime" : 1505877275,
+	"shop_id" : "101",
+	"printer_name" : "￥@#！GTFGX32556",
+	"printer_category" : 1,
+	"printer_size" : 1,
+	"printer_brand" : "我呃Canon2", 
+	"food_category_list" : [
+	],
+	"delete" : 1,
+	"print_position_top" : 14,
+	"print_position_left" : 20,
+	"print_position_width" : 0,
+	"print_position_height" : 0
+})  

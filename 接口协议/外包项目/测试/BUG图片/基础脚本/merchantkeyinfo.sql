@@ -1,0 +1,6 @@
+delete from  merchantkeyinfo  t  where t.merchantid='999999';
+
+insert into merchantkeyinfo (MERCHANTID, IP, TAPWD, WORKKEY, PRIVATEKEY, MD5KEY, NOTIFYURL, RETURNURL, UPDATETIME, CREATETIME)
+values ('999999', '192.168.11.109', '123456', 'RTEwQURDMzk0OUJBNTlBQkJFNTZFMDU3RjIwRjg4M0U=', 'QUE3NjIzRTE3QzY4NERBMjVFRjczNjE3MDY4MUZGRjFCMkVCQTA0OTk1MkM4OEREOTJBNTAyQjUwNjQzMDQ3MkFGQ0FGM0VFQkUwRUYxNzg=', '123456', null, null, to_date('08-08-2017 17:41:06', 'dd-mm-yyyy hh24:mi:ss'), null);
+
+commit;

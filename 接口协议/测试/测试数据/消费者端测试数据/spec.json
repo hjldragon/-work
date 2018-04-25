@@ -1,0 +1,130 @@
+//spec规格表
+//19.餐品ID119添加规格选择项（规格项会改变金额）
+
+db.spec.insert({
+	"food_id" : "119",
+	"lastmodtime" : 1505783876,
+	"list" : [
+		{
+			"id" : "201",
+			"title" : "大碗",
+			"original_price" : 20,
+			"discount_price" : 18,
+			"vip_price" : 16,
+			"festival_price" : 15,
+			"default" : 1
+		},
+		{
+			"id" : "202",
+			"title" : "中碗",
+			"original_price" : 15,
+			"discount_price" : 14,
+			"vip_price" : 13,
+			"festival_price" : 12,
+			"default" : 0
+		},
+		{
+			"id" : "203",
+			"title" : "小碗",
+			"original_price" : 10,
+			"discount_price" : 9,
+			"vip_price" : 8,
+			"festival_price" : 7,
+			"default" : 0
+		}
+	],
+	"spec_id" : "200",
+	"title" : "份量",
+	"type" : 2
+})
+
+//spec规格表
+//20.餐品ID118添加特色选择项（特色项不会改变金额）
+
+db.spec.insert({
+	"food_id" : "120",
+	"lastmodtime" : 1505783886,
+	"list" : [
+		{
+			"id" : "205",
+			"title" : "不辣",
+			"original_price" : 20,
+			"discount_price" : 18,
+			"vip_price" : 16,
+			"festival_price" : 15,
+			"default" : 1
+		},
+		{
+			"id" : "206",
+			"title" : "麻辣",
+			"original_price" : 20,
+			"discount_price" : 18,
+			"vip_price" : 16,
+			"festival_price" : 15,
+			"default" : 0
+		},
+		{
+			"id" : "207",
+			"title" : "香辣",
+			"original_price" : 20,
+			"discount_price" : 18,
+			"vip_price" : 16,
+			"festival_price" : 15,
+			"default" : 0
+		}
+	],
+	"spec_id" : "204",
+	"title" : "辣度",
+	"type" : 1
+})
+
+//spec规格表
+//21.特色项字符长度>8（特色字符长度应<8字符）
+
+db.spec.insert({
+	"food_id" : "121",
+	"lastmodtime" : 1505783930,
+	"list" : [
+		{
+			"id" : "209",
+			"title" : "四川最正宗特麻特辣",
+		},
+		{
+			"id" : "210",
+			"title" : "广东最正宗特香特鲜",
+		},
+		{
+			"id" : "211",
+			"title" : "浙江最正宗特甜特腻",
+		}
+	],
+	"spec_id" : "208",
+	"title" : "口味",
+	"type" : 1
+})
+
+//spec规格表
+//21.逻辑删除(数据库保留记录)
+
+db.spec.insert({
+	"food_id" : "122",
+	"lastmodtime" : 1505783930,
+	"list" : [
+		{
+			"id" : "213",
+			"title" : "特麻特辣",
+		},
+		{
+			"id" : "214",
+			"title" : "特香特鲜",
+		},
+		{
+			"id" : "215",
+			"title" : "特甜特腻",
+		}
+	],
+	"spec_id" : "212",
+	"delete":1,
+	"title" : "口味",
+	"type" : 1
+})

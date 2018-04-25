@@ -1,0 +1,618 @@
+============================================================ 点餐app模块 ===============================================
+
+
+域名地址改为http://api.jzzwlcm.com/dining.php/opr=xxxxx&xxx=xxx;
+
+
+####################v1点餐菜品列表
+#################输入
+req ={
+    opr:"app_food_list",                                 //参数
+    shop_id: "5",                                       // 店铺id
+    food_name:"什么鬼",                                  // 输入就是搜索
+
+
+}
+#################输出
+resp ={
+    "ret": 0,
+    "data": {
+    "list": [
+                {
+                    "food_id": "FO467",
+                    "shop_id": "5",
+                    "food_name": "最长都不超过十个字啊啊啊啊啊啊啊啊啊啊啊啊啊",  //餐品名称
+                    "category_id": "CA964",
+                    "stock_num_day": 0,                                 //每日库存量<<<<<<<<<<<<<<<这里添加购物车时的库存不足,只能由前端计算
+                    "food_price": {
+                        "type": 1,
+                        "using": 1,
+                        "price": [
+                            {
+                                "spec_type": 0,
+                                "original_price": 12,
+                                "discount_price": 0,
+                                "vip_price": 0,
+                                "festival_price": 0,
+                                "is_use": 0
+                            }
+                        ]
+                    },
+                    "food_intro": null,
+                    "praise_num": null,
+                    "food_img_list": [
+"c9a877fceadcafb9fce54978e1826b09.jpg"  //图片名称和srctype:2的获取方法一样(域名地址最好换一下opr参数为app_img_get,eg:http://api.jzzwlcm.com/dining.php/index.php?opr=app_img_get&imgname=fde3624098fde2512efe1e94609e9b4c.jpg)
+                    ],
+                    "entry_time": 1522313786,
+                    "lastmodtime": 1522313795,
+                    "delete": null,
+                    "food_attach_list": [],
+                    "food_unit": "盘",
+                    "need_waiter_confirm": null,
+                    "sale_off": 0,
+                    "accessory": "196",      //菜品所用配件food_id(即打包)
+                    "accessory_num": 0,
+                    "pack_remark": "",
+                    "composition": null,
+                    "feature": null,
+                    "sale_way": [          // 1.在店吃 2.自提 3.打包 4.外卖（是否支持打包）
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "sale_num": 1,
+                    "sale_off_way": 0,
+                    "food_sale_time": [],
+                    "food_sale_week": null,
+                    "type": 1,
+                    "is_draft": 0,
+                    "food_num_mon": 2,
+                    "category_name": "大火爆炒",     //分类名称
+                    "day_sell_num": 0             //每日已出售量
+                    "accessory_price": 0,         //该菜品需要的打包费,单个菜品的打包费
+                },
+                {
+                    "food_id": "FO30",
+                    "shop_id": "5",
+                    "food_name": "九万天价菜",
+                    "category_id": "CA964",
+                    "stock_num_day": 0,
+                    "food_price": {
+                        "type": 1,
+                        "using": 1,
+                        "price": [
+                            {
+                                "spec_type": 0,
+                                "original_price": 90000,
+                                "discount_price": 0,
+                                "vip_price": 0,
+                                "festival_price": 0,
+                                "is_use": 0
+                            }
+                        ]
+                    },
+                    "food_intro": null,
+                    "praise_num": null,
+                    "food_img_list": [
+                        "f2d53b2a850c107b4e3944492841c21f.jpg"
+                    ],
+                    "entry_time": 1521625319,
+                    "lastmodtime": 1522133752,
+                    "delete": null,
+                    "food_attach_list": [],
+                    "food_unit": "盅",
+                    "need_waiter_confirm": null,
+                    "sale_off": 0,
+                    "accessory": "193",
+                    "accessory_num": 0,
+                    "pack_remark": "",
+                    "composition": null,
+                    "feature": null,
+                    "sale_way": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "sale_num": 1,
+                    "sale_off_way": 0,
+                    "food_sale_time": [],
+                    "food_sale_week": null,
+                    "type": 1,
+                    "is_draft": 0,
+                    "food_num_mon": 4,
+                    "category_name": "大火爆炒",
+                    "day_sell_num": 1
+                },
+                {
+                    "food_id": "FO198",
+                    "shop_id": "5",
+                    "food_name": "臭豆腐",
+                    "category_id": "187",
+                    "stock_num_day": 0,
+                    "food_price": {
+                        "type": 2,
+                        "using": 5,
+                        "price": [
+                            {
+                                "spec_type": 1,
+                                "original_price": 10,
+                                "discount_price": 0,
+                                "vip_price": 9,
+                                "festival_price": 0,
+                                "is_use": 1
+                            },
+                            {
+                                "spec_type": 2,
+                                "original_price": 0,
+                                "discount_price": 0,
+                                "vip_price": 0,
+                                "festival_price": 0,
+                                "is_use": 0
+                            },
+                            {
+                                "spec_type": 3,
+                                "original_price": 5,
+                                "discount_price": 0,
+                                "vip_price": 4,
+                                "festival_price": 0,
+                                "is_use": 1
+                            }
+                        ]
+                    },
+                    "food_intro": null,
+                    "praise_num": null,
+                    "food_img_list": [
+                        "5049a5fc8d601881dca311d8f0098f5a.jpg"
+                    ],
+                    "entry_time": 1521614250,
+                    "lastmodtime": 1522133752,
+                    "delete": null,
+                    "food_attach_list": [],
+                    "food_unit": "份",
+                    "need_waiter_confirm": null,
+                    "sale_off": 0,
+                    "accessory": "",
+                    "accessory_num": 0,
+                    "pack_remark": "",
+                    "composition": null,
+                    "feature": [
+                        "重辣"
+                    ],
+                    "sale_way": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "sale_num": 1,
+                    "sale_off_way": 0,
+                    "food_sale_time": [],
+                    "food_sale_week": null,
+                    "type": 1,
+                    "is_draft": 0,
+                    "food_num_mon": 8,
+                    "category_name": "素食类",
+                    "day_sell_num": 1
+                },
+                {
+                    "food_id": "FO199",
+                    "shop_id": "5",
+                    "food_name": "老大薯条",
+                    "category_id": "187",
+                    "stock_num_day": 0,
+                    "food_price": {
+                        "type": 2,
+                        "using": 3,
+                        "price": [
+                            {
+                                "spec_type": 1,   //含份量的 1.大,2.中,3.小
+                                "original_price": 22,  //普通价格  <<<<<<你们应该是只取这个价格
+                                "discount_price": 20,
+                                "vip_price": 0,
+                                "festival_price": 0,
+                                "is_use": 1
+                            },
+                            {
+                                "spec_type": 2,      //含份量的 1.大,2.中,3.小
+                                "original_price": 20,  //普通价格  <<<<<<你们应该是只取这个价格
+                                "discount_price": 18,
+                                "vip_price": 0,
+                                "festival_price": 0,
+                                "is_use": 1
+                            },
+                            {
+                                "spec_type": 3,             //含份量的 1.大,2.中,3.小
+                                "original_price": 18,       //普通价格  <<<<<<你们应该是只取这个价格
+                                "discount_price": 16,
+                                "vip_price": 0,
+                                "festival_price": 0,
+                                "is_use": 1
+                            }
+                        ]
+                    },
+                    "food_intro": null,
+                    "praise_num": null,
+                    "food_img_list": [
+                        "2a91b5ea45778fe55e2dcc2147942359.jpg",
+                        "c07b891048cca783b03fcfd981360527.jpg"
+                    ],
+                    "entry_time": 1521613139,
+                    "lastmodtime": 1522133752,
+                    "delete": null,
+                    "food_attach_list": [        //含口味的菜品（里面可能含有多个对象)
+                        {
+                            "title": "盐味",      //口味名称
+                            "spc_value": [       //口味分类名称
+                                "多盐",
+                                "少盐",
+                                "无盐"
+                            ]
+                        }
+                    ],
+                    "food_unit": "份",
+                    "need_waiter_confirm": null,
+                    "sale_off": 0,
+                    "accessory": "",
+                    "accessory_num": 0,
+                    "pack_remark": "",
+                    "composition": null,
+                    "feature": [
+                        "椒盐味",
+                        "番茄味"
+                    ],
+                    "sale_way": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "sale_num": 1,
+                    "sale_off_way": 0,
+                    "food_sale_time": [],
+                    "food_sale_week": null,
+                    "type": 1,
+                    "is_draft": 0,
+                    "food_num_mon": 1,
+                    "category_name": "素食类",
+                    "day_sell_num": 0
+                },],
+                "shop_pack": 1            //店铺是否支持打包,不支持为0
+    }
+}
+}
+####################v2.1  选餐品加入购物车及下单操作
+#################输入
+req ={
+{
+		"opr":"app_order_save",
+		"shop_id":"5",               //店铺id
+		"phone":"13312345678",  // 员工账号,就是登陆人的账号
+		//"is_order":1,         //是否下单还是预结账(false属于预结账）
+		//"device_type":0 ,        // 0:PAD ,1:收银机 ,2:自助点餐机
+		"order_remark":"测试单", // 整单备注
+		"customer_num":5, //用餐人数
+        "seat_name":"A3桌", // 餐桌名
+        "plate":"", // 餐牌<<<<<<<<<<这里是改为输入的
+        //"pay_way":2,   //支付方式(0:未确定,1:现金支付, 2:微信支付, 3:支付宝支付, 4:银行卡支付,5:挂账,6:餐后支付（需要pad端确认))<<<<<<结账的时候传
+        "order_from": 2,// 订单来源(1:门店前台(收银机), 2:手持设备(自助点餐机), 3:扫码自助(微信点餐),4:pad)
+        "food_list":[
+            	{
+            		"food_id":"FO19", // 菜品ID
+            		"food_name":"大盆鸡",
+            		"food_num":1, // 数量
+            		"price":36, // 价格，价格为0，即赠送
+            		"istake":0, // 1打包带走,0不是  //如果是打包，上面的food_num即时打包数量,相同的菜品打包是分开的对象,赠送同理
+            	    "isgive":0, // 1赠送,0不赠送
+            		"giveremark":"",//赠送理由 <<<<<<目前没有就不传
+            		"attribute": [
+                                    {
+                                        "title": "辣度",
+                                        "spc_value": "不辣"
+                                    }
+                                ],
+                     "weight": 1,  //含份量的 1.大,2.中,3.小
+            	}
+            ],
+	}
+}
+#################输出
+resp ={
+    "ret": 0,
+    "data": {
+                 'order_id'=>'OR1921' //下单成功后返回的订单id,用于获取详情页面
+    }
+}
+}
+####################v3.1下单成功后获取订单详情
+#################输入
+req = {
+     opr:"app_order_info",           //参数
+     order_id:"OR1921",           //(string)订单id
+     "shop_id":"5",                //店铺id
+}
+#################输出
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+    "order_info": {
+                "order_id": "519",  //订单id
+                "customer_id": "41",
+                "employee_id": null,
+                "order_from": 3,
+                "order_water_num": "20180103547",
+                "shop_id": "5",
+                "dine_way": 1,
+                "pay_way": 1,
+                "pay_status": 1,
+                "order_sure_status": 2,
+                "order_status": 1,
+                "customer_num": 5,
+                "seat_id": "20",
+                "food_list": [
+                    {
+                        "id": "364",
+                        "food_id": "FO1",         //餐品id
+                        "food_name": "青岛大虾",   //餐品名
+                        "food_price": 0.03,      // 餐品单价(单位元)
+                        "food_num": 20,          // 点餐数量
+                        "pack_num": 0,           // 打包数量
+                        "food_category": "CA7",
+                        "food_price_sum": 0.6,
+                        "food_attach_list": [
+                            {
+                                "title": "辣度",     //口味选择
+                                "spec_value": "特辣"
+                            }
+                        ],
+                        "food_unit": "盘",
+                        "food_remark": null,
+                        "is_pack": 0,          // 是属于否打包（1.打包,0:不打包）
+                        "is_send": 0,          // 是否属于赠送（1.赠送,0:不赠送）
+                        "send_remark": "",
+                        "unit_num": 0，
+                        "all_price": 0.6,   //餐品总计费用
+                    }
+                ],
+                "order_time": 1514965686,
+                "pay_time": null,
+                "checkout_time": null,
+                "refunds_time": null,
+                "refunds_fail_time": null,
+                "close_time": null,
+                "lastmodtime": 1514965686,
+                "delete": 0,
+                "food_num_all": 0,
+                "food_price_all": 0.6,
+                "order_waiver_fee": null,
+                "order_payable": 0.61,
+                "paid_price": 0.61,
+                "maling_price": null,
+                "seat_price": 0.01,
+                "order_fee": 0.61,       // 订单金额（按定价算出来的当前消费额）
+                "order_remark": null,
+                "invoice": null,
+                "is_appraise": 0,
+                "is_urge": null,
+                "is_invoicing": 0,
+                "red_dashed": null,
+                "plate": null,
+                "is_advance": null,
+                "is_confirm": 0,
+                "seat": {
+                    "seat_id": "20",
+                    "seat_name": "A3桌",
+                    "seat_type": "镂空铁艺",
+                    "seat_region": "大厅",
+                    "price": 0.01,           //餐位费
+                    "num": 1
+                },
+                "employee_name": null,
+                "customer_name": null,
+                "status_info": [],
+                "total_count": 21，
+                "accessory_price": 0，    //餐盒费总计
+            }
+        }
+     }
+}
+####################v4.1  结账操作
+#################输入
+req ={
+{
+		"opr":"app_order_pay",
+		"order_id":"5",                 //订单号
+		"shop_id":"5",                  //店铺id
+		"pay_way":1,                    // 支付方式(0:未确定,1:现金支付, 2:微信支付, 3:支付宝支付, 4:银行卡支付,5:挂账,6:餐后支付（需要pad端确认))
+		"paid_price":101.1,             // 实收金额（这里你把订单详情里面的订单金额给我,因为这里以后会含有减免金额,所以由你这边先传过来）
+		"customer_name":"小三" ,         // 挂账人姓名（不挂账就不传）
+		"customer_phone":"13331234564", // 挂账人电话（不挂账就不传）
+        "cause":"呵呵",                  // 挂账原因 挂账人电话（不挂账就不传）
+
+	}
+}
+#################输出
+resp ={
+    "ret": 0,
+    "data": {
+
+    }
+}
+}
+####################v5.1获取餐桌列表(手动添加餐桌列表)       <<<<<<<<<<<<<<<<<餐牌列表没有数据
+#################输入
+req = {
+     opr:"app_seat_list"                 //参数
+     shop_id: "5",                     //店铺id
+     seat_name: "j2"                   //餐桌名称(输入就是搜索)
+}
+#################输出
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+     "seatlist": [
+                {
+                    "seat_id": "10",        //餐桌id
+                    "seat_name": "j2店1桌",  //餐桌名
+                    "seat_region": "123",   //餐桌区域
+                    "seat_type": "包厢",
+                    "seat_shape": "看分配",
+                    "seat_size": 2,
+                    "price": 20,           //餐位费
+                    "price_type": 2,
+                    "consume_min": 0
+                },
+                {
+                    "seat_id": "11",
+                    "seat_name": "j2店2桌",
+                    "seat_region": "角落",
+                    "seat_type": "任意桌",
+                    "seat_shape": "看分配",
+                    "seat_size": 4,
+                    "price": 99,
+                    "price_type": 1,
+                    "consume_min": 0
+                },
+                {
+                    "seat_id": "13",
+                    "seat_name": "j2店A桌",
+                    "seat_region": "大排档",
+                    "seat_type": "团伙",
+                    "seat_shape": "梅花",
+                    "seat_size": 66,
+                    "price": 99,
+                    "price_type": 3,
+                    "consume_min": 0
+                }
+            ]
+     }
+}
+##########5.2扫码获取餐桌号
+ ####描述
+    前端扫码那个餐桌的url,然后前端解析URL,解析出来将url地址中的seat_id传给后台,再调用后台接口获取餐桌信息
+ ####输入 POST
+
+ 	{
+ 		 "opr":"app_seat_info",
+         "seat_id":"266",  //餐桌号,
+         'shop_id':"5"     //店铺id
+ 	}
+
+ ####输出
+
+ 	{
+ 		"ret":0,
+ 		"token":"",
+ 		"data":{
+ 			          "seat_info": {
+                            "seat_id": "20",//餐桌id
+                            "seat_name": "A3桌",  //餐桌名
+                            "seat_size": 1,
+                            "price": 0.02,
+                            "shop_id": "5",
+                            "lastmodtime": 1515291784,
+                            "delete": 0,
+                            "seat_region": "大厅",
+                            "seat_type": "镂空铁艺",
+                            "seat_shape": "圆桌",
+                            "price_type": 2,
+                            "consume_min": null,
+                            "qr_code": null,
+                            "seat_price": 0, //餐位费
+                            "seat_status": 1
+                        }
+ 		}
+ 	}
+
+
+
+####################v6.0 微信操作
+
+####################v6.1  微信主扫
+####################v6.1.1  微信主扫无密码
+#############用户支付如果输入密码了，就根据4.1.2的来查询
+####描述
+
+	主动扫描用户二维码， 得到二维码信息上传服务器,（个人收款）<<<<<<<<<<<<<<<<目前只支持枪扫微信二维
+
+####输入 POST
+
+	{
+		"opr":"app_wx_micropay",
+        "order_id":"266"  //订单号
+        "auth_code":"12648774877877"      //微信用户支付码
+	}
+
+####输出
+    //不需要输入密码
+	{
+		"ret":0,
+		"token":"",
+		"data":{
+			            "order_id": "266",
+                        "transaction_id": "4200000015201712228935918301",
+                        "out_trade_no": "1513927423_266",
+                        "is_pay": "1",//有这个字段，且为1表示支付成功.
+                        "pay_price": "0.01",
+                        "lastmodtime": "1513927890"
+		}
+	}
+	//需要输输入密码情况返回,根据7.2来查询
+	{
+    		"ret":-300041,
+    		"data":{
+
+    		}
+    	}
+ ##########6.1.2微信订单查询  微信主扫有密码
+ ####描述
+
+ 	主动扫描用户二维码， 得到二维码信息上传服务器,（个人收款）输入密码的支付方式
+
+ ####输入 POST
+
+ 	{
+ 		"opr":"app_wx_payquery",
+         "order_id":"266"  //订单号
+ 	}
+
+ ####输出
+
+ 	{
+ 		"ret":0,
+ 		"token":"",
+ 		"data":{
+ 			            "order_id": "266",
+                         "transaction_id": "4200000015201712228935918301",
+                         "out_trade_no": "1513927423_266",
+                         "is_pay": "1",
+                         "pay_price": "0.01",
+                         "lastmodtime": "1513927890"
+ 		}
+ 	}
+##6.2微信被扫
+#############6.2.1生成订单支付二维码
+####描述
+
+	获取订单二维码信息(二维码由前端生成)
+
+####输入 POST
+
+	{
+		"opr":"app_wx_qrpay",
+        "order_id":"266"  //订单号
+        "token":"12648774877877"      //token值
+	}
+
+####输出
+    //不需要输入密码
+	{
+		"ret":0,
+		"data":{
+                "url": "4200000015201712228935918301",//二维码内容
+
+		}
+	}
+
+暂时不支持发票系统

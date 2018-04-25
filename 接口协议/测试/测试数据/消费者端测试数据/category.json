@@ -1,0 +1,155 @@
+//category餐品类别表
+//12.合法数据
+
+db.category.insert({
+	"category_id" : "112",
+	"category_name" : "炒菜",
+	"delete" : 0,
+	"lastmodtime" : 1505729363,
+	"food_id_list":[
+		"211",
+		"210",
+		"220"
+	],
+	"opening_time":[
+		"1",
+		"2",
+		"3",
+		"4",
+		"5"
+	],
+	"shop_id" : "102",
+	"type" : 1
+})
+
+//category餐品类别表
+//13.餐品分类名称>30字
+
+db.category.insert({
+	"category_id" : "113",
+	"category_name" : "炒菜热菜冷菜汤类酒水类加辣不辣特辣麻辣变态辣加糖少量糖五分糖七分糖加盐加五分盐七分盐",
+	"delete" : 0,
+	"lastmodtime" : 1505729370,
+	"food_id_list":[
+		"211",
+	],
+	"opening_time":[
+		"1",
+	],
+	"shop_id" : "101",
+	"type" : 1
+})
+
+//category餐品类别表
+//14.餐品分类名称包含空格
+
+db.category.insert({
+	"category_id" : "114",
+	"category_name" : "炒   菜",
+	"delete" : 0,
+	"lastmodtime" : 1505729380,	
+	"food_id_list":[
+		"211",
+		"210",
+		"214"
+	],
+	"opening_time":[
+		"1",
+		"2",
+		"3",
+		"4",
+		"5"
+	],
+	"shop_id" : "102",
+	"type" : 1
+})
+
+//category餐品类别表
+//15.餐品分类名称包含特殊字符
+
+db.category.insert({
+	"category_id" : "115",
+	"category_name" : "炒￥%菜",
+	"delete" : 0,
+	"lastmodtime" : 1505729399,
+	"food_id_list":[
+		"211",
+		"210",
+		"213"
+	],
+	"opening_time":[
+		"1",
+		"2",
+		"3",
+		"4",
+		"5"
+	],
+	"shop_id" : "102",
+	"type" : 1
+})
+
+//category餐品类别表
+//16.类别下无菜品
+
+db.category.insert({
+	"category_id" : "116",
+	"category_name" : "热菜",
+	"delete" : 0,
+	"lastmodtime" : 1505729403,
+	"food_id_list":[
+	],
+	"opening_time":[
+		"1",
+		"2",
+		"3",
+		"4",
+		"5"
+	],
+	"shop_id" : "101",
+	"type" : 1
+})
+
+//category餐品类别表
+//17.类别被删除
+
+db.category.insert({
+	"category_id" : "117",
+	"category_name" : "辣菜",
+	"delete" : 1,
+	"lastmodtime" : 1505729430,
+	"food_id_list":[
+	],
+	"opening_time":[
+		"1",
+		"2",
+		"3",
+		"4",
+		"5"
+	],
+	"shop_id" : "101",
+	"type" : 1
+})
+
+//category餐品类别表
+//18.配件类别（food_id:213/214/215 纸巾/筷子/勺子）
+
+db.category.insert({
+	"category_id" : "118",
+	"category_name" : "餐具",
+	"delete" : 0,
+	"lastmodtime" : 1505729433,
+	"food_id_list":[
+	    "213",
+		"214",
+		"215"
+	],
+	"opening_time":[
+		"1",
+		"2",
+		"3",
+		"4",
+		"5"
+	],
+	"shop_id" : "101",
+	"type" : 2
+})

@@ -1,0 +1,55 @@
+//invoice发票表
+//1.单位专用发票
+
+db.invoice.insert({
+	"address" : "深圳市宝安区西乡街道1234号",
+	"bank_name" : "中国银行",
+	"delete" : 0,
+	"duty_paragraph" : "415646775321238756",
+	"email" : "",
+	"invoice_id" : "111",
+	"invoice_title" : "深圳火辣辣餐饮有限公司",
+	"lastmodtime" : 15058121990,
+	"phone" : "13469435561",
+	"title_type" : 1,
+	"type" : 2,
+	"userid" : 501
+})  
+
+//invoice发票表
+//2.单位普通发票
+
+db.invoice.insert({
+	"address" : "深圳市宝安区西乡街道1234号",
+	"bank_name" : "中国银行",
+	"delete" : 0,
+	"duty_paragraph" : "415646775321238756",
+	"email" : "",
+	"invoice_id" : "111",
+	"invoice_title" : "深圳火辣辣餐饮有限公司",
+	"lastmodtime" : 1505812001,
+	"phone" : "13469435561",
+	"title_type" : 2,
+	"type" : 1,
+	"userid" : 501
+})  
+
+
+//invoice发票表
+//1.个人普通发票
+
+db.invoice.insert({
+	"address" : "",
+	"bank_name" : "中国银行",
+	"delete" : 0,
+	"duty_paragraph" : "414562358756",
+	"email" : "",
+	"invoice_id" : "111",
+	"invoice_title" : "深圳咸鱼科技有限公司",
+	"lastmodtime" : 1505812077,
+	"phone" : "13469435561",
+	"title_type" : 1,
+	"type" : 2,
+	"userid" : 502
+})  
+
