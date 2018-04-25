@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .btn {
+            width: 200px;
+            height: 40px;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="btn clear">
+        清除key,token,log
+    </div>
+    <div class="btn show">
+        显示key,token
+    </div>
+    <div class="btn log">
+        显示log
+    </div>
+    <div class="btn clearvuex">
+        清除vuex
+    </div>
+    <div class="btn showvuex">
+        显示vuex
+    </div>
+
+    <div class="contentkey"></div>
+    <div class="contenttoken"></div>
+    <div class="contentlog"></div>
+    <script>
+        var clear = document.querySelector(".clear");
+        var show = document.querySelector(".show");
+        var log = document.querySelector(".log");
+        var clearvuex = document.querySelector(".clearvuex");
+        var showvuex = document.querySelector(".showvuex");
+
+        var content_key = document.querySelector(".contentkey");
+        var content_token = document.querySelector(".contenttoken");
+        var content_log = document.querySelector(".contentlog");
+
+        function write_token_key() {
+            content_key.innerHTML = "key:" + localStorage.getItem("global#key");
+            content_token.innerHTML = "token:" + localStorage.getItem("global#token");
+        }
+        function write_log() {
+            content_log.innerHTML = "log:" + localStorage.getItem("log");
+        }
+        function write_vuex() {
+            content_log.innerHTML = "vuex:" + localStorage.getItem("vuex");
+        }
+
+        console.log(content_key);
+
+        clear.addEventListener('click', function () {
+            localStorage.removeItem("global#token");
+            localStorage.removeItem("global#key");
+            localStorage.removeItem("log");
+            write_token_key();
+        }, false);
+
+        show.addEventListener('click', function () {
+            write_token_key();
+        }, false);
+
+        log.addEventListener('click', function () {
+            write_log();
+        }, false);
+
+        showvuex.addEventListener('click', function () {
+            write_vuex();
+        });
+        clearvuex.addEventListener('click', function () {
+            localStorage.removeItem("vuex");
+        });
+    </script>
+</body>
+
+</html>
