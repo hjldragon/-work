@@ -18,14 +18,21 @@ function BindingSave($weixin, $userid, $openid, $access_token)
         LogErr("WeixinUser err");
         return errcode::WEIXIN_NO_BINDING;
     }
-    $user = \Wx\Util::GetUserInfo($access_token,$openid);
+    if(!$openid)
+    {
+        LogErr("openid err");
+        return errcode::PARAM_ERR;
+    }
+    $user = \Pub\Wx\Util::GetUserInfo($access_token,$openid);
+
     if($openid != $user->openid){
         LogErr("User err");
         return errcode::PARAM_ERR;
     }
-    $user->id = $weixin->id;
+    $user->id     = $weixin->id;
     $user->userid = $userid;
-    $user->src    = 2;
+    $user->src    = Src::SHOP;
+    $user->srctype= WxSrcType::PC;
     $wx = WeixinSave($user);
     if(0 != $wx){
         LogErr("WeixinSave err");
@@ -53,8 +60,9 @@ function ReBindingSave($weixin, $userid)
         return errcode::WEIXIN_NO_REBINDING;
     }
     $user->id = $weixin->id;
-    $user->userid = '';
-    $user->src    = 2;
+    $user->userid = 0;
+    $user->src    = Src::SHOP;
+    $user->srctype= WxSrcType::PC;
 
     $wx = WeixinSave($user);
     if(0 != $wx){
@@ -79,13 +87,13 @@ function ReBindingSave($weixin, $userid)
 
 $ret = -1;
 $_ = $_REQUEST;
-$userid = (int)$_['userid'];
-$token = $_['token'];
-$type = (int)$_['type'];
-$req = \Wx\Util::GetOpenid();
-$openid = $req->openid;
+$userid       = (int)$_['userid'];
+$token        = $_['token'];
+$type         = (int)$_['type'];
+$req          = \Pub\Wx\Util::GetOpenid();
+$openid       = $req->openid;
 $access_token = $req->access_token;
-$weixin = \Cache\Weixin::Get($openid,2);
+$weixin = \Cache\Weixin::Get($openid, Src::SHOP, WxSrcType::PC);
 $data = 0;
 if($type)
 {
@@ -99,7 +107,7 @@ else
 }
 
 if(0 == $ret)
-{  
+{
     $tokendata = \Cache\Login::Get($token);
     $url = Cfg::instance()->orderingsrv->webserver_url;
     $ret_json_str = PageUtil::HttpPostJsonEncData(

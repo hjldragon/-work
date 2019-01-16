@@ -5,7 +5,7 @@
 // error_reporting(E_ERROR);
 // error_reporting(E_ALL);
 // error_reporting(E_ALL & ~E_NOTICE);
-set_include_path(dirname(__FILE__) . "/" . ":/www/dining.jzzwlcm.com/php/" );
+set_include_path(dirname(__FILE__) . "/" . ":/www/dining.jzzwlcm.com/php/"."/:/www/public.sailing.com/php/" );
 date_default_timezone_set('Asia/Shanghai');
 require_once("global.php");
 ?>

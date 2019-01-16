@@ -103,7 +103,7 @@ class Cfg
 
         // 订餐服务
         $this->orderingsrv = (object)[
-            "webserver_url" => Util::EmptyToDefault($cfg['orderingsrv.webserver_url'], "http://srv.jzzwlcm.com:13010/webserver")
+            "webserver_url" => Util::EmptyToDefault($cfg['orderingsrv.webserver_url'], "http://srv.xinchihuo.com:13010/webserver")
         ];
 
         static $publickey = <<<eof

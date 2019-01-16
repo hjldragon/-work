@@ -6,7 +6,7 @@ require_once "WxUtil.php";
 
 
 
-$openid = \Wx\Util::GetOpenid();
+$openid = \Pub\Wx\Util::GetOpenid();
 
 echo "openid:$openid";
 

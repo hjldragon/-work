@@ -3,7 +3,6 @@
  * [Rocky 2016-04-19 10:36:08]
  *
  */
-declare(encoding='UTF-8');
 namespace Cache;
 require_once("current_dir_env.php");
 require_once("const.php");
@@ -20,6 +19,20 @@ require_once("mgo_position.php");
 require_once("mgo_agent.php");
 require_once("mgo_platformer.php");
 require_once("mgo_pl_position.php");
+require_once("mgo_ag_employee.php");
+require_once("mgo_ag_position.php");
+require_once("mgo_pay_record.php");
+require_once("/www/public.sailing.com/php/mart/mgo_goods.php");
+require_once("/www/public.sailing.com/php/mart/mgo_goods_spec.php");
+require_once("/www/public.sailing.com/php/mart/mgo_express_company.php");
+require_once("/www/public.sailing.com/php/mart/mgo_goods_order.php");
+require_once("mgo_pl_role.php");
+require_once("mgo_ag_role.php");
+require_once("mgo_ag_position.php");
+require_once("mgo_resources.php");
+require_once("/www/public.sailing.com/php/vendor/mgo_vendor.inc");
+require_once("/www/public.sailing.com/php/vendor/mgo_vendor_order.inc");
+use \Pub\Mongodb as Mgo;
 
 // 登录相关信息
 class Login
@@ -75,8 +88,18 @@ class Login
     {
         return UsernInfo::Get(self::$cache->userid);
     }
-}
 
+    static function GetOpenid()
+    {
+        return self::$cache->openid?:"";
+    }
+
+    static function GetAplipayId()
+    {
+        return self::$cache->alipay_id?:"";
+    }
+
+}
 // 由用户名取相关信息
 class UsernameInfo
 {
@@ -102,7 +125,6 @@ class UsernameInfo
         return $info->passwd_prompt;
     }
 }
-
 // 用户信息
 class UsernInfo
 {
@@ -127,7 +149,6 @@ class UsernInfo
         return $info;
     }
 }
-
 // shop信息
 class Shop
 {
@@ -173,7 +194,6 @@ class Shop
         unset(self::$cache[$shop_id]);
     }
 }
-
 //  food_category
 class Category
 {
@@ -216,12 +236,12 @@ class Category
         return $list;
     }
 }
-
-
 // 用户信息
 class Customer
 {
-    private static $cache = [];
+    private static $cache = null;
+    private static $openid2info = null;
+    private static $useridinfo = null;
 
     static function Get($customer_id)
     {
@@ -250,10 +270,47 @@ class Customer
         }
         return $info->is_vip == \IsVipCustomer::YES;
     }
+
+    static function GetInfoByOpenidShopid($openid, $shop_id)
+    {
+        $key = "$openid#$shop_id";
+        if(self::$openid2info[$key])
+        {
+            return self::$openid2info[$key];
+        }
+
+        $mgo  = new \DaoMongodb\Customer;
+        $info = $mgo->QueryByOpenidShopid($openid, $shop_id);
+        if(!$info->customer_id)
+        {
+            return null;
+        }
+        self::$openid2info[$key] = $info;
+        LogDebug("load Customer[$key] --> openid2info, data:" . json_encode(self::$openid2info));
+        //打印$key=sdfwfnwe142#4,这是opendid和餐桌seat号，后面的data是用户登录信息
+        return $info;
+    }
+    static function GetInfoByUseridShopid($userid, $shop_id)
+    {
+        $key = "$userid#$shop_id";
+        if(self::$openid2info[$key])
+        {
+            return self::$openid2info[$key];
+        }
+
+        $mgo  = new \DaoMongodb\Customer;
+        $info = $mgo->QueryByUseridShopid($userid, $shop_id);
+        if(!$info->customer_id)
+        {
+            return null;
+        }
+        self::$useridinfo[$key] = $info;
+        LogDebug("load Customer[$key] --> openid2info, data:" . json_encode(self::$useridinfo));
+        //打印$key=sdfwfnwe142#4,这是opendid和餐桌seat号，后面的data是用户登录信息
+        return $info;
+    }
 }
-
 // seat信息
-
 // 餐桌信息
 class Seat
 {
@@ -289,8 +346,6 @@ class Seat
         return $info->seat_name?:"";
     }
 }
-
-
 // printer信息
 class Printer
 {
@@ -315,8 +370,6 @@ class Printer
         return $info;
     }
 }
-
-
 // 餐品信息
 class Food
 {
@@ -341,7 +394,6 @@ class Food
         return $info;
     }
 }
-
 // 订单信息
 class Order
 {
@@ -371,7 +423,6 @@ class Order
         unset(self::$cache[$order_id]);
     }
 }
-
 // 员工信息
 class Employee
 {
@@ -440,13 +491,12 @@ class Position{
 
     }
 }
-
 // 微信用户信息
 class Weixin
 {
     private static $cache = [];
 
-    static function Get($openid, $src)
+    static function Get($openid, $src, $srctype)
     {
         $info = &self::$cache[$openid];
         if(null != $info)
@@ -454,8 +504,8 @@ class Weixin
             return $info;
         }
         $mgo = new \DaoMongodb\Weixin;
-        $info = $mgo->QueryByOpenId($openid, $src);
-        
+        $info = $mgo->QueryByOpenId($openid, $src, $srctype);
+
         if($openid != $info->openid)
         {
             LogErr("weixin_user err, openid:[$openid], " . json_encode($info));
@@ -474,7 +524,7 @@ class Weixin
         }
         $mgo = new \DaoMongodb\Weixin;
         $info = $mgo->QueryByUserId($userid);
-        
+
         if($userid != $info->userid)
         {
             LogErr("weixin_user err, userid:[$userid], " . json_encode($info));
@@ -484,7 +534,7 @@ class Weixin
         LogDebug("load weixin_user --> cache, data:" . json_encode($info));
         return $info;
     }
-    
+
 }
 // 代理商信息
 class Agent
@@ -504,6 +554,7 @@ class Agent
         }
         $mgo = new \DaoMongodb\Agent;
         $info = $mgo->QueryById($agent_id);
+        unset($info->pay_password);
         if($agent_id != $info->agent_id)
         {
             LogErr("Agentinfo err, agent_id:[$agent_id], " . json_encode($info));
@@ -523,9 +574,8 @@ class Agent
         }
         return $info->agent_name?:"";
     }
-    
-}
 
+}
 // 平台员工信息
 class Platformer
 {
@@ -538,8 +588,9 @@ class Platformer
         {
             return $info;
         }
-        $mgo = new \DaoMongodb\Platformer;
-        $info = $mgo->QueryByUserId($userid);
+        $mgo         = new \DaoMongodb\Platformer;
+        $platform_id = \PlatformID::ID;
+        $info        = $mgo->QueryByUserId($userid,  $platform_id);
         if($userid != $info->userid)
         {
             LogErr("platformer err, userid:[$userid], " . json_encode($info));
@@ -551,7 +602,32 @@ class Platformer
     }
 
 }
+// 平台角色信息
+class PlRole
+{
+    private static $cache = [];
 
+    static function Get($pl_role_id)
+    {
+        $info = &self::$cache[$pl_role_id];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new Mgo\PlRole;
+
+        $info = $mgo->QueryById($pl_role_id);
+        if($pl_role_id != $info->pl_role_id)
+        {
+            LogErr("platformer err, userid:[$pl_role_id], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load platformer --> cache, data:" . json_encode($info));
+        return $info;
+    }
+
+}
 //平台权限信息
 class PlPosition{
     private static $cache=[];
@@ -576,6 +652,292 @@ class PlPosition{
 
     }
 }
+class AgRole
+{
+    private static $cache = [];
 
+    static function Get($ag_role_id)
+    {
+        $info = &self::$cache[$ag_role_id];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new Mgo\AgRole;
+        $info = $mgo->QueryById($ag_role_id);
+        if($ag_role_id != $info->ag_role_id)
+        {
+            LogErr("platformer err, userid:[$ag_role_id], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load platformer --> cache, data:" . json_encode($info));
+        return $info;
+    }
 
+}
+//代理商平台权限信息
+class AgPosition{
+    private static $cache=[];
+    static  function Get($ag_position_id){
+        $info=&self::$cache[$ag_position_id];
+        if(null != $info){
+            return $info;
+        }
+        //连接数据库
+        $mgo = new \DaoMongodb\AgPosition;
+        //调用获取id的方法
+        $info=$mgo->GetPositionById($ag_position_id);
+        if($ag_position_id != $info->ag_position_id){
+            //如果没有留言id给提示错误信息
+            LogErr("position err,content_id:[$ag_position_id],".json_encode($info));
+            $info = null;
+            return $info;
+        }
+        //返回正确信息
+        LogDebug("load content --> cache , data:".json_encode($info));
+        return $info;
+
+    }
+}
+// 代理商员工信息
+class AgentEmployee
+{
+    private static $cache = [];
+
+    static function Get($userid)
+    {
+        $info = &self::$cache[$userid];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new \DaoMongodb\AGEmployee;
+        $info = $mgo->QueryByUserId($userid);
+        if($userid != $info->userid)
+        {
+            LogErr("platformer err, userid:[$userid], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load platformer --> cache, data:" . json_encode($info));
+        return $info;
+    }
+
+}
+
+//代理商权限信息
+class AgentPermission{
+    private static $cache=[];
+    static  function Get($ag_position_id){
+        $info=&self::$cache[$ag_position_id];
+        if(null != $info){
+            return $info;
+        }
+        //连接数据库
+        $mgo = new \DaoMongodb\AGPosition;
+        //调用获取id的方法
+        $info=$mgo->GetPositionById($ag_position_id);
+        if($ag_position_id != $info->ag_position_id){
+            //如果没有留言id给提示错误信息
+            LogErr("position err,content_id:[$ag_position_id],".json_encode($info));
+            $info = null;
+            return $info;
+        }
+        //返回正确信息
+        LogDebug("load content --> cache , data:".json_encode($info));
+        return $info;
+
+    }
+}
+
+// 获取代理商运营后台的充值数据
+class PayRecord
+{
+    private static $cache = [];
+
+    static function Get($record_id)
+    {
+        $info = &self::$cache[$record_id];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo  = new Mgo\PayRecord;
+        $info = $mgo->GetInfoByRecordId($record_id);
+        if($record_id != $info->record_id)
+        {
+            LogErr("order err, order_id:[$record_id], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load order --> cache, data:" . json_encode($info));
+        return $info;
+    }
+
+    static function Clear($record_id)
+    {
+        unset(self::$cache[$record_id]);
+    }
+}
+
+// 商品信息
+class Goods
+{
+    private static $cache = [];
+
+    static function Get($goods_id)
+    {
+        $info = &self::$cache[$goods_id];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new Mgo\Goods;
+        $info = $mgo->GetGoodsById($goods_id);
+        if($goods_id != $info->goods_id)
+        {
+            LogErr("goods err, goods_id:[$goods_id], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load goods --> cache, data:" . json_encode($info));
+        return $info;
+    }
+}
+
+// 店铺资源信息
+class Resources
+{
+    private static $cache = [];
+
+    static function Get($token)
+    {
+        $info = &self::$cache[$token];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new Mgo\Resources;
+        $info = $mgo->QueryByToken($token);
+        if($token != $info->token)
+        {
+            LogErr("resources err, token:[$token], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load resources --> cache, data:" . json_encode($info));
+        return $info;
+    }
+}
+
+// 快递公司信息
+class ExpressCompany
+{
+    private static $cache = [];
+
+    static function Get($express_company_id)
+    {
+        $info = &self::$cache[$express_company_id];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new Mgo\ExpressCompany;
+        $info = $mgo->GetExpressCompanyById($express_company_id);
+        if($express_company_id != $info->express_company_id)
+        {
+            LogErr("express_company err, express_company_id:[$express_company_id], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load express_company --> cache, data:" . json_encode($info));
+        return $info;
+    }
+}
+
+// 商品订单信息
+class GoodsOrder
+{
+    private static $cache = [];
+
+    static function Get($goods_order_id)
+    {
+        $info = &self::$cache[$goods_order_id];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new Mgo\GoodsOrder;
+        $info = $mgo->GetGoodsOrderById($goods_order_id);
+        if($goods_order_id != $info->goods_order_id)
+        {
+            LogErr("order err, goods_order_id:[$goods_order_id], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load order --> cache, data:" . json_encode($info));
+        return $info;
+    }
+
+    static function Clear($goods_order_id)
+    {
+        unset(self::$cache[$goods_order_id]);
+    }
+}
+
+// 售货机
+class Vendor
+{
+    private static $cache = [];
+
+    static function Get($vendor_id)
+    {
+        $info = &self::$cache[$vendor_id];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new \Pub\Vendor\Mongodb\Vendor();
+        $info = $mgo->QueryById($vendor_id);
+        if($vendor_id != $info->vendor_id)
+        {
+            LogErr("vendor err, vendor_id:[$vendor_id], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load vendor --> cache, data:" . json_encode($info));
+        return $info;
+    }
+}
+
+// 售货机订单信息
+class VendorOrder
+{
+    private static $cache = [];
+
+    static function Get($vendor_order_id)
+    {
+        $info = &self::$cache[$vendor_order_id];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new \Pub\Vendor\Mongodb\VendorOrder;
+        $info = $mgo->QueryById($vendor_order_id);
+        if($vendor_order_id != $info->vendor_order_id)
+        {
+            LogErr("order err, vendor_order_id:[$vendor_order_id], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load order --> cache, data:" . json_encode($info));
+        return $info;
+    }
+
+    static function Clear($vendor_order_id)
+    {
+        unset(self::$cache[$vendor_order_id]);
+    }
+}
 ?>

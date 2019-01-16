@@ -9,10 +9,10 @@ function GetSignInfo(&$resp)
         LogErr("param err");
         return errcode::PARAM_ERR;
     }
-    $info = \Wx\Util::GetTicket();
+    $info = \Pub\Wx\Util::GetTicket();
     $_['jsapi_ticket'] = $info->ticket;
-    $appid = \Wx\Cfg::APPID;  // 公众账号ID
-    $sign  = \Wx\Util::GetSign($_);  // 签名
+    $appid = \Pub\Wx\Cfg::APPID;  // 公众账号ID
+    $sign  = \Pub\Wx\Util::GetSign($_);  // 签名
     $resp = (object)array(
         'appid' => $appid,
         'sign'  => $sign

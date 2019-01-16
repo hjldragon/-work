@@ -67,7 +67,7 @@ class StatShop
         return 'stat_shop_byday';
     }
 
-    public function SellShopNumAdd($shop_id, $day, $num=[], $filter = null, $agent_id)
+    public function SellShopNumAdd($shop_id, $day, $num=[],$agent_id)
     {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());

@@ -13,7 +13,6 @@ function Input()
     $_["phone"]        = $_['account_phone'];
     $_["password_md5"] = md5($_["password"]);
     $_['login']        = true;
-    $_['srctype']      = 3;
     require("login_save.php");
     LogDebug($_);
 }

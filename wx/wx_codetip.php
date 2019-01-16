@@ -132,7 +132,33 @@
         <p class="fail-tip">微信与被绑店铺不符</p>
         <div class="confirm-btn" onclick="WeixinJSBridge.call('closeWindow');">确定</div>
     </div>
-
+    <!-- 微信登陆点餐机失败 -->
+    <div class="hide <?php if($data == 7){echo 'show';} ?>">
+        <div class="icon">
+            <img src="./images/fail.png" alt="">
+        </div>
+        <p class="fail-msg">微信登录失败</p>
+        <p class="fail-tip">微信与被绑定点餐机不符</p>
+        <div class="confirm-btn" onclick="WeixinJSBridge.call('closeWindow');">确定</div>
+    </div>
+    <!-- 微信登陆点餐机失败 -->
+    <div class="hide <?php if($data == 8){echo 'show';} ?>">
+        <div class="icon">
+            <img src="./images/fail.png" alt="">
+        </div>
+        <p class="fail-msg">微信登录失败</p>
+        <p class="fail-tip">账号已被冻结或未授权</p>
+        <div class="confirm-btn" onclick="WeixinJSBridge.call('closeWindow');">确定</div>
+    </div>
+    <!-- 微信登陆点餐机失败 -->
+    <div class="hide <?php if($data == 9){echo 'show';} ?>">
+        <div class="icon">
+            <img src="./images/fail.png" alt="">
+        </div>
+        <p class="fail-msg">微信登录失败</p>
+        <p class="fail-tip">账号无店铺存在</p>
+        <div class="confirm-btn" onclick="WeixinJSBridge.call('closeWindow');">确定</div>
+    </div>
     <!-- 数据请求失败 -->
     <div class="hide <?php if($data == 10){echo 'show';} ?>">
         <div class="icon">

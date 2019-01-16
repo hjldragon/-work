@@ -506,7 +506,48 @@ static function ImgAdjust($imgfrom, $imgto)
     imagedestroy($new);
     imagedestroy($img);
 }
+// 发短信 [Rocky 2018-04-27 11:55:03]
+//      调用 SmsSend(xxx, "大家好，我是赛领老王。")
+//      接收到的短信如：【赛领欣吃货】大家好，我是赛领老王。
+static function SmsSend($phone, $msg)
+    {
+        if(!$phone || !$msg)
+        {
+            LogErr("参数出错");
+            return -1;
+        }
+        $data = (object)[
+            "account"  => "N0661361",
+            "password" => "CV4kTfgWKoQ1EShE",
+            "msg"      => "$msg",
+            "phone"    => "$phone",
+            //"sendtime" => strftime(time(), '%Y%m%d%H%M%S'),
+            "report"   => "true",
+            "extend"   => "000",
+            "uid"      => getenv("USER"),
+        ];
+        $content = json_encode($data);
+        $context = [
+            'http' => [
+                'timeout' => 3000,
+                'method'  => 'POST',
+                'header'  => 'Content-Type: application/json; charset=utf-8',
+                'content' => $content,
+            ]
+        ];
 
+        $url = "http://smssh1.253.com/msg/send/json";
+        // {"time":"20180427113449","msgId":"","errorMsg":"定时发送时间格式不正确","code":"127"}
+        // {"time":"20180427113517","msgId":"18042711351721212","errorMsg":"","code":"0"}
+        $ret_str = file_get_contents($url, false, stream_context_create($context));
+        $ret = json_decode($ret_str);
+        if("0" != $ret->code)
+        {
+            LogErr($ret_str);
+            return errcode::SMS_SEND_ERR;
+        }
+        return 0;
+    }
 
 
 }//end of class Util{...

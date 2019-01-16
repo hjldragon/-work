@@ -105,31 +105,50 @@ class InvoiceOrederInfo
 
 class OrderEntry
 {
-    public $order_id         = null;    // 订单id
-    public $customer_id      = null;    // 顾客用户id
-    public $shop_id          = null;    // 餐馆id
-    public $dine_way         = null;    // 用餐方式(0:未确定, 1:在店吃, 2:打包)
-    public $pay_way          = null;    // 支付方式(0:未确定, 1:现金, 2:微信支付)
-    public $customer_num     = null;    // 顾客人数
-    public $seat_id          = null;    // 餐桌座位
-    public $food_list        = null;    // 餐品列表
-    public $order_status     = null;    // 订单状态(0:不确定,1:待付款,2:交易完成,3:退款中,4:退款成功,5:退款失败,6:待评价)
-    public $drawback_reason  = null;    //退款原因
-    public $order_time       = null;    // 下单时间(时间戳)
-    public $lastmodtime      = null;    //最后修改时间
-    public $delete           = null;    // 0:未删除; 1:已删除
-    public $food_num_all     = null;    // 菜总数
-    public $food_price_all   = null;    // 餐品总价
-    public $order_waiver_fee = null;    // 减免金额
-    public $order_payable    = null;    // 应付金额（客人应该支付的金额：order_fee-order_waiver_fee）
-    public $paid_price       = null;    // 实付金额
-    public $seat_price       = null;    // 餐位费
-    public $order_fee        = null;    // 订单金额（按定价算出来的当前消费额）
-    public $invoice          = null;    // 发票信息
-    public $invoice_type     = null;    // 发票材质类型(0:不开发票,1:纸质,2:电子)
-    public $pay_status       = null;    // 支付状态(0:未确定,1:未支付, 2:已支付, 3:挂账)
-    public $is_confirm       = null;    // 是否已确定
-   
+    public $order_id          = null;    // 订单id
+    public $customer_id       = null;    // 顾客用户id
+    public $employee_id       = null;    // 收银员id
+    public $order_from        = null;    // 订单来源(1:智能收银机, 2:自助点餐机, 3:扫码点餐,4:平板智能点餐机,5:掌柜通,6.小程序)
+    public $order_water_num   = null;    // 订单流水号
+    public $shop_id           = null;    // 餐馆id
+    public $dine_way          = null;    // 用餐方式(1:在店吃, 2:自提, 3:打包, 4:外卖)
+    public $pay_way           = null;    // 支付方式(0:未确定,1:现金支付, 2:微信支付, 3:支付宝支付, 4:银行卡支付,5:挂账,6:餐后支付（需要pad端确认))
+    public $pay_status        = null;    // 支付状态(0:未确定,1:未支付, 2:已支付)
+    public $order_sure_status = null;    // 订单确定状态(1:未下单,2:下单,3:下单并支付)
+    public $order_status      = null;    // 订单状态(1:未支付(待付款),2:已支付(交易完成),3:已反结,4:退款成功,5:退款失败,6:已关闭,7:挂账,8:退款中)
+    public $is_confirm        = null;    // 是否已确认订单（pad端的下单功能） （1:已确认,0:未确认）手机端的订单都属于未确认
+    public $customer_num      = null;    // 顾客人数
+    public $seat_id           = null;    // 餐桌座位
+    public $food_list         = null;    // 餐品列表
+    //public $status_info     = null;    // 状态信息
+    public $order_time        = null;    // 下单时间及创建时间(时间戳)
+    public $pay_time          = null;    // 支付时间(时间戳)//<<<<<<<<<<<<<所有的的状态时间与order_status里面的操作时间made_time重复了,这些字段可以进行删除的。
+    public $checkout_time     = null;    // 反结时间(时间戳)
+    public $refunds_time      = null;    // 退款时间(时间戳)
+    public $refunds_fail_time = null;    // 退款失败时间(时间戳)
+    public $close_time        = null;    // 关闭时间(时间戳)
+    public $lastmodtime       = null;    // 最后修改时间(时间戳)
+    public $delete            = null;    // 0:未删除; 1:已删除
+    public $food_num_all      = null;    // 菜总数
+    public $food_price_all    = null;    // 餐品总价
+    public $order_waiver_fee  = null;    // 减免金额
+    public $order_payable     = null;    // 应付金额（客人应该支付的金额：order_fee-order_waiver_fee）
+    public $paid_price        = null;    // 实收金额（收银员收款金额）
+    public $maling_price      = null;    // 抹零金额
+    public $seat_price        = null;    // 餐位费
+    public $order_fee         = null;    // 订单金额（按定价算出来的当前消费额）
+    public $order_remark      = null;    // 订单备注
+    public $invoice           = null;    // 发票信息
+    public $is_appraise       = null;    // 是否评价（1:已评价,0:待评价)
+    public $is_urge           = null;    // 是否催单（1:已催单,0:未催单)
+    public $is_invoicing      = null;    // 是否开票（1:已普通开票,0:未普通开票)
+    public $red_dashed        = null;    // 是否红冲（1:红冲,0:2未红冲前提已开票才能红冲)
+    public $plate             = null;    // 餐牌号advance
+    public $is_advance        = null;    // 是否预结账    （1:已预结,0:未预结）（只有未支付的状态下才能预结账）
+    public $is_ganged         = null;    // 1.联动启用(所有端都要显示订单数据),0.独立启用(只有PC端先订单数据)
+    public $selfhelp_id       = null;    // 自助点餐机id
+    public $customer_phone    = null;    // 订单消费顾客电话
+    public $kitchen_status    = null;    // 制造状态（1.等待制作,2.制作完成)
 
     function __construct($cursor=null)
     {
@@ -143,30 +162,50 @@ class OrderEntry
         {
             return;
         }
-        $this->order_id         = $cursor['order_id'];
-        $this->shop_id          = $cursor['shop_id'];
-        $this->customer_id      = $cursor['customer_id'];
-        $this->dine_way         = $cursor['dine_way'];
-        $this->pay_way          = $cursor['pay_way'];
-        $this->customer_num     = $cursor['customer_num'];
-        $this->seat_id          = $cursor['seat_id'];
-        $this->food_list        = OrderFoodInfo::ToList($cursor['food_list']);
-        $this->order_status     = $cursor['order_status'];
-        $this->drawback_reason  = $cursor['drawback_reason'];
-        $this->order_time       = $cursor['order_time'];
-        $this->lastmodtime      = $cursor['lastmodtime'];
-        $this->delete           = $cursor['delete'];
-        $this->food_num_all     = $cursor['food_num_all'];
-        $this->food_price_all   = $cursor['food_price_all'];
-        $this->order_waiver_fee = $cursor['order_waiver_fee'];
-        $this->order_payable    = $cursor['order_payable'];
-        $this->paid_price       = $cursor['paid_price'];
-        $this->seat_price       = $cursor['seat_price'];
-        $this->order_fee        = $cursor['order_fee'];
-        $this->invoice          = new InvoiceOrederInfo($cursor['food_list']);
-        $this->invoice_type     = $cursor['invoice_type'];
-        $this->pay_status       = $cursor['pay_status'];
-        $this->is_confirm       = $cursor['is_confirm'];
+        $this->order_id          = $cursor['order_id'];
+        $this->customer_id       = $cursor['customer_id'];
+        $this->employee_id       = $cursor['employee_id'];
+        $this->order_from        = $cursor['order_from'];
+        $this->order_water_num   = $cursor['order_water_num'];
+        $this->shop_id           = $cursor['shop_id'];
+        $this->dine_way          = $cursor['dine_way'];
+        $this->pay_way           = $cursor['pay_way'];
+        $this->pay_status        = $cursor['pay_status'];
+        $this->order_status      = $cursor['order_status'];
+        $this->order_sure_status = $cursor['order_sure_status'];
+        $this->customer_num      = $cursor['customer_num'];
+        $this->seat_id           = $cursor['seat_id'];
+        $this->food_list         = OrderFoodInfo::ToList($cursor['food_list']);
+        //$this->status_info       = New StatusInfo($cursor['status_info']);
+        $this->order_time        = $cursor['order_time'];
+        $this->pay_time          = $cursor['pay_time'];
+        $this->checkout_time     = $cursor['checkout_time'];
+        $this->refunds_time      = $cursor['refunds_time'];
+        $this->refunds_fail_time = $cursor['refunds_fail_time'];
+        $this->close_time        = $cursor['close_time'];
+        $this->lastmodtime       = $cursor['lastmodtime'];
+        $this->delete            = $cursor['delete'];
+        $this->food_num_all      = $cursor['food_num_all'];
+        $this->food_price_all    = $cursor['food_price_all'];
+        $this->order_waiver_fee  = $cursor['order_waiver_fee'];
+        $this->order_payable     = $cursor['order_payable'];
+        $this->paid_price        = $cursor['paid_price'];
+        $this->maling_price      = $cursor['maling_price'];
+        $this->seat_price        = $cursor['seat_price'];
+        $this->order_fee         = $cursor['order_fee'];
+        $this->order_remark      = $cursor['order_remark'];
+        $this->invoice           = $cursor['invoice'];
+        $this->is_appraise       = $cursor['is_appraise'];
+        $this->is_urge           = $cursor['is_urge'];
+        $this->is_invoicing      = $cursor['is_invoicing'];
+        $this->red_dashed        = $cursor['red_dashed'];
+        $this->plate             = $cursor['plate'];
+        $this->is_advance        = $cursor['is_advance'];
+        $this->is_confirm        = $cursor['is_confirm'];
+        $this->is_ganged         = $cursor['is_ganged'];
+        $this->selfhelp_id       = $cursor['selfhelp_id'];
+        $this->customer_phone    = $cursor['customer_phone'];
+        $this->kitchen_status    = $cursor['kitchen_status'];
     }
 
     public static function ToList($cursor)
@@ -226,29 +265,14 @@ class Order
         {
             $set["seat_id"] = (string)$info->seat_id;
         }
-        // if(null !== $info->food_list)
-        // {
-        //     $food_list = [];
-        //     foreach($info->food_list as $i => $item)
-        //     {
-        //         $id = $item->id;
-        //         if(!$id)
-        //         {
-        //             $id = \DaoRedis\Id::GenOrderFoodId();
-        //         }
-        //         array_push($food_list, new OrderFoodInfo([
-        //             'id'               => (string)$id,
-        //             'food_id'          => (string)$item->food_id,
-        //             'food_name'        => (string)$item->food_name,
-        //             'food_price'       => (float)$item->food_price,
-        //             'food_price_sum'   => (float)$item->food_price_sum,
-        //             'food_num'         => (int)$item->food_num,
-        //             'unit_num'         => (float)$item->unit_num,
-        //             'pack_num'         => (float)$item->pack_num,
-        //         ]));
-        //     }
-        //     $set["food_list"] = $food_list;
-        // }
+        if(null !== $info->is_ganged)
+        {
+            $set["is_ganged"] = (int)$info->is_ganged;
+        }
+        if(null !== $info->customer_phone)
+        {
+            $set["customer_phone"] = (string)$info->customer_phone;
+        }
         if(null !== $info->order_status)
         {
             $set["order_status"] = (int)$info->order_status;
@@ -269,22 +293,6 @@ class Order
         {
             $set["food_num_all"] = (int)$info->food_num_all;
         }
-
-        // if(null === $info->order_fee
-        //     && null !== $info->food_price_all
-        //     && null !== $info->seat_price
-        //     && null !== $info->customer_num )
-        // {
-        //     $info->order_fee = (float)$info->food_price_all  // 餐品总费用
-        //         + (float)$info->seat_price * (int)$info->customer_num;  // 餐位费
-        // }
-
-        // if(null !== $info->order_waiver_fee
-        //     && null !== $info->order_fee )
-        // {
-        //     $info->order_payable = (float)$info->order_fee - (float)$info->order_waiver_fee;  //减免的费用
-        // }
-        //
         if(null !== $info->seat_price)
         {
             $set["seat_price"] = (float)$info->seat_price;
@@ -325,26 +333,18 @@ class Order
         {
             $set["is_confirm"] = (int)$info->is_confirm;
         }
-        // if(null !== $info->invoice)
-        // {
-        //     $invoice = [];
-        //     foreach($info->invoice as $i => $item)
-        //     {
-        //         array_push($invoice, new InvoiceOrederInfo([
-        //             'type'            => (int)$type,
-        //             'title_type'      => (int)$item->title_type,
-        //             'invoice_title'   => (string)$item->invoice_title,
-        //             'duty_paragraph'  => (string)$item->duty_paragraph,
-        //             'phone'           => (string)$item->phone,
-        //             'address'         => (string)$item->address,
-        //             'bank_name'       => (string)$item->bank_name,
-        //             'email'           => (string)$item->email,
-        //             'invoice_type'    => (int)$invoice_type
-        //         ]));
-        //     }
-        //     $set["invoice"] = $invoice;
-        // }
-
+        if(null !== $info->order_ready)
+        {
+            $set["order_ready"] = (int)$info->order_ready;
+        }
+        if(null !== $info->selfhelp_id)
+        {
+            $set["selfhelp_id"] = (string)$info->selfhelp_id;
+        }
+        if(null !== $info->kitchen_status)
+        {
+            $set["kitchen_status"] = (int)$info->kitchen_status;
+        }
         $value = array(
             '$set' => $set
         );

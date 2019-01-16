@@ -35,6 +35,10 @@ class Order
         1 => '已开票',
         0 => "未开票"
     ];
+    static public $kitchen_status = [
+        1 => '等待制作',
+        2 => "制作完成"
+    ];
     static public $type_name = [
         3 => "已反结",
         4 => "退款成功",
@@ -63,10 +67,12 @@ class Order
         3 => "挂账"
     ];
     static public $order_from = [
-        1 => "收银机",
+        1 => "智能收银机",
         2 => "自助点餐机",
-        3 => "微信点餐",
-        4 => "pad"
+        3 => "扫码点餐",
+        4 => "平板智能点餐",
+        5 => "掌柜通",
+        6 => "小程序",
     ];
     static public $order_sure_status = [
         true  => 3,
@@ -92,6 +98,13 @@ class Order
          ""  => 0,
         null => 0
     ];
+    static public $weight_pad = [
+        1    => "大" ,
+        2    => "中" ,
+        3    => "小" ,
+        0    => "",
+        null => 0
+    ];
     static public $save_orderpay = [
         0 => 1,
         1 => 4,
@@ -100,6 +113,7 @@ class Order
         4 => 3
     ];
     static public $order_from_get = [
+        1 => 1,
         0 => 4,
     ];
 }

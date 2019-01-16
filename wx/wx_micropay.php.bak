@@ -55,7 +55,7 @@ $sub_mch_id = $shop_info->weixin_pay_set->sub_mch_id;
 // eof;
 //     exit();
 // }
-$unifiedorder = new \Wx\Unifiedorder();
+$unifiedorder = new \Pub\Wx\Unifiedorder();
 $attach = (object)array("order_id"=>$order_info->order_id);
 if(!$param->attach)
 {
@@ -71,8 +71,8 @@ $unifiedorder->SetParam('out_trade_no', time() . "_" . $order_id);  // 商户订
 $unifiedorder->SetParam('sub_mch_id', (string)$shop_info->weixin->sub_mch_id);   // 子商户号
 $unifiedorder->SetParam('total_fee', (int)$total_fee); // 总金额
 $xml = $unifiedorder->SubmitMicropay();
-//$unifiedorder_ret = \Wx\Util::XmlToJson($xml);
-$ret = \Wx\Util::FromXml($xml);
+//$unifiedorder_ret = \Pub\Wx\Util::XmlToJson($xml);
+$ret = \Pub\Wx\Util::FromXml($xml);
 if($ret['return_code'] != SUCCESS)
 {
      echo <<<'eof'

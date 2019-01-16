@@ -95,6 +95,21 @@ function SaveImgFileHtml5(&$resp=NULL)
         $msg = "err";
         return -1;
     }
+    // 保存一个默认宽高都是69的图
+    // $filename_69 = "$md5.$ext"."_69_69"; // 不包含路径
+    // $destfile_69 = PageUtil::GetImgFullname($filename_69);
+    // if("" == $destfile_69)
+    // {
+    //     LogErr("get dest file err: [$destfile_69]");
+    //     return -1;
+    // }
+    // $ret = Util::ImgCopy($file['tmp_name'], $destfile_69, 69, 69);
+    // if(!$ret)
+    // {
+    //     LogErr("move_uploaded_file err:[$destfile]");
+    //     $msg = "err";
+    //     return -1;
+    // }
 
     LogDebug("end, destfile=[$destfile]" .
              ", ret=[$ret], " .
@@ -114,59 +129,11 @@ function SaveImgFileHtml5(&$resp=NULL)
     return 0;
 }
 
-function ApkFileUploaded(&$resp=NULL)
-{
-    $_ = $GLOBALS["_"];
-    if(!$_)
-    {
-        LogErr("param err");
-        $msg = "err";
-        return errcode::PARAM_ERR;
-    }
-    $apkfile  = $_FILES["apkfile"];
-    if($apkfile["error"] > 0)
-    {
-        LogErr("file upload err: " . json_encode($apkfile));
-        return errcode::FILE_UPLOAD_ERR;
-    }
-    $apkname  = $apkfile['name'];
-
-    $ext = pathinfo($apkname,PATHINFO_EXTENSION);
-    $allow_ext=array("apk");
-    if(!in_array($ext,$allow_ext))
-    {
-        LogErr("is not apk file,it:" . $ext);
-        return errcode::FILE_UPLOAD_ERR;
-    }
-    $destfile = PageUtil::GetApkName($apkname);
-    if("" == $destfile)
-    {
-        LogErr("get dest file err: [$destfile]");
-        return -1;
-    }
-
-  $ret = move_uploaded_file($apkfile['tmp_name'], $destfile);
-    if(!$ret)
-    {
-        LogErr("upload err");
-        return errcode::FILE_UPLOAD_ERR;
-    }
-
-    $resp = (object)array(
-        'apk_name' => $apkname,
-    );
-    LogDebug($resp);
-    LogInfo("--ok--");
-    return 0;
-}
 $ret = -1;
 $resp = (object)array();
 if(isset($_["upload"]))
 {
     $ret =  SaveImgFileHtml5($resp);
-}elseif(isset($_["apk_upload"]))
-{
-    $ret =  ApkFileUploaded($resp);
 }
 
 $html = json_encode((object)array(

@@ -54,7 +54,7 @@ function Output(&$obj)
             foreach ($food->food_attach_list as $a) {
                 $attribute        = (object)[];
                 $attribute->taste = $a->title;
-                $attribute->value = $a->spc_value;
+                $attribute->value = $a->spec_value;
                 array_push($b, $attribute);
             }
             $food_info['attribute'] = $b;
@@ -63,7 +63,7 @@ function Output(&$obj)
             {
                 foreach ($food->food_price->price as $p) {
                     //如果是含有规格的
-                    //if($p->is_user == 1) {
+                    if($p->is_use == 1) {
                     if ($p->spec_type == 3) {
                         $price->min_price = $p->original_price;
                     }
@@ -73,7 +73,8 @@ function Output(&$obj)
                     if ($p->spec_type == 1) {
                         $price->max_price = $p->original_price;
                     }
-//                }else{
+                }
+                //else{
 //                    $price->min_price = $p->original_price;
 //                }
                 }
@@ -88,6 +89,9 @@ function Output(&$obj)
             } else {
                 $food_info['is_pack'] = false;
             }
+            //<<<<<<<<点餐助手需要的字段
+            $food_info['accessory']     = $food->accessory;
+            $food_info['accessory_num'] = $food->accessory_num;
             array_push($food_all, $food_info);
         }
         $obj->token = $obj->data->token;

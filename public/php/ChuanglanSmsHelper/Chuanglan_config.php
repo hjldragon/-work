@@ -22,7 +22,7 @@ $chuanglan_config['api_balance_query_url'] = 'http://smssh1.253.com/msg/balance/
 $chuanglan_config['api_account']	= 'N0661361';
 
 //创蓝密码 替换成你自己的密码
-$chuanglan_config['api_password']	= 'MFHV4Xg8cdfcab';
+$chuanglan_config['api_password']	= 'CV4kTfgWKoQ1EShE';
 
 //↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 ?>

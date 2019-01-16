@@ -41,6 +41,7 @@ function Output(&$obj)
         $order_info['customer_num']  = $info->customer_num;
         $order_info['sale_type']     = Order::$sale_type[$info->dine_way];
         $order_info['invoice_gave']  = Order::$invoice_gave[$info->is_invoicing];
+
         $pay_info                    = [];
         $pay_info['pay_state']       = Order::$pay_status[$info->pay_status];
         $pay_info['order_money']     = $info->order_fee;
@@ -58,11 +59,18 @@ function Output(&$obj)
 //        }else
         if ($info->order_status == 4 || $info->order_status ==5 )//退款中显示的实收金额
         {
-            $pay_info['real_money'] = $info->order_payable;
+            if($info->order_waiver_fee)
+            {
+                $pay_info['real_money'] = $info->order_payable-$info->order_waiver_fee;
+            }else{
+                $pay_info['real_money'] = $info->order_payable;
+            }
         }elseif($info->pay_way == 5){ //挂账显示的实际金额
             $pay_info['real_money'] = '--';
         }elseif ($info->order_status == 6 && $info->pay_status == 1){ //关闭并未支付订单不显示
             $pay_info['real_money'] = null;
+        }elseif ($info->order_status == 1 ){
+            $pay_info['real_money'] = '--';
         }else{
             $pay_info['real_money'] = $info->paid_price;
         }
@@ -78,6 +86,8 @@ function Output(&$obj)
         $product_info['total_count'] = $info->total_count;
         $product_list                = [];
         foreach ($info->food_list as $food) {
+            $product['id']           = $food->id;
+            $product['food_id']      = $food->food_id;
             $product['product_name'] = $food->food_name;
             $product['unit_price']   = $food->food_price;
             $product['number']       = $food->food_num;
@@ -85,12 +95,32 @@ function Output(&$obj)
             $product['is_pack']      = Order::$is_ps[$food->is_pack];
             $product['is_gift']      = Order::$is_ps[$food->is_send];
             $product['gift_reason']  = $food->send_remark;
+            foreach ($food->food_attach_list as $k=>$fl)
+            {
+                if($fl->title == '份量'){
+                    unset($food->food_attach_list[$k]);
+                }
+                if($fl->spec_value == "")
+                {
+                    unset($food->food_attach_list[$k]);
+                }
+            }
+            $product['attribute']    = $food->food_attach_list;
+            $product['weight']       = Order::$weight_pad[$food->weight];
+            if(!$food->is_add)
+            {
+                $product['is_add']      = 0;
+            }else{
+                $product['is_add']      = $food->is_add;
+            }
+
             array_push($product_list, $product);
         }
         //餐位费用
         $product_two['product_name'] = '餐位费';
         $product_two['unit_price']   = round($info->seat->price,2);
         $product_two['number']       = $info->seat->num;
+        $product_two['is_seat']      = true;//<<<<<<<<<<<<<<pad端用来判断是否餐位费
         $product_two['is_pack']      = false;
         $product_two['is_gift']      = false;
         $product_two['count_price']  = round($info->seat->price,2);
@@ -120,7 +150,8 @@ function Output(&$obj)
                }
                 $refund_info = [];
                 if ($s['order_status'] == 4) {
-
+                    $refund_time = $s['apply_time'];
+                    $apply_reson = $s['made_reson'];
                     $refund_info['oper_user']   = $s['employee_name'];
                     $refund_info['apply_time']  = date('Y-m-d H:i:s', $refund_time);
                     $refund_info['refund_time'] = date('Y-m-d H:i:s', $info->refunds_time);
@@ -130,7 +161,13 @@ function Output(&$obj)
                     } else {
                         $refund_info['refund_state'] = Order::$type_name[$s['order_status']];
                     }
-                    $refund_info['refund_money']       = $info->order_payable;
+                    if($info->order_waiver_fee)
+                    {
+                        $refund_info['refund_money'] = $info->order_payable-$info->order_waiver_fee;
+                    }else{
+                        $refund_info['refund_money'] = $info->order_payable;
+                    }
+                    //$refund_info['refund_money']       = $info->order_payable;
                     //$refund_info['real_money']         = $info->order_payable;//实收金额
                     $refund_info['refund_reason']      = $s['made_cz_reson'];
                     $refund_info['apply_refund_reason']= $apply_reson;
@@ -209,43 +246,53 @@ function Output(&$obj)
 
         //LogDebug($refund_info);
         //根据订单状态和发票状态,支付状态，确认状态来返回按钮状态
-        if (($info->order_status == 1 && $info->is_invoicing == 0 && $info->is_confirm == 1) ||
-            ($info->order_status == 1 && $info->order_sure_status == 2 && $info->pay_status == 1 && $info->is_confirm == 1)
+        if (/*($info->order_status == 1 && $info->is_invoicing == 0 && $info->is_confirm == 1) ||*/
+            ($info->order_status == 1 && $info->order_sure_status == 2 && $info->is_confirm == 1)
         ) {
-            $ids       = [0, 5];
+            $ids       = [0, 5, 11, 13, 12];
             $oper_list = OrderLable($ids);
-        } elseif ($info->order_status == 2 && $info->is_invoicing == 0 && $info->is_confirm == 1) {
-            //$ids       = [1, 2, 3];//隐藏了1和4,现在不需要1开发票和4红冲不需要
-            $ids       = [2, 3];
+        }elseif ($info->order_status == 1 && $info->is_confirm == 1) {
+            $ids       = [0, 5, 11, 13, 12];
             $oper_list = OrderLable($ids);
-        } elseif ($info->order_status == 2 && $info->is_invoicing == 1 && $info->is_confirm == 1) {
-            $ids       = [2, 3];
+        } elseif ($info->order_status == 1 && $info->is_confirm == 0) {
+            $ids       = [6, 5, 11, 13, 7];
             $oper_list = OrderLable($ids);
-        } elseif ($info->order_status == 7 && $info->is_invoicing == 0 && $info->is_confirm == 1) {
-            $ids       = [5,0];
+        } elseif ($info->order_status == 2 && $info->is_confirm == 0) {
+            $ids       = [6, 5, 13];
+            $oper_list = OrderLable($ids);
+        }elseif ($info->order_status == 2 && $info->is_confirm == 1) {
+            $ids       = [1, 2, 3];
             $oper_list = OrderLable($ids);
         }
+//        elseif ($info->order_status == 2 && $info->is_confirm == 1) {
+//            $ids       = [2, 5, 3];
+//            $oper_list = OrderLable($ids);
+//        } elseif ($info->order_status == 1 && $info->order_sure_status == 2) {
+//            $ids       = [0, 6, 11, 12, 13];
+//            $oper_list = OrderLable($ids);
+//        } elseif ($info->order_status == 2 && $info->is_confirm == 0 && $info->pay_status == 2) {
+//            $ids       = [6, 9];
+//            $oper_list = OrderLable($ids);
+//        }
 //        elseif ($info->order_status == 4 && $info->is_invoicing == 1 && $info->is_confirm == 1) {
 //            $ids       = [4];
 //            $oper_list = OrderLable($ids);
 //        }
-        elseif ($info->order_status == 5 && $info->is_invoicing == 1 && $info->is_confirm == 1) {
-            $ids       = [2];
-            $oper_list = OrderLable($ids);
-        } elseif ($info->order_status == 5 && $info->is_invoicing == 0 && $info->is_confirm == 1) {
-            //$ids       = [1, 2];
+        elseif ($info->order_status == 5 /*&& $info->is_invoicing == 1 */&& $info->is_confirm == 1) {
             $ids       = [2];
             $oper_list = OrderLable($ids);
         }
+//        elseif ($info->order_status == 5 && $info->is_invoicing == 0 && $info->is_confirm == 1) {
+//            //$ids       = [1, 2];
+//            $ids       = [2];
+//            $oper_list = OrderLable($ids);
+//        }
 //        elseif ($info->order_status == 3 && $info->is_invoicing == 1 && $info->is_confirm == 1) {
 //            $ids       = [4];
 //            $oper_list = OrderLable($ids);
 //        }
-        elseif ($info->order_status == 1 && $info->is_confirm == 0 && $info->pay_status == 1) {
-            $ids       = [6, 7, 5];
-            $oper_list = OrderLable($ids);
-        } elseif ($info->order_status == 2 && $info->is_confirm == 0 && $info->pay_status == 2) {
-            $ids       = [6, 9];
+        elseif ($info->order_status == 7 && $info->is_invoicing == 0 && $info->is_confirm == 1) {
+            $ids       = [5,0];
             $oper_list = OrderLable($ids);
         } elseif ($info->order_status == 8 /*&& $info->is_confirm == 0*/ && $info->pay_status == 2) {
             $ids       = [3, 8];
@@ -352,6 +399,30 @@ function OrderLable($ids)
             $oper['id']    = 9;
             $oper['need_dlg_confirm']   = true;
             $oper['need_admin_confirm'] = true;
+            array_push($oper_list,$oper);
+        }
+        if($id == 11)
+        {
+            $oper['lable'] = "加菜";
+            $oper['id']    = 11;
+            $oper['need_dlg_confirm']   = false;
+            $oper['need_admin_confirm'] = false;
+            array_push($oper_list,$oper);
+        }
+        if($id == 12)
+        {
+            $oper['lable'] = "催菜";
+            $oper['id']    = 12;
+            $oper['need_dlg_confirm']   = false;
+            $oper['need_admin_confirm'] = false;
+            array_push($oper_list,$oper);
+        }
+        if($id == 13)
+        {
+            $oper['lable'] = "退菜";
+            $oper['id']    = 13;
+            $oper['need_dlg_confirm']   = false;
+            $oper['need_admin_confirm'] = false;
             array_push($oper_list,$oper);
         }
     }

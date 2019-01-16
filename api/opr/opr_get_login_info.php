@@ -10,8 +10,6 @@ function Input()
     $GLOBALS['no_need_code'] = true; // 不是android外包时处理
 
     $_ = &$GLOBALS["_"];
-    // token
-    // user_id
     $_['login_wx'] = true;
     LogDebug($_);
     require("login_save.php");

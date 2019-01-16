@@ -18,6 +18,7 @@ class PayEntry
     public $is_pay         = null;      // 是否已支付(0:否,1:已支付)
     public $pay_price      = null;      // 支付金额
     public $lastmodtime    = null;      // 最后修改时间
+    public $out_refund_no  = null;      // 微信退款单号
 
 
     function __construct($cursor=null)
@@ -38,6 +39,7 @@ class PayEntry
         $this->is_pay         = $cursor['is_pay'];
         $this->pay_price      = $cursor['pay_price'];
         $this->lastmodtime    = $cursor['lastmodtime'];
+        $this->out_refund_no  = $cursor['out_refund_no'];
     }
 };
 
@@ -77,7 +79,10 @@ class Pay
         {
             $data["pay_price"] = (float)$entry->pay_price;
         }
-
+        if(null !== $entry->out_refund_no)
+        {
+            $data["out_refund_no"] = (string)$entry->out_refund_no;
+        }
         $ret = $db->hmset($entry->order_id, $data);
         if($ret < 0)
         {

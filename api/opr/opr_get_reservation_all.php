@@ -9,7 +9,7 @@ function Input()
 {
     $_                        = &$GLOBALS["_"];
     $_['reservation_time']    = $_['reserve_time'];
-    $_['srctype']             = 3;
+    $_['srctype']             = 1;//<<<<<<协议现在未传该字段
     if ($_['start_time'])
     {
         $_['begin_time']      = strtotime($_['start_time']);
@@ -20,7 +20,7 @@ function Input()
     }
     $_['reservation_status']  = Reserve::$status[$_['state']];
     $_['customer_name']       = $_['keyword'];
-    $_['customer_phone']      = $_['keyword'];
+    //$_['customer_phone']      = $_['keyword'];
     $_['get_reservation_all'] = true;
     require("reservation_get.php");
     //LogDebug($_);

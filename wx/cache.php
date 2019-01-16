@@ -5,13 +5,17 @@
  */
 declare(encoding='UTF-8');
 namespace Cache;
-require_once("current_dir_env.php");
 require_once("redis_login.php");
 require_once("mgo_stat_food_byday.php");
 require_once("mgo_weixin.php");
 require_once("mgo_order.php");
 require_once("mgo_shop.php");
 require_once("mgo_customer.php");
+require_once("mgo_menu.php");
+require_once("/www/public.sailing.com/php/mgo_pay_record.php");
+// require_once("/www/public.sailing.com/php/mart/mgo_goods.php");
+// require_once("/www/public.sailing.com/php/mart/mgo_goods_spec.php");
+use \Pub\Mongodb as Mgo;
 
 // 登录相关信息
 class Login
@@ -68,7 +72,30 @@ class Login
         return UsernInfo::Get(self::$cache->userid);
     }
 }
+// 餐品信息
+class Food
+{
+    private static $cache = [];
 
+    static function Get($food_id)
+    {
+        $info = &self::$cache[$food_id];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo = new \DaoMongodb\MenuInfo;
+        $info = $mgo->GetFoodinfoById($food_id);
+        if($food_id != $info->food_id)
+        {
+            LogErr("food err, food_id:[$food_id], " . json_encode($info));
+            return null;
+        }
+        self::$cache[$food_id] = $info;
+        LogDebug("load food --> cache, data:" . json_encode($info));
+        return $info;
+    }
+}
 // 订单信息
 class Order
 {
@@ -143,7 +170,7 @@ class Weixin
         return $info;
     }
 
-    static function GetWeixinUser($userid, $src)
+    static function GetWeixinUser($userid, $src, $srctype)
     {
         $info = &self::$cache[$userid];
         if(null != $info)
@@ -151,7 +178,7 @@ class Weixin
             return $info;
         }
         $mgo = new \DaoMongodb\Weixin;
-        $info = $mgo->QueryByUserIdSrc($userid, $src);
+        $info = $mgo->UserIdAndSrctype($userid, $src, $srctype);
 
         if($userid != $info->userid)
         {
@@ -170,7 +197,7 @@ class Shop
 
     static function Get($shop_id)
     {
-        if(null != self::$cache && $shop_id == $cache->shop_id)
+        if(null != self::$cache)
         {
             return self::$cache;
         }
@@ -223,5 +250,60 @@ class Customer
     }
 
 }
+
+// 获取代理商运营后台的充值数据
+class PayRecord
+{
+    private static $cache = [];
+
+    static function Get($record_id)
+    {
+        $info = &self::$cache[$record_id];
+        if(null != $info)
+        {
+            return $info;
+        }
+        $mgo  = new Mgo\PayRecord;
+        $info = $mgo->GetInfoByRecordId($record_id);
+        if($record_id != $info->record_id)
+        {
+            LogErr("order err, order_id:[$record_id], " . json_encode($info));
+            $info = null;
+            return null;
+        }
+        LogDebug("load order --> cache, data:" . json_encode($info));
+        return $info;
+    }
+
+    static function Clear($record_id)
+    {
+        unset(self::$cache[$record_id]);
+    }
+}
+
+// 商品信息
+// class Goods
+// {
+//     private static $cache = [];
+
+//     static function Get($goods_id)
+//     {
+//         $info = &self::$cache[$goods_id];
+//         if(null != $info)
+//         {
+//             return $info;
+//         }
+//         $mgo = new Mgo\Goods;
+//         $info = $mgo->GetGoodsById($goods_id);
+//         if($goods_id != $info->goods_id)
+//         {
+//             LogErr("goods err, goods_id:[$goods_id], " . json_encode($info));
+//             $info = null;
+//             return null;
+//         }
+//         LogDebug("load goods --> cache, data:" . json_encode($info));
+//         return $info;
+//     }
+// }
 
 ?>

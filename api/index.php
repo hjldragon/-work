@@ -24,7 +24,7 @@ header('Access-Control-Allow-Headers:x-requested-with,content-type');
         $_ = $_REQUEST;  // 直接是http提交的数据
     }
     $opr = $_['opr'];
-    if (2 == $_['srctype']) {
+    if (2 == $_['srctype']) {//<<<<<<<<app是5.用以前的版本2
         require("./opr_shop/current_dir_env.php");
         require("./opr_shop/index.php");
         exit(0); // return;
@@ -119,7 +119,27 @@ header('Access-Control-Allow-Headers:x-requested-with,content-type');
             break;
         case 'qr_login':
             require("./opr/opr_qr_login.php");
-            //require("../wx.jzzwlcm.com/wx_login.php");
+            break;
+        case 'qrpay':
+            require("./opr/opr_qrpay.php");
+            break;
+        case 'payquery':
+            require("./opr/opr_payquery.php");
+            break;
+        case 'micropay':
+            require("./opr/opr_micropay.php");
+            break;
+        case 'logout':
+            require("./opr/opr_logout.php");
+            break;
+        case 'mp_login':
+            require("./opr/opr_mp_login.php");
+            break;
+        case 'login_mp':
+            require("./opr/opr_login_mp.php");
+            break;
+        case 'logout_mp':
+            require("./opr/opr_logout_mp.php");
             break;
         default:
             if (is_readable("./opr/opr_{$opr}.php")) {

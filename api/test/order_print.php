@@ -1,5 +1,5 @@
 <?php
-set_include_path("/www/shop.jzzwlcm.com/php:/www/www.ob.com/php/");
+set_include_path("/www/shop.jzzwlcm.com/php:/www/public.sailing.com/php/:/www/www.ob.com/php/");
 require_once("redis_login.php");
 require_once("page_util.php");
 
@@ -117,7 +117,8 @@ const vm = new Vue({
     },
     mounted(){
         // let url = "ws://127.0.0.1:13010/websocket";
-        let url = "ws://api.jzzwlcm.com:13010/websocket";
+        // let url = "ws://api.jzzwlcm.com:13010/websocket";
+        let url = `ws://${location.hostname}:13010/websocket`;
         window.WebSock.Init(url, this.token, this.key, ()=>{
 
             window.WebSock.Subscribe("general",

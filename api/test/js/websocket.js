@@ -1,6 +1,6 @@
 window.WebSock = new function(){
     const THIS = this;
-    let wsuri = "ws://srv.jzzwlcm.com:13010/websocket";  // [XXX]
+    let wsuri = `ws://${location.hostname}:13010/websocket`;  // [XXX]
     let sock = null;
     let callback_set = {};
     let connection_timer = null;

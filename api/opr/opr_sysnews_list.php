@@ -8,7 +8,7 @@ function Input()
 {
     $_ = &$GLOBALS["_"];
     $_['sysnews_list']        = true;
-    $_['srctype']             = 3;
+    $_['srctype']             = 1;
     require("news_get.php");
     //LogDebug($_);
 }

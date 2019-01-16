@@ -198,7 +198,6 @@ static function DirCheck($path)
     return true;
 }
 
-
 // 取文件、目录列表
 // [rockyshi 2014-09-30 13:05:35]
 static function GetFileList($dirname)
@@ -334,6 +333,7 @@ static function SendFileToClient($localname, $remotefile)
         $file_data = fread($fp, 1024);
         echo "$file_data";
     }
+    unlink($localname);
     //关闭文件
     fclose($fp);
     LogDebug("send file ok: localname=[$localname], remotefile=[$remotefile]");
@@ -420,64 +420,34 @@ static function GetHostIp()
     return $ip;
 }
 
+// 注：不要用这个，用下面的ToJson()，加pretty参数就可以了；
 // 格式化json串
 // (网上整理来)
 static function JsonPretty($json)
 {
-     $result = '' ;
-     $pos = 0 ;
-     $strLen = strlen ($json) ;
-     $indentStr = '    ' ;
-     $newLine = "\n" ;
-     $prevChar = '' ;
-     $outOfQuotes = true ;
-     for ( $i = 0 ; $i <= $strLen ; $i ++ ) {
-         // Grab the next character in the string.
-         $char = substr ( $json , $i , 1 ) ;
-         // Are we inside a quoted string?
-         if ( $char == '"' && $prevChar != '\\') {
-            $outOfQuotes = !$outOfQuotes;
-            // If this character is the end of an element,
-            // output a new line and indent the next line.
-        } else if (($char == '}' || $char == ']') && $outOfQuotes) {
-            $result .= $newLine;
-            $pos --;
-
-            for ($j = 0; $j < $pos; $j++) {
-
-                $result .= $indentStr;
-
-            }
-        }
-
-        // Add the character to the result string.
-        $result .= $char;
-        // If the last character was the beginning of an element,
-        // output a new line and indent the next line.
-        if (($char == ',' || $char == '{' || $char == '[') && $outOfQuotes) {
-
-            $result .= $newLine;
-            if ($char == '{' || $char == '[' ) {
-                 $pos ++ ;
-             }
-             for ( $j = 0 ; $j < $pos ; $j ++ ) {
-                 $result .= $indentStr ;
-             }
-         }
-         $prevChar = $char ;
-     }
-     return $result ;
+    LogErr("JsonPretty err");
+    error_log("JsonPretty err");
+    exit(0);
 }//end of static function JsonIdent(...
 
 // 对象转为json串
 static function ToJson($obj, $pretty=0)
 {
-    $json = json_encode($obj);
     if($pretty)
     {
-        $json = JsonPretty($json);
+        return json_encode($obj,
+                JSON_PRETTY_PRINT
+                | JSON_UNESCAPED_SLASHES
+                | JSON_UNESCAPED_UNICODE
+        );
     }
-    return $json;
+    else
+    {
+        return json_encode($obj,
+                JSON_UNESCAPED_SLASHES
+                | JSON_UNESCAPED_UNICODE
+        );
+    }
 }
 
 // json串转为对象
@@ -526,30 +496,60 @@ static function ImgAdjust($imgfrom, $imgto)
 }
 
 // 调整数片大小
-// static function ImgCopy($imgfrom, $imgto, $new_width, $new_height=null)
+static function ImgCopy($imgfrom, $imgto, $new_width=null, $new_height=null)
+{
+    list($width, $height, $type) = getimagesize($imgfrom);
+    if(!isset($new_height) && $new_width)
+    {
+        $new_height = $height * ($new_width / $width);
+    }
+    if($width == $new_width && $height == $new_height)
+    {
+        return copy($imgfrom, $imgto);
+    }
+    if($new_width == null)
+    {
+        $new_width = $width;
+        $new_height = $height;
+    }
+    $new = imagecreatetruecolor($new_width, $new_height);
+    switch($type)
+    {
+        case 2:
+            $img = imagecreatefromjpeg($imgfrom);
+            //copy部分图像并调整
+            imagecopyresized($new, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+            //图像输出新图片、另存为
+            imagejpeg($new, $imgto);
+            break;
+        case 3:
+            $img = imagecreatefrompng($imgfrom);
+            imagecopyresized($new, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+            imagepng($new, $imgto);
+            break;
+    }
+    imagedestroy($new);
+    imagedestroy($img);
+    return true;
+}
+
+ //不调整图片大小
+// static function ImgCopy($imgfrom, $imgto)
 // {
 //     list($width, $height, $type) = getimagesize($imgfrom);
-//     if(!isset($new_height))
-//     {
-//         $new_height = $height * ($new_width / $width);
-//     }
-//     if($width == $new_width && $height == $new_height)
-//     {
-//         return copy($imgfrom, $imgto);
-//     }
-//     $new = imagecreatetruecolor($new_width, $new_height);
+//     $new = imagecreatetruecolor($width, $height);
 //     switch($type)
 //     {
 //         case 2:
 //             $img = imagecreatefromjpeg($imgfrom);
 //             //copy部分图像并调整
-//             imagecopyresized($new, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+//             imagecopyresized($new, $img, 0, 0, 0, 0, $width, $height, $width, $height);
 //             //图像输出新图片、另存为
 //             imagejpeg($new, $imgto);
 //             break;
 //         case 3:
 //             $img = imagecreatefrompng($imgfrom);
-//             imagecopyresized($new, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+//             imagecopyresized($new, $img, 0, 0, 0, 0, $width, $height, $width, $height);
 //             imagepng($new, $imgto);
 //             break;
 //     }
@@ -558,29 +558,47 @@ static function ImgAdjust($imgfrom, $imgto)
 //     return true;
 // }
 
- //不调整数片大小
-static function ImgCopy($imgfrom, $imgto)
+// 发短信 [Rocky 2018-04-27 11:55:03]
+//      调用 SmsSend(xxx, "大家好，我是赛领老王。")
+//      接收到的短信如：【赛领欣吃货】大家好，我是赛领老王。
+static function SmsSend($phone, $msg)
 {
-    list($width, $height, $type) = getimagesize($imgfrom);
-    $new = imagecreatetruecolor($width, $height);
-    switch($type)
+    if(!$phone || !$msg)
     {
-        case 2:
-            $img = imagecreatefromjpeg($imgfrom);
-            //copy部分图像并调整
-            imagecopyresized($new, $img, 0, 0, 0, 0, $width, $height, $width, $height);
-            //图像输出新图片、另存为
-            imagejpeg($new, $imgto);
-            break;
-        case 3:
-            $img = imagecreatefrompng($imgfrom);
-            imagecopyresized($new, $img, 0, 0, 0, 0, $width, $height, $width, $height);
-            imagepng($new, $imgto);
-            break;
+        LogErr("参数出错");
+        return -1;
     }
-    imagedestroy($new);
-    imagedestroy($img);
-    return true;
+    $data = (object)[
+        "account"  => "N0661361",
+        "password" => "CV4kTfgWKoQ1EShE",
+        "msg"      => "$msg",
+        "phone"    => "$phone",
+        //"sendtime" => strftime(time(), '%Y%m%d%H%M%S'),
+        "report"   => "true",
+        "extend"   => "000",
+        "uid"      => "".time()
+    ];
+    $content = json_encode($data);
+    $context = [
+        'http' => [
+            'timeout' => 3000,
+            'method'  => 'POST',
+            'header'  => 'Content-Type: application/json; charset=utf-8',
+            'content' => $content,
+        ]
+    ];
+
+    $url = "http://smssh1.253.com/msg/send/json";
+    // {"time":"20180427113449","msgId":"","errorMsg":"定时发送时间格式不正确","code":"127"}
+    // {"time":"20180427113517","msgId":"18042711351721212","errorMsg":"","code":"0"}
+    $ret_str = file_get_contents($url, false, stream_context_create($context));
+    $ret     = json_decode($ret_str);
+    if("0" != $ret->code)
+    {
+        LogErr($ret_str);
+        return errcode::SMS_SEND_ERR;
+    }
+    return 0;
 }
 
 

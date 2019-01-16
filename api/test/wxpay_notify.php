@@ -1,5 +1,5 @@
 <?php
-set_include_path("/www/shop.jzzwlcm.com/php:/www/www.ob.com/php/");
+set_include_path("/www/shop.jzzwlcm.com/php:/www/www.ob.com/php/:/www/public.sailing.com/php");
 require_once("redis_login.php");
 require_once("page_util.php");
 
@@ -28,7 +28,8 @@ function NotifyWxPay($order_id, $token)
                 'param' => [
                     'topic' => "wxpay_notify@" . $token,
                     'data'=> [
-                        'order_id' => $order_id
+                        'order_id' => $order_id,
+                        'price' => 1,
                     ]
                 ],
             ])
@@ -102,8 +103,9 @@ const vm = new Vue({
     },
     mounted(){
         // let url = "ws://127.0.0.3:13011/websocket";
-        let url = "ws://api.jzzwlcm.com:13011/websocket";
+        // let url = "ws://api.jzzwlcm.com:13011/websocket";
         // let url = "ws://api.xinchihuo.com.cn:13011/websocket";
+        let url = `ws://${location.hostname}:13010/websocket`;
         window.WebSock.Init(url, this.token, this.key, ()=>{
 
             window.WebSock.Subscribe("once",

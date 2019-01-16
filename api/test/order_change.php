@@ -1,5 +1,5 @@
 <?php
-set_include_path("/www/shop.jzzwlcm.com/php:/www/www.ob.com/php/");
+set_include_path("/www/shop.jzzwlcm.com/php:/www/www.ob.com/php/:/www/public.sailing.com/php");
 require_once("redis_login.php");
 require_once("page_util.php");
 
@@ -94,7 +94,7 @@ const vm = new Vue({
         msg : "[空]",
         token: (new URL(location.href)).searchParams.get('t') || "T1QMqzGrnEiUMBEg",
         key: (new URL(location.href)).searchParams.get('k') || "41TIpknR3nrC2Rwd",
-        shop_id: "5",
+        shop_id: (new URL(location.href)).searchParams.get('shop_id') || "5",
         order_id: "888",
         order_status: "1",
         lastmodtime: "1513133688",
@@ -135,7 +135,7 @@ const vm = new Vue({
     },
     mounted(){
         // let url = "ws://127.0.0.1:13010/websocket";
-        let url = "ws://" + location.host + ":13010/websocket";
+        let url = "ws://" + location.hostname + ":13010/websocket";
         console.log("websocket:", url);
         window.WebSock.Init(url, this.token, this.key, ()=>{
 

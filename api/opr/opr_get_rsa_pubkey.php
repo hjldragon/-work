@@ -9,7 +9,7 @@ function Input()
 {
     $_ = &$_REQUEST; //&$GLOBALS["_"];
     $_['publickey'] = true;
-    $_['srctype']   = 3;
+    $_['srctype']   = 4;
     LogDebug($_);
 }
 

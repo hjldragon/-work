@@ -1,9 +1,11 @@
 <?php
-set_include_path("/www/shop.jzzwlcm.com/php:/www/www.ob.com/php/");
+set_include_path("/www/shop.jzzwlcm.com/php:/www/www.ob.com/php/:/www/public.sailing.com/php");
 require_once("page_util.php");
 
 if($_REQUEST['login1'])
 {
+    $token  = $_REQUEST['token']?:"";
+
     // 使用签名加密形式发送
     $url = 'http://127.0.0.1:13010/wbv';
     $ret_json = PageUtil::HttpPostJsonEncData(
@@ -13,7 +15,7 @@ if($_REQUEST['login1'])
             'param' => json_encode([
                 'opr'   => "once",
                 'param' => [
-                    'topic' => "login_qrcode@T1J1ZlKaZLQnH7Lt",
+                    'topic' => "login_qrcode@" . $token,
                     'data'=> [
                         'login_time' => time(),
                         'login_ret' => 1,
@@ -31,6 +33,8 @@ if($_REQUEST['login1'])
 }
 if($_REQUEST['login2'])
 {
+    $token  = $_REQUEST['token']?:"";
+
     // 使用签名加密形式发送
     $url = 'http://127.0.0.1:13010/wbv';
     $ret_json = PageUtil::HttpPostJsonEncData(
@@ -40,7 +44,7 @@ if($_REQUEST['login2'])
             'param' => json_encode([
                 'opr'   => "login_qrcode",
                 'param' => [
-                    'token' => "T1J1ZlKaZLQnH7Lt",
+                    'token' => $token,
                     'data'=> [
                         'login_time' => time(),
                         'login_ret' => 2,
@@ -101,14 +105,19 @@ if($_REQUEST['login2'])
 
 <div id="app">
     （注：侦听接收到数据后，侦听失效，需要再次调用侦听，才能接收下次的数据）
+    <hr>
+    接收到的数据：
+    <br/>
+    <pre class="msg">{{msg}}</pre>
     <br/>
     <input type="button" @click="login1" value="侦听登录返回的数据（旧）">
     <input type="button" @click="login2" value="侦听登录返回的数据（新）">
-    <div>{{msg}}</div>
     <hr/>
-    <a href="?login1=1" target="empty">发旧登录请求</a> &nbsp;&nbsp;
-    <a href="?login2=1" target="empty">发新登录请求</a>
+    <a :href="'?login1=1&token='+token" target="empty">发旧登录请求</a> &nbsp;&nbsp;
+    <a :href="'?login2=1&token='+token" target="empty">发新登录请求</a>
     <br/>
+    token: <input v-model="token" disabled=disabled> <br/>
+    key: <input v-model="key" disabled=disabled> <br/>
     <iframe name="empty" width="100%" height="200"></iframe>
 </div>
 
@@ -124,11 +133,13 @@ const vm = new Vue({
     el: '#app',
     data: {
         msg : "[空]",
+        token: (new URL(location.href)).searchParams.get('t') || "T1QMqzGrnEiUMBEg",
+        key: (new URL(location.href)).searchParams.get('k') || "41TIpknR3nrC2Rwd",
     },
     mounted(){
         // let url = "ws://127.0.0.1:13010/websocket";
         let url = "ws://120.24.40.134:13010/websocket";
-        window.WebSock.Init(url, "T1J1ZlKaZLQnH7Lt", "Ib2jGen9h4kPZ2Zx", ()=>{
+        window.WebSock.Init(url, this.token, this.key, ()=>{
         });
     },
     methods: {
@@ -136,7 +147,7 @@ const vm = new Vue({
             this.time = (new Date).getTime();
             window.WebSock.Subscribe("once",
                 {
-                    topic : "login_qrcode@T1J1ZlKaZLQnH7Lt",
+                    topic : "login_qrcode@" + this.token,
                 },
                 (resp) => {
                     console.log(resp);
@@ -148,7 +159,7 @@ const vm = new Vue({
             this.time = (new Date).getTime();
             window.WebSock.Subscribe("login_qrcode",
                 {
-                    token : "T1J1ZlKaZLQnH7Lt",
+                    token : this.token,
                 },
                 (resp) => {
                     console.log(resp);

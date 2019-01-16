@@ -7,6 +7,10 @@
 require_once("cfg.php");
 require_once("cache.php");
 require_once("util.php");
+require_once("mgo_stat_shop_byday.php");
+require_once("mgo_agent.php");
+require_once("/www/public.sailing.com/php/mgo_stat_platform_byday.php");
+use \Pub\Mongodb as Mgo;
 class PageUtil{
 
 static function Header($title)
@@ -116,6 +120,8 @@ static function DecSubmitData()
             else
             {
                 $param['err'] = "md5 error";
+                LogErr('data:[' . $data . ']');
+                LogErr('sign:[' . $_REQUEST['sign'] . ']');
                 LogErr(json_encode($param));
             }
             if(empty($param['token']))
@@ -388,7 +394,54 @@ static function UpdateFoodDauSoldNum($order_id)
     {
         $mgo_stat->SellNumAdd($orderinfo->shop_id, $food->food_id, $day, $food->food_num);
         LogDebug("[{$food->food_id}], [$day], [{$food->food_num}]");
+        PageUtil::SendFoodStock($orderinfo->shop_id, $food->food_id);
     }
+}
+// 发送餐品库存改变通知
+static function SendFoodStock($shop_id, $food_id)
+    {
+        $food_info = \Cache\Food::Get($food_id);
+        $mgo_stat  = new \DaoMongodb\StatFood;
+        $today     = date("Ymd");
+        $food_sale = $mgo_stat->GetFoodStatByDay($food_id, $today);
+
+        if($food_info->stock_num_day <= 0)
+        {
+            $food_num = 99999;
+        }else{
+            $food_num = $food_info->stock_num_day-$food_sale->sold_num;
+        }
+        LogDebug($food_num);
+        $ret_json     = PageUtil::NotifyFoodStock($shop_id, $food_id, $food_num);
+        $ret_json_obj = json_decode($ret_json);
+        LogDebug($ret_json_obj);
+        if(0 != $ret_json_obj->ret)
+        {
+            LogErr("Food Stock Send err");
+        }
+    }
+// 发送餐品变动通知
+function NotifyFoodStock($shop_id, $food_id, $stock_num)
+{
+        $url = Cfg::instance()->orderingsrv->webserver_url;
+        //$url = 'http://127.0.0.1:13010/wbv';
+        $ret_json = PageUtil::HttpPostJsonEncData(
+            $url,
+            [ // $data
+                'name' => "cmd_publish",
+                'param' => json_encode([
+                    'opr'   => "general",
+                    'param' => [
+                        'topic' => "food_stock@" . $shop_id,
+                        'data'=> [
+                            'food_id' => $food_id,      //
+                            'stock_num' => $stock_num,  // 餐品当前库存
+                        ]
+                    ],
+                ])
+            ]
+        );
+        return $ret_json;
 }
 
 // 查询扫码枪支付结果
@@ -437,12 +490,12 @@ static function OrderQuery($order_id, &$data = null)
         return errcode::WXPLAY_NO_SUPPORT;
     }
 
-    $unifiedorder = new \Wx\Unifiedorder();
+    $unifiedorder = new \Pub\Wx\Unifiedorder();
     // $unifiedorder->SetParam('transaction_id', $order->transaction_id);   // 微信订单号(测试:'4200000021201712186680986033')
     $unifiedorder->SetParam('out_trade_no', $order->out_trade_no);          // 商户订单号
     $unifiedorder->SetParam('sub_mch_id', (string)$sub_mch_id);             // 子商户号(测试:'1467121102')
     $xml = $unifiedorder->SubmitOrder();
-    $ret = \Wx\Util::FromXml($xml);
+    $ret = \Pub\Wx\Util::FromXml($xml);
     if($ret['trade_state'] != 'SUCCESS')
     {
         if('USERPAYING' == $ret['trade_state'])
@@ -456,7 +509,7 @@ static function OrderQuery($order_id, &$data = null)
         LogErr("play err:" . json_encode($ret));
         return errcode::PAY_ERR;
     }
-    
+
     $info = new \DaoRedis\PayEntry();
     $info->order_id       = $order_id;
     $info->transaction_id = $ret['transaction_id'];
@@ -471,14 +524,14 @@ static function OrderQuery($order_id, &$data = null)
     }
     $mgo = new \DaoMongodb\Order;
     $entry = new \DaoMongodb\OrderEntry;
-
-    $entry->order_id       = $order_id;
-    $entry->order_status   = 2;
-    $entry->pay_way        = 2;
-    $entry->pay_status     = 2;
-    $entry->paid_price     = $ret['total_fee']/100;
-    $entry->pay_time       = time();
-
+    $paid_price = $ret['total_fee']/100;
+    $entry->order_id         = $order_id;
+    $entry->order_status     = OrderStatus::PAID;
+    $entry->pay_way          = PayWay::WEIXIN;
+    $entry->pay_status       = PayStatus::PAY;
+    $entry->paid_price       = $paid_price;
+    $entry->order_waiver_fee = $order_info->order_payable - $paid_price;
+    $entry->pay_time         = time();
     $order_ret = $mgo->Save($entry);
     if(0 != $order_ret)
     {
@@ -488,9 +541,16 @@ static function OrderQuery($order_id, &$data = null)
     $data = $info;
     // 更新缓存
     \Cache\Order::Clear($order_id);
+    //保存统计数据
+    $agent_mgo  = new \DaoMongodb\Agent;
+    $agent_info = $agent_mgo->QueryById($shop_info->agent_id);
+    PageUtil::PayOrderBoard($order_info, $shop_info, $agent_info, $paid_price);
     // 更新餐品日销售量
     // 增加餐品售出数
-    self::UpdateFoodDauSoldNum($order_id);
+    if($order_info->order_from != OrderFrom::SHOUYIN && $order_info->order_from != OrderFrom::PAD && $order_info->order_sure_status != OrderSureStatus::SURE)
+    {
+        self::UpdateFoodDauSoldNum($order_id);
+    }
     return 0;
 }
 //pad订单小票推送通知
@@ -538,6 +598,205 @@ function NotifyOrderChange($shop_id, $order_id, $order_status, $lastmodtime)
         ]
     );
     return $ret_json;
+}
+//检查餐品库存够不够（有不不够的餐品时，返回其餐品信息，满足要求时返回null）
+static function CheckFoodStockNum($shop_id, $need_food_list)
+    {
+        $food_id_list = [];
+        foreach ($need_food_list as $id)
+        {
+            $food_id_list[] = $id->food_id;
+        }
+        // LogDebug($food_id_list);
+        // 读出当前餐品每天备货量
+        $mgo_food = new \DaoMongodb\MenuInfo;
+        $list = $mgo_food->GetOrderFoodList(
+            $shop_id,
+            [
+                'food_id_list' => $food_id_list,
+            ]
+        );
+
+        // LogDebug($list);
+        // food_id --> 备货量
+        $id2stock_num_day = [];
+        foreach($list as $i => $v)
+        {
+            $id2stock_num_day[$v->food_id] = (int)$v->stock_num_day;
+        }
+        // LogDebug($id2stock_num_day);
+        // 读出当前已售出量
+        $mgo_stat = new \DaoMongodb\StatFood;
+        $today = date("Ymd");
+        $list_two = $mgo_stat->GetStatList([
+            'food_id_list' => $food_id_list,
+            'shop_id'      => $shop_id,
+            'begin_day'    => $today,
+            'end_day'      => $today,
+        ]);
+        // LogDebug($list);
+        // food_id --> 已售出量
+        $id2food_sold_num = [];
+        foreach($list_two as $i => $v)
+        {
+            $id2food_sold_num[$v->food_id] = $v->sold_num;
+        }
+        // LogDebug($id2food_sold_num);
+        // 查看餐品存量
+        foreach($need_food_list as $i => $food)
+        {
+            //每日限售量
+            $stock_num_day = (int)$id2stock_num_day[$food->food_id];
+            if($stock_num_day <= 0)
+            {
+                continue;
+            }
+            //日出售量
+            $food_sold_num = (int)$id2food_sold_num[$food->food_id];
+
+            LogDebug("food_id:[{$food->food_id}], food_num:[{$food->food_num}], stock_num_day:[{$stock_num_day}], food_sold_num:[{$food_sold_num}]");
+            // 库存够吗？
+            if($food->food_num > $stock_num_day - $food_sold_num)
+            {
+                //如果库存不足计算出菜品中限量的剩余的库存
+                foreach($list as  &$v)
+                {
+                    $v->stock_num_day = $stock_num_day - $food_sold_num;
+                    if($v->food_id == $food->food_id)
+                    {
+                        $foodinfo[] = $v;
+                    }
+                }
+                LogDebug("not enough");
+                return $foodinfo;
+            }
+        }
+        return null;
+    }
+//下单支付成功后完成后发送短信
+static function PayOrderGetMessage($order, $shopinfo)
+{
+        if($order->dine_way ==SALEWAY::EAT)
+        {
+            $dine_way = '在店吃';
+        }elseif ($order->dine_way == SALEWAY::TAKEOUT)
+        {
+            $dine_way = '外卖';
+        }else{
+            $dine_way = '其他';
+        }
+        if($order->pay_way == PayWay::WEIXIN)
+        {
+            $pay_way = '微信';
+        }elseif ($order->pay_way == PayWay::APAY)
+        {
+            $pay_way = '支付宝';
+        }else{
+            $pay_way = '其他';
+        }
+        $str = '';
+        foreach ($order->food_list as $v)
+        {
+            $str .= $v->food_name.'  '.$v->food_num.'份'."\r\n";
+        }
+        if(!$order->paid_price)
+        {
+        $paid_price = $order->food_price_all;
+        }else{
+        $paid_price = $order->paid_price;
+       }
+        if($order->customer_phone && ($shopinfo->auto_order == AutoOrder::Yes || $order->selfhelp_id))
+        {
+            //执行成功后发送短信
+            $msg = '欢迎光临'.$shopinfo->shop_name.'店铺，您的订单正在快速的制作中，请耐心等待！
+            消费方式：'.$dine_way.'
+            订单号：'.$order->order_id.'
+            时间：'.date("Y-m-d H:i:s",$order->order_time).'
+            订单详情：
+              '.$str.'
+            菜品合计：'.$order->food_price_all.'
+            消费合计：'.$paid_price.'
+            支付方式：'.$pay_way.'
+            多谢惠顾！
+            本店外卖电话：'.$shopinfo->telephone.'';
+            //LogDebug($order->customer_phone);
+            LogDebug($msg);
+            $msg_ret = Util::SmsSend($order->customer_phone, $msg);
+            LogDebug($msg_ret);
+            if(0 != $msg_ret)
+            {
+                LogErr("phone send err".$msg_ret);
+            }else{
+                LogDebug("phone send successful");
+            }
+        }
+}
+//下单支付成功后的订单统计
+static function PayOrderBoard($order, $shop_info, $agent_info, $consume_amount)
+{
+    //保存统计数据
+    $platformer     = new Mgo\StatPlatform;
+    $shop_stat      = new \DaoMongodb\StatShop;
+    $day            = date('Ymd',time());
+    $platform_id    = PlatformID::ID;//现在只有一个运营平台id
+    $consume_amount = (float)$consume_amount;
+    $customer_num   = $order->customer_num;
+    if($agent_info->agent_type == AgentType::AREAAGENT)
+    {
+        if($order->order_from == OrderFrom::SHOUYIN)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['region_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'region_cash_order_num' =>1]);
+        }elseif ($order->order_from == OrderFrom::SELF)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['region_consume_amount' =>$consume_amount,'customer_num'=>$customer_num,
+                                                         'region_self_order_num' => 1]);
+        }elseif ($order->order_from == OrderFrom::WECHAT)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['region_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'region_wx_order_num' =>1]);
+        }elseif ($order->order_from == OrderFrom::PAD)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['region_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'region_pad_order_num' =>1]);
+        }elseif ($order->order_from == OrderFrom::APP)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['region_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'region_app_order_num' =>1]);
+        }elseif ($order->order_from == OrderFrom::MINI)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['region_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'region_mini_order_num' =>1]);
+        }
+    }elseif($agent_info->agent_type == AgentType::GUILDAGENT){
+        if($order->order_from == OrderFrom::SHOUYIN)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['industry_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'industry_cash_order_num' =>1]);
+        }elseif ($order->order_from == OrderFrom::SELF)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['industry_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'industry_self_order_num'=>1]);
+        }elseif ($order->order_from == OrderFrom::WECHAT)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['industry_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'industry_wx_order_num'=>1]);
+        }elseif ($order->order_from == OrderFrom::PAD)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['industry_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'industry_pad_order_num' =>1]);
+        }elseif ($order->order_from == OrderFrom::APP)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['industry_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'industry_app_order_num' =>1]);
+        }elseif ($order->order_from == OrderFrom::MINI)
+        {
+            $platformer->SellNumAdd($platform_id, $day, ['industry_consume_amount'=>$consume_amount,'customer_num'=>$customer_num,
+                                                         'industry_mini_order_num'=>1]);
+        }
+    }
+
+    $shop_stat->SellShopNumAdd($shop_info->shop_id, $day, ['consume_amount'=>$consume_amount,'customer_num'=>$customer_num], $shop_info->agent_id);
 }
 
 }// end of class PageUtil{...

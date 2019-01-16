@@ -1,5 +1,6 @@
 <?php
 ini_set('date.timezone','Asia/Shanghai');
+require_once("current_dir_env.php");
 require_once "WxUnifiedorder.php";
 require_once("cache.php");
 require_once("const.php");
@@ -13,16 +14,21 @@ function Micropay(&$resp)
     $order_id  = $_['order_id'];
     $auth_code = $_['auth_code'];
     $price     = (float)$_['price'];
-    if(!$order_id || $price <= 0)
+    if(!$order_id)
     {
         LogErr("OrderId err");
         return errcode::PARAM_ERR;
+    }
+    if($price <= 0)
+    {
+        LogErr("price err:[$price]");
+        return errcode::PLAY_NOT_ZERO;
     }
     // 订单信息
     $order_info = \Cache\Order::Get($order_id);
     if(!$order_info)
     {
-        LogErr("Order err");
+        LogErr("order err, order_id:[$order_id]");
         return errcode::ORDER_NOT_EXIST;
     }
     if(NewOrderStatus::PAY == $order_info->pay_status)
@@ -30,9 +36,14 @@ function Micropay(&$resp)
         LogErr("Order had play");
         return errcode::ORDER_ST_PAID;
     }
+    if($order_info->order_payable < $price)
+    {
+        LogErr("price err");
+        return errcode::FEE_MONEY_ERR;
+    }
     // 店铺信息
     $shop_info = \Cache\Shop::Get($order_info->shop_id);
-    if(!$order_info)
+    if(!$shop_info)
     {
         LogErr("order err, order_id:[$order_id]");
         return errcode::SHOP_NOT_WEIXIN;
@@ -53,7 +64,7 @@ function Micropay(&$resp)
         return errcode::WXPLAY_NO_SUPPORT;
     }
 
-    $unifiedorder = new \Wx\Unifiedorder();
+    $unifiedorder = new \Pub\Wx\Unifiedorder();
     $attach = (object)array("order_id"=>$order_info->order_id);
     if(!$param->attach)
     {
@@ -70,7 +81,7 @@ function Micropay(&$resp)
     $unifiedorder->SetParam('sub_mch_id', (string)$sub_mch_id);         // 子商户号
     $unifiedorder->SetParam('total_fee', (int)$total_fee);              // 总金额
     $xml = $unifiedorder->SubmitMicropay();
-    $play_ret = \Wx\Util::FromXml($xml);
+    $play_ret = \Pub\Wx\Util::FromXml($xml);
     if($play_ret['return_code'] != 'SUCCESS')
     {
         LogErr("order play err, order_id:[$order_id], msg:" . print_r($play_ret, true));
@@ -120,6 +131,7 @@ $resp = (object)[];
 $ret = Micropay($resp);
 $html = json_encode((object)array(
     'ret'   => $ret,
+    'msg'  => errcode::toString($ret),
     'data'  => $resp
 ));
 // 允许跨域访问

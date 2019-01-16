@@ -3,7 +3,7 @@
  *
  */
 require_once("current_dir_env.php");
-
+require_once("typedef.php");
 
 function Input()
 {
@@ -11,6 +11,16 @@ function Input()
     $_['order_id']              = $_['order_num'];
     $_['srctype']               = 3;
     $_['made_order_status']     = true;
+
+    $new_menu                   = json_decode($_['menu']);
+    foreach ($new_menu  as &$menu) {
+        $menu->weight   = Order::$weight[$menu->weight];
+        $menu->istake   = Order::$istake[$menu->istake];
+        $menu->isgive   = Order::$isgive[$menu->isgive];
+        $menu->food_num = $menu->count;
+        unset($menu->count);
+    }
+    $_['food_list'] = $new_menu ;
     //LogDebug($_);
     require("order_save.php");
 

@@ -9,7 +9,7 @@ function Input()
 {
     $_                      = &$GLOBALS["_"];
     $_['srctype']           = 3;
-    $_['order_from']        = Order::$order_from_get[$_['device_type']];
+    $_['order_from']        = $_['device_type'];
     $data                   = json_decode($_['data']);
     $_['order_remark']      = $data->remark;
     $_['seat_name']         = $data->table_name;

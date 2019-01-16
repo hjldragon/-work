@@ -10,7 +10,7 @@ class Sms
     static function GetSms($phone,$code)
     {
         $clapi  = new ChuanglanSmsApi();
-        $msg    = '【赛领欣吃货】尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
+        $msg    = '尊敬的用户，您本次的验证码为' . $code . '有效期5分钟。打死不要将内容告诉其他人！';
         $result = $clapi->sendSMS($phone, $msg);
         //LogDebug($result);
         if (!is_null(json_decode($result))) {

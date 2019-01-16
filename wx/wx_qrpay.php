@@ -14,13 +14,19 @@ function OrderQRpay(&$resp)
     }
     $order_id = $_['order_id'];
     $token    = $_['token'];
+    $srctype  = $_['srctype'];
     $price    = (float)$_['price'];
-    LogDebug($token);
-    if(!$order_id || $price <= 0)
+    if(!$order_id)
     {
         LogErr("OrderId err");
         return errcode::PARAM_ERR;
     }
+    if($price <= 0)
+    {
+        LogErr("price err:[$price]");
+        return errcode::PLAY_NOT_ZERO;
+    }
+    //LogDebug($price);
     // 订单信息
     $order_info = \Cache\Order::Get($order_id);
 
@@ -29,10 +35,16 @@ function OrderQRpay(&$resp)
         LogErr("Order err");
         return errcode::PARAM_ERR;
     }
-    if(2 == $order_info->pay_status)
+    if(NewOrderStatus::PAY == $order_info->pay_status)
     {
         LogErr("Order Status err");
-        return errcode::PARAM_ERR;
+        return errcode::ORDER_ST_PAID;
+    }
+
+    if($order_info->order_payable < $price)
+    {
+        LogErr("price err");
+        return errcode::FEE_MONEY_ERR;
     }
     // 店铺信息
     $shop_info = \Cache\Shop::Get($order_info->shop_id);
@@ -49,11 +61,11 @@ function OrderQRpay(&$resp)
     if("" == $sub_mch_id)
     {
         LogErr("order err, order_id:[$order_id]");
-        return errcode::WXPLAY_NO_SUPPORT;
+        return errcode::WX_NO_SUPPORT;
     }
 
-    $unifiedorder = new \Wx\Unifiedorder();
-    $attach = (object)array("order_id"=>$order_info->order_id,"token"=>$token);
+    $unifiedorder = new \Pub\Wx\Unifiedorder();
+    $attach = (object)array("order_id"=>$order_info->order_id,"token"=>$token,'srctype'=>$srctype);
     if(!$param->attach)
     {
         $param->attach = json_encode($attach);
@@ -65,12 +77,12 @@ function OrderQRpay(&$resp)
     $unifiedorder->SetParam('attach', $param->attach);                              // 附加数据
     $unifiedorder->SetParam('out_trade_no', $out_trade_no);                         // 商户订单号
     $unifiedorder->SetParam('sub_mch_id', (string)$sub_mch_id);                     // 子商户号
-    $unifiedorder->SetParam('notify_url', \Wx\Cfg::WX_URL_NOTIFY_URL);              // 通知地址
+    $unifiedorder->SetParam('notify_url', \Pub\Wx\Cfg::WX_URL_NOTIFY_URL);              // 通知地址
     $unifiedorder->SetParam('total_fee', (int)$total_fee);                          // 总金额
 
 
     $xml = $unifiedorder->SubmitQRpay();
-    $unifiedorder_ret = \Wx\Util::XmlToJson($xml);
+    $unifiedorder_ret = \Pub\Wx\Util::XmlToJson($xml);
     $unifiedorder_ret = json_decode($unifiedorder_ret);
     if($unifiedorder_ret->result_code != 'SUCCESS')
     {
@@ -90,6 +102,7 @@ function OrderQRpay(&$resp)
     $resp = (object)array(
         'url' => $unifiedorder_ret->code_url
     );
+    LogDebug($resp);
     LogInfo("--ok--");
     return 0;
 }
@@ -99,11 +112,23 @@ $resp = (object)array();
 
 $ret = OrderQRpay($resp);
 
+
+
+
 $result = (object)array(
     'ret' => $ret,
+    'msg'  => errcode::toString($ret),
     'data' => $resp
 );
+// 允许跨域访问
+// header('Access-Control-Allow-Origin:*');
+// header('Access-Control-Allow-Methods:POST');
+// header('Access-Control-Allow-Headers:x-requested-with,content-type');
+// header('Content-Type: text/plain; charset=utf-8');
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, PATCH');
 
 echo json_encode($result);
 ?>
-

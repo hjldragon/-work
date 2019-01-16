@@ -9,13 +9,13 @@ header('Content-Type:text/html;charset=utf-8');
 
 echo "<pre>";
 
-$req   = \Wx\Util::GetOpenid();
+$req   = \Pub\Wx\Util::GetOpenid();
 $openid = $req->openid;
 
 
 
 
-$unifiedorder = new \Wx\Unifiedorder();
+$unifiedorder = new \Pub\Wx\Unifiedorder();
 
 
 /*
@@ -27,7 +27,7 @@ $unifiedorder->SetParam('body', "body");                 // 商品描述
 $unifiedorder->SetParam('attach', "this_is_attache");                              // 附加数据
 $unifiedorder->SetParam('out_trade_no', "test_" . time());  // 商户订单号
 $unifiedorder->SetParam('sub_mch_id', (string)"1467121103");                     // 子商户号
-$unifiedorder->SetParam('notify_url', \Wx\Cfg::WX_URL_NOTIFY_URL);              // 通知地址
+$unifiedorder->SetParam('notify_url', \Pub\Wx\Cfg::WX_URL_NOTIFY_URL);              // 通知地址
 $unifiedorder->SetParam('total_fee', (int)1);                          // 总金额
 $unifiedorder->SetParam('openid', $openid);
 
@@ -37,15 +37,15 @@ $unifiedorder->SetParam('openid', $openid);
 // $xml = $unifiedorder->Submit();
 // public function Submit()
 // {
-$unifiedorder->value['appid']            = \Wx\Cfg::APPID;  // 公众账号ID
-$unifiedorder->value['mch_id']           = \Wx\Cfg::MCH_ID;  // 商户号
+$unifiedorder->value['appid']            = \Pub\Wx\Cfg::APPID;  // 公众账号ID
+$unifiedorder->value['mch_id']           = \Pub\Wx\Cfg::MCH_ID;  // 商户号
 $unifiedorder->value['device_info']      = "WEB";  // 设备号
 $unifiedorder->value['nonce_str']        = md5(rand());  // 随机字符串
 $unifiedorder->value['fee_type']         = "CNY";  // 货币类型
 $unifiedorder->value['spbill_create_ip'] = $_SERVER['REMOTE_ADDR'];  // 终端IP
 $unifiedorder->value['trade_type']       = "JSAPI";  // 交易类型(另注，用"NATIVE"可生成扫码支付的链接)
 $unifiedorder->value['sign_type']        = "MD5";  // 签名类型
-$unifiedorder->value['sign']             = \Wx\Util::GetSign($unifiedorder->value);  // 签名
+$unifiedorder->value['sign']             = \Pub\Wx\Util::GetSign($unifiedorder->value);  // 签名
 
 
 // echo json_encode($unifiedorder->value,
@@ -54,9 +54,9 @@ $unifiedorder->value['sign']             = \Wx\Util::GetSign($unifiedorder->valu
 //         | JSON_UNESCAPED_UNICODE
 // ) . "<hr>\n";
 
-$xml = \Wx\Util::ToXml($unifiedorder->value);
+$xml = \Pub\Wx\Util::ToXml($unifiedorder->value);
 //echo htmlspecialchars($xml) . "<hr>";
-$xml = \Wx\Util::HttpPost(\Wx\Cfg::WX_URL_UNIFIEDORDER, $xml);
+$xml = \Pub\Wx\Util::HttpPost(\Pub\Wx\Cfg::WX_URL_UNIFIEDORDER, $xml);
 // return $ret;
 // }
 
@@ -64,7 +64,7 @@ $xml = \Wx\Util::HttpPost(\Wx\Cfg::WX_URL_UNIFIEDORDER, $xml);
 
 //exit(0);
 
-$unifiedorder_ret = \Wx\Util::XmlToJson($xml);
+$unifiedorder_ret = \Pub\Wx\Util::XmlToJson($xml);
 $unifiedorder_ret = json_decode($unifiedorder_ret);
 if("SUCCESS" != $unifiedorder_ret->return_code)
 {
@@ -85,7 +85,7 @@ $tmp = [
     "timeStamp" => (string)time(),
     "nonceStr"  => md5(rand()),
 ];
-$tmp["paySign"] = \Wx\Util::GetSign($tmp);
+$tmp["paySign"] = \Pub\Wx\Util::GetSign($tmp);
 $pay_param = json_encode($tmp);
 
 echo json_encode($pay_param,

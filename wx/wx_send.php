@@ -28,9 +28,9 @@ function WxSend()
         LogErr("shop appid err");
         return errcode::PARAM_ERR;
     }
-    $info = \Wx\Util::GetTokenByShop($appid, $secret);
+    $info = \Pub\Wx\Util::GetTokenByShop($appid, $secret);
     $access_token = $info->access_token;
-    $unifiedorder = new \Wx\Unifiedorder();
+    $unifiedorder = new \Pub\Wx\Unifiedorder();
     $content->content = $text;
     $ret = $unifiedorder->SubmitSend($openid, $content, $access_token);
     $ret = json_decode($ret);
@@ -42,7 +42,7 @@ $ret = -1;
 $ret = WxSend();
 
 if(0 != $ret)
-{  
+{
     echo <<<eof
     <script>
     alert("发送失败");

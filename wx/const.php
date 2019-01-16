@@ -88,7 +88,10 @@ class PayWay
     const UNKNOWN   = 0;    // 未确定
     const CASH      = 1;    // 现金
     const WEIXIN    = 2;    // 微信支付
-    const ALIPAY    = 3;    // 支付宝 
+    const APAY      = 3;    // 支付宝支付
+    const BANK      = 4;    // 银行卡支付
+    const GUAZ      = 5;    // 挂账支付
+    const EATAFTER  = 6;    // 餐后支付
 
     // 是在线支付的
     static function IsOnline($pay_way)
@@ -254,6 +257,7 @@ class Position
 
 
 }
+
 class PositionType
 {
     const SYSTEMTYPEONE   = 1;      // 系统默认创建的职级的type
@@ -268,6 +272,25 @@ class PaySetingWay
     const PAYONE   = 1;             // 个人码支付方式
     const PAYTWO   = 2;             // 微信/支付宝端支付方式
 
+}
+// 数据来源:
+class NewSrctype
+{
+    const SHOUYINJI  = 1;    // 智能收银机
+    const SELFHELP   = 2;    // 自助点餐机
+    const WX         = 3;    // 扫码点餐,
+    const PAD        = 4;    // 平板智能点餐机
+    const APP        = 5;    // 掌柜通
+    const MINI       = 6;    // 小程序
+}
+
+//销售方式
+class SALEWAY
+{
+    const EAT     = 1;             // 在店吃
+    const SINCE   = 2;             // 自提
+    const PACK    = 3;             // 打包
+    const TAKEOUT = 4;             // 外卖
 }
 // 运营平台id固定
 class PlatformID
@@ -292,12 +315,7 @@ class AutoOrder
     const Yes   = 1;             // 1是
     const NO    = 0;             // 0不是
 }
-// 绑定来源
-class BindingSrc
-{
-    const CUSTOMER      = 1;   // 客户端
-    const SHOP          = 2;   // 商户端
-}
+
 // 项目配置id
 class EnvId
 {
@@ -308,6 +326,7 @@ class Src
 {
     const CUSTOMER      = 1;   // 1客户端
     const SHOP          = 2;    //2商户端
+    const PLATFORM      = 3;    //3平台端
 }
 //是否已绑定微信
 class IsWeixin
@@ -316,9 +335,91 @@ class IsWeixin
     const NO    = 0;             // 0未班的
 }
 // 数据来源:
-class SrcType
+class WxSrctype
 {
-    const SHOUYINJI   = 1;    // 1收银机,
+    const PC          = 1;    // 1PC,
     const APP         = 2;    //2app
+    const SHOUYINJI   = 3;    // 1收银机,
+}
+//充值金额状态
+class CZPayStatus
+{
+    const NEEDPAY     = 0;    // 待充值
+    const PAY         = 1;    // 充值成功
+    const NOPAY       = 2;    // 充值失败
+}
+//充值金额的支付方式
+class CZPayWay
+{
+    const NOWAY       = 0;    // 待确定
+    const ALIPAY      = 1;    // 支付宝
+    const WX          = 2;    // 微信
+    const BANK        = 3;    // 网银支付
+}
+//厨房制作状态
+class KitchenStatus
+{
+    const WAITMAKE  = 1;             // 等待制作
+    const FINISH    = 2;             // 完成制作
+}
+//订单来源
+class OrderFrom
+{
+    const SHOUYIN  = 1;   // 1:门店前台(收银机)
+    const SELF     = 2;   // 2:手持设备(自助点餐机)
+    const WECHAT   = 3;   // 3:扫码自助(微信点餐)
+    const PAD      = 4;   // 4:pad
+    const APP      = 5;   // 5:APP(掌柜通)
+    const MINI     = 6;   // 6:小程序
+}
+class AgentType
+{
+    const AREAAGENT  = 1;      // 区域代理商
+    const GUILDAGENT = 2;      // 行业代理商
+}
+//员工是否冻结
+class IsFreeze
+{
+    const NO          = 0;    // 不冻结
+    const YES         = 1;    // 冻结
+}
+class OrderSureStatus
+{
+    const NOSURE    = 1;    // 未下单
+    const SURE      = 2;    // 下单
+    const SUREPAY   = 3;    // 下单并支付
+}
+
+
+class GoodsOrderStatus
+{
+    const NOPAY          = 1;    // 待付款
+    const WAITDELIVER    = 2;    // 待发货
+    const WAITCOLLECT    = 3;    // 待收货
+    const WAITEVALUATION = 4;    // 待评价
+    const BEEVALUATION   = 5;    // 已评价
+    const REFUNDING      = 6;    // 退款中
+    const FAILREFUND     = 7;    // 退款失败
+    const SUCCESSREFUND  = 8;    // 已退款
+    const CLOSER         = 9;    // 已关闭
+}
+
+
+//商品订单的支付方式
+class GoodsOrderPayWay
+{
+    const NOWAY   = 0;    // 待确定
+    const BALANCE = 1;    // 余额支付
+    const WX      = 2;    // 微信
+    const ALIPAY  = 3;    // 支付宝
+}
+class ApplyStatus
+{
+    const APPLY          = 1;    // 提交初审
+    const APPLYPASS      = 2;    // 初审不通过
+    const APPLYTHOUR     = 3;    // 代理商初审通过
+    const APPLYBUS       = 4;    // 提交代理商工商
+    const APPLYBUSPASS   = 5;    // 代理商工商审核不通过
+    const APPLYBUSTHOUR  = 6;    // 代理商工商审核通过
 }
 ?>

@@ -12,22 +12,22 @@ require_once("const.php");
 
 
 class WeixinEntry
-{   
-    public $id            = null;  // 
+{
+    public $id            = null;  //
     public $userid        = null;  // 用户id
     public $headimgurl    = null;  // 微信头像
     public $nickname      = null;  // 微信昵称
-    public $openid        = null;  // 
-    public $sex           = null;  // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知 
+    public $openid        = null;  //
+    public $sex           = null;  // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
     public $city          = null;  // 用户所在城市
     public $country       = null;  // 用户所在国家
     public $province      = null;  // 用户所在省份
     public $delete        = null;
     public $lastmodtime   = null;
-    public $src           = null;  // 绑定来源:1客户端,2商户端
+    public $src           = null;  // 绑定来源:1客户端,2商户端,3平台端
     public $srctype       = null;  // 微信数据绑定来源:1.pc端,2.app端,3.收银端
 
- 
+
 
     function __construct($cursor = null)
     {
@@ -90,7 +90,7 @@ class Weixin
         ];
         if (null !== $info->userid) {
             $set["userid"] = (int)$info->userid;
-        } 
+        }
         if (null !== $info->headimgurl) {
             $set["headimgurl"] = (string)$info->headimgurl;
         }
@@ -127,7 +127,7 @@ class Weixin
         $value = array(
             '$set' => $set
         );
-        
+
 
         try {
             $ret = $table->update($cond, $value, ['safe' => true, 'upsert' => true]);
@@ -139,14 +139,13 @@ class Weixin
         return 0;
     }
 
-    public function QueryByOpenId($openid, $src)
-    {   
+    public function QueryById($id)
+    {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
-        
+
         $cond = array(
-            'openid' => (string)$openid,
-            'src'    => (int)$src,
+            'id' => (string)$id,
             'delete' => ['$ne' => 1]
         );
 
@@ -154,13 +153,33 @@ class Weixin
         return new WeixinEntry($ret);
     }
 
-    public function QueryByUserId($userid)
-    {   
+    public function QueryByOpenId($openid, $src, $srctype=null)
+    {
         $db = \DbPool::GetMongoDb();
         $table = $db->selectCollection($this->Tablename());
-        
+
         $cond = array(
-            'userid' => (int)$userid
+            'openid' => (string)$openid,
+            'src'    => (int)$src,
+            'delete' => ['$ne' => 1]
+        );
+        if(null !== $srctype)
+        {
+            $cond['srctype'] = $srctype;
+        }
+
+        $ret = $table->findOne($cond);
+        return new WeixinEntry($ret);
+    }
+
+    public function QueryByUserId($userid)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
+
+        $cond = array(
+            'userid' => (int)$userid,
+            'delete' => ['$ne' => 1]
         );
 
         $ret = $table->findOne($cond);
@@ -173,12 +192,27 @@ class Weixin
 
         $cond = array(
             'userid' => (int)$userid,
-            'src'    => (int)$src
+            'src'    => (int)$src,
+            'delete' => ['$ne' => 1]
         );
 
         $ret = $table->findOne($cond);
         return new WeixinEntry($ret);
     }
+    public function UserIdAndSrctype($userid, $srctype, $src)
+    {
+        $db = \DbPool::GetMongoDb();
+        $table = $db->selectCollection($this->Tablename());
 
+        $cond = array(
+            'userid'    => (int)$userid,
+            'srctype'   => (int)$srctype,
+            'src'       => (int)$src,
+            'delete'    => ['$ne' => 1]
+        );
+
+        $ret = $table->findOne($cond);
+        return new WeixinEntry($ret);
+    }
 }
 ?>

@@ -8,7 +8,6 @@ function Input()
 {
     $_ = &$GLOBALS["_"];
     $_['get_shop_info']   = true;
-    $_['srctype']         = 3;
     require("shop_get.php");
     //LogDebug($_);
 }
@@ -40,7 +39,7 @@ function Output(&$obj)
                 $b['bookkeeping'] = Shopinfo::$bookkeeping[$b['bookkeeping']];
             }
         }
-        $shop_info['phone']       = "0755-23060180";//<<<<<<<<<<<<<<客户电话
+        $shop_info['phone']       = "400-0020-158";//<<<<<<<<<<<<<<客户电话
         $obj->data = $shop_info;
     }
     //LogDebug($obj);

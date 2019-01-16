@@ -90,11 +90,11 @@ class Customer
         $table = $db->selectCollection($this->Tablename());
 
         $cond = array(
-            'customer_id' => (int)$info->customer_id
+            'customer_id' => (string)$info->customer_id
         );
 
         $set = array(
-            "customer_id" => (int)$info->customer_id,
+            "customer_id" => (string)$info->customer_id,
             "mtime"       => time()
         );
         if (null !== $info->userid) {
@@ -165,7 +165,7 @@ class Customer
         $table = $db->selectCollection($this->Tablename());
 
         $cond = array(
-            'customer_id' => (int)$customer_id
+            'customer_id' => (string)$customer_id
         );
 
         $ret = $table->findOne($cond);

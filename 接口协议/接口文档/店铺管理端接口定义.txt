@@ -2324,7 +2324,7 @@ req = {
     position_id:"32",                            //(string)职业id(传就编辑该id下的职位,没传就新建职位）
     position_name:"服务员",                       //(string)职位名称
     position_not:"1",                           //(string)职位备注
-    position_permission:[1,2,8,512,16384],       //职位权限
+    position_permission:[010101:1,020101:0],    //职位权限
     //shop_id:"4"                               //(string)店铺id(登录获取）
 }
 resp = {
@@ -2337,6 +2337,19 @@ url = position_save.php
 req = {
     del_position:1                              //参数
     position_id:"32",                            //(string)职位id
+    //shop_id:"4"                               //(string)店铺id(登录获取）
+}
+resp = {
+    ret : 0,                     // 0:正常，非0出错（见cfg.js定义）
+    data:{
+     }
+}
+=== 启动/停用职位 ===
+url = position_save.php
+req = {
+    start_position:1                              //参数
+    position_id:"32",                            //(string)职位id
+    is_start:1,                                  //(1:启用，2:停用)
     //shop_id:"4"                               //(string)店铺id(登录获取）
 }
 resp = {
@@ -2364,6 +2377,8 @@ resp = {
                        "entry_type":1     // 创建类型(1:系统录入，2:手动录入)
                        "lastmodtime": 1509963165
                        "is_edit": 1,      //0:不编辑, 1:可编辑
+                       "is_start": 1,      //(1:启用，2:停用)
+                      "people_num": 1,      //人数
                    },
             {               //职位信息
                                "position_id": "32",
@@ -2693,14 +2708,16 @@ resp = {
         "info": 
             {
                 "shop_id":"1",          // 店铺id
-                "pc_num":2,             // pc登录名额
-                "pad_num":2,            // pad登录名额
-                "cashier_num":2,        // 收银机登录名额
-                "app_num":2,            // app登录名额
-                "used_pc_num":2,        // 已分配的pc登录名额
-                "used_pad_num":2,       // 已分配的pad登录名额
-                "used_cashier_num":2,   // 已分配的收银机登录名额
-                "used_app_num":2,       // 已分配的app登录名额
+                "pc_num":2,             // 商家运营平台登录名额
+                "pad_num":2,            // 平板智能点餐机登录名额
+                "cashier_num":2,        // 智能收银机登录名额
+                "app_num":2,            // 掌柜通登录名额
+                "machine_num":2,        // 自助点餐机登录名额
+                "used_pc_num":2,        // 已分配的商家运营平台登录名额
+                "used_pad_num":2,       // 已分配的平板智能点餐机登录名额
+                "used_cashier_num":2,   // 已分配的智能收银机登录名额
+                "used_app_num":2,       // 已分配的掌柜通登录名额
+                "used_machine_num":2,   // 已分配的自助点餐机登录名额
             }
      }
 }
@@ -2713,6 +2730,7 @@ req = {
     used_pad_num:2,       // 已分配的pad登录名额
     used_cashier_num:2,   // 已分配的收银机登录名额
     used_app_num:2,       // 已分配的app登录名额
+    used_machine_num:2,   // 已分配的自助点餐机登录名额
     
 }
 resp = {

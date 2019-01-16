@@ -4,12 +4,13 @@ require_once("typedef.php");
 function Input()
 {
     $_                     = &$GLOBALS["_"];
-    $_['srctype']          = 3;
+    $_['srctype']          = 1;
     $_['page_size']        = $_['page_num'];
     $_['page_no']          = $_['page_index'];
     //LogDebug($_['from_time']);
     $_['order_begin_time'] = $_['from_time'];
     $_['order_end_time']   = $_['to_time'];
+    $_['pay_way']          = $_['pay_type'];
     $_['pay_way']          = $_['pay_type'];
     $_['order_id']         = $_['order_num'];
     $_['seat_name']        = $_['table_num'];
@@ -85,7 +86,7 @@ function Input()
             $_['sort_name'] = 'close_time';
             break;
         case 'need_money':
-            $_['sort_name'] = 'paid_price';
+            $_['sort_name'] = 'order_payable';
             break;
         default:
             break;

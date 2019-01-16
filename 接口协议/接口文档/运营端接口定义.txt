@@ -1,5 +1,6 @@
 
 
+
 术语说明
 req  -- 接口请求
 resp -- 接口返回的数据
@@ -80,36 +81,75 @@ resp ={
     "data": {}
   }
 
-=== 创建代理商 ===
+=== 创建代理商 ===<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<二期改动
 url = agent_save.php
 ##################输入
 req ={
     agent_save : 1,                    // 参数
-    platformer_id : "1",               // 登录管理员id
-    phone :"13888881234",              // 登录账号（账号或手机号）
-    password : "admin",                // 登录密码
-    re_password : "",                  // 重复密码
+    agent_id:"AG118",                  //输入就是编辑
+    phone :"13312345678",              // 登录账号（账号或手机号）
+    password : "123456",                // 登录密码
+    re_password : "123456",                  // 重复密码
     agent_type : 1,                    // 代理类型(1:区域，2:行业)
     agent_level :1,                    // 代理级别(1:一级，2:二级，3:三级)
-    agent_name : "admin",              // 代理商名称
-    telephone : "1234"                 // 联系电话
-    real_name :"13888881234",          // 联系人
-    email : "1244@qq.com",             // 邮箱
-    address : "1234"                   // 地址
-    agent_province :"13888881234",     // 省
-    agent_city : "admin",              // 市
-    agent_area : "1234"                // 区
-    from :"13888881234",               // 来源
-    from_salesman : "admin",           // 所属销售      
+    agent_name : "冉总666智能有限公司",              // 代理商名称
+    telephone : "028-1234567",                 // 联系电话
+    real_name :"冉总",          // 联系人
+    email : "12345678@qq.com",             // 邮箱
+    address : "中国深圳",                   // 地址
+    agent_province :"广东省",            // 省
+    agent_city : "深圳市",              // 市
+    agent_area : "宝安区",                // 区
+    from :1,                           // 来源 1.电话,2.网络,3.展会
+    employee_name: "冉总职工1",           // 平台员工姓名
+    agent_logo :"13888881234",         // 代理商logo
 
 }
 #################输出
 resp ={
   "ret": 0,
   "data": {
-
+  'agent_id'=>'AG183'
+  }
   }
 }
+
+###工商信息提交<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<二期改动
+
+####接口地址
+            business_save.php
+#### 输入 GET
+
+	{
+                      business_save: 1,  //参数
+                      agent_id: "AG153",                       //输入agent_id就是保存代理商工商信息
+                      corporate_num: "12154546511338745151",      //商户名对公账户
+                      legal_person: "冉总",                     //法人代表
+                      legal_card: "513023199111200014",           //法人身份证
+                      legal_card_photo: [                         //法人身份照片
+                          "863d05877ae79dfc191b491b0c6249b3.jpg",
+                          "4b76926930557eaf17a80e57cf4d16e2.jpg"
+                      ],
+                      business_num: "0154412048100",               //营业执照注册号
+                      business_date: [                             //营业期限
+                          1527057135,
+                          1527057136
+                      ],
+                      business_photo: "fa89b884db516b7073acdfe13a9001d9.jpg", //营业执照照片
+                      repast_permit_num: "gs45451521577",                         //餐饮许可编号
+                      repast_permit_photo: "d82fc0ec08cf83646adcea2f16ec1244.jpg",  //餐饮许可扫描证件
+                      taxpayer_num: "gdsgsg154151",                             //纳税人识别号
+                      taxpayer_photo: "d508bf88200289028d152ace532dbc6a.jpg",   //纳税人扫描证件
+                      business_scope: "餐饮"
+	}
+
+#### 输出
+
+         {
+     		"ret":0,
+     		"data": {
+     		}
+         }
 === 代理商信息(行业) ===
 url = agent_get.php
 req = {
@@ -261,8 +301,11 @@ resp ={
        password : "admin",                // 登录密码
        re_password : "",                  // 重复密码
        remark :"备注",                    // 备注
-       pl_position_id : "1",              // 平台职位id
-       pl_department_id : "1",            // 平台部门id
+       pl_role_id : "1",              // 平台职位id
+       pl_department_id : "1
+       ",            // 平台部门id
+       platformer_num:"0001",             //平台员工编号 <<<<<<<<<<<<<<新加字段
+       is_freeze:1                        // 0:正常, 1:已冻结<<<<<<<<<<<新加字段
 
    }
    #################输出
@@ -505,10 +548,11 @@ resp ={
            real_name :"张",                     // 姓名
            phone :"13888881234",              // 登录账号（账号或手机号）
            password : "admin",                // 登录密码
-           re_password : "",                  // 重复密码
            remark :"备注",                    // 备注
            ag_position_id : "1",              // 平台职位id
            ag_department_id : "1",            // 平台部门id
+          is_freeze :1,               // 0:正常, 1:已冻结
+          employee_num :1,           // 员工编号(int) //产品定义的(黑人???)
 
        }
        #################输出
@@ -841,94 +885,94 @@ req ={
               ]
              }
  }
-       === 保存/编辑 平台员工职位 ===
-        url = pl_position_save.php
-        ##################输入
-        req ={
-            pl_position_save: 1,                // 参数
-            pl_position_id : "PLD14",           // 职位id(编辑时传)
-            pl_position_name : "CEO",           // 职位名
-            pl_position_permission : [1,2,4,8,16], // 职位权限（参看const.php中PlPosition)
-            pl_position_note : "备注",           // 职位备注
-        }
-        #################输出
-        resp ={
-          "ret": 0,
-          "data": {
-          }
-        }
-               === 获取平台员工职位详情 ===
-                url = pl_position_get.php
-                ##################输入
-                req ={
-                    get_pl_position_info: 1,                // 参数
-                    pl_position_id : "PLD14",           // 职位id
-                }
-                #################输出
-                resp ={
-                  "ret": 0,
-                  "data": {
-                        "position_info": {
-                              "pl_position_id": "PLP9",    //职位id
-                              "pl_position_name": "CEO",   //职位名称
-                              "pl_position_permission": 3,
-                              "pl_position_note": null,    //职位备注
-                              "platform_id": "1",
-                              "delete": 0,
-                              "is_edit": null,
-                              "lastmodtime": 1516246535,
-                              "ctime": 1516246535,
-                              "entry_type": null
-                          },
-                          "permission": [   //权限列表（参看const.php中PlPosition)
-                              1,
-                              2
-                          ]
-                  }
-                }
-            === 获取平台员工职位列表 ===
-                url = pl_position_get.php
-                ##################输入
-                req ={
-                    get_pl_position_list: 1,                // 参数
-                   page_szie:1,          //每页条数（默认7条）
-                   page_no:1,            //页数（默认第一页）
-                }
-                #################输出
-                resp ={
-                  "ret": 0,
-                  "data": {
-                         "position_list": [
-                               {
-                                   "pl_position_id": "PLP9",    //职位id
-                                   "pl_position_name": "CEO123",//职位名称
-                                   "pl_position_permission": 11,//权限需要前台位运算
-                                   "pl_position_note": "备注",//职位备注
-                                   "platform_id": "1",
-                                   "delete": 0,
-                                   "is_edit": null,
-                                   "lastmodtime": 1516254357,
-                                   "ctime": 1516246535,
-                                   "entry_type": null
-                               },
-                               {
-                                   "pl_position_id": "PLP12",
-                                   "pl_position_name": "产品推广员",
-                                   "pl_position_permission": 3,
-                                   "pl_position_note": "赛领公司的",
-                                   "platform_id": "1",
-                                   "delete": 0,
-                                   "is_edit": null,
-                                   "lastmodtime": 1516254487,
-                                   "ctime": 1516254487,
-                                   "entry_type": null
-                               }
-                           ],
-                           "total": 2,  //总共个数
-                           "page_size": 7, //每页个数
-                           "page_no": 1   //页数
-                  }
-                }
+=== 保存/编辑 平台员工职位 ===
+url = pl_position_save.php
+##################输入
+req ={
+    pl_position_save: 1,                // 参数
+    pl_position_id : "PLD14",           // 职位id(编辑时传)
+    pl_position_name : "CEO",           // 职位名
+    pl_position_permission :[{"000001":1,"0000002":0}], // 职位权限（参看const.php中PlPosition)<<<<<<<<<根据代理商来
+    pl_position_note : "备注",           // 职位备注
+}
+#################输出
+resp ={
+  "ret": 0,
+  "data": {
+  }
+}
+=== 获取平台员工职位详情 ===
+url = pl_position_get.php
+##################输入
+req ={
+    get_pl_position_info: 1,                // 参数
+    pl_position_id : "PLD14",           // 职位id
+}
+#################输出
+resp ={
+  "ret": 0,
+  "data": {
+        "position_info": {
+              "pl_position_id": "PLP9",    //职位id
+              "pl_position_name": "CEO",   //职位名称
+              "pl_position_permission": 3,
+              "pl_position_note": null,    //职位备注
+              "platform_id": "1",
+              "delete": 0,
+              "is_edit": null,
+              "lastmodtime": 1516246535,
+              "ctime": 1516246535,
+              "entry_type": null
+          },
+          "permission": [   //权限列表（参看const.php中PlPosition)
+              1,
+              2
+          ]
+  }
+}
+=== 获取平台员工职位列表 ===
+url = pl_position_get.php
+##################输入
+req ={
+get_pl_position_list: 1,                // 参数
+page_szie:1,          //每页条数（默认7条）
+page_no:1,            //页数（默认第一页）
+}
+#################输出
+resp ={
+"ret": 0,
+"data": {
+     "position_list": [
+           {
+               "pl_position_id": "PLP9",    //职位id
+               "pl_position_name": "CEO123",//职位名称
+               "pl_position_permission": 11,//权限需要前台位运算
+               "pl_position_note": "备注",//职位备注
+               "platform_id": "1",
+               "delete": 0,
+               "is_edit": null,
+               "lastmodtime": 1516254357,
+               "ctime": 1516246535,
+               "entry_type": null
+           },
+           {
+               "pl_position_id": "PLP12",
+               "pl_position_name": "产品推广员",
+               "pl_position_permission": 3,
+               "pl_position_note": "赛领公司的",
+               "platform_id": "1",
+               "delete": 0,
+               "is_edit": null,
+               "lastmodtime": 1516254487,
+               "ctime": 1516254487,
+               "entry_type": null
+           }
+       ],
+       "total": 2,  //总共个数
+       "page_size": 7, //每页个数
+       "page_no": 1   //页数
+}
+}
 === 删除平台职位 ===
 url = pl_position_save.php
 ##################输入
@@ -1244,11 +1288,12 @@ resp ={
     "ret": 0,
     "data": {}
 }
-=== 用户反馈列表===
+=== 用户反馈列表===<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<改动
 url = user_feedback_get.php
 req ={
     user_feedback_list: 1,         //  参数
     feedback_type: 1, //  反馈类型(0.默认分类,1.吐槽错误,2.无法使用,3.优化建议)
+    feedback_from: 1, // 反馈来源(0.未确定,1.商户,2.代理商)
     page_size:1,
     page_no:1,
     sort_name:feedback_time      //排序名称 目前只有反馈时间排序
@@ -1265,6 +1310,7 @@ resp ={
                     "feedback_phone": "13888888888",  //用户返回账号
                     "feedback_time": 1516610021,  //反馈实际
                     "feedback_type": 1, //反馈类型(0.默认分类,1.吐槽错误,2.无法使用,3.优化建议)
+                    "feedback_from": 1, // 反馈来源(0.未确定,1.商户,2.代理商)
                     "content": "我是冉总都给我闪开", //反馈内容
                     "delete": 0,
                     "lastmodtime": 1516610021
@@ -1289,52 +1335,7 @@ resp ={
     "ret": 0,
     "data": {}
 }
-=== 系统公告列表===
-url = news_get.php
-req ={
-     sysnews_list: 1,         //  参数
-    send_type: 1, //  发送对象（0:未定,1:商户, 2:代理商）
-    is_send:1,   //是否已发送（0:未发, 1:已发送）
-    page_size:1,
-    page_no:1,
-    sort_name:send_time      //排序名称 目前只有反馈时间排序
-    desc:1    //排序方式。-1正序，1倒序
-    begin_time:16449489489,
-    end_time:16449489489,
-}
-resp ={
-    "ret": 0,
-    "data": {
-    "list": [
-               {
-                               "news_id": "NE978",
-                               "shop_id": null,
-                               "title": "张",//标题
-                               "content": "1213", //内容含html页面，需要前端显示
-                               "is_draft": null,
-                               "delete": 0,
-                               "lastmodtime": 1516172481,
-                               "send_time": "2018-01-17 15:00:00", //发送时间
-                               "is_send": "已发送", //发送状态
-                               "ctime": 1516171273,
-                               "is_system": 1,
-                               "send_type": "商户"  //发送对象
-                           },
-                           {
-                               "news_id": "NE973",
-                               "shop_id": null,
-                               "title": "张",
-                               "content": "1213",
-                               "is_draft": null,
-                               "delete": 0,
-                               "lastmodtime": 1516171245,
-                               "send_time": "2018-01-17 14:40:45",
-                               "is_send": "已发送",
-                               "ctime": 1516171245,
-                               "is_system": 1,
-                               "send_type": "商户"
-                           }]
-}
+
 === 代理商公告列表===
 url = news_get.php
 req ={
@@ -1423,29 +1424,63 @@ resp ={
 }
 
 
-=== 系统公告编辑==
+=== 系统公告编辑==<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<二期有改动处
 url = news_save.php
 req ={
-    news_save: 1,         //  参数
-    content: ["AA12","AA23"], //  内容(含html数据）
-    title: ["AA12","AA23"], //  标题
-    news_id: "AA12", //  系统公告id  //传就编辑，不传就是新建 //必须是还未发送的才能编辑,已经发送的无法编辑
-    send_time: 16449489489, //  //发送时间
-    send_type: 1, //  发送对象（0:未定,1:商户, 2:代理商）
+    news_save: 1,                        //  参数
+    content: "欣吃货66666666,再6没我冉总6", //  内容(含html数据）
+    title: "冉总666",                     //  标题
+    send_type: 1,                        // 发送对象（0:未定,1:全部,2:商户,3:代理商）
+    business_status: 1,                  // 发送对象工商认证状态(0:未认证,1:待认证,2:认证成功,3:认证失败,4:全部状态)
+    platfomer_id: "PL23",                //  平台员工ID,登录点的时候获取
 }
 resp ={
     "ret": 0,
     "data": {}
 }
-=== 系统公告详情==
+=== 系统公告列表===<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<二期有改动处
+url = news_get.php
+req ={
+     sysnews_list: 1,         //  参数
+    send_type: 1, // 发送对象（0:未定,1:全部,2:商户,3:代理商）
+    business_status: 1,                  // 发送对象工商认证状态(0:未认证,1:待认证,2:认证成功,3:认证失败,4:全部状态)
+    pl_name:"冉总职工1",                   // 发送人姓名
+    page_size:1,
+    page_no:1,
+    sort_name:send_time      //排序名称 目前只有反馈时间排序
+    desc:1    //排序方式。-1正序，1倒序
+
+}
+resp ={
+    "ret": 0,
+    "data": {
+    "list": [
+                    {
+                              "news_id": "NE560",//id
+                              "shop_id": null,
+                              "title": "冉总666", //标题
+                              "content": "欣吃货66666666,再6没我冉总6",//内容
+                              "delete": 0,
+                              "lastmodtime": 1528791899,
+                              "send_time": 1528791899,//发送时间
+                              "ctime": 1528791899,
+                              "is_system": 1,
+                              "send_type": 1,// 发送对象（0:未定,1:全部,2:商户,3:代理商）
+                              "platfomer_id": "PL23",
+                              "business_status": 1// 发送对象工商认证状态(0:未认证,1:待认证,2:认证成功,3:认证失败,4:全部状态)
+                          }]
+}
+=== 系统公告详情==<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<二期有改动处
 url = news_get.php
 req ={
     sysnews_info: 1,         //  参数
-    news_id: "AA12", //  系统公告id
+    news_id: "NE560", //  系统公告id
 }
 resp ={
     "ret": 0,
-    "data": {}
+    "data": {
+    '内容同上'
+    }
 }
 === 系统公告删除==
 url = news_save.php
@@ -2247,6 +2282,8 @@ req ={
     apply_name: "申请人",        //申请人（必填）
     telephone:"1338821241"     //联系电话   （必填）
     shop_name:"冉总666"         //商户名称（必填）
+    city:1,      //城市
+    province:2,   //省份
     address:"冉总666"           //地址
     email:"冉总666@qq.com"      //邮箱
     product_status:[1]         //试用产品(1.小程序,2.微信端,3.PC端)<<<<<<<<<<<<<<<<目前还是先用数组,方便以后多选
@@ -2254,4 +2291,40 @@ req ={
 resp ={
     "ret": 0,
     "data": {}
+}
+=== 产品申请列表 ===
+url = product_apply_get.php
+req ={
+    product_apply_list: 1,        //  参数
+    begin_time: 1325496,        // 申请开始时间
+    end_time:1644498,           // 申请结束时间
+    page_size:5,               // 每页条数 默认10
+    page_no:1,                 //  页数     默认1
+    sort_name:apply_time    //排序字段
+    desc: 1              //排序
+}
+
+#################输出
+resp ={
+  "ret": 0,
+  "data": {
+  "apply_list": [
+              {
+                  "apply_id": "AA40",  //申请id
+                  "apply_name": "冉总BOOS", //申请人名称
+                  "shop_name":"冉总666",      //公司名称
+                  "telephone": "13666666666",  //电话号码
+                  "apply_time": 1516350696,   //申请时间
+                  "lastmodtime": 1516350696,
+                  "delete": 0,
+                  "email": "ranzongboss@qq.com",   //邮箱
+                  "address": "颤抖吧骚年们",       // 地址
+                  "apply_status": 0          //申请状态(1.申请中,0.试用中)
+                  product_status:[1]         //试用产品(1.小程序,2.微信端,3.PC端)
+              }
+          ],
+          "total": 5, //总条数
+          "page_size": 10, //每页条数
+          "page_no": 1   //页数
+  }
 }

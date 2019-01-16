@@ -8,7 +8,7 @@ require_once("mgo_weixin.php");
 require_once("redis_id.php");
 require_once("const.php");
 
-function WeixinSave($info)
+function WeixinSave($info, &$wx_id=null)
 {
     if(!$info)
     {
@@ -27,7 +27,7 @@ function WeixinSave($info)
     $province    = $info->province;
     $src         = $info->src;
     $srctype     = $info->srctype;
-    
+
 
     if(!$id)
     {
@@ -35,7 +35,7 @@ function WeixinSave($info)
     }
     $entry = new \DaoMongodb\WeixinEntry;
     $mongodb = new \DaoMongodb\Weixin;
-    
+
     $entry->id          = $id;
     $entry->userid      = $userid;
     $entry->headimgurl  = $headimgurl;
@@ -56,10 +56,9 @@ function WeixinSave($info)
         LogErr("Save err");
         return errcode::SYS_ERR;
     }
+    $wx_id = $id;
     LogInfo("save ok");
     return 0;
 }
 
 ?>
-
-

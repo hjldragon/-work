@@ -448,3 +448,15 @@ resp = {
     ret : 0,     // 0:正常，非0出错（见cfg.js定义）
     data: {}
 }
+=== 获取手机验证码 ===
+url = customer_save.php
+req = {
+    get_coke : 1,
+    phone : "12345678941",
+}
+resp = {
+    ret : 0,     // 0:正常，非0出错（见cfg.js定义）
+    data: {
+
+    }
+}

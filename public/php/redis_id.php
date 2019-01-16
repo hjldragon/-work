@@ -3,7 +3,6 @@
  * [Rocky 2017-04-26 18:00:57]
  * id操作
  */
-declare(encoding='UTF-8');
 namespace DaoRedis;
 require_once("db_pool.php");
 require_once("redis_public.php");
@@ -189,7 +188,102 @@ class Id
     {
         return "WX" .self::GenId("weixin");
     }
-
+    static public function GenAlipayId()
+    {
+        return "AL" .self::GenId("alipay");
+    }
+    static public function GenAgentPayId()
+    {
+        return "PR" .self::GenId("pay_record");
+    }
+    static public function GenAuditId()
+    {
+        return "AI" .self::GenId("audit_person");
+    }
+    static public function GenCityId()
+    {
+        return "CT" .self::GenId("city");
+    }
+    static public function GenExpressCompanyId()
+    {
+        return "EC" .self::GenId("express_company");
+    }
+    static public function GenAddressId()
+    {
+        return "ADS" .self::GenId("address");
+    }
+    static public function GenFreightId()
+    {
+        return "GF" .self::GenId("freight");
+    }
+    static public function GenFromId()
+    {
+        return "FI" .self::GenId("from");
+    }
+    static public function GenAgentSedId()
+    {
+        return "FI" .self::GenId("AS");
+    }
+    static public function GenGoodsOrderId()
+    {
+        return "GO" .self::GenId("goods_order");
+    }
+    static public function GenGoodEvaluationId()
+    {
+        return "GEV" .self::GenId("goods_evaluation");
+    }
+    static public function GenResourcesId()
+    {
+        return "RES" . self::GenId("resources");
+    }
+    static public function GenTermBindingId()
+    {
+        return "TB" .self::GenId("term_binding");
+    }
+    static public function GenPlRoleId()
+    {
+        return "PR" .self::GenId("pl_role");
+    }
+    static public function GenAgRoleId()
+    {
+        return "AR" .self::GenId("ag_role");
+    }
+    static public function KitchenStallId()
+    {
+        return "KS" .self::GenId("kitchen_stall");
+    }
+    static public function VendorId()
+    {
+        return "VI" .self::GenId("vendor");
+    }
+    static public function GenVGCategoryId()
+    {
+        return "VGC" .self::GenId("vg_category");
+    }
+    static public function GenVendorGoodsId()
+    {
+        return "VG" .self::GenId("vendor_goods");
+    }
+    static public function GenFaultId()
+    {
+        return "FD" .self::GenId("fault_deal");
+    }
+    static public function GenAisleId()
+    {
+        return "AI" .self::GenId("aisle");
+    }
+    static public function GenVendorRecordId()
+    {
+        return "VR" .self::GenId("vendor_record");
+    }
+    static public function GenVendorOrderId()
+    {
+        return "VO" .self::GenId("vendor_record");
+    }
+    static public function GenReturnRecordId()
+    {
+        return "RI" .self::GenId("return_record");
+    }
 }
 
 

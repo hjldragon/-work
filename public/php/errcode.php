@@ -92,6 +92,10 @@ class errcode
     const NOT_AUTHORIZATION     = -20082;        // 未获得授权,请联系店铺管理人员设置
     const ADMIN_PASWORD_ERR     = -20083;        // 管理员账号或密码不正确<<<<<<<<<<<<<<<<<
     const GET_LIST_ERR          = -20084;        // 加载失败,请重新操作
+    const APPLY_IS_EXIST        = -20085;        // 申请不能重复
+    const PLAY_NOT_ZERO         = -20086;        // 支付金额不能小于0.01
+    const SELFHELP_IS_BINDING   = -20087;        // 自助点餐机已绑定
+    const USER_SELFHELP_BINDING = -20088;        // 该账户已经绑定过点餐机了
 
 
 
@@ -129,6 +133,7 @@ class errcode
     const IMG_NOT_MORE            = -30043;       // 图片更换不到一个月
     const SHOP_IS_FREEZE          = -30044;       // 此店铺已被冻结
     const AGENT_IS_FREEZE         = -30045;       // 此代理商已被冻结
+    //  ------------------ 新加的出错码写下面 ---------------------------
 
 
     //{{ 微信端移来
@@ -137,11 +142,13 @@ class errcode
     //}}
 
     //{{ costomer端移来(代码重设置)
-    const ORDER_IS_URGE     = -30052;       // 订单已催单
-    const ORDER_URGE_TIME   = -30053;       // 催单时间还未到
-    const ORDER_NOT_PRINTED = -30054;       // 订单还未下单
-    const SHOP_ID_NOT       = -20036;       // 没有餐馆ID
-    const WX_NO_SUPPORT     = -30055;       // 未开通微信支付
+    const ORDER_IS_URGE         = -30052;       // 订单已催单
+    const ORDER_URGE_TIME       = -30053;       // 催单时间还未到
+    const ORDER_NOT_PRINTED     = -30054;       // 订单还未下单
+    const SHOP_ID_NOT           = -20036;       // 没有餐馆ID
+    const WX_NO_SUPPORT         = -30055;       // 未开通微信支付
+    const NO_EAT_AFTER          = -30056;       // 不支持餐后支付
+    const ALIPAYPLAY_NO_SUPPORT = -30057;       // 未开通支付宝支付
     //}}
 
     //{{ 后台服务出错码
@@ -167,10 +174,41 @@ class errcode
     //
     ///////////////////////////////////////////////////////////////////
 
-    //const xxx         = -200010       // 出错描述
-
+    //const xxx         = -200010;      // 出错描述
+    const SMS_SEND_ERR         = -200020;     // 短信发送出错
+    const SHOP_IS_AUDIT        = -200030;     // 未到审核级或已被同级审核
+    const NO_EMPLOYEE          = -200040;     // 员工不存在
+    const FOOD_MADE_FINISH     = -200050;     // 该订单已完成制作
+    const GOOD_HOT_TOPLIMIT    = -200060;     // 热卖商品超过上限
+    const SEAT_HAVE_RES        = -200070;     // 餐桌已被预订
+    const PROVINCE_ERR         = -200080;     // 代区域不合法
+    const FROM_ERR             = -200090;     // 来源已经被运用
+    const VERSION_ERR          = -200100;     // 没有版本号存在,请联系管理员
+    const SET_ERR              = -200110;     // 代理商设置重复
+    const PAY_PASSWD_ERR       = -200120;     // 支付密码错误
+    const MONEY_NOT_ENOUGH     = -200130;     // 余额不足
+    const GOODS_NOT_ENOUGH     = -200140;     // 商品库存不足
+    const PASSWORD_ERR_TOOMANY = -200150;     // 密码出错次数过多
+    const RESOURCES_NOT_ENOUGH = -200160;     // 登录授权数不足
+    const NOT_BIND_TERM        = -200170;     // 该账号已在其他设备上绑定，请解绑后再登录（不是绑定终端）
+    const LOGIN_LAPSE          = -200180;     // 登录超时
+    const EXPRESS_COMPANY_ERR  = -200190;     // 快递公司错误
+    const ADDRESS_NOT          = -200200;     // 地址未设置
+    const GOODS_SALE_OFF       = -200210;     // 商品已下架
+    const EVA_IS_EXIST         = -200220;     // 请勿重复评价
+    const GOODS_SPEC_CHANGE    = -200230;     // 商品信息已改变
+    const SHOP_PERMISSION_START= -200240;     // 店铺职位被冻结(权限)
+    const NOT_INVOICE          = -200250;     // 此订单不能开票或已开票
+    const ROLE_IS_USE          = -200260;     // 角色已被使,不可删除
+    const SYS_DEFAULT          = -200270;     // 系统默认无法编辑
+    const POSITION_IS_USE      = -200280;     // 提示
+    const NOT_BIND_USER        = -200290;     // 账号已被使用（不是绑定终端）
+    const AISLE_IS_FULL        = -200300;     // 货道已满
+    const USER_LOGINED_EXIST   = -200310;     // 该账号正在使用，无法重复登录
+    const USER_LOGIN_ERR       = -200320;     // 用户账号或密码错误
+    const VENDOR_FAULT_REMI    = -200330;     // 已催单
     /*
-     * 注意同步修改 js/cfg.js --> errcode
+     * 注意同步修改 js/cfg.js --> errcode职位以及被使用
      */
 
     static private $ret2msg = [
@@ -260,6 +298,10 @@ class errcode
         "-20082" => "未获得授权,请联系店铺管理人员设置",
         "-20083" => "管理员账号或密码不正确",
         "-20084" => "加载失败,请重新操作",
+        "-20085" => "申请不能重复",
+        "-20086" => "支付金额不能小于0.01",
+        "-20087" => "自助点餐机已绑定",
+        "-20088" => "该账户已经绑定过点餐机了",
         "-30010" => "图片过多",
         "-30011" => "餐品名称已存在",
         "-30012" => "订单状态出错",
@@ -300,9 +342,31 @@ class errcode
         "-30053" => "催单时间还未到",
         "-30054" => "订单还未下单",
         "-20036" => "没有餐馆ID",
-        "-30055" => "未开通微信支付",
+        "-30055" => "未配置支付参数，不能发起在线支付",
+        "-30057" => "未配置支付参数，不能发起在线支付",
+        "-200020" => "短信发送出错",
+        "-200030" => "未到审核级或已被同级审核",
+        "-200040" => "不存在",
+        "-200050" => "该订单已完成制作",
+        "-200060" => "热卖商品超过上限",
+        "-200070" => "餐桌已被预订",
+        "-200080" => "代区域不合法",
+        "-200090" => "来源已经被运用",
+        "-200100" => "没有版本号存在,请联系管理员",
+        "-200110" => "代理商设置重复",
+        "-200240" => "店铺职位被冻结(权限)",
+        "-200250" => "店铺职位被冻结(权限)",
+        "-200260" => "角色已被使,不可删除",
+        "-200160" => "您的授权数不足,请马上联系您的供应商进行续费",
+        "-200170" => "该账号已在其他设备上绑定，请解绑后再登录",
+        "-200270" => "系统默认无法编辑",
+        "-200280" => "提示",
+        "-200290" => "该设备已绑定其它账号，请解绑后再登录",
+        "-200300" => "货道已满",
+        "-200310" => "该账号正在使用，无法重复登录",
+        "-200320" => "用户账号或密码错误",
+        "-200330" => "已催单"
     ];
-
     static public function toString($ret)
     {
         return self::$ret2msg[$ret];

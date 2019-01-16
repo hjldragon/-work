@@ -1,5 +1,5 @@
 <?php
-set_include_path("/www/shop.jzzwlcm.com/php:/www/www.ob.com/php/");
+set_include_path("/www/shop.jzzwlcm.com/php:/www/www.ob.com/php/:/www/public.sailing.com/php");
 require_once("redis_login.php");
 require_once("page_util.php");
 

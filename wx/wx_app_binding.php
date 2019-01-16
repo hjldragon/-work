@@ -27,7 +27,7 @@ function BindingSave(&$resp)
     $key        = $_['key'];
     $publickey  = $_['publickey'];
     $privatekey = $_['privatekey'];
-    $srctype    = (int)$_['srctype'];
+    $srctype    = $_['srctype'];
     $code       = $_['code'];
     $userid     = $_['userid'];
 
@@ -44,7 +44,8 @@ function BindingSave(&$resp)
         $env_id = 2;//还未定义用于扩展
     }
     //先获取用户openid
-    $req          = \Wx\Util::GetAppOpenid($appid, $secret, $code);
+    $req = \Pub\Wx\Util::GetAppOpenid($appid, $secret, $code);
+    LogDebug($req);
     if(!$req->openid)
     {
         LogErr("weixin code err:$req->errcode");
@@ -53,16 +54,16 @@ function BindingSave(&$resp)
     $weixin       = new \DaoMongodb\Weixin;
     $access_token = $req->access_token;
     $openid       = $req->openid;
-    $src          = BindingSrc::SHOP;//来源是属于商户
+    $src          = Src::SHOP;//来源是属于商户
     //判断用户是否已绑定
-    $weixin_info  = $weixin->QueryByOpenId($openid, $src);
+    $weixin_info  = $weixin->QueryByOpenId($openid, $src, $srctype);
     if($weixin_info->userid)
     {
         LogErr("User is binding");
         return errcode::WEIXIN_NO_BINDING;
     }
     //如果没有绑定就保存用户信息
-    $user       = \Wx\Util::GetUserInfo($access_token,$openid);//获取微信用户信息
+    $user       = \Pub\Wx\Util::GetUserInfo($access_token,$openid);//获取微信用户信息
 //    if($openid != $user->openid){
 //        LogErr("User openid is not same,err");
 //        return errcode::PARAM_ERR;
@@ -119,6 +120,7 @@ function ReBindingSave(&$resp)
     }
     $userid      = $_['userid'];
     $srctype     = $_['srctype'];
+    LogDebug($_);
     if(!$userid)
     {
         LogErr("no userid");
@@ -126,7 +128,7 @@ function ReBindingSave(&$resp)
     }
 
     $src    = Src::SHOP;
-    $weixin = \Cache\Weixin::GetWeixinUser($userid , $src);
+    $weixin = \Cache\Weixin::GetWeixinUser($userid , $src, $srctype);
 
     if($weixin->userid != $userid || !$weixin->userid)
     {
@@ -137,7 +139,7 @@ function ReBindingSave(&$resp)
     $user->id     = $weixin->id;
     $user->userid = '';
     $user->src    = $src;
-
+    $user->srctype= $srctype;
     $wx = WeixinSave($user);
     if(0 != $wx){
         LogErr("WeixinSave err");
