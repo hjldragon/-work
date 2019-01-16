@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>全球国家城市联动下拉选择特效代码 - JS代码网</title>
+<link rel="stylesheet" href="css/demo.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+<div class="wrap">
+	<div class="side">
+		<div class="logo">
+			<a href="http://www.js-css.cn" target="_blank">全球国家城市联动下拉选择</a>			
+		</div>		
+		<dl class="nav">
+			<dt>示例</dt>
+			<dd ><a href="index.html">国内省市区联动</a></dd>
+			<dd class="n"><a href="index2.html">全球主要国家城市联动</a></dd>			
+		</dl>
+	</div>
+	<div class="main">
+		<div class="inwrap">
+			<h1>jQuery cxSelect城市多级联动下拉菜单</h1>
+			<h2>全球主要国家城市联动</h2>
+
+			<div class="example">
+				<fieldset id="global_location" data-url="js/globalData.min.json">
+					<p>所在地区：
+						<select class="country cxselect" data-first-title="选择国家" disabled="disabled"></select>
+						<select class="state cxselect" disabled="disabled"></select>
+						<select class="city cxselect" disabled="disabled"></select>
+						<select class="region cxselect" disabled="disabled"></select>
+					</p>
+				</fieldset>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/jquery.cxselect.min.js"></script>
+<script>
+$('#global_location').cxSelect({
+	selects: ['country', 'state', 'city', 'region'],
+	nodata: 'none'
+});
+</script>
+</body>
+</html>

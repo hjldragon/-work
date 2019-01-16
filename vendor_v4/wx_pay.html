@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base href="./php/" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="http://todolist.rockyshi.cn/js/vue.min.js"></script>
+<script type="text/javascript" src="http://todolist.rockyshi.cn/js/axios.min.js"></script>
+<script type="text/javascript" src="http://todolist.rockyshi.cn/js/jsencrypt.min.js"></script>
+<script type="text/javascript" src="http://todolist.rockyshi.cn/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="http://todolist.rockyshi.cn/js/pagestore.js"></script>
+<script type="text/javascript" src="http://todolist.rockyshi.cn/js/md5.min.js"></script>
+<script type="text/javascript" src="http://todolist.rockyshi.cn/js/crypt.js"></script>
+<script type="text/javascript" src="http://todolist.rockyshi.cn/js/util.js"></script>
+<script type="text/javascript" src="http://todolist.rockyshi.cn/js/encsubmit.js"></script>
+<script type="text/javascript" src="http://todolist.rockyshi.cn/js/cfg.js"></script>
+<title>调支付页演示</title>
+</head>
+<body>
+
+
+
+<div id="id_1546401172" class="main">
+<!-- 微信支付 -->
+<form action="http://wx.jzzwlcm.com/retransmission.php"
+    method="post"
+    ref="wx_pay_call">
+    <textarea name="data" cols="80" rows="10" :value="wxpay_call_code">
+    </textarea>
+</form>
+<hr/>
+
+<pre>
+这里填写订单支付信息
+<button @click="CallWxPay()">立即支付(调起微信支付窗口)</button>
+<span>{{msg}}</span>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function(){
+
+// debug <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+window.pp=function(obj){return (JSON.stringify(obj, '', ' '))}
+
+window.WxPay = new Vue({
+    el: '#id_1546401172',
+    data: {
+        wxpay_call_code: "",
+        msg: "",
+    },
+    created(){
+    },
+    mounted(){
+    },
+    computed: {
+    },
+    watch: {
+    },
+    methods: {
+        // 调用微信支付窗口
+        CallWxPay(order_id, callback){
+            callback = callback||function(){};
+            this.msg = "正在获取支付数据...";
+            Http.EncSubmit("wx_pay_get.php",
+                {
+                    "opr"      : "get_wxpay_code",
+                    "order_id" : order_id,
+                },
+                resp => {
+                    if(resp.ret < 0)
+                    {
+                        console.log(resp);
+                        this.msg = "出错，code:" + resp.ret;
+                        return;
+                    }
+                    this.wxpay_call_code = resp.data.pay_code;
+                    setTimeout(()=>{
+                        this.$refs.wx_pay_call.submit();
+                        callback();
+                    }, 300);
+            });
+        },
+    },
+});
+})();
+</script>
+
+
+</body>
+</html>
