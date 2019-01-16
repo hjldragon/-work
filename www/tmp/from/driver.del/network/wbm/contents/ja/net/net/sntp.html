@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Web Based Management Help</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">SNTP</div>
+        <dl>
+<dt>概要</dt>
+<dd>SNTP機能の設定を行います。</dd>
+<dt>SNTPサーバー設定の方法</dt>
+<dd>この項目がSTATICの場合は、ここに設定されるSNTPサーバーアドレス、ポートがそのままデバイスで使用されます。またAUTOならば、デバイスは再起動や電源を再投入 された場合、それらの値をDHCPプロトコルで得ようとします。 また、DHCPプロトコルを使うためにはTCP/IP設定ページのIP設定の方法が AutoかDHCPに設定されている必要があります。</dd>
+<dt>プライマリーSNTPサーバーアドレス</dt>
+<dd>プライマリーSNTPサーバーのホスト名またはIPアドレスを設定します。(例: sntp.example.net または 192.0.0.1) <br />
+SNTPサーバーにDNS名を用いるのであれば、“sntp.example.net”のようにFQDN(完全修飾ドメイン名)で設定してください。</dd>
+<dt>プライマリーSNTPサーバーポート</dt>
+<dd>プライマリーSNTPサーバーの接続先ポート番号を設定します。</dd>
+<dt>セカンダリーSNTPサーバーアドレス</dt>
+<dd>プライマリーSNTPサーバーのバックアップとして使用される、セカンダリーSNTPサーバーのホスト名またはIPアドレスを設定します。</dd>
+<dt>セカンダリーSNTPサーバーポート</dt>
+<dd>セカンダリーSNTPサーバーの接続先ポート番号を設定します。</dd>
+<dt>同期間隔</dt>
+<dd>SNTP機能はこの時間間隔で自動的に同期を行います。</dd>
+<dt>同期状態</dt>
+<dd>現在の同期状態を表示します。<br />
+同期成功: 最後に行った同期が成功しました。<br />
+同期失敗: 最後に行った同期が失敗しました。<br />
+未取得: SNTPの設定が誤っているため、起動してから一度も同期が成功していないか、SNTP機能が無効になっています。<br />
+同期中: SNTPサーバーと同期を行っています。同期が成功したか確認するために、しばらくしてから更新ボタンを押してください。</dd>
+<dd>注意：<br />
+「同期中」の同期状態は最大で約2分続きます。「同期失敗」や「未取得」の場合、指定されたSNTPサーバーが見つかりません。SNTPサーバーが存在しないか、指定されたホストではSNTPをサポートしていません。SNTPサーバー名とポート番号を確認してください。</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="閉じる" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

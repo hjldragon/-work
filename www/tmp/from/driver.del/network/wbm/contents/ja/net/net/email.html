@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Web Based Management Help</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">SMTP</div>
+        <dl>
+<dt>概要</dt>
+<dd>POP3/SMTP設定の変更が行えます。</dd>
+<dt>Eメール送信設定(SMTP)</dt>
+<dt>メールサーバー</dt>
+<dd>Eメールを送信するために使用する送信メールサーバー（SMTP）のIPアドレス又はサーバー名を設定してください。</dd>
+<dd>サーバー名で指定する場合は、DNSサーバーが正しく設定されている必要があります。またサーバー名は smtp.example.co.jp のように FQDN(Fully Qualified Domain Name) で指定してください。</dd>
+<dt>ポート</dt>
+<dd>接続をするSMTPサーバーのポート番号を設定してください。</dd>
+<dt>送信メールサーバー認証方式</dt>
+<dd>送信メールサーバー(SMTP)に対する認証方式を設定してください。Eメールを送信する際に、送信メールサーバー(SMTP)に対して、設定された方式でユーザーの認証を行います。</dd>
+<dd>なし : 送信メールサーバーに対してユーザーの認証を行いません。</dd>
+<dd>SMTP-AUTH : SMTP-AUTH方式で送信メールサーバーに対してユーザーの認証を行います。使用する場合は、SMTP-AUTHアカウントが正しく設定されている必要があります。</dd>
+<dt>SMTP-AUTHアカウント名</dt>
+<dt>SMTP-AUTHアカウントパスワード</dt>
+<dd>認証が必要な送信メールサーバー(SMTP)を使用する場合、送信メールサーバー(SMTP)のアカウント名とパスワードを設定してください。パスワードを設定しない場合は、スペースをひとつ入力してください。</dd>
+<dt>デバイスのEメールアドレス</dt>
+<dd>デバイスのEメールアドレスを記入します。<br />
+‘管理者メールアドレス’が正しく設定されていなかった場合、このEメールアドレスにステータス通知が返信されます。<br />
+このEメールアドレスを設定しない場合、‘ステータス通知’は送信されません。</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="閉じる" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

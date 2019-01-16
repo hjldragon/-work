@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Web Based Management Help</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">無線 (パーソナル)</div>
+        <dl>
+<dt>概要</dt>
+<dd>家庭(個人)向けの無線LAN設定が行えます。</dd>
+<dt>接続モード</dt>
+<dd>ワイヤレスデバイスは接続モードとして、インフラストラクチャーとアドホックの２種類から選択できます。</dd>
+<dt>インフラストラクチャー</dt>
+<dd>インフラストラクチャーモードの無線ネットワークではアクセスポイントがネットワークの中心となります。アクセスポイントは有線のネットワークへのブリッジやゲートウェイとしても機能します。ワイヤレスデバイスが本モードで動作しているときは、全てのジョブはアクセスポイントを中継して受信されます。</dd>
+<dt>アドホック</dt>
+<dd>アドホックネットワーク（ピアツーピア・ネットワークと呼ばれることもあります）では、ネットワークの中心にアクセスポイントが存在しません。各々の無線クライアントが相互通信を直接行います。ワイヤレスデバイスが本モードで動作しているときは、コンピューターが送信するデータをジョブとして直接受信します。</dd>
+<dt>SSID （ネットワーク名）</dt>
+<dd>SSID（ネットワーク名：Service Set Identifier）を指定することで、ワイヤレスデバイスが使用する無線ネットワークを選択します。</dd>
+<dt>チャンネル</dt>
+<dd>無線ネットワークではある周波数帯を使用しており、日本では最大14チャンネル分を指定できます。ただし使用する国や製品によっては利用可能な帯域が限られています。</dd>
+<dt>認証方法と暗号化方法について</dt>
+<dd>有線ネットワークとは異なり、通信範囲が物理的に限られていないワイヤレスネットワーク環境下では、セキュリティに関する設定を行い傍受や不正アクセスを未然に防ぐ必要があります。</dd>
+<dd>セキュリティに関する設定には、認証方法（ネットワークにアクセスをしようとしている機器にアクセス権があるかどうかを判断する方法）と暗号化方法（データを暗号化することにより第三者による傍受を防ぐ方法）の設定があります。</dd>
+<dd>ワイヤレスデバイスをワイヤレスネットワークに確実に接続するためには、これらの設定を正しく行う必要があります。</dd>
+<dd>以下では、ワイヤレスデバイスがサポートする家庭(個人)向けの認証方法および暗号化方法を紹介します。</dd>
+<dt>認証方法</dt>
+<dd>ワイヤレスデバイスがサポートする家庭(個人)向け認証方法は次のとおりです。</dd>
+<dt>オープンシステム</dt>
+<dd>認証を行わず、すべてのアクセスを許可します。</dd>
+<dt>共有キー（インフラストラクチャーモードのみ）</dt>
+<dd>あらかじめ秘密のネットワークキーを設定しておいて、同じキーを使用している機器にのみアクセスを許可します。</dd>
+<dt>WPA/WPA2-PSK</dt>
+<dd>あらかじめ秘密のPSK(事前共有キー)を設定し、同じキーを使用している機器にのみアクセスを許可します。<br />
+この認証方法では、強力な暗号化方法を用いて安全に通信することができます。<br />
+WPA/WPA2-PSKはインフラストラクチャーモードで動作する無線ネットワークで用いられる認証方法です。</dd>
+<dt>暗号化方法</dt>
+<dd>ワイヤレスデバイスがサポートする家庭(個人)向け暗号化方法は次のとおりです。</dd>
+<dt>なし</dt>
+<dd>暗号化を行いません。</dd>
+<dt>WEP</dt>
+<dd>WEP (Wired Equivalent Privacy)の機能を用いてデータを暗号化し送受信を行います。</dd>
+<dt>TKIP</dt>
+<dd>Temporal Key Integrity Protocolの略です。 TKIPは可能な限り既存のWEPのアルゴリズムを用いながら、WEPで指摘されたWEPキーの手動設定によるセキュリティの脆弱性を補えるプロトコルです。 <br />
+TKIPは定期的に暗号キーが更新されるためWEPキーによる暗号化よりも高いセキュリティになります。</dd>
+<dt>AES</dt>
+<dd>AES (Advanced Encryption Standard)は、Wi-Fi&reg;が認定する、より強力な暗号です。</dd>
+<dt>ネットワークキー</dt>
+<dd>各セキュリティの方式について、以下に記載するルールがあります。</dd>
+<dt>オープンシステム／共有キー認証でのWEP</dt>
+<dd>WEPキーは６４bitあるいは１２８bitキーに対応する値をASCII文字か１６進数フォーマットで入力します。</dd>
+<dt>64(40)bit ASCII文字:</dt>
+<dd>半角５文字で入力します。</dd>
+<dd>例： "Hello"（大文字と小文字は区別されます）</dd>
+<dt>64(40)bit 16進数:</dt>
+<dd>１０桁の１６進数で半角入力します。</dd>
+<dd>例： "71f2234aba"</dd>
+<dt>128(104)bit ASCII文字</dt>
+<dd>半角１３文字で入力します。</dd>
+<dd>例： "Wirelesscomms"（大文字と小文字は区別されます）</dd>
+<dt>128(104)bit 16進数</dt>
+<dd>２６桁の１６進数で半角入力します。</dd>
+<dd>例： "71f2234ab56cd709e5412aa3ba"</dd>
+<dt>WPA/WPA2-PSK (暗号化方法はTKIPまたはAES)</dt>
+<dd>ネットワークにアクセスするための事前共有キーを入力します。キーは8文字から63文字のASCII文字です。</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="閉じる" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

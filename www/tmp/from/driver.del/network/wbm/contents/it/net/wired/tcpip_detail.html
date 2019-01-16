@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Guida Gestione pagina Web</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">TCP/IP Impostazioni avanzate (Cablata)</div>
+        <dl>
+<dt>Tentativi di avvio</dt>
+<dd>Se il metodo è impostato su STATIC, questo campo indica quanti tentativi vengono effettuati per il protocollo o i protocolli specificati dal campo del metodo per ottenere nuovi parametri di indirizzi. Se non viene ricevuto nessun nuovo indirizzo dopo questo numero di tentativi, verranno utilizzati i valori degli indirizzi esistenti.</dd>
+<dt>Impostazioni di avvio RARP</dt>
+<dd>Se il metodo boot è RARP (o AUTO, che include RARP) questi due flag indicano se RARP (che fornisce solo un indirizzo) deve impostare la subnet mask in base a quell'indirizzo o al gateway all'indirizzo dell'host che fornisce le informazioni RARP.</dd>
+<dt>Timeout TCP</dt>
+<dd>Se un lavoro basato su protocollo TCP è fermo (non trasmette dati) per il periodo di tempo specificato , il lavoro verrà terminato. Un valore pari a zero (0) disabilita questa caratteristica ed i lavori non scadranno mai.<br />
+Il timeout può essere specificato in minuti, selezionando le unità appropriate.</dd>
+<dt>Metodo server DNS</dt>
+<dd>Se la rete utilizza un server DHCP per assegnare a dispositivi di rete indirizzi IP, è possibile configurare il server DHCP per assegnare automaticamente altri indirizzi IP come server DNS.<br />
+* In caso di dubbi, contattare l'Amministratore di Rete.</dd>
+<dd>AUTO (Default) - Se il server DHCP è configurato per assegnare indirizzi IP DNS, selezionando AUTO l'indirizzo IP DNS verrà ricevuto automativamente dal server DHCP.<br />
+STATIC - Consente di inserire manualmente l'indirizzo IP del Server DNS.</dd>
+<dt>Indirizzo IP server DNS primario</dt>
+<dd>Se la rete è configurata per utilizzare un Server DNS (Domain Name Service) questo campo specifica l'indirizzo IP del Server DNS Primario.</dd>
+<dt>Indirizzo IP server DNS secondario</dt>
+<dd>In questo campo si specifica l'indirizzo IP del server DNS secondario, che si utilizza come backup dell'indirizzo del server DNS primario. Nel caso in cui il server primario non sia disponibile, il dispositivo contatta il server DNS secondario.</dd>
+<dt>Timeout gateway</dt>
+<dd>È il tempo di attesa della periferica per trovare il server DNS/SMTP a cui si accede tramite il gateway (router). Se il server non viene trovato entro il tempo impostato, viene generato un errore "Timeout".<br />
+A seconda del gateway (router), è necessario impostare il tempo corretto. Se si utilizza un router di accesso remoto, si consiglia un tempo superiore a 60 secondi. (Il tempo predefinito è 5 sec)</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Chiudi" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

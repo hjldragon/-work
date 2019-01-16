@@ -1,0 +1,10 @@
+[DSIInfo]
+DSM_Signature=BRDSM110
+SeriesSettingFile=LEOFX13A.DSI
+LanguageInfo=0
+[DriverInfo]
+FaxCommandLanguage=1
+[FileList]
+Init=LEDFXA4.DAT
+[Capability]
+PaperSize=ISOA4,NorthAmericaLetter,NorthAmericaLegal

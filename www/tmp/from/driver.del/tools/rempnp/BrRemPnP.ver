@@ -1,0 +1,7 @@
+;
+; PnP Driver Uninstaller Tool Package Version
+;
+
+[PackageVer]
+AppVersion = 1.0.18.2
+

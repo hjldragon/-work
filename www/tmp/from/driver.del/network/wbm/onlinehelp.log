@@ -1,0 +1,1068 @@
+14/06/09 14:59:32		≫ 処理開始 ≫ Online help Menu Output
+14/06/09 14:59:32		≫≫ CSS/imagesファイルのコピー開始
+14/06/09 14:59:32		Copy CSSフォルダ
+				D:\OnlineHelp\DSLe2_FB_Lenovo_EwsOnlineHelp_release1\net\src\app\ews2\online_help\baseparts\menu\css -> D:\OnlineHelp\DSLe2_FB_Lenovo_EwsOnlineHelp_release1\net\src\model\online_help\wbm\menu\css\
+14/06/09 14:59:32		Copy imagesフォルダ
+				D:\OnlineHelp\DSLe2_FB_Lenovo_EwsOnlineHelp_release1\net\src\app\ews2\online_help\baseparts\menu\images -> D:\OnlineHelp\DSLe2_FB_Lenovo_EwsOnlineHelp_release1\net\src\model\online_help\wbm\menu\images\
+14/06/09 14:59:32		≪≪ CSS/imagesファイルのコピー終了
+14/06/09 14:59:32		≫≫ メニューの出力開始
+14/06/09 14:59:32		≫≫≫ リダイレクトファイルの出力	Language : English
+14/06/09 14:59:32		≪≪≪ リダイレクトファイルの出力
+14/06/09 14:59:32		≫≫≫ 対象言語の出力	Language : English
+14/06/09 14:59:34		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 35	対象外件数（comment, menu / undef / Error）: 1 / 56 / 0
+14/06/09 14:59:34		≪≪≪ 対象言語の出力
+14/06/09 14:59:34		≫≫≫ 対象言語の出力	Language : French
+14/06/09 14:59:35		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 35	対象外件数（comment, menu / undef / Error）: 1 / 56 / 0
+14/06/09 14:59:35		≪≪≪ 対象言語の出力
+14/06/09 14:59:35		≫≫≫ 対象言語の出力	Language : French (Canadian)
+14/06/09 14:59:36		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 35	対象外件数（comment, menu / undef / Error）: 1 / 56 / 0
+14/06/09 14:59:36		≪≪≪ 対象言語の出力
+14/06/09 14:59:36		≫≫≫ 対象言語の出力	Language : German
+14/06/09 14:59:37		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 35	対象外件数（comment, menu / undef / Error）: 1 / 56 / 0
+14/06/09 14:59:37		≪≪≪ 対象言語の出力
+14/06/09 14:59:37		≫≫≫ 対象言語の出力	Language : Dutch
+14/06/09 14:59:38		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 35	対象外件数（comment, menu / undef / Error）: 1 / 56 / 0
+14/06/09 14:59:38		≪≪≪ 対象言語の出力
+14/06/09 14:59:38		≫≫≫ 対象言語の出力	Language : Spanish
+14/06/09 14:59:40		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 35	対象外件数（comment, menu / undef / Error）: 1 / 56 / 0
+14/06/09 14:59:40		≪≪≪ 対象言語の出力
+14/06/09 14:59:40		≫≫≫ 対象言語の出力	Language : Italian
+14/06/09 14:59:41		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 35	対象外件数（comment, menu / undef / Error）: 1 / 56 / 0
+14/06/09 14:59:41		≪≪≪ 対象言語の出力
+14/06/09 14:59:41		≫≫≫ 対象言語の出力	Language : Japanese
+14/06/09 14:59:42		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 35	対象外件数（comment, menu / undef / Error）: 1 / 56 / 0
+14/06/09 14:59:42		≪≪≪ 対象言語の出力
+14/06/09 14:59:42		≫≫≫ 対象言語の出力	Language : Chinese
+14/06/09 14:59:43		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 35	対象外件数（comment, menu / undef / Error）: 1 / 56 / 0
+14/06/09 14:59:43		≪≪≪ 対象言語の出力
+14/06/09 14:59:43		≫≫≫ 対象言語の出力	Language : Russian
+14/06/09 14:59:45		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 35	対象外件数（comment, menu / undef / Error）: 1 / 56 / 0
+14/06/09 14:59:45		≪≪≪ 対象言語の出力
+14/06/09 14:59:45		言語種類シート情報Sheet: lang_list
+					レコード件数 : 10	出力件数 : 10	対象外件数（comment / undef / Error）: 0 / 0 / 0
+14/06/09 14:59:45		≪≪ メニューの出力終了
+14/06/09 14:59:45		≪ 処理終了 ≪	処理が正常に終了しました。
+					Error   : 0 件	Warning : 0 件
+14/06/09 14:59:50		≫ 処理開始 ≫ Online help Contents Output
+14/06/09 14:59:50		≫≫ CSS/imagesファイルのコピー開始
+14/06/09 14:59:50		Copy CSSフォルダ
+				D:\OnlineHelp\DSLe2_FB_Lenovo_EwsOnlineHelp_release1\net\src\app\ews2\online_help\baseparts\onlinehelp\css -> D:\OnlineHelp\DSLe2_FB_Lenovo_EwsOnlineHelp_release1\net\src\model\online_help\wbm\contents\
+14/06/09 14:59:50		Copy imagesフォルダ
+				D:\OnlineHelp\DSLe2_FB_Lenovo_EwsOnlineHelp_release1\net\src\app\ews2\online_help\baseparts\onlinehelp\images -> D:\OnlineHelp\DSLe2_FB_Lenovo_EwsOnlineHelp_release1\net\src\model\online_help\wbm\contents\
+14/06/09 14:59:50		≪≪ CSS/imagesファイルのコピー終了
+14/06/09 14:59:50		≫≫ ヘルプデータの出力開始
+14/06/09 14:59:50		≫≫≫ 対象言語の出力	Language : English
+14/06/09 14:59:50		≫≫≫≫ ヘルプファイルの出力	Help Page : interface.html
+14/06/09 14:59:50		ヘルプ情報Sheet: trans_help_interface
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:50		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:50		≫≫≫≫ ヘルプファイルの出力	Help Page : protocol.html
+14/06/09 14:59:50		ヘルプ情報Sheet: trans_help_protocol
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:50		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:50		≫≫≫≫ ヘルプファイルの出力	Help Page : lpd.html
+14/06/09 14:59:50		ヘルプ情報Sheet: trans_help_lpd
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:50		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:50		≫≫≫≫ ヘルプファイルの出力	Help Page : ipp.html
+14/06/09 14:59:50		ヘルプ情報Sheet: trans_help_ipp
+					レコード件数 : 7	出力件数 : 5	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 14:59:50		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:50		≫≫≫≫ ヘルプファイルの出力	Help Page : webservices.html
+14/06/09 14:59:50		ヘルプ情報Sheet: trans_help_webservices
+					レコード件数 : 6	出力件数 : 5	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:50		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:50		≫≫≫≫ ヘルプファイルの出力	Help Page : email.html
+14/06/09 14:59:51		ヘルプ情報Sheet: trans_help_email
+					レコード件数 : 74	出力件数 : 18	対象外件数（comment / undef / Error）: 17 / 39 / 0
+14/06/09 14:59:51		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:51		≫≫≫≫ ヘルプファイルの出力	Help Page : email_test.html
+14/06/09 14:59:51		ヘルプ情報Sheet: trans_help_email_test
+					レコード件数 : 14	出力件数 : 7	対象外件数（comment / undef / Error）: 4 / 3 / 0
+14/06/09 14:59:51		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:51		≫≫≫≫ ヘルプファイルの出力	Help Page : mdns.html
+14/06/09 14:59:51		ヘルプ情報Sheet: trans_help_mdns
+					レコード件数 : 7	出力件数 : 6	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:51		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:51		≫≫≫≫ ヘルプファイルの出力	Help Page : sntp.html
+14/06/09 14:59:51		ヘルプ情報Sheet: trans_help_sntp
+					レコード件数 : 20	出力件数 : 18	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 14:59:51		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:51		≫≫≫≫ ヘルプファイルの出力	Help Page : notification.html
+14/06/09 14:59:51		ヘルプ情報Sheet: trans_help_notification
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:51		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:51		≫≫≫≫ ヘルプファイルの出力	Help Page : notification_detail.html
+14/06/09 14:59:52		ヘルプ情報Sheet: trans_help_notification_detail
+					レコード件数 : 9	出力件数 : 8	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:52		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:52		≫≫≫≫ ヘルプファイルの出力	Help Page : service.html
+14/06/09 14:59:52		ヘルプ情報Sheet: trans_help_service
+					レコード件数 : 5	出力件数 : 4	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:52		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:52		≫≫≫≫ ヘルプファイルの出力	Help Page : service_detail.html
+14/06/09 14:59:52		ヘルプ情報Sheet: trans_help_service_detail
+					レコード件数 : 33	出力件数 : 17	対象外件数（comment / undef / Error）: 7 / 9 / 0
+14/06/09 14:59:52		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:52		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 14:59:52		ヘルプ情報Sheet: trans_help_tcpip
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 14:59:52		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:52		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 14:59:52		ヘルプ情報Sheet: trans_help_tcpip_detail
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 14:59:52		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:52		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 14:59:53		ヘルプ情報Sheet: trans_help_netbios
+					レコード件数 : 21	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 4 / 0
+14/06/09 14:59:53		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:53		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 14:59:53		ヘルプ情報Sheet: trans_help_ipv6
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 14:59:53		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:53		≫≫≫≫ ヘルプファイルの出力	Help Page : ethernet.html
+14/06/09 14:59:53		ヘルプ情報Sheet: trans_help_ethernet
+					レコード件数 : 9	出力件数 : 4	対象外件数（comment / undef / Error）: 2 / 3 / 0
+14/06/09 14:59:53		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:53		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 14:59:53		ヘルプ情報Sheet: trans_help_tcpip_wlan
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 14:59:53		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:53		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 14:59:53		ヘルプ情報Sheet: trans_help_tcpip_detail_wlan
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 14:59:53		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:54		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 14:59:54		ヘルプ情報Sheet: trans_help_netbios_wlan
+					レコード件数 : 20	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 3 / 0
+14/06/09 14:59:54		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:54		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 14:59:54		ヘルプ情報Sheet: trans_help_ipv6_wlan
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 14:59:54		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:54		≫≫≫≫ ヘルプファイルの出力	Help Page : wireless.html
+14/06/09 14:59:55		ヘルプ情報Sheet: trans_help_wireless
+					レコード件数 : 56	出力件数 : 55	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:55		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:55		≫≫≫≫ ヘルプファイルの出力	Help Page : ipfilter.html
+14/06/09 14:59:55		ヘルプ情報Sheet: trans_help_ipfilter
+					レコード件数 : 13	出力件数 : 12	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:55		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:55		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 24	対象外件数（comment, menu / undef / Error）: 13 / 55 / 0
+14/06/09 14:59:55		≪≪≪ 対象言語の出力
+14/06/09 14:59:55		≫≫≫ 対象言語の出力	Language : French
+14/06/09 14:59:55		≫≫≫≫ ヘルプファイルの出力	Help Page : interface.html
+14/06/09 14:59:55		ヘルプ情報Sheet: trans_help_interface
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:55		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:55		≫≫≫≫ ヘルプファイルの出力	Help Page : protocol.html
+14/06/09 14:59:55		ヘルプ情報Sheet: trans_help_protocol
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:55		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:55		≫≫≫≫ ヘルプファイルの出力	Help Page : lpd.html
+14/06/09 14:59:55		ヘルプ情報Sheet: trans_help_lpd
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:55		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:55		≫≫≫≫ ヘルプファイルの出力	Help Page : ipp.html
+14/06/09 14:59:55		ヘルプ情報Sheet: trans_help_ipp
+					レコード件数 : 7	出力件数 : 5	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 14:59:55		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:55		≫≫≫≫ ヘルプファイルの出力	Help Page : webservices.html
+14/06/09 14:59:55		ヘルプ情報Sheet: trans_help_webservices
+					レコード件数 : 6	出力件数 : 5	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:55		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:55		≫≫≫≫ ヘルプファイルの出力	Help Page : email.html
+14/06/09 14:59:56		ヘルプ情報Sheet: trans_help_email
+					レコード件数 : 74	出力件数 : 18	対象外件数（comment / undef / Error）: 17 / 39 / 0
+14/06/09 14:59:56		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:56		≫≫≫≫ ヘルプファイルの出力	Help Page : email_test.html
+14/06/09 14:59:56		ヘルプ情報Sheet: trans_help_email_test
+					レコード件数 : 14	出力件数 : 7	対象外件数（comment / undef / Error）: 4 / 3 / 0
+14/06/09 14:59:56		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:56		≫≫≫≫ ヘルプファイルの出力	Help Page : mdns.html
+14/06/09 14:59:56		ヘルプ情報Sheet: trans_help_mdns
+					レコード件数 : 7	出力件数 : 6	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:56		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:56		≫≫≫≫ ヘルプファイルの出力	Help Page : sntp.html
+14/06/09 14:59:56		ヘルプ情報Sheet: trans_help_sntp
+					レコード件数 : 20	出力件数 : 18	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 14:59:56		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:57		≫≫≫≫ ヘルプファイルの出力	Help Page : notification.html
+14/06/09 14:59:57		ヘルプ情報Sheet: trans_help_notification
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:57		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:57		≫≫≫≫ ヘルプファイルの出力	Help Page : notification_detail.html
+14/06/09 14:59:57		ヘルプ情報Sheet: trans_help_notification_detail
+					レコード件数 : 9	出力件数 : 8	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:57		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:57		≫≫≫≫ ヘルプファイルの出力	Help Page : service.html
+14/06/09 14:59:57		ヘルプ情報Sheet: trans_help_service
+					レコード件数 : 5	出力件数 : 4	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 14:59:57		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:57		≫≫≫≫ ヘルプファイルの出力	Help Page : service_detail.html
+14/06/09 14:59:57		ヘルプ情報Sheet: trans_help_service_detail
+					レコード件数 : 33	出力件数 : 17	対象外件数（comment / undef / Error）: 7 / 9 / 0
+14/06/09 14:59:57		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:57		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 14:59:57		ヘルプ情報Sheet: trans_help_tcpip
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 14:59:57		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:57		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 14:59:58		ヘルプ情報Sheet: trans_help_tcpip_detail
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 14:59:58		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:58		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 14:59:58		ヘルプ情報Sheet: trans_help_netbios
+					レコード件数 : 21	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 4 / 0
+14/06/09 14:59:58		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:58		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 14:59:58		ヘルプ情報Sheet: trans_help_ipv6
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 14:59:58		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:58		≫≫≫≫ ヘルプファイルの出力	Help Page : ethernet.html
+14/06/09 14:59:58		ヘルプ情報Sheet: trans_help_ethernet
+					レコード件数 : 9	出力件数 : 4	対象外件数（comment / undef / Error）: 2 / 3 / 0
+14/06/09 14:59:58		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:58		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 14:59:58		ヘルプ情報Sheet: trans_help_tcpip_wlan
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 14:59:58		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:58		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 14:59:59		ヘルプ情報Sheet: trans_help_tcpip_detail_wlan
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 14:59:59		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:59		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 14:59:59		ヘルプ情報Sheet: trans_help_netbios_wlan
+					レコード件数 : 20	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 3 / 0
+14/06/09 14:59:59		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:59		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 14:59:59		ヘルプ情報Sheet: trans_help_ipv6_wlan
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 14:59:59		≪≪≪≪ ヘルプファイルの出力
+14/06/09 14:59:59		≫≫≫≫ ヘルプファイルの出力	Help Page : wireless.html
+14/06/09 15:00:00		ヘルプ情報Sheet: trans_help_wireless
+					レコード件数 : 56	出力件数 : 55	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:00		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:00		≫≫≫≫ ヘルプファイルの出力	Help Page : ipfilter.html
+14/06/09 15:00:00		ヘルプ情報Sheet: trans_help_ipfilter
+					レコード件数 : 13	出力件数 : 12	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:00		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:00		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 24	対象外件数（comment, menu / undef / Error）: 13 / 55 / 0
+14/06/09 15:00:00		≪≪≪ 対象言語の出力
+14/06/09 15:00:00		≫≫≫ 対象言語の出力	Language : French (Canadian)
+14/06/09 15:00:00		≫≫≫≫ ヘルプファイルの出力	Help Page : interface.html
+14/06/09 15:00:00		ヘルプ情報Sheet: trans_help_interface
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:00		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:00		≫≫≫≫ ヘルプファイルの出力	Help Page : protocol.html
+14/06/09 15:00:00		ヘルプ情報Sheet: trans_help_protocol
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:00		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:00		≫≫≫≫ ヘルプファイルの出力	Help Page : lpd.html
+14/06/09 15:00:00		ヘルプ情報Sheet: trans_help_lpd
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:00		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:00		≫≫≫≫ ヘルプファイルの出力	Help Page : ipp.html
+14/06/09 15:00:01		ヘルプ情報Sheet: trans_help_ipp
+					レコード件数 : 7	出力件数 : 5	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:01		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:01		≫≫≫≫ ヘルプファイルの出力	Help Page : webservices.html
+14/06/09 15:00:01		ヘルプ情報Sheet: trans_help_webservices
+					レコード件数 : 6	出力件数 : 5	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:01		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:01		≫≫≫≫ ヘルプファイルの出力	Help Page : email.html
+14/06/09 15:00:01		ヘルプ情報Sheet: trans_help_email
+					レコード件数 : 74	出力件数 : 18	対象外件数（comment / undef / Error）: 17 / 39 / 0
+14/06/09 15:00:01		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:01		≫≫≫≫ ヘルプファイルの出力	Help Page : email_test.html
+14/06/09 15:00:01		ヘルプ情報Sheet: trans_help_email_test
+					レコード件数 : 14	出力件数 : 7	対象外件数（comment / undef / Error）: 4 / 3 / 0
+14/06/09 15:00:01		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:01		≫≫≫≫ ヘルプファイルの出力	Help Page : mdns.html
+14/06/09 15:00:01		ヘルプ情報Sheet: trans_help_mdns
+					レコード件数 : 7	出力件数 : 6	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:01		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:01		≫≫≫≫ ヘルプファイルの出力	Help Page : sntp.html
+14/06/09 15:00:02		ヘルプ情報Sheet: trans_help_sntp
+					レコード件数 : 20	出力件数 : 18	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:02		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:02		≫≫≫≫ ヘルプファイルの出力	Help Page : notification.html
+14/06/09 15:00:02		ヘルプ情報Sheet: trans_help_notification
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:02		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:02		≫≫≫≫ ヘルプファイルの出力	Help Page : notification_detail.html
+14/06/09 15:00:02		ヘルプ情報Sheet: trans_help_notification_detail
+					レコード件数 : 9	出力件数 : 8	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:02		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:02		≫≫≫≫ ヘルプファイルの出力	Help Page : service.html
+14/06/09 15:00:02		ヘルプ情報Sheet: trans_help_service
+					レコード件数 : 5	出力件数 : 4	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:02		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:02		≫≫≫≫ ヘルプファイルの出力	Help Page : service_detail.html
+14/06/09 15:00:02		ヘルプ情報Sheet: trans_help_service_detail
+					レコード件数 : 33	出力件数 : 17	対象外件数（comment / undef / Error）: 7 / 9 / 0
+14/06/09 15:00:02		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:02		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:03		ヘルプ情報Sheet: trans_help_tcpip
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:03		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:03		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:03		ヘルプ情報Sheet: trans_help_tcpip_detail
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:03		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:03		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:03		ヘルプ情報Sheet: trans_help_netbios
+					レコード件数 : 21	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 4 / 0
+14/06/09 15:00:03		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:03		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:03		ヘルプ情報Sheet: trans_help_ipv6
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:03		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:03		≫≫≫≫ ヘルプファイルの出力	Help Page : ethernet.html
+14/06/09 15:00:03		ヘルプ情報Sheet: trans_help_ethernet
+					レコード件数 : 9	出力件数 : 4	対象外件数（comment / undef / Error）: 2 / 3 / 0
+14/06/09 15:00:03		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:03		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:04		ヘルプ情報Sheet: trans_help_tcpip_wlan
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:04		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:04		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:04		ヘルプ情報Sheet: trans_help_tcpip_detail_wlan
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:04		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:04		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:04		ヘルプ情報Sheet: trans_help_netbios_wlan
+					レコード件数 : 20	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 3 / 0
+14/06/09 15:00:04		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:04		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:04		ヘルプ情報Sheet: trans_help_ipv6_wlan
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:04		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:04		≫≫≫≫ ヘルプファイルの出力	Help Page : wireless.html
+14/06/09 15:00:05		ヘルプ情報Sheet: trans_help_wireless
+					レコード件数 : 56	出力件数 : 55	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:05		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:05		≫≫≫≫ ヘルプファイルの出力	Help Page : ipfilter.html
+14/06/09 15:00:05		ヘルプ情報Sheet: trans_help_ipfilter
+					レコード件数 : 13	出力件数 : 12	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:05		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:05		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 24	対象外件数（comment, menu / undef / Error）: 13 / 55 / 0
+14/06/09 15:00:05		≪≪≪ 対象言語の出力
+14/06/09 15:00:05		≫≫≫ 対象言語の出力	Language : German
+14/06/09 15:00:05		≫≫≫≫ ヘルプファイルの出力	Help Page : interface.html
+14/06/09 15:00:05		ヘルプ情報Sheet: trans_help_interface
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:05		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:05		≫≫≫≫ ヘルプファイルの出力	Help Page : protocol.html
+14/06/09 15:00:06		ヘルプ情報Sheet: trans_help_protocol
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:06		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:06		≫≫≫≫ ヘルプファイルの出力	Help Page : lpd.html
+14/06/09 15:00:06		ヘルプ情報Sheet: trans_help_lpd
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:06		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:06		≫≫≫≫ ヘルプファイルの出力	Help Page : ipp.html
+14/06/09 15:00:06		ヘルプ情報Sheet: trans_help_ipp
+					レコード件数 : 7	出力件数 : 5	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:06		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:06		≫≫≫≫ ヘルプファイルの出力	Help Page : webservices.html
+14/06/09 15:00:06		ヘルプ情報Sheet: trans_help_webservices
+					レコード件数 : 6	出力件数 : 5	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:06		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:06		≫≫≫≫ ヘルプファイルの出力	Help Page : email.html
+14/06/09 15:00:06		ヘルプ情報Sheet: trans_help_email
+					レコード件数 : 74	出力件数 : 18	対象外件数（comment / undef / Error）: 17 / 39 / 0
+14/06/09 15:00:06		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:06		≫≫≫≫ ヘルプファイルの出力	Help Page : email_test.html
+14/06/09 15:00:07		ヘルプ情報Sheet: trans_help_email_test
+					レコード件数 : 14	出力件数 : 7	対象外件数（comment / undef / Error）: 4 / 3 / 0
+14/06/09 15:00:07		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:07		≫≫≫≫ ヘルプファイルの出力	Help Page : mdns.html
+14/06/09 15:00:07		ヘルプ情報Sheet: trans_help_mdns
+					レコード件数 : 7	出力件数 : 6	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:07		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:07		≫≫≫≫ ヘルプファイルの出力	Help Page : sntp.html
+14/06/09 15:00:07		ヘルプ情報Sheet: trans_help_sntp
+					レコード件数 : 20	出力件数 : 18	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:07		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:07		≫≫≫≫ ヘルプファイルの出力	Help Page : notification.html
+14/06/09 15:00:07		ヘルプ情報Sheet: trans_help_notification
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:07		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:07		≫≫≫≫ ヘルプファイルの出力	Help Page : notification_detail.html
+14/06/09 15:00:07		ヘルプ情報Sheet: trans_help_notification_detail
+					レコード件数 : 9	出力件数 : 8	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:07		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:07		≫≫≫≫ ヘルプファイルの出力	Help Page : service.html
+14/06/09 15:00:07		ヘルプ情報Sheet: trans_help_service
+					レコード件数 : 5	出力件数 : 4	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:07		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:07		≫≫≫≫ ヘルプファイルの出力	Help Page : service_detail.html
+14/06/09 15:00:08		ヘルプ情報Sheet: trans_help_service_detail
+					レコード件数 : 33	出力件数 : 17	対象外件数（comment / undef / Error）: 7 / 9 / 0
+14/06/09 15:00:08		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:08		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:08		ヘルプ情報Sheet: trans_help_tcpip
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:08		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:08		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:08		ヘルプ情報Sheet: trans_help_tcpip_detail
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:08		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:08		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:08		ヘルプ情報Sheet: trans_help_netbios
+					レコード件数 : 21	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 4 / 0
+14/06/09 15:00:08		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:08		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:09		ヘルプ情報Sheet: trans_help_ipv6
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:09		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:09		≫≫≫≫ ヘルプファイルの出力	Help Page : ethernet.html
+14/06/09 15:00:09		ヘルプ情報Sheet: trans_help_ethernet
+					レコード件数 : 9	出力件数 : 4	対象外件数（comment / undef / Error）: 2 / 3 / 0
+14/06/09 15:00:09		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:09		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:09		ヘルプ情報Sheet: trans_help_tcpip_wlan
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:09		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:09		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:09		ヘルプ情報Sheet: trans_help_tcpip_detail_wlan
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:09		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:09		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:09		ヘルプ情報Sheet: trans_help_netbios_wlan
+					レコード件数 : 20	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 3 / 0
+14/06/09 15:00:09		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:09		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:10		ヘルプ情報Sheet: trans_help_ipv6_wlan
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:10		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:10		≫≫≫≫ ヘルプファイルの出力	Help Page : wireless.html
+14/06/09 15:00:10		ヘルプ情報Sheet: trans_help_wireless
+					レコード件数 : 56	出力件数 : 55	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:10		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:10		≫≫≫≫ ヘルプファイルの出力	Help Page : ipfilter.html
+14/06/09 15:00:10		ヘルプ情報Sheet: trans_help_ipfilter
+					レコード件数 : 13	出力件数 : 12	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:10		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:11		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 24	対象外件数（comment, menu / undef / Error）: 13 / 55 / 0
+14/06/09 15:00:11		≪≪≪ 対象言語の出力
+14/06/09 15:00:11		≫≫≫ 対象言語の出力	Language : Dutch
+14/06/09 15:00:11		≫≫≫≫ ヘルプファイルの出力	Help Page : interface.html
+14/06/09 15:00:11		ヘルプ情報Sheet: trans_help_interface
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:11		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:11		≫≫≫≫ ヘルプファイルの出力	Help Page : protocol.html
+14/06/09 15:00:11		ヘルプ情報Sheet: trans_help_protocol
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:11		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:11		≫≫≫≫ ヘルプファイルの出力	Help Page : lpd.html
+14/06/09 15:00:11		ヘルプ情報Sheet: trans_help_lpd
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:11		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:11		≫≫≫≫ ヘルプファイルの出力	Help Page : ipp.html
+14/06/09 15:00:11		ヘルプ情報Sheet: trans_help_ipp
+					レコード件数 : 7	出力件数 : 5	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:11		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:11		≫≫≫≫ ヘルプファイルの出力	Help Page : webservices.html
+14/06/09 15:00:11		ヘルプ情報Sheet: trans_help_webservices
+					レコード件数 : 6	出力件数 : 5	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:11		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:11		≫≫≫≫ ヘルプファイルの出力	Help Page : email.html
+14/06/09 15:00:12		ヘルプ情報Sheet: trans_help_email
+					レコード件数 : 74	出力件数 : 18	対象外件数（comment / undef / Error）: 17 / 39 / 0
+14/06/09 15:00:12		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:12		≫≫≫≫ ヘルプファイルの出力	Help Page : email_test.html
+14/06/09 15:00:12		ヘルプ情報Sheet: trans_help_email_test
+					レコード件数 : 14	出力件数 : 7	対象外件数（comment / undef / Error）: 4 / 3 / 0
+14/06/09 15:00:12		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:12		≫≫≫≫ ヘルプファイルの出力	Help Page : mdns.html
+14/06/09 15:00:12		ヘルプ情報Sheet: trans_help_mdns
+					レコード件数 : 7	出力件数 : 6	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:12		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:12		≫≫≫≫ ヘルプファイルの出力	Help Page : sntp.html
+14/06/09 15:00:12		ヘルプ情報Sheet: trans_help_sntp
+					レコード件数 : 20	出力件数 : 18	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:12		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:12		≫≫≫≫ ヘルプファイルの出力	Help Page : notification.html
+14/06/09 15:00:12		ヘルプ情報Sheet: trans_help_notification
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:12		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:12		≫≫≫≫ ヘルプファイルの出力	Help Page : notification_detail.html
+14/06/09 15:00:12		ヘルプ情報Sheet: trans_help_notification_detail
+					レコード件数 : 9	出力件数 : 8	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:12		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:12		≫≫≫≫ ヘルプファイルの出力	Help Page : service.html
+14/06/09 15:00:13		ヘルプ情報Sheet: trans_help_service
+					レコード件数 : 5	出力件数 : 4	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:13		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:13		≫≫≫≫ ヘルプファイルの出力	Help Page : service_detail.html
+14/06/09 15:00:13		ヘルプ情報Sheet: trans_help_service_detail
+					レコード件数 : 33	出力件数 : 17	対象外件数（comment / undef / Error）: 7 / 9 / 0
+14/06/09 15:00:13		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:13		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:13		ヘルプ情報Sheet: trans_help_tcpip
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:13		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:13		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:13		ヘルプ情報Sheet: trans_help_tcpip_detail
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:13		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:13		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:14		ヘルプ情報Sheet: trans_help_netbios
+					レコード件数 : 21	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 4 / 0
+14/06/09 15:00:14		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:14		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:14		ヘルプ情報Sheet: trans_help_ipv6
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:14		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:14		≫≫≫≫ ヘルプファイルの出力	Help Page : ethernet.html
+14/06/09 15:00:14		ヘルプ情報Sheet: trans_help_ethernet
+					レコード件数 : 9	出力件数 : 4	対象外件数（comment / undef / Error）: 2 / 3 / 0
+14/06/09 15:00:14		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:14		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:14		ヘルプ情報Sheet: trans_help_tcpip_wlan
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:14		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:14		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:14		ヘルプ情報Sheet: trans_help_tcpip_detail_wlan
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:14		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:14		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:15		ヘルプ情報Sheet: trans_help_netbios_wlan
+					レコード件数 : 20	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 3 / 0
+14/06/09 15:00:15		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:15		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:15		ヘルプ情報Sheet: trans_help_ipv6_wlan
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:15		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:15		≫≫≫≫ ヘルプファイルの出力	Help Page : wireless.html
+14/06/09 15:00:16		ヘルプ情報Sheet: trans_help_wireless
+					レコード件数 : 56	出力件数 : 55	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:16		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:16		≫≫≫≫ ヘルプファイルの出力	Help Page : ipfilter.html
+14/06/09 15:00:16		ヘルプ情報Sheet: trans_help_ipfilter
+					レコード件数 : 13	出力件数 : 12	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:16		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:16		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 24	対象外件数（comment, menu / undef / Error）: 13 / 55 / 0
+14/06/09 15:00:16		≪≪≪ 対象言語の出力
+14/06/09 15:00:16		≫≫≫ 対象言語の出力	Language : Spanish
+14/06/09 15:00:16		≫≫≫≫ ヘルプファイルの出力	Help Page : interface.html
+14/06/09 15:00:16		ヘルプ情報Sheet: trans_help_interface
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:16		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:16		≫≫≫≫ ヘルプファイルの出力	Help Page : protocol.html
+14/06/09 15:00:16		ヘルプ情報Sheet: trans_help_protocol
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:16		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:16		≫≫≫≫ ヘルプファイルの出力	Help Page : lpd.html
+14/06/09 15:00:16		ヘルプ情報Sheet: trans_help_lpd
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:16		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:16		≫≫≫≫ ヘルプファイルの出力	Help Page : ipp.html
+14/06/09 15:00:16		ヘルプ情報Sheet: trans_help_ipp
+					レコード件数 : 7	出力件数 : 5	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:16		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:16		≫≫≫≫ ヘルプファイルの出力	Help Page : webservices.html
+14/06/09 15:00:16		ヘルプ情報Sheet: trans_help_webservices
+					レコード件数 : 6	出力件数 : 5	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:16		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:16		≫≫≫≫ ヘルプファイルの出力	Help Page : email.html
+14/06/09 15:00:17		ヘルプ情報Sheet: trans_help_email
+					レコード件数 : 74	出力件数 : 18	対象外件数（comment / undef / Error）: 17 / 39 / 0
+14/06/09 15:00:17		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:17		≫≫≫≫ ヘルプファイルの出力	Help Page : email_test.html
+14/06/09 15:00:17		ヘルプ情報Sheet: trans_help_email_test
+					レコード件数 : 14	出力件数 : 7	対象外件数（comment / undef / Error）: 4 / 3 / 0
+14/06/09 15:00:17		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:17		≫≫≫≫ ヘルプファイルの出力	Help Page : mdns.html
+14/06/09 15:00:17		ヘルプ情報Sheet: trans_help_mdns
+					レコード件数 : 7	出力件数 : 6	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:17		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:17		≫≫≫≫ ヘルプファイルの出力	Help Page : sntp.html
+14/06/09 15:00:17		ヘルプ情報Sheet: trans_help_sntp
+					レコード件数 : 20	出力件数 : 18	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:17		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:17		≫≫≫≫ ヘルプファイルの出力	Help Page : notification.html
+14/06/09 15:00:18		ヘルプ情報Sheet: trans_help_notification
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:18		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:18		≫≫≫≫ ヘルプファイルの出力	Help Page : notification_detail.html
+14/06/09 15:00:18		ヘルプ情報Sheet: trans_help_notification_detail
+					レコード件数 : 9	出力件数 : 8	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:18		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:18		≫≫≫≫ ヘルプファイルの出力	Help Page : service.html
+14/06/09 15:00:18		ヘルプ情報Sheet: trans_help_service
+					レコード件数 : 5	出力件数 : 4	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:18		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:18		≫≫≫≫ ヘルプファイルの出力	Help Page : service_detail.html
+14/06/09 15:00:18		ヘルプ情報Sheet: trans_help_service_detail
+					レコード件数 : 33	出力件数 : 17	対象外件数（comment / undef / Error）: 7 / 9 / 0
+14/06/09 15:00:18		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:18		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:18		ヘルプ情報Sheet: trans_help_tcpip
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:18		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:18		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:19		ヘルプ情報Sheet: trans_help_tcpip_detail
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:19		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:19		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:19		ヘルプ情報Sheet: trans_help_netbios
+					レコード件数 : 21	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 4 / 0
+14/06/09 15:00:19		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:19		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:19		ヘルプ情報Sheet: trans_help_ipv6
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:19		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:19		≫≫≫≫ ヘルプファイルの出力	Help Page : ethernet.html
+14/06/09 15:00:19		ヘルプ情報Sheet: trans_help_ethernet
+					レコード件数 : 9	出力件数 : 4	対象外件数（comment / undef / Error）: 2 / 3 / 0
+14/06/09 15:00:19		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:19		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:20		ヘルプ情報Sheet: trans_help_tcpip_wlan
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:20		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:20		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:20		ヘルプ情報Sheet: trans_help_tcpip_detail_wlan
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:20		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:20		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:20		ヘルプ情報Sheet: trans_help_netbios_wlan
+					レコード件数 : 20	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 3 / 0
+14/06/09 15:00:20		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:20		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:21		ヘルプ情報Sheet: trans_help_ipv6_wlan
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:21		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:21		≫≫≫≫ ヘルプファイルの出力	Help Page : wireless.html
+14/06/09 15:00:21		ヘルプ情報Sheet: trans_help_wireless
+					レコード件数 : 56	出力件数 : 55	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:21		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:21		≫≫≫≫ ヘルプファイルの出力	Help Page : ipfilter.html
+14/06/09 15:00:22		ヘルプ情報Sheet: trans_help_ipfilter
+					レコード件数 : 13	出力件数 : 12	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:22		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:22		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 24	対象外件数（comment, menu / undef / Error）: 13 / 55 / 0
+14/06/09 15:00:22		≪≪≪ 対象言語の出力
+14/06/09 15:00:22		≫≫≫ 対象言語の出力	Language : Italian
+14/06/09 15:00:22		≫≫≫≫ ヘルプファイルの出力	Help Page : interface.html
+14/06/09 15:00:22		ヘルプ情報Sheet: trans_help_interface
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:22		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:22		≫≫≫≫ ヘルプファイルの出力	Help Page : protocol.html
+14/06/09 15:00:22		ヘルプ情報Sheet: trans_help_protocol
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:22		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:22		≫≫≫≫ ヘルプファイルの出力	Help Page : lpd.html
+14/06/09 15:00:22		ヘルプ情報Sheet: trans_help_lpd
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:22		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:22		≫≫≫≫ ヘルプファイルの出力	Help Page : ipp.html
+14/06/09 15:00:22		ヘルプ情報Sheet: trans_help_ipp
+					レコード件数 : 7	出力件数 : 5	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:22		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:22		≫≫≫≫ ヘルプファイルの出力	Help Page : webservices.html
+14/06/09 15:00:22		ヘルプ情報Sheet: trans_help_webservices
+					レコード件数 : 6	出力件数 : 5	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:22		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:22		≫≫≫≫ ヘルプファイルの出力	Help Page : email.html
+14/06/09 15:00:23		ヘルプ情報Sheet: trans_help_email
+					レコード件数 : 74	出力件数 : 18	対象外件数（comment / undef / Error）: 17 / 39 / 0
+14/06/09 15:00:23		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:23		≫≫≫≫ ヘルプファイルの出力	Help Page : email_test.html
+14/06/09 15:00:23		ヘルプ情報Sheet: trans_help_email_test
+					レコード件数 : 14	出力件数 : 7	対象外件数（comment / undef / Error）: 4 / 3 / 0
+14/06/09 15:00:23		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:23		≫≫≫≫ ヘルプファイルの出力	Help Page : mdns.html
+14/06/09 15:00:23		ヘルプ情報Sheet: trans_help_mdns
+					レコード件数 : 7	出力件数 : 6	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:23		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:23		≫≫≫≫ ヘルプファイルの出力	Help Page : sntp.html
+14/06/09 15:00:23		ヘルプ情報Sheet: trans_help_sntp
+					レコード件数 : 20	出力件数 : 18	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:23		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:23		≫≫≫≫ ヘルプファイルの出力	Help Page : notification.html
+14/06/09 15:00:23		ヘルプ情報Sheet: trans_help_notification
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:23		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:23		≫≫≫≫ ヘルプファイルの出力	Help Page : notification_detail.html
+14/06/09 15:00:24		ヘルプ情報Sheet: trans_help_notification_detail
+					レコード件数 : 9	出力件数 : 8	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:24		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:24		≫≫≫≫ ヘルプファイルの出力	Help Page : service.html
+14/06/09 15:00:24		ヘルプ情報Sheet: trans_help_service
+					レコード件数 : 5	出力件数 : 4	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:24		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:24		≫≫≫≫ ヘルプファイルの出力	Help Page : service_detail.html
+14/06/09 15:00:24		ヘルプ情報Sheet: trans_help_service_detail
+					レコード件数 : 33	出力件数 : 17	対象外件数（comment / undef / Error）: 7 / 9 / 0
+14/06/09 15:00:24		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:24		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:24		ヘルプ情報Sheet: trans_help_tcpip
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:24		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:24		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:24		ヘルプ情報Sheet: trans_help_tcpip_detail
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:24		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:24		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:25		ヘルプ情報Sheet: trans_help_netbios
+					レコード件数 : 21	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 4 / 0
+14/06/09 15:00:25		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:25		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:25		ヘルプ情報Sheet: trans_help_ipv6
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:25		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:25		≫≫≫≫ ヘルプファイルの出力	Help Page : ethernet.html
+14/06/09 15:00:25		ヘルプ情報Sheet: trans_help_ethernet
+					レコード件数 : 9	出力件数 : 4	対象外件数（comment / undef / Error）: 2 / 3 / 0
+14/06/09 15:00:25		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:25		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:25		ヘルプ情報Sheet: trans_help_tcpip_wlan
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:25		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:25		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:26		ヘルプ情報Sheet: trans_help_tcpip_detail_wlan
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:26		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:26		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:26		ヘルプ情報Sheet: trans_help_netbios_wlan
+					レコード件数 : 20	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 3 / 0
+14/06/09 15:00:26		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:26		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:26		ヘルプ情報Sheet: trans_help_ipv6_wlan
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:26		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:26		≫≫≫≫ ヘルプファイルの出力	Help Page : wireless.html
+14/06/09 15:00:27		ヘルプ情報Sheet: trans_help_wireless
+					レコード件数 : 56	出力件数 : 55	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:27		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:27		≫≫≫≫ ヘルプファイルの出力	Help Page : ipfilter.html
+14/06/09 15:00:27		ヘルプ情報Sheet: trans_help_ipfilter
+					レコード件数 : 13	出力件数 : 12	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:27		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:27		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 24	対象外件数（comment, menu / undef / Error）: 13 / 55 / 0
+14/06/09 15:00:27		≪≪≪ 対象言語の出力
+14/06/09 15:00:27		≫≫≫ 対象言語の出力	Language : Japanese
+14/06/09 15:00:27		≫≫≫≫ ヘルプファイルの出力	Help Page : interface.html
+14/06/09 15:00:27		ヘルプ情報Sheet: trans_help_interface
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:27		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:27		≫≫≫≫ ヘルプファイルの出力	Help Page : protocol.html
+14/06/09 15:00:27		ヘルプ情報Sheet: trans_help_protocol
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:27		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:27		≫≫≫≫ ヘルプファイルの出力	Help Page : lpd.html
+14/06/09 15:00:27		ヘルプ情報Sheet: trans_help_lpd
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:27		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:27		≫≫≫≫ ヘルプファイルの出力	Help Page : ipp.html
+14/06/09 15:00:28		ヘルプ情報Sheet: trans_help_ipp
+					レコード件数 : 7	出力件数 : 5	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:28		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:28		≫≫≫≫ ヘルプファイルの出力	Help Page : webservices.html
+14/06/09 15:00:28		ヘルプ情報Sheet: trans_help_webservices
+					レコード件数 : 6	出力件数 : 5	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:28		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:28		≫≫≫≫ ヘルプファイルの出力	Help Page : email.html
+14/06/09 15:00:28		ヘルプ情報Sheet: trans_help_email
+					レコード件数 : 74	出力件数 : 18	対象外件数（comment / undef / Error）: 17 / 39 / 0
+14/06/09 15:00:28		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:28		≫≫≫≫ ヘルプファイルの出力	Help Page : email_test.html
+14/06/09 15:00:29		ヘルプ情報Sheet: trans_help_email_test
+					レコード件数 : 14	出力件数 : 7	対象外件数（comment / undef / Error）: 4 / 3 / 0
+14/06/09 15:00:29		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:29		≫≫≫≫ ヘルプファイルの出力	Help Page : mdns.html
+14/06/09 15:00:29		ヘルプ情報Sheet: trans_help_mdns
+					レコード件数 : 7	出力件数 : 6	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:29		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:29		≫≫≫≫ ヘルプファイルの出力	Help Page : sntp.html
+14/06/09 15:00:29		ヘルプ情報Sheet: trans_help_sntp
+					レコード件数 : 20	出力件数 : 18	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:29		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:29		≫≫≫≫ ヘルプファイルの出力	Help Page : notification.html
+14/06/09 15:00:29		ヘルプ情報Sheet: trans_help_notification
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:29		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:29		≫≫≫≫ ヘルプファイルの出力	Help Page : notification_detail.html
+14/06/09 15:00:29		ヘルプ情報Sheet: trans_help_notification_detail
+					レコード件数 : 9	出力件数 : 8	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:29		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:29		≫≫≫≫ ヘルプファイルの出力	Help Page : service.html
+14/06/09 15:00:29		ヘルプ情報Sheet: trans_help_service
+					レコード件数 : 5	出力件数 : 4	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:29		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:29		≫≫≫≫ ヘルプファイルの出力	Help Page : service_detail.html
+14/06/09 15:00:30		ヘルプ情報Sheet: trans_help_service_detail
+					レコード件数 : 33	出力件数 : 17	対象外件数（comment / undef / Error）: 7 / 9 / 0
+14/06/09 15:00:30		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:30		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:30		ヘルプ情報Sheet: trans_help_tcpip
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:30		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:30		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:30		ヘルプ情報Sheet: trans_help_tcpip_detail
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:30		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:30		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:30		ヘルプ情報Sheet: trans_help_netbios
+					レコード件数 : 21	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 4 / 0
+14/06/09 15:00:30		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:30		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:31		ヘルプ情報Sheet: trans_help_ipv6
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:31		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:31		≫≫≫≫ ヘルプファイルの出力	Help Page : ethernet.html
+14/06/09 15:00:31		ヘルプ情報Sheet: trans_help_ethernet
+					レコード件数 : 9	出力件数 : 4	対象外件数（comment / undef / Error）: 2 / 3 / 0
+14/06/09 15:00:31		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:31		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:31		ヘルプ情報Sheet: trans_help_tcpip_wlan
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:31		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:31		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:31		ヘルプ情報Sheet: trans_help_tcpip_detail_wlan
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:31		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:31		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:31		ヘルプ情報Sheet: trans_help_netbios_wlan
+					レコード件数 : 20	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 3 / 0
+14/06/09 15:00:31		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:31		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:32		ヘルプ情報Sheet: trans_help_ipv6_wlan
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:32		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:32		≫≫≫≫ ヘルプファイルの出力	Help Page : wireless.html
+14/06/09 15:00:32		ヘルプ情報Sheet: trans_help_wireless
+					レコード件数 : 56	出力件数 : 55	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:32		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:32		≫≫≫≫ ヘルプファイルの出力	Help Page : ipfilter.html
+14/06/09 15:00:32		ヘルプ情報Sheet: trans_help_ipfilter
+					レコード件数 : 13	出力件数 : 12	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:32		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:33		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 24	対象外件数（comment, menu / undef / Error）: 13 / 55 / 0
+14/06/09 15:00:33		≪≪≪ 対象言語の出力
+14/06/09 15:00:33		≫≫≫ 対象言語の出力	Language : Chinese
+14/06/09 15:00:33		≫≫≫≫ ヘルプファイルの出力	Help Page : interface.html
+14/06/09 15:00:33		ヘルプ情報Sheet: trans_help_interface
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:33		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:33		≫≫≫≫ ヘルプファイルの出力	Help Page : protocol.html
+14/06/09 15:00:33		ヘルプ情報Sheet: trans_help_protocol
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:33		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:33		≫≫≫≫ ヘルプファイルの出力	Help Page : lpd.html
+14/06/09 15:00:33		ヘルプ情報Sheet: trans_help_lpd
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:33		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:33		≫≫≫≫ ヘルプファイルの出力	Help Page : ipp.html
+14/06/09 15:00:33		ヘルプ情報Sheet: trans_help_ipp
+					レコード件数 : 7	出力件数 : 5	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:33		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:33		≫≫≫≫ ヘルプファイルの出力	Help Page : webservices.html
+14/06/09 15:00:33		ヘルプ情報Sheet: trans_help_webservices
+					レコード件数 : 6	出力件数 : 5	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:33		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:33		≫≫≫≫ ヘルプファイルの出力	Help Page : email.html
+14/06/09 15:00:34		ヘルプ情報Sheet: trans_help_email
+					レコード件数 : 74	出力件数 : 18	対象外件数（comment / undef / Error）: 17 / 39 / 0
+14/06/09 15:00:34		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:34		≫≫≫≫ ヘルプファイルの出力	Help Page : email_test.html
+14/06/09 15:00:34		ヘルプ情報Sheet: trans_help_email_test
+					レコード件数 : 14	出力件数 : 7	対象外件数（comment / undef / Error）: 4 / 3 / 0
+14/06/09 15:00:34		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:34		≫≫≫≫ ヘルプファイルの出力	Help Page : mdns.html
+14/06/09 15:00:34		ヘルプ情報Sheet: trans_help_mdns
+					レコード件数 : 7	出力件数 : 6	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:34		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:34		≫≫≫≫ ヘルプファイルの出力	Help Page : sntp.html
+14/06/09 15:00:34		ヘルプ情報Sheet: trans_help_sntp
+					レコード件数 : 20	出力件数 : 18	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:34		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:34		≫≫≫≫ ヘルプファイルの出力	Help Page : notification.html
+14/06/09 15:00:34		ヘルプ情報Sheet: trans_help_notification
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:34		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:34		≫≫≫≫ ヘルプファイルの出力	Help Page : notification_detail.html
+14/06/09 15:00:34		ヘルプ情報Sheet: trans_help_notification_detail
+					レコード件数 : 9	出力件数 : 8	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:34		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:34		≫≫≫≫ ヘルプファイルの出力	Help Page : service.html
+14/06/09 15:00:35		ヘルプ情報Sheet: trans_help_service
+					レコード件数 : 5	出力件数 : 4	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:35		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:35		≫≫≫≫ ヘルプファイルの出力	Help Page : service_detail.html
+14/06/09 15:00:35		ヘルプ情報Sheet: trans_help_service_detail
+					レコード件数 : 33	出力件数 : 17	対象外件数（comment / undef / Error）: 7 / 9 / 0
+14/06/09 15:00:35		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:35		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:35		ヘルプ情報Sheet: trans_help_tcpip
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:35		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:35		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:35		ヘルプ情報Sheet: trans_help_tcpip_detail
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:35		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:35		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:36		ヘルプ情報Sheet: trans_help_netbios
+					レコード件数 : 21	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 4 / 0
+14/06/09 15:00:36		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:36		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:36		ヘルプ情報Sheet: trans_help_ipv6
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:36		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:36		≫≫≫≫ ヘルプファイルの出力	Help Page : ethernet.html
+14/06/09 15:00:36		ヘルプ情報Sheet: trans_help_ethernet
+					レコード件数 : 9	出力件数 : 4	対象外件数（comment / undef / Error）: 2 / 3 / 0
+14/06/09 15:00:36		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:36		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:36		ヘルプ情報Sheet: trans_help_tcpip_wlan
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:36		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:36		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:36		ヘルプ情報Sheet: trans_help_tcpip_detail_wlan
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:36		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:36		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:37		ヘルプ情報Sheet: trans_help_netbios_wlan
+					レコード件数 : 20	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 3 / 0
+14/06/09 15:00:37		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:37		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:37		ヘルプ情報Sheet: trans_help_ipv6_wlan
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:37		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:37		≫≫≫≫ ヘルプファイルの出力	Help Page : wireless.html
+14/06/09 15:00:37		ヘルプ情報Sheet: trans_help_wireless
+					レコード件数 : 56	出力件数 : 55	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:37		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:38		≫≫≫≫ ヘルプファイルの出力	Help Page : ipfilter.html
+14/06/09 15:00:38		ヘルプ情報Sheet: trans_help_ipfilter
+					レコード件数 : 13	出力件数 : 12	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:38		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:38		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 24	対象外件数（comment, menu / undef / Error）: 13 / 55 / 0
+14/06/09 15:00:38		≪≪≪ 対象言語の出力
+14/06/09 15:00:38		≫≫≫ 対象言語の出力	Language : Russian
+14/06/09 15:00:38		≫≫≫≫ ヘルプファイルの出力	Help Page : interface.html
+14/06/09 15:00:38		ヘルプ情報Sheet: trans_help_interface
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:38		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:38		≫≫≫≫ ヘルプファイルの出力	Help Page : protocol.html
+14/06/09 15:00:38		ヘルプ情報Sheet: trans_help_protocol
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:38		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:38		≫≫≫≫ ヘルプファイルの出力	Help Page : lpd.html
+14/06/09 15:00:38		ヘルプ情報Sheet: trans_help_lpd
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:38		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:38		≫≫≫≫ ヘルプファイルの出力	Help Page : ipp.html
+14/06/09 15:00:38		ヘルプ情報Sheet: trans_help_ipp
+					レコード件数 : 7	出力件数 : 5	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:38		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:38		≫≫≫≫ ヘルプファイルの出力	Help Page : webservices.html
+14/06/09 15:00:38		ヘルプ情報Sheet: trans_help_webservices
+					レコード件数 : 6	出力件数 : 5	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:38		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:38		≫≫≫≫ ヘルプファイルの出力	Help Page : email.html
+14/06/09 15:00:39		ヘルプ情報Sheet: trans_help_email
+					レコード件数 : 74	出力件数 : 18	対象外件数（comment / undef / Error）: 17 / 39 / 0
+14/06/09 15:00:39		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:39		≫≫≫≫ ヘルプファイルの出力	Help Page : email_test.html
+14/06/09 15:00:39		ヘルプ情報Sheet: trans_help_email_test
+					レコード件数 : 14	出力件数 : 7	対象外件数（comment / undef / Error）: 4 / 3 / 0
+14/06/09 15:00:39		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:39		≫≫≫≫ ヘルプファイルの出力	Help Page : mdns.html
+14/06/09 15:00:39		ヘルプ情報Sheet: trans_help_mdns
+					レコード件数 : 7	出力件数 : 6	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:39		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:39		≫≫≫≫ ヘルプファイルの出力	Help Page : sntp.html
+14/06/09 15:00:39		ヘルプ情報Sheet: trans_help_sntp
+					レコード件数 : 20	出力件数 : 18	対象外件数（comment / undef / Error）: 2 / 0 / 0
+14/06/09 15:00:39		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:39		≫≫≫≫ ヘルプファイルの出力	Help Page : notification.html
+14/06/09 15:00:39		ヘルプ情報Sheet: trans_help_notification
+					レコード件数 : 4	出力件数 : 3	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:39		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:39		≫≫≫≫ ヘルプファイルの出力	Help Page : notification_detail.html
+14/06/09 15:00:40		ヘルプ情報Sheet: trans_help_notification_detail
+					レコード件数 : 9	出力件数 : 8	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:40		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:40		≫≫≫≫ ヘルプファイルの出力	Help Page : service.html
+14/06/09 15:00:40		ヘルプ情報Sheet: trans_help_service
+					レコード件数 : 5	出力件数 : 4	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:40		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:40		≫≫≫≫ ヘルプファイルの出力	Help Page : service_detail.html
+14/06/09 15:00:40		ヘルプ情報Sheet: trans_help_service_detail
+					レコード件数 : 33	出力件数 : 17	対象外件数（comment / undef / Error）: 7 / 9 / 0
+14/06/09 15:00:40		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:40		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:40		ヘルプ情報Sheet: trans_help_tcpip
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:40		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:40		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:41		ヘルプ情報Sheet: trans_help_tcpip_detail
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:41		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:41		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:41		ヘルプ情報Sheet: trans_help_netbios
+					レコード件数 : 21	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 4 / 0
+14/06/09 15:00:41		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:41		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:41		ヘルプ情報Sheet: trans_help_ipv6
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:41		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:41		≫≫≫≫ ヘルプファイルの出力	Help Page : ethernet.html
+14/06/09 15:00:41		ヘルプ情報Sheet: trans_help_ethernet
+					レコード件数 : 9	出力件数 : 4	対象外件数（comment / undef / Error）: 2 / 3 / 0
+14/06/09 15:00:41		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:41		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip.html
+14/06/09 15:00:41		ヘルプ情報Sheet: trans_help_tcpip_wlan
+					レコード件数 : 14	出力件数 : 11	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:41		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:41		≫≫≫≫ ヘルプファイルの出力	Help Page : tcpip_detail.html
+14/06/09 15:00:42		ヘルプ情報Sheet: trans_help_tcpip_detail_wlan
+					レコード件数 : 23	出力件数 : 16	対象外件数（comment / undef / Error）: 5 / 2 / 0
+14/06/09 15:00:42		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:42		≫≫≫≫ ヘルプファイルの出力	Help Page : netbios.html
+14/06/09 15:00:42		ヘルプ情報Sheet: trans_help_netbios_wlan
+					レコード件数 : 20	出力件数 : 12	対象外件数（comment / undef / Error）: 5 / 3 / 0
+14/06/09 15:00:42		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:42		≫≫≫≫ ヘルプファイルの出力	Help Page : ipv6.html
+14/06/09 15:00:42		ヘルプ情報Sheet: trans_help_ipv6_wlan
+					レコード件数 : 18	出力件数 : 15	対象外件数（comment / undef / Error）: 3 / 0 / 0
+14/06/09 15:00:42		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:42		≫≫≫≫ ヘルプファイルの出力	Help Page : wireless.html
+14/06/09 15:00:43		ヘルプ情報Sheet: trans_help_wireless
+					レコード件数 : 56	出力件数 : 55	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:43		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:43		≫≫≫≫ ヘルプファイルの出力	Help Page : ipfilter.html
+14/06/09 15:00:43		ヘルプ情報Sheet: trans_help_ipfilter
+					レコード件数 : 13	出力件数 : 12	対象外件数（comment / undef / Error）: 1 / 0 / 0
+14/06/09 15:00:43		≪≪≪≪ ヘルプファイルの出力
+14/06/09 15:00:43		menu一覧シート情報Sheet: menu_list
+					レコード件数 : 92	出力件数 : 24	対象外件数（comment, menu / undef / Error）: 13 / 55 / 0
+14/06/09 15:00:43		≪≪≪ 対象言語の出力
+14/06/09 15:00:43		言語種類シート情報Sheet: lang_list
+					レコード件数 : 10	出力件数 : 10	対象外件数（comment / undef / Error）: 0 / 0 / 0
+14/06/09 15:00:43		≪≪ ヘルプデータの出力終了
+14/06/09 15:00:43		≪ 処理終了 ≪	処理が正常に終了しました。
+					Error   : 0 件	Warning : 0 件

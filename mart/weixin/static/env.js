@@ -1,0 +1,1 @@
+window.full_url = ".jzzwlcm.com";  //默认线上正式地址.xinchihuo.com.cn，线上测试修改为.jzzwlcm.com

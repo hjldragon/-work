@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Web Based Management Help</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">サービス</div>
+        <dl>
+<dt>概要</dt>
+<dd>サービスリストから選択されたサービスに関し、各種パラメーターの設定／変更を行えます。</dd>
+<dt>サービス名</dt>
+<dd>サービス名を設定します。通常この項目を変更する必要はありません。</dd>
+<dt>サービスポート</dt>
+<dd>サービスに割り当てられる、物理ポート番号を指定してください。</dd>
+<dt>プロトコル</dt>
+<dd>各チェックボックスは、それぞれのサービスに対して有効とする、ネットワークプロトコルを設定します。</dd>
+<dt>フィルター</dt>
+<dd>このサービスに対する、フィルターを設定します。<br />
+0 フィルターなし、データはそのまま通過します。<br />
+1 テキストの置き換えを行います。［ＬＦ］コードは［ＣＲ］［ＬＦ］コードに置き換わります。<br />
+2 アップルトークのジョブであることを示します。フィルターリングは、ハードウェアとオプション選択によって変わります。<br />
+3 標準テキストをＰＳに変換します。<br />
+4 ＰＳタグドバイナリーに変換します。</dd>
+<dt>コントロール付加文字列</dt>
+<dd>ジョブの開始と終了を示す、データストリングを設定します。</dd>
+<dt>RawTCPポート</dt>
+<dd>０以外の場合、 このサービスに対して、指定されたＴＣＰポートを使用します。</dd>
+<dt>双方向通信を有効にする</dt>
+<dd>チェックされている場合、そのサービスはデバイスからネットワークにデータを送出する事が出来ます。通常この項目を変更する必要はありません。</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="閉じる" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

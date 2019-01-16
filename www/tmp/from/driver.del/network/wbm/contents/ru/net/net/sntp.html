@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Справка системы управления через веб-интерфейс</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">SNTP</div>
+        <dl>
+<dt>Обзор</dt>
+<dd>На этой странице можно настроить параметры SNTP.</dd>
+<dt>Метод сервера SNTP</dt>
+<dd>СТАТИЧЕСКИЙ: устройство будет использовать значения полей SNTP-сервера и порта, заданные на этой странице. АВТО: устройство попытается использовать DHCP для получения этих параметров при запуске или перезагрузке сервера. Для включения DHCP на странице TCP/IP должен быть установлен метод загрузки «Авто» или DHCP.</dd>
+<dt>Адрес первичного сервера SNTP</dt>
+<dd>Это поле предназначено для ввода имени узла или IP-адреса первичного сервера SNTP. (Например sntp.example.net или 192.0.0.1). Если используется имя DHS сервера SNTP, необходимо использовать FQDN (полностью уточненное имя домена), например, sntp.example.net.</dd>
+<dt>Порт первичного сервера SNTP</dt>
+<dd>Укажите номер порта назначения первичного сервера SNTP, с которым будет установлено соединение.</dd>
+<dt>Адрес вторичного сервера SNTP</dt>
+<dd>Это поле служит для ввода имени хоста или IP-адреса дополнительного SNTP-сервера. Оно используется в качестве резерва для адреса основного SNTP-сервера. Если основной сервер недоступен, устройство обратится к дополнительному SNTP-серверу.</dd>
+<dt>Порт вторичного сервера SNTP</dt>
+<dd>Укажите номер порта назначения вторичного сервера SNTP, с которым будет установлено соединение.</dd>
+<dt>Интервал синхронизации</dt>
+<dd>Устройство будет автоматически выполнять синхронизацию с сервером SNTP через указанный интервал времени в часах.</dd>
+<dt>Состояние синхронизации</dt>
+<dd>В этом поле отображается состояние синхронизации с указанным SNTP-сервером.<br />
+Успешно: последняя синхронизация завершилась успешно.<br />
+Не удалось синхронизировать: последнюю синхронизацию выполнить не удалось.<br />
+Не указан SNTP: из-за неверных настроек SNTP синхронизацию ни разу не удалось выполнить с момента включения устройства. Или же протокол SNTP отключен.<br />
+Синхронизация: устройство выполняет синхронизацию с SNTP-сервером. Через некоторое время нажмите кнопку «Обновить», чтобы убедиться, выполнена ли синхронизация успешно. </dd>
+<dd>ПРИМЕЧАНИЕ . <br />
+Состояние синхронизации "Выполняется синхронизация" сохраняется до 2 минут. Если указывается состояние "Не удалось синхронизировать" или "Не указан SNTP", значит, не удается обнаружить сервер SNTP. Сервер SNTP не существует или указанный узел не поддерживает SNTP. Проверьте имя сервера SNTP и номер порта.</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Закрыть" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

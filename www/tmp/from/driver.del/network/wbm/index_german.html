@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+ <head>
+  <meta name="robots" content="none" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="menu/css/help_menu.css" />
+  <title>Hilfe zum Web Based Management</title>
+  <script type="text/javascript">
+  <!--
+   function fold(id,image){
+    obj=document.getElementById(id);
+    if(obj){
+     image.src=(obj.className=="close")?"menu/images/minus.gif":"menu/images/plus.gif";
+     obj.className=(obj.className=="close")?"open":"close";
+    }
+   }
+   
+   function openHelp(url){
+    window.open(url);
+   }
+  -->
+  </script>
+ </head>
+ <body>
+  <div id="document">
+   <div id="header"></div>
+   <div id="contents">
+    <div id="frame_top"></div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="logo"><img src="menu/images/logo.gif" alt="brother" width="109" height="26" /></div>
+      <div id="title">Hilfe zum Web Based Management</div>
+      <div id="language">WebSprache : 
+       <select id="lang" name="lang" onchange="location.href=this.value">
+        <option value="index_english.html" >English</option>
+        <option value="index_french.html" >Français (France)</option>
+        <option value="index_frenchcanadian.html" >Français (Canada)</option>
+        <option value="index_german.html" selected="selected">Deutsch</option>
+        <option value="index_dutch.html" >Nederlands</option>
+        <option value="index_spanish.html" >Español</option>
+        <option value="index_italian.html" >Italiano</option>
+        <option value="index_japanese.html" >日本語</option>
+        <option value="index_chinese.html" >中文</option>
+        <option value="index_russian.html" >Русский</option>
+       </select>
+      </div>
+      <div id="main">
+       <p class="note_message">Hinweis: Einige Funktionen/Optionen werden von diesem Modell eventuell nicht unterstützt. </p>
+       <ul id="help_menu_list">
+        <li class="tab_menu">
+         <img src="menu/images/minus.gif" alt="Netzwerk" onclick="fold('network',this);"/>
+         Netzwerk
+         <ul id="network">
+          <li class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Netzwerk" onclick="fold('network_network',this);return false" />
+           Netzwerk
+           <ul id="network_network" class="close">
+            <li class="leaf">
+             <a href="contents/de/net/net/interface.html" onclick="openHelp(this.href);return false;">Schnittstelle</a>
+            </li>
+          <li  class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Protokoll" onclick="fold('network_network_protocol',this);"/>
+           <a href="contents/de/net/net/protocol.html" onclick="openHelp(this.href);return false;">Protokoll</a>
+           <ul id="network_network_protocol" class="close">
+            <li class="leaf">
+             <a href="contents/de/net/net/lpd.html" onclick="openHelp(this.href);return false;">LPD</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/ipp.html" onclick="openHelp(this.href);return false;">IPP</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/webservices.html" onclick="openHelp(this.href);return false;">Webdienst</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/email.html" onclick="openHelp(this.href);return false;">SMTP</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/email_test.html" onclick="openHelp(this.href);return false;">Konfiguration des E-Mail-Versands testen</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/mdns.html" onclick="openHelp(this.href);return false;">mDNS</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/sntp.html" onclick="openHelp(this.href);return false;">SNTP</a>
+            </li>
+
+           </ul>
+          </li>
+          <li  class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Benachrichtigung" onclick="fold('network_network_notification',this);"/>
+           <a href="contents/de/net/net/notification.html" onclick="openHelp(this.href);return false;">Benachrichtigung</a>
+           <ul id="network_network_notification" class="close">
+            <li class="leaf">
+             <a href="contents/de/net/net/notification_detail.html" onclick="openHelp(this.href);return false;">Benachrichtigung 1</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/notification_detail.html" onclick="openHelp(this.href);return false;">Benachrichtigung 2</a>
+            </li>
+
+           </ul>
+          </li>
+          <li  class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Service" onclick="fold('network_network_service',this);"/>
+           <a href="contents/de/net/net/service.html" onclick="openHelp(this.href);return false;">Service</a>
+           <ul id="network_network_service" class="close">
+            <li class="leaf">
+             <a href="contents/de/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Service 1</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Service 2</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Service 3</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Service 4</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Service 5</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Service 6</a>
+            </li>
+
+           </ul>
+          </li>
+           </ul>
+          </li>
+          <li class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Verkabelt" onclick="fold('network_wired',this);return false" />
+           Verkabelt
+           <ul id="network_wired" class="close">
+          <li  class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="TCP/IP (Verkabelt)" onclick="fold('network_wired_tcpip',this);"/>
+           <a href="contents/de/net/wired/tcpip.html" onclick="openHelp(this.href);return false;">TCP/IP (Verkabelt)</a>
+           <ul id="network_wired_tcpip" class="close">
+            <li class="leaf">
+             <a href="contents/de/net/wired/tcpip_detail.html" onclick="openHelp(this.href);return false;">TCP/IP Erweitere Einstellungen (Verkabelt)</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/wired/netbios.html" onclick="openHelp(this.href);return false;">NetBIOS (Verkabelt)</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/wired/ipv6.html" onclick="openHelp(this.href);return false;">IPv6 (Verkabelt)</a>
+            </li>
+
+           </ul>
+          </li>
+            <li class="leaf">
+             <a href="contents/de/net/wired/ethernet.html" onclick="openHelp(this.href);return false;">Ethernet</a>
+            </li>
+
+           </ul>
+          </li>
+          <li class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Wireless" onclick="fold('network_wireless',this);return false" />
+           Wireless
+           <ul id="network_wireless" class="close">
+          <li  class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="TCP/IP (Wireless)" onclick="fold('network_wireless_tcpip',this);"/>
+           <a href="contents/de/net/wireless/tcpip.html" onclick="openHelp(this.href);return false;">TCP/IP (Wireless)</a>
+           <ul id="network_wireless_tcpip" class="close">
+            <li class="leaf">
+             <a href="contents/de/net/wireless/tcpip_detail.html" onclick="openHelp(this.href);return false;">TCP/IP Erweitere Einstellungen (Wireless)</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/wireless/netbios.html" onclick="openHelp(this.href);return false;">NetBIOS (Wireless)</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/de/net/wireless/ipv6.html" onclick="openHelp(this.href);return false;">IPv6 (Wireless)</a>
+            </li>
+
+           </ul>
+          </li>
+            <li class="leaf">
+             <a href="contents/de/net/wireless/wireless.html" onclick="openHelp(this.href);return false;">Wireless (Privatbereich)</a>
+            </li>
+
+           </ul>
+          </li>
+          <li class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Sicherheit " onclick="fold('network_security',this);return false" />
+           Sicherheit 
+           <ul id="network_security" class="close">
+            <li class="leaf">
+             <a href="contents/de/net/security/ipfilter.html" onclick="openHelp(this.href);return false;">IPv4-Filter</a>
+            </li>
+
+           </ul>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">&nbsp;</div>
+    <div id="navigation">
+     <div id="copyright">Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.</div>
+     <div id="page_top"><a href="javascript:window.scroll(0,0);">Top<img src="menu/images/page_top.gif" alt="Top" /></a></div>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

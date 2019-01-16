@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://H:/" />
+    <content url="file://I:/" />
+    <content url="file://J:/" />
+    <content url="file://K:/" />
+    <content url="file://N:/" />
+    <content url="file://R:/" />
+    <content url="file://S:/" />
+    <content url="file://T:/" />
+    <content url="file://V:/" />
+    <content url="file://W:/" />
+    <content url="file://X:/" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<script src="http://code.jquery.com/jquery-1.4.1.min.js"></script>-->
+		<style type="text/css">
+			body{
+				padding: 30px;
+			}
+			#txt{
+				width: 500px;
+			}
+			#img{
+				margin-top: 20px;
+				border: 1px solid #808080;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="text" placeholder="请输入图片名称" id="txt"/>
+		<input type="button" value="查看" id="btn" />
+		<div>
+    	<img src="" id="img"/>
+		</div>
+	</body>
+	<script>
+		function getId(id) {
+			return document.getElementById(id)
+		}
+		getId("btn").onclick = function() {
+				var imgName = getId("txt").value ;
+				
+				getId("img").src = "./php/img_get.php?img=1&imgname=" + imgName;
+		}
+//		$.ajax({
+//                  url:"img_get.php",
+//                  dataType: "json",
+//                  success: function (resp) {
+//                      console.log(resp)
+//                  }
+//              });
+	</script>
+</html>

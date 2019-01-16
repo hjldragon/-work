@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>Authentication Method and Encryption Mode</title>
+
+
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="basic.css" type="text/css">
+
+
+
+</head>
+<body bgcolor="#FFFFFF">
+
+<!--top bar-->
+<IFRAME src="top_bar.html" name="top_bar" scrolling="NO" frameborder="0" width="100%" height="60"></IFRAME>
+<!--top bar end-->
+
+<br>
+
+<!--text-->
+<table border="0" cellspacing="0" cellpadding="5" width="580">
+<tr><td colspan=2></td></tr>
+<tr><td width="50"></td><td>
+<span style="font-size: 120%;"><b>Authentication Method and Encryption Mode</b></span>
+</td></tr>
+<tr><td colspan=2 height="10"></td></tr>
+<tr><td colspan=2></td></tr>
+<tr><td width="50"></td><td>
+Most Wireless networks use some kind of security settings. These security settings define the authentication (how the device identifies itself to the network) and encryption (how the data is encrypted as it is sent on the network). If you do not correctly specify these options when you are configuring your wireless device, it will not be able to connect to the Wireless network. Therefore care must be taken when configuring these options. Please refer to the information below to see which authentication and encryption methods your wireless device supports.
+</td></tr>
+
+
+<tr><td colspan=2 height="30"></td></tr>	
+<tr><td width="50"></td><td>
+<b>Authentication Methods  </b>
+</td></tr>
+<tr><td width="50"></td><td>
+<ul>
+<li>
+Open System<br>
+Wireless devices are allowed access to the network without any authentication. <br><br>
+
+<li>
+Shared Key (Infrastructure mode only)<br>
+A secret pre-determined key is shared by all devices that will access the wireless network. <br><br>
+<li>
+WPA/WPA2-PSK<br>
+A secret pre-determined passphrase is shared by all devices that will access the wireless network. This authentication method enables you to communicate securely using a powerful encryption method.  <br>WPA/WPA2-PSK can only be used in a wireless infrastructure network.
+<br><br>
+<li>
+LEAP (Not available for some models)<br>
+
+Cisco® LEAP (Light Extensible Authentication Protocol) uses user ID and password for authentication.
+<br><br>
+<li>
+EAP-FAST/PEAP/EAP-TTLS (Not available for some models)<br>
+
+Cisco® EAP-FAST (Extensible Authentication Protocol-Flexible Authentication via Secure Tunneling)/ PEAP (Protected Extensible Authentication Protocol) /EAP-TTLS (Extensible Authentication Protocol-Tunneled Transport Layer Security) uses user ID and password for authentication.You can verify the server Certificate using the CA certificate.
+<br><br>
+<li>
+EAP-TLS (Not available for some models)<br>EAP-TLS (Extensible Authentication Protocol-Transport Layer Security) uses a user ID and client certificate for authentication. You can also verify the SSL server certificate by using the CA certificate. <br><br>
+</ul>
+
+
+
+
+
+<tr><td width="50"></td><td>
+<b>Inner Authentication Methods (Not available for some models)</b>
+</td></tr>
+<tr><td width="50"></td><td>
+You need to specify one of the inner authentication methods according to the one you selected.
+<ul>
+<li>
+NONE<br>MS-CHAPv2 is used for Provisioning, and the method for EAP-FAST corresponding to second phase authentication method. 
+<br><br>
+
+<li>
+MS-CHAPv2<br>
+MS-CHAPv2(Microsoft-Challenge Handshake Authentication Protocol version 2) is an internal authentication method for EAP-FAST/PEAP/EAP-TTLS.<br><br>
+<li>
+GTC<br>
+GTC(Generic Token Card) is an internal authentication method for EAP-FAST/PEAP.<br><br>
+<li>
+MS-CHAP<br>
+MS-CHAP(Microsoft-Challenge Handshake Authentication Protocol) is an internal authentication method for EAP-TTLS.<br><br>
+<li>
+CHAP<br>
+CHAP(Challenge Handshake Authentication Protocol) is an internal authentication method for EAP-TTLS.<br><br>
+<li>
+PAP<br>
+PAP(Password Authentication Protocol) is an internal authentication method for EAP-TTLS.<br><br>
+</ul>
+
+
+
+
+<tr><td width="50"></td><td>
+<b>Encryption Methods  </b>
+</td></tr>
+<tr><td width="50"></td><td>
+
+<ul>
+<li>None<br>
+No encryption method is used. <br><br>
+
+<li>WEP (Wired Equivalent Privacy)<br>
+Data is transmitted and received with a secure key of the user's choice.<br><br>
+<li>TKIP<br>
+TKIP (Temporal Key Integrity Protocol) removes the predictability that intruders could rely upon to exploit security weaknesses brought about with the use of manually assigned WEP keys. TKIP keys are automatically generated and are longer that WEP keys.<br><br>
+<li>AES<br>
+AES (Advanced Encryption Standard) is Wi-Fi® authorized strong encryption standard.<br><br>
+<li>CKIP<br>
+The original Key Integrity Protocol for LEAP by Cisco Systems, Inc.
+</ul>
+
+</td></tr>
+<tr><td width="50"></td><td>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td width="70"></td><td>
+	<img src="img/key.gif" width="107" height="90" border="0" alt="image">
+	</td></tr></table>
+
+
+</td></tr>
+<tr><td colspan=2 height="10">
+</td></tr></table>
+
+<hr>
+
+<!--Copyright-->
+<IFRAME src="copy.html" name="copyright" align="middle" scrolling="NO" frameborder="0" width="100%" height="40"></IFRAME>
+
+</body>
+</html>

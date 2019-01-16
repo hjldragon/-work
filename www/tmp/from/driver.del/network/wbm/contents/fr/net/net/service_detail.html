@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Aide à la Gestion à partir du Web</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">Service</div>
+        <dl>
+<dt>Généralités</dt>
+<dd>Cette page permet de modifier les paramètres associés au service que vous avez sélectionné dans la liste de services.</dd>
+<dt>Nom du service</dt>
+<dd>Spécifiez le nom du service. En principe, vous n'avez pas besoin de modifier ce champ.</dd>
+<dt>Port du service</dt>
+<dd>Spécifie le port physique associé au service.</dd>
+<dt>Protocoles</dt>
+<dd>Ces cases à cocher déterminent les protocoles de réseau autorisés pour ce service.</dd>
+<dt>Filtre</dt>
+<dd>Spécifie le filtre de données, le cas échéant, pour ce service.<br />
+0 correspond à aucun filtre, les données sont transmises telles quelles.<br />
+1 correspond à la substitution de texte, par défaut CRLF pour LF.<br />
+2 indique un travail AppleTalk. Le filtrage dépend du matériel et des options sélectionnés.<br />
+3 convertit du texte normal en PostScript.<br />
+4 convertit des données de sortie en binaire référencé PostScript.</dd>
+<dt>Chaînes de contrôle</dt>
+<dd>Spécifie les chaînes de caractère à envoyer au début ou à la fin d'un travail. </dd>
+<dt>Port brut TCP</dt>
+<dd>Si différent de zéro, définit un port TCP à utiliser pour la connexion à ce service.</dd>
+<dt>Bidirectionnel</dt>
+<dd>Si cette case est cochée, ce service renvoie des données vers le réseau depuis le périphérique. En principe, vous n'avez pas besoin de modifier ce réglage. Dans le cas d'un périphérique PostScript non bidirectionnel, vous pouvez désactiver la prise en charge du bidirectionnel pour activer la simulation AppleTalk.</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Fermer" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

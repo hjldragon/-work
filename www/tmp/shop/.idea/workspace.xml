@@ -1,0 +1,1894 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$USER_HOME$/Desktop/手机app协议.txt" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c584b08f-3e6f-4ead-a5f1-44ede350a5b1" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+  </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+            <file leaf-file-name="店铺管理端接口定义.txt" pinned="false" current-in-tab="true">
+              <entry file="file://E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/接口文档/店铺管理端接口定义.txt">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="452">
+                    <caret line="2611" column="21" lean-forward="false" selection-start-line="2611" selection-start-column="21" selection-end-line="2611" selection-end-column="21" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="errcode.php" pinned="false" current-in-tab="false">
+              <entry file="file://R:/php/errcode.php">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="4800">
+                    <caret line="160" column="13" lean-forward="false" selection-start-line="160" selection-start-column="13" selection-end-line="160" selection-end-column="13" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="运营端接口定义.txt" pinned="false" current-in-tab="false">
+              <entry file="file://E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/接口文档/运营端接口定义.txt">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="66000">
+                    <caret line="2200" column="51" lean-forward="false" selection-start-line="2200" selection-start-column="51" selection-end-line="2200" selection-end-column="51" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="mgo_reservation.php" pinned="false" current-in-tab="false">
+              <entry file="file://V:/php/mgo_reservation.php">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="1740">
+                    <caret line="61" column="28" lean-forward="false" selection-start-line="61" selection-start-column="28" selection-end-line="61" selection-end-column="28" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="const.php" pinned="false" current-in-tab="false">
+              <entry file="file://V:/php/const.php">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="9000">
+                    <caret line="300" column="10" lean-forward="false" selection-start-line="300" selection-start-column="10" selection-end-line="300" selection-end-column="10" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="mgo_menu.php" pinned="false" current-in-tab="false">
+              <entry file="file://V:/php/mgo_menu.php">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="18810">
+                    <caret line="630" column="17" lean-forward="false" selection-start-line="630" selection-start-column="17" selection-end-line="630" selection-end-column="17" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="V" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="order_save.php" pinned="false" current-in-tab="true">
+        <entry file="file://V:/php/order_save.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="930">
+              <caret line="999" column="34" lean-forward="false" selection-start-line="999" selection-start-column="34" selection-end-line="999" selection-end-column="34" />
+              <folding>
+                <element signature="e#662#1341#0#PHP" expanded="false" />
+                <element signature="e#1343#3825#0#PHP" expanded="false" />
+                <element signature="e#3827#6657#0#PHP" expanded="false" />
+                <element signature="e#6659#7609#0#PHP" expanded="false" />
+                <element signature="e#7618#8404#0#PHP" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="redis_id.php" pinned="false" current-in-tab="false">
+        <entry file="file://V:/php/redis_id.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="606">
+              <caret line="138" column="5" lean-forward="false" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="page_util.php" pinned="false" current-in-tab="false">
+        <entry file="file://V:/php/page_util.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="24630">
+              <caret line="821" column="9" lean-forward="false" selection-start-line="821" selection-start-column="9" selection-end-line="821" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>get_shopinfo_edit</find>
+      <find>报表</find>
+      <find>登录</find>
+      <find>list</find>
+      <find>position_permission</find>
+      <find>抹零</find>
+      <find>is_edit</find>
+      <find>店铺</find>
+      <find>authorize</find>
+      <find>userinfo</find>
+      <find>au</find>
+      <find>last</find>
+      <find>lastmod</find>
+      <find>order_</find>
+      <find>customer</find>
+      <find>order_save</find>
+      <find>back_pay_money</find>
+      <find>检查更新</find>
+      <find>EMPLOYEE_NOT_LOGIN</find>
+      <find>SVC_ERR_DATA_SIGN</find>
+      <find>SHOP_NOT_WEIXIN</find>
+      <find>device_type</find>
+      <find>sync_base_settings</find>
+      <find>员工</find>
+      <find>来源</find>
+      <find>$chk</find>
+      <find>待处理</find>
+      <find>订单</find>
+      <find>区域</find>
+      <find>结账</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+    <dirStrings>
+      <dir>V:\php</dir>
+    </dirStrings>
+  </component>
+  <component name="GotoFileConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="ARCHIVE" />
+      <filtered-out-file-type name="ASP" />
+      <filtered-out-file-type name="ActionScript" />
+      <filtered-out-file-type name="AspectJ" />
+      <filtered-out-file-type name="Blade" />
+      <filtered-out-file-type name="C#" />
+      <filtered-out-file-type name="C++" />
+      <filtered-out-file-type name="CSS" />
+      <filtered-out-file-type name="CoffeeScript" />
+      <filtered-out-file-type name="Cucumber" />
+      <filtered-out-file-type name="DATASOURCE_STORAGE" />
+      <filtered-out-file-type name="DTD" />
+      <filtered-out-file-type name="Database Element" />
+      <filtered-out-file-type name="Dockerfile" />
+      <filtered-out-file-type name="ECMAScript 6" />
+      <filtered-out-file-type name="Enforced Plain Text" />
+      <filtered-out-file-type name="Erlang" />
+      <filtered-out-file-type name="Flow" />
+      <filtered-out-file-type name="H2 Database" />
+      <filtered-out-file-type name="HTML" />
+      <filtered-out-file-type name="Haml" />
+      <filtered-out-file-type name="Haskell" />
+      <filtered-out-file-type name="IDEA_MODULE" />
+      <filtered-out-file-type name="IDEA_PROJECT" />
+      <filtered-out-file-type name="IDEA_WORKSPACE" />
+      <filtered-out-file-type name="IDL" />
+      <filtered-out-file-type name="Images" />
+      <filtered-out-file-type name="Ini" />
+      <filtered-out-file-type name="JQL" />
+      <filtered-out-file-type name="JSCS" />
+      <filtered-out-file-type name="JSHint" />
+      <filtered-out-file-type name="JSON" />
+      <filtered-out-file-type name="JSON Schema" />
+      <filtered-out-file-type name="JSP" />
+      <filtered-out-file-type name="JSX Harmony" />
+      <filtered-out-file-type name="JavaFX" />
+      <filtered-out-file-type name="JavaScript" />
+      <filtered-out-file-type name="Less" />
+      <filtered-out-file-type name="Literate CoffeeScript" />
+      <filtered-out-file-type name="Locale" />
+      <filtered-out-file-type name="Markdown" />
+      <filtered-out-file-type name="Native" />
+      <filtered-out-file-type name="PATCH" />
+      <filtered-out-file-type name="PHAR" />
+      <filtered-out-file-type name="PLAIN_TEXT" />
+      <filtered-out-file-type name="Perl" />
+      <filtered-out-file-type name="RNG Compact" />
+      <filtered-out-file-type name="ReST" />
+      <filtered-out-file-type name="RegExp" />
+      <filtered-out-file-type name="SCSS" />
+      <filtered-out-file-type name="SQL" />
+      <filtered-out-file-type name="SQLite Database" />
+      <filtered-out-file-type name="Sass" />
+      <filtered-out-file-type name="Scratch" />
+      <filtered-out-file-type name="Smarty" />
+      <filtered-out-file-type name="SmartyConfig" />
+      <filtered-out-file-type name="SourceMap" />
+      <filtered-out-file-type name="TSLint" />
+      <filtered-out-file-type name="Twig" />
+      <filtered-out-file-type name="TypeScript" />
+      <filtered-out-file-type name="TypeScript JSX" />
+      <filtered-out-file-type name="UML" />
+      <filtered-out-file-type name="UNKNOWN" />
+      <filtered-out-file-type name="XHTML" />
+      <filtered-out-file-type name="XML" />
+      <filtered-out-file-type name="YAML" />
+      <filtered-out-file-type name="YouTrack" />
+      <filtered-out-file-type name="htaccess" />
+      <filtered-out-file-type name="textmate" />
+    </file-type-list>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/外包项目/协议/index-20180309.md" />
+        <option value="V:/php/version_save.php" />
+        <option value="V:/php/mgo_version.php" />
+        <option value="V:/php/mgo_position.php" />
+        <option value="V:/php/mgo_department.php" />
+        <option value="V:/php/login_save.php" />
+        <option value="R:/php/errcode.php" />
+        <option value="V:/php/cfg.php" />
+        <option value="V:/php/cache.php" />
+        <option value="V:/php/news_save.php" />
+        <option value="V:/php/shopinfo_get_base.php" />
+        <option value="V:/php/page_util.php" />
+        <option value="V:/php/mgo_stat_pending_byday.php" />
+        <option value="V:/php/mgo_user_feedback.php" />
+        <option value="V:/php/user_feedback_save.php" />
+        <option value="V:/php/news_get.php" />
+        <option value="V:/php/mgo_stat_platform_byday.php" />
+        <option value="V:/php/user_info.php" />
+        <option value="E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/外包项目/协议/index-20180316.md" />
+        <option value="V:/php/menu_save.php" />
+        <option value="V:/php/seat_get.php" />
+        <option value="V:/php/seat_save.php" />
+        <option value="V:/php/employee_save.php" />
+        <option value="V:/php/department_get.php" />
+        <option value="V:/php/department_save.php" />
+        <option value="V:/php/position_get.php" />
+        <option value="V:/php/position_save.php" />
+        <option value="V:/php/customer_get.php" />
+        <option value="V:/php/customer_save.php" />
+        <option value="V:/php/category_get.php" />
+        <option value="V:/php/category_save.php" />
+        <option value="V:/php/mgo_stat_shop_byday.php" />
+        <option value="V:/php/employee_get.php" />
+        <option value="V:/php/reservation_save.php" />
+        <option value="V:/php/reservation_get.php" />
+        <option value="V:/php/shop_get.php" />
+        <option value="V:/php/const.php" />
+        <option value="V:/php/permission.php" />
+        <option value="V:/php/shopinfo_save.php" />
+        <option value="V:/php/menu_get.php" />
+        <option value="V:/php/shopinfo_get.php" />
+        <option value="V:/php/shop_save.php" />
+        <option value="V:/php/printer_get.php" />
+        <option value="V:/php/mgo_menu.php" />
+        <option value="V:/php/food_status_check.php" />
+        <option value="V:/php/mgo_order.php" />
+        <option value="V:/php/mgo_employee.php" />
+        <option value="V:/php/order_get.php" />
+        <option value="E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/外包项目/协议/index-20180322.md" />
+        <option value="V:/php/order_save.php" />
+        <option value="V:/php/redis_id.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="81" />
+    <option name="y" value="55" />
+    <option name="width" value="1683" />
+    <option name="height" value="1012" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>AngularJS</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="V" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="V:" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="V" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="V:" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="php" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="S:/" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c584b08f-3e6f-4ead-a5f1-44ede350a5b1" name="Default" comment="" />
+      <created>1507513780514</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1507513780514</updated>
+      <workItem from="1507513781849" duration="20000" />
+      <workItem from="1507631728348" duration="4142000" />
+      <workItem from="1507635917646" duration="224000" />
+      <workItem from="1507682951615" duration="8876000" />
+      <workItem from="1507692218496" duration="3665000" />
+      <workItem from="1507780939031" duration="122000" />
+      <workItem from="1507787073331" duration="20000" />
+      <workItem from="1507788070055" duration="95000" />
+      <workItem from="1507791678103" duration="1077000" />
+      <workItem from="1507801711515" duration="31000" />
+      <workItem from="1507803973935" duration="96000" />
+      <workItem from="1507858258775" duration="213000" />
+      <workItem from="1507862947323" duration="772000" />
+      <workItem from="1507863720838" duration="43000" />
+      <workItem from="1507864500614" duration="96000" />
+      <workItem from="1507872935523" duration="63000" />
+      <workItem from="1507874041693" duration="7736000" />
+      <workItem from="1507882676391" duration="6380000" />
+      <workItem from="1508116835620" duration="23000" />
+      <workItem from="1508117504316" duration="9000" />
+      <workItem from="1508118020534" duration="23000" />
+      <workItem from="1508118204637" duration="87000" />
+      <workItem from="1508118489873" duration="61000" />
+      <workItem from="1508123652457" duration="484000" />
+      <workItem from="1508124263641" duration="2060000" />
+      <workItem from="1508132169263" duration="1510000" />
+      <workItem from="1508135796572" duration="57000" />
+      <workItem from="1508146578531" duration="3444000" />
+      <workItem from="1508206277926" duration="382000" />
+      <workItem from="1508207020634" duration="590000" />
+      <workItem from="1508208072470" duration="210000" />
+      <workItem from="1508208316515" duration="52000" />
+      <workItem from="1508208510249" duration="67000" />
+      <workItem from="1508208990781" duration="159000" />
+      <workItem from="1508212524559" duration="42000" />
+      <workItem from="1508212679445" duration="97000" />
+      <workItem from="1508213512196" duration="312000" />
+      <workItem from="1508214688238" duration="1783000" />
+      <workItem from="1508231401255" duration="571000" />
+      <workItem from="1508232144661" duration="118000" />
+      <workItem from="1508233758734" duration="314000" />
+      <workItem from="1508234524383" duration="3449000" />
+      <workItem from="1508289584818" duration="628000" />
+      <workItem from="1508290309114" duration="21000" />
+      <workItem from="1508293397194" duration="288000" />
+      <workItem from="1508294095834" duration="183000" />
+      <workItem from="1508294431194" duration="2610000" />
+      <workItem from="1508306587174" duration="210000" />
+      <workItem from="1508384766938" duration="120000" />
+      <workItem from="1508385000984" duration="34000" />
+      <workItem from="1508385127862" duration="290000" />
+      <workItem from="1508385683789" duration="506000" />
+      <workItem from="1508392691818" duration="110000" />
+      <workItem from="1508393154954" duration="18000" />
+      <workItem from="1508393194809" duration="1019000" />
+      <workItem from="1508394264533" duration="43000" />
+      <workItem from="1508394359774" duration="2429000" />
+      <workItem from="1508396791360" duration="3962000" />
+      <workItem from="1508401273616" duration="39000" />
+      <workItem from="1508401376371" duration="1358000" />
+      <workItem from="1508403797446" duration="39000" />
+      <workItem from="1508403837491" duration="67000" />
+      <workItem from="1508404165535" duration="5929000" />
+      <workItem from="1508461967697" duration="3527000" />
+      <workItem from="1508465813250" duration="882000" />
+      <workItem from="1508470762301" duration="37000" />
+      <workItem from="1508470998328" duration="11573000" />
+      <workItem from="1508489071790" duration="6574000" />
+      <workItem from="1508721030431" duration="409000" />
+      <workItem from="1508723218628" duration="29000" />
+      <workItem from="1508723738877" duration="29534000" />
+      <workItem from="1508808530376" duration="19265000" />
+      <workItem from="1508836058727" duration="6320000" />
+      <workItem from="1508895334876" duration="29814000" />
+      <workItem from="1508980890159" duration="173000" />
+      <workItem from="1508982025879" duration="1112000" />
+      <workItem from="1508983999560" duration="11695000" />
+      <workItem from="1509004131551" duration="10961000" />
+      <workItem from="1509067568195" duration="4766000" />
+      <workItem from="1509072433026" duration="20588000" />
+      <workItem from="1509326222562" duration="2720000" />
+      <workItem from="1509329123509" duration="97000" />
+      <workItem from="1509329782030" duration="7862000" />
+      <workItem from="1509337689155" duration="3215000" />
+      <workItem from="1509342528722" duration="3664000" />
+      <workItem from="1509346224783" duration="12597000" />
+      <workItem from="1509413530412" duration="27015000" />
+      <workItem from="1509499686908" duration="781000" />
+      <workItem from="1509500893401" duration="26000" />
+      <workItem from="1509501007867" duration="19000" />
+      <workItem from="1509501210739" duration="10117000" />
+      <workItem from="1509517347385" duration="12789000" />
+      <workItem from="1509584343363" duration="17454000" />
+      <workItem from="1509606094941" duration="12491000" />
+      <workItem from="1509672072835" duration="21849000" />
+      <workItem from="1509699405214" duration="5939000" />
+      <workItem from="1509930747967" duration="28879000" />
+      <workItem from="1510017409460" duration="30564000" />
+      <workItem from="1510103327386" duration="29894000" />
+      <workItem from="1510190016970" duration="12309000" />
+      <workItem from="1510207164250" duration="15531000" />
+      <workItem from="1510276066395" duration="25885000" />
+      <workItem from="1510535638771" duration="16228000" />
+      <workItem from="1510561030666" duration="945000" />
+      <workItem from="1510561986919" duration="3137000" />
+      <workItem from="1510566769082" duration="183000" />
+      <workItem from="1510567477939" duration="2920000" />
+      <workItem from="1510570524985" duration="97000" />
+      <workItem from="1510622282776" duration="2894000" />
+      <workItem from="1510643724300" duration="12343000" />
+      <workItem from="1510709470231" duration="26686000" />
+      <workItem from="1510741317168" duration="1656000" />
+      <workItem from="1510794884808" duration="28544000" />
+      <workItem from="1510881929206" duration="2682000" />
+      <workItem from="1510886485140" duration="10991000" />
+      <workItem from="1510907840758" duration="7304000" />
+      <workItem from="1511140231460" duration="2830000" />
+      <workItem from="1511145175463" duration="1738000" />
+      <workItem from="1511148345350" duration="39000" />
+      <workItem from="1511150203422" duration="188000" />
+      <workItem from="1511160069768" duration="530000" />
+      <workItem from="1511162531969" duration="11720000" />
+      <workItem from="1511227814199" duration="2715000" />
+      <workItem from="1511231827028" duration="2210000" />
+      <workItem from="1511243226891" duration="2105000" />
+      <workItem from="1511245404181" duration="113000" />
+      <workItem from="1511245517761" duration="751000" />
+      <workItem from="1511259549912" duration="1042000" />
+      <workItem from="1511331281187" duration="2268000" />
+      <workItem from="1511334135973" duration="357000" />
+      <workItem from="1511342480983" duration="4318000" />
+      <workItem from="1511399541744" duration="587000" />
+      <workItem from="1511401068591" duration="128000" />
+      <workItem from="1511402536201" duration="181000" />
+      <workItem from="1511402773278" duration="127000" />
+      <workItem from="1511405966534" duration="1985000" />
+      <workItem from="1511409583354" duration="2997000" />
+      <workItem from="1511422167810" duration="395000" />
+      <workItem from="1511489532019" duration="103000" />
+      <workItem from="1511492227585" duration="141000" />
+      <workItem from="1511492437658" duration="388000" />
+      <workItem from="1511503498228" duration="224000" />
+      <workItem from="1511511064584" duration="438000" />
+      <workItem from="1511519809408" duration="847000" />
+      <workItem from="1511520904230" duration="487000" />
+      <workItem from="1511753408276" duration="359000" />
+      <workItem from="1511755368985" duration="1428000" />
+      <workItem from="1511766852016" duration="148000" />
+      <workItem from="1511768166231" duration="1517000" />
+      <workItem from="1511853639464" duration="449000" />
+      <workItem from="1511854106926" duration="8000" />
+      <workItem from="1511862270424" duration="45000" />
+      <workItem from="1512022882692" duration="355000" />
+      <workItem from="1512025925915" duration="73000" />
+      <workItem from="1512026452401" duration="390000" />
+      <workItem from="1512118043839" duration="1202000" />
+      <workItem from="1512119274774" duration="4560000" />
+      <workItem from="1512350570600" duration="1233000" />
+      <workItem from="1512352592191" duration="398000" />
+      <workItem from="1512354314664" duration="24362000" />
+      <workItem from="1512436080331" duration="3488000" />
+      <workItem from="1512442057723" duration="9485000" />
+      <workItem from="1512454631915" duration="754000" />
+      <workItem from="1512455625970" duration="21000" />
+      <workItem from="1512455816204" duration="23000" />
+      <workItem from="1512455939478" duration="22000" />
+      <workItem from="1512456368377" duration="112000" />
+      <workItem from="1512456559051" duration="65000" />
+      <workItem from="1512457532099" duration="15000" />
+      <workItem from="1512458743123" duration="70000" />
+      <workItem from="1512460080046" duration="372000" />
+      <workItem from="1512460695997" duration="506000" />
+      <workItem from="1512463015422" duration="2619000" />
+      <workItem from="1512469683993" duration="12000" />
+      <workItem from="1512470601006" duration="151000" />
+      <workItem from="1512470787213" duration="518000" />
+      <workItem from="1512522780928" duration="679000" />
+      <workItem from="1512523512651" duration="134000" />
+      <workItem from="1512525026559" duration="42000" />
+      <workItem from="1512525091960" duration="30000" />
+      <workItem from="1512530580087" duration="70000" />
+      <workItem from="1512531784380" duration="193000" />
+      <workItem from="1512538454644" duration="2647000" />
+      <workItem from="1512541131763" duration="2746000" />
+      <workItem from="1512544730306" duration="829000" />
+      <workItem from="1512545817305" duration="587000" />
+      <workItem from="1512609370348" duration="118000" />
+      <workItem from="1512611331236" duration="626000" />
+      <workItem from="1512615993924" duration="4068000" />
+      <workItem from="1512626491530" duration="215000" />
+      <workItem from="1512626793566" duration="1536000" />
+      <workItem from="1512631865062" duration="75000" />
+      <workItem from="1512641937558" duration="68000" />
+      <workItem from="1512642060433" duration="768000" />
+      <workItem from="1512695238957" duration="1239000" />
+      <workItem from="1512697712968" duration="33000" />
+      <workItem from="1512698027568" duration="154000" />
+      <workItem from="1512699708697" duration="504000" />
+      <workItem from="1512700942684" duration="76000" />
+      <workItem from="1512701360262" duration="17000" />
+      <workItem from="1512701644533" duration="223000" />
+      <workItem from="1512723261100" duration="47000" />
+      <workItem from="1512726247722" duration="140000" />
+      <workItem from="1512727334887" duration="1374000" />
+      <workItem from="1512730057743" duration="151000" />
+      <workItem from="1512730264170" duration="14000" />
+      <workItem from="1512730621198" duration="563000" />
+      <workItem from="1512954913542" duration="1778000" />
+      <workItem from="1512956706286" duration="1722000" />
+      <workItem from="1512958653092" duration="1264000" />
+      <workItem from="1512959985990" duration="21000" />
+      <workItem from="1512960402016" duration="1322000" />
+      <workItem from="1512961918433" duration="200000" />
+      <workItem from="1512962274791" duration="29000" />
+      <workItem from="1512962332123" duration="302000" />
+      <workItem from="1512962946001" duration="643000" />
+      <workItem from="1512963632265" duration="4163000" />
+      <workItem from="1512972531085" duration="3010000" />
+      <workItem from="1512980407105" duration="502000" />
+      <workItem from="1512982395964" duration="61000" />
+      <workItem from="1512982603824" duration="129000" />
+      <workItem from="1512983169886" duration="212000" />
+      <workItem from="1512983560976" duration="34000" />
+      <workItem from="1512983630551" duration="603000" />
+      <workItem from="1512984961415" duration="36000" />
+      <workItem from="1512987240598" duration="1086000" />
+      <workItem from="1513044515910" duration="1726000" />
+      <workItem from="1513046750888" duration="10000" />
+      <workItem from="1513046781548" duration="4624000" />
+      <workItem from="1513057075699" duration="378000" />
+      <workItem from="1513059808332" duration="68000" />
+      <workItem from="1513064842591" duration="356000" />
+      <workItem from="1513065296042" duration="4376000" />
+      <workItem from="1513070339425" duration="365000" />
+      <workItem from="1513070924341" duration="59000" />
+      <workItem from="1513071297341" duration="29000" />
+      <workItem from="1513071517448" duration="378000" />
+      <workItem from="1513071943660" duration="20000" />
+      <workItem from="1513072449071" duration="55000" />
+      <workItem from="1513072864242" duration="131000" />
+      <workItem from="1513073550286" duration="1254000" />
+      <workItem from="1513074926504" duration="272000" />
+      <workItem from="1513075213575" duration="934000" />
+      <workItem from="1513128340672" duration="1502000" />
+      <workItem from="1513129879197" duration="2479000" />
+      <workItem from="1513132398546" duration="4240000" />
+      <workItem from="1513136758668" duration="3015000" />
+      <workItem from="1513144693122" duration="11000" />
+      <workItem from="1513145623987" duration="834000" />
+      <workItem from="1513146530340" duration="40000" />
+      <workItem from="1513146594147" duration="207000" />
+      <workItem from="1513147269112" duration="318000" />
+      <workItem from="1513148822052" duration="147000" />
+      <workItem from="1513149143360" duration="1100000" />
+      <workItem from="1513150251133" duration="1558000" />
+      <workItem from="1513151911295" duration="2190000" />
+      <workItem from="1513154191213" duration="13000" />
+      <workItem from="1513154239039" duration="3278000" />
+      <workItem from="1513158429988" duration="782000" />
+      <workItem from="1513160802221" duration="682000" />
+      <workItem from="1513161603331" duration="1397000" />
+      <workItem from="1513215330700" duration="36000" />
+      <workItem from="1513215497551" duration="1928000" />
+      <workItem from="1513218322191" duration="78000" />
+      <workItem from="1513218901766" duration="128000" />
+      <workItem from="1513219449919" duration="1578000" />
+      <workItem from="1513221038127" duration="1238000" />
+      <workItem from="1513222563764" duration="29000" />
+      <workItem from="1513222749006" duration="906000" />
+      <workItem from="1513230007882" duration="1818000" />
+      <workItem from="1513232038983" duration="15000" />
+      <workItem from="1513232156459" duration="312000" />
+      <workItem from="1513232469464" duration="379000" />
+      <workItem from="1513232906221" duration="2717000" />
+      <workItem from="1513235691189" duration="61000" />
+      <workItem from="1513235948939" duration="1073000" />
+      <workItem from="1513237024277" duration="4455000" />
+      <workItem from="1513243939807" duration="7000" />
+      <workItem from="1513243962609" duration="32000" />
+      <workItem from="1513244020696" duration="1763000" />
+      <workItem from="1513246351549" duration="190000" />
+      <workItem from="1513248023915" duration="440000" />
+      <workItem from="1513248741125" duration="812000" />
+      <workItem from="1513301521964" duration="2455000" />
+      <workItem from="1513304526106" duration="34000" />
+      <workItem from="1513308676060" duration="402000" />
+      <workItem from="1513309217353" duration="120000" />
+      <workItem from="1513310330838" duration="1829000" />
+      <workItem from="1513316853099" duration="12000" />
+      <workItem from="1513317607246" duration="586000" />
+      <workItem from="1513322761167" duration="3242000" />
+      <workItem from="1513326122133" duration="369000" />
+      <workItem from="1513328481177" duration="3045000" />
+      <workItem from="1513559569819" duration="11641000" />
+      <workItem from="1513579612250" duration="268000" />
+      <workItem from="1513579902938" duration="98000" />
+      <workItem from="1513580123203" duration="1338000" />
+      <workItem from="1513582047663" duration="5384000" />
+      <workItem from="1513647408995" duration="2509000" />
+      <workItem from="1513650920646" duration="332000" />
+      <workItem from="1513651579969" duration="447000" />
+      <workItem from="1513652090217" duration="4943000" />
+      <workItem from="1513662917085" duration="1985000" />
+      <workItem from="1513665401311" duration="28000" />
+      <workItem from="1513665883810" duration="50000" />
+      <workItem from="1513666239553" duration="122000" />
+      <workItem from="1513666758072" duration="278000" />
+      <workItem from="1513667328389" duration="2106000" />
+      <workItem from="1513669502672" duration="45000" />
+      <workItem from="1513669695672" duration="1508000" />
+      <workItem from="1513671258792" duration="2534000" />
+      <workItem from="1513677722161" duration="32000" />
+      <workItem from="1513678508626" duration="673000" />
+      <workItem from="1513679363764" duration="781000" />
+      <workItem from="1513733694984" duration="624000" />
+      <workItem from="1513735403581" duration="126000" />
+      <workItem from="1513735732565" duration="318000" />
+      <workItem from="1513736331174" duration="304000" />
+      <workItem from="1513736636578" duration="4303000" />
+      <workItem from="1513748331974" duration="527000" />
+      <workItem from="1513748928384" duration="279000" />
+      <workItem from="1513749361543" duration="2732000" />
+      <workItem from="1513752609811" duration="241000" />
+      <workItem from="1513752914792" duration="1631000" />
+      <workItem from="1513754763794" duration="51000" />
+      <workItem from="1513754847049" duration="267000" />
+      <workItem from="1513755976585" duration="111000" />
+      <workItem from="1513756270343" duration="135000" />
+      <workItem from="1513758753830" duration="34000" />
+      <workItem from="1513758885498" duration="59000" />
+      <workItem from="1513760129818" duration="711000" />
+      <workItem from="1513761402648" duration="100000" />
+      <workItem from="1513761722593" duration="56000" />
+      <workItem from="1513761836356" duration="70000" />
+      <workItem from="1513761960054" duration="163000" />
+      <workItem from="1513767860603" duration="494000" />
+      <workItem from="1513819408231" duration="1530000" />
+      <workItem from="1513822635935" duration="9000" />
+      <workItem from="1513824892697" duration="1995000" />
+      <workItem from="1513827777410" duration="4508000" />
+      <workItem from="1513838445141" duration="5812000" />
+      <workItem from="1513846391491" duration="2182000" />
+      <workItem from="1513850244914" duration="2387000" />
+      <workItem from="1513905278884" duration="3981000" />
+      <workItem from="1513913755905" duration="9956000" />
+      <workItem from="1513930112619" duration="488000" />
+      <workItem from="1513931210961" duration="196000" />
+      <workItem from="1513931769023" duration="364000" />
+      <workItem from="1513933763851" duration="72000" />
+      <workItem from="1513935472030" duration="939000" />
+      <workItem from="1513939568045" duration="749000" />
+      <workItem from="1514337523901" duration="3288000" />
+      <workItem from="1514341140628" duration="8185000" />
+      <workItem from="1514355200761" duration="56000" />
+      <workItem from="1514355257417" duration="2315000" />
+      <workItem from="1514357624930" duration="330000" />
+      <workItem from="1514358276745" duration="850000" />
+      <workItem from="1514359148663" duration="3833000" />
+      <workItem from="1514364716080" duration="916000" />
+      <workItem from="1514365722417" duration="5275000" />
+      <workItem from="1514373249038" duration="132000" />
+      <workItem from="1514423874051" duration="1988000" />
+      <workItem from="1514428924332" duration="9000" />
+      <workItem from="1514429003276" duration="7296000" />
+      <workItem from="1514445582494" duration="3253000" />
+      <workItem from="1514449928863" duration="47000" />
+      <workItem from="1514450086436" duration="478000" />
+      <workItem from="1514450628221" duration="267000" />
+      <workItem from="1514452718728" duration="4108000" />
+      <workItem from="1514457597548" duration="300000" />
+      <workItem from="1514511314417" duration="2403000" />
+      <workItem from="1514513906566" duration="20000" />
+      <workItem from="1514516052742" duration="2701000" />
+      <workItem from="1514520192588" duration="2175000" />
+      <workItem from="1514527409771" duration="78000" />
+      <workItem from="1514527578220" duration="37000" />
+      <workItem from="1514527616371" duration="9000" />
+      <workItem from="1514528013009" duration="206000" />
+      <workItem from="1514530624141" duration="24000" />
+      <workItem from="1514531610477" duration="5151000" />
+      <workItem from="1514857542316" duration="1039000" />
+      <workItem from="1514858596268" duration="6445000" />
+      <workItem from="1514865762251" duration="4446000" />
+      <workItem from="1514873824033" duration="2097000" />
+      <workItem from="1514876060482" duration="222000" />
+      <workItem from="1514876303372" duration="2384000" />
+      <workItem from="1514879466877" duration="6666000" />
+      <workItem from="1514886370539" duration="547000" />
+      <workItem from="1514887033539" duration="2172000" />
+      <workItem from="1514942981081" duration="11963000" />
+      <workItem from="1514959284034" duration="10480000" />
+      <workItem from="1514970117120" duration="1562000" />
+      <workItem from="1515029202494" duration="940000" />
+      <workItem from="1515031274954" duration="1655000" />
+      <workItem from="1515033593583" duration="118000" />
+      <workItem from="1515033782511" duration="86000" />
+      <workItem from="1515034331261" duration="2935000" />
+      <workItem from="1515037482876" duration="248000" />
+      <workItem from="1515038267262" duration="84000" />
+      <workItem from="1515044497311" duration="486000" />
+      <workItem from="1515045370341" duration="47000" />
+      <workItem from="1515045473001" duration="2378000" />
+      <workItem from="1515048397146" duration="555000" />
+      <workItem from="1515049477716" duration="188000" />
+      <workItem from="1515050017920" duration="1049000" />
+      <workItem from="1515051300334" duration="866000" />
+      <workItem from="1515055284202" duration="35000" />
+      <workItem from="1515056271983" duration="274000" />
+      <workItem from="1515056547187" duration="4137000" />
+      <workItem from="1515061956557" duration="17000" />
+      <workItem from="1515062160892" duration="49000" />
+      <workItem from="1515062363405" duration="38000" />
+      <workItem from="1515062465339" duration="272000" />
+      <workItem from="1515115084612" duration="771000" />
+      <workItem from="1515116212238" duration="17000" />
+      <workItem from="1515118413302" duration="2283000" />
+      <workItem from="1515120732681" duration="325000" />
+      <workItem from="1515121138866" duration="45000" />
+      <workItem from="1515121272100" duration="246000" />
+      <workItem from="1515121725442" duration="728000" />
+      <workItem from="1515123773139" duration="471000" />
+      <workItem from="1515124261955" duration="140000" />
+      <workItem from="1515124425665" duration="74000" />
+      <workItem from="1515124709318" duration="1158000" />
+      <workItem from="1515130714858" duration="345000" />
+      <workItem from="1515132515153" duration="1593000" />
+      <workItem from="1515134122191" duration="896000" />
+      <workItem from="1515135163828" duration="14000" />
+      <workItem from="1515135372769" duration="11000" />
+      <workItem from="1515135579717" duration="556000" />
+      <workItem from="1515136598937" duration="59000" />
+      <workItem from="1515136703128" duration="106000" />
+      <workItem from="1515136907434" duration="583000" />
+      <workItem from="1515137577802" duration="17000" />
+      <workItem from="1515137782681" duration="3614000" />
+      <workItem from="1515141739086" duration="25000" />
+      <workItem from="1515141781285" duration="615000" />
+      <workItem from="1515142397515" duration="15000" />
+      <workItem from="1515142447167" duration="876000" />
+      <workItem from="1515143403995" duration="107000" />
+      <workItem from="1515143689519" duration="227000" />
+      <workItem from="1515144156821" duration="991000" />
+      <workItem from="1515145415307" duration="215000" />
+      <workItem from="1515145811706" duration="335000" />
+      <workItem from="1515146323401" duration="24000" />
+      <workItem from="1515147447934" duration="567000" />
+      <workItem from="1515148022596" duration="1052000" />
+      <workItem from="1515201755243" duration="3677000" />
+      <workItem from="1515374776790" duration="3636000" />
+      <workItem from="1515379766260" duration="66000" />
+      <workItem from="1515379842698" duration="681000" />
+      <workItem from="1515381771550" duration="70000" />
+      <workItem from="1515384039293" duration="1196000" />
+      <workItem from="1515389889796" duration="5512000" />
+      <workItem from="1515395439713" duration="13000" />
+      <workItem from="1515395453633" duration="44000" />
+      <workItem from="1515395512419" duration="28000" />
+      <workItem from="1515395808082" duration="1294000" />
+      <workItem from="1515398761610" duration="2805000" />
+      <workItem from="1515404273498" duration="905000" />
+      <workItem from="1515405197906" duration="398000" />
+      <workItem from="1515405854240" duration="149000" />
+      <workItem from="1515406211531" duration="813000" />
+      <workItem from="1515461460083" duration="557000" />
+      <workItem from="1515462066628" duration="121000" />
+      <workItem from="1515462688985" duration="618000" />
+      <workItem from="1515463618665" duration="372000" />
+      <workItem from="1515465055691" duration="60000" />
+      <workItem from="1515465217154" duration="103000" />
+      <workItem from="1515465350700" duration="925000" />
+      <workItem from="1515466289616" duration="179000" />
+      <workItem from="1515466485921" duration="1797000" />
+      <workItem from="1515468570582" duration="1228000" />
+      <workItem from="1515469860686" duration="2979000" />
+      <workItem from="1515478265028" duration="2177000" />
+      <workItem from="1515481042498" duration="29000" />
+      <workItem from="1515481316150" duration="871000" />
+      <workItem from="1515482214888" duration="72000" />
+      <workItem from="1515482404891" duration="21000" />
+      <workItem from="1515482932895" duration="777000" />
+      <workItem from="1515483942950" duration="939000" />
+      <workItem from="1515484921396" duration="148000" />
+      <workItem from="1515485242794" duration="52000" />
+      <workItem from="1515486371896" duration="1001000" />
+      <workItem from="1515487536962" duration="180000" />
+      <workItem from="1515488549586" duration="43000" />
+      <workItem from="1515489126421" duration="435000" />
+      <workItem from="1515489946288" duration="47000" />
+      <workItem from="1515490203441" duration="287000" />
+      <workItem from="1515490588735" duration="290000" />
+      <workItem from="1515491237024" duration="435000" />
+      <workItem from="1515491742204" duration="2605000" />
+      <workItem from="1515494428999" duration="191000" />
+      <workItem from="1515495035119" duration="57000" />
+      <workItem from="1515495148511" duration="20000" />
+      <workItem from="1515495939470" duration="253000" />
+      <workItem from="1515496752005" duration="944000" />
+      <workItem from="1515547741914" duration="740000" />
+      <workItem from="1515548568547" duration="67000" />
+      <workItem from="1515548741336" duration="85000" />
+      <workItem from="1515548868171" duration="29000" />
+      <workItem from="1515549326564" duration="276000" />
+      <workItem from="1515549986420" duration="34000" />
+      <workItem from="1515550280789" duration="115000" />
+      <workItem from="1515550544465" duration="197000" />
+      <workItem from="1515550846741" duration="115000" />
+      <workItem from="1515551470490" duration="6000" />
+      <workItem from="1515553172935" duration="117000" />
+      <workItem from="1515555087281" duration="12064000" />
+      <workItem from="1515574290527" duration="267000" />
+      <workItem from="1515574700193" duration="992000" />
+      <workItem from="1515576838031" duration="329000" />
+      <workItem from="1515577306155" duration="639000" />
+      <workItem from="1515578241394" duration="63000" />
+      <workItem from="1515580600969" duration="555000" />
+      <workItem from="1515635534169" duration="666000" />
+      <workItem from="1515638127738" duration="110000" />
+      <workItem from="1515638330237" duration="910000" />
+      <workItem from="1515639583758" duration="520000" />
+      <workItem from="1515640242408" duration="12000" />
+      <workItem from="1515640485748" duration="1244000" />
+      <workItem from="1515641917368" duration="128000" />
+      <workItem from="1515642073729" duration="18000" />
+      <workItem from="1515642122212" duration="2115000" />
+      <workItem from="1515652157578" duration="203000" />
+      <workItem from="1515652412489" duration="183000" />
+      <workItem from="1515652918822" duration="1048000" />
+      <workItem from="1515655689635" duration="8000" />
+      <workItem from="1515656080672" duration="370000" />
+      <workItem from="1515659754115" duration="16000" />
+      <workItem from="1515659913101" duration="20000" />
+      <workItem from="1515660356111" duration="715000" />
+      <workItem from="1515661091835" duration="305000" />
+      <workItem from="1515661406296" duration="36000" />
+      <workItem from="1515661538247" duration="31000" />
+      <workItem from="1515661739307" duration="1601000" />
+      <workItem from="1515663650070" duration="25000" />
+      <workItem from="1515663798020" duration="2645000" />
+      <workItem from="1515666559705" duration="111000" />
+      <workItem from="1515666709587" duration="573000" />
+      <workItem from="1515667563544" duration="600000" />
+      <workItem from="1515724603381" duration="11571000" />
+      <workItem from="1515740235190" duration="34000" />
+      <workItem from="1515742383676" duration="4551000" />
+      <workItem from="1515749960279" duration="20000" />
+      <workItem from="1515823573804" duration="1003000" />
+      <workItem from="1515827322781" duration="327000" />
+      <workItem from="1515827800138" duration="46000" />
+      <workItem from="1515827951482" duration="90000" />
+      <workItem from="1515829207193" duration="8000" />
+      <workItem from="1515832030109" duration="4335000" />
+      <workItem from="1515982509921" duration="693000" />
+      <workItem from="1515983385621" duration="2790000" />
+      <workItem from="1515986505220" duration="375000" />
+      <workItem from="1515987143356" duration="2668000" />
+      <workItem from="1515996184883" duration="13000" />
+      <workItem from="1515996308532" duration="28000" />
+      <workItem from="1515997619500" duration="14000" />
+      <workItem from="1515999478755" duration="22000" />
+      <workItem from="1515999512627" duration="162000" />
+      <workItem from="1516000045282" duration="131000" />
+      <workItem from="1516000437385" duration="48000" />
+      <workItem from="1516000573086" duration="2405000" />
+      <workItem from="1516003358764" duration="4429000" />
+      <workItem from="1516008376592" duration="126000" />
+      <workItem from="1516008512638" duration="57000" />
+      <workItem from="1516008831784" duration="657000" />
+      <workItem from="1516009637461" duration="1376000" />
+      <workItem from="1516066863012" duration="1042000" />
+      <workItem from="1516067908841" duration="2378000" />
+      <workItem from="1516071277299" duration="3306000" />
+      <workItem from="1516075687644" duration="17000" />
+      <workItem from="1516075761322" duration="1725000" />
+      <workItem from="1516088778889" duration="273000" />
+      <workItem from="1516091526390" duration="191000" />
+      <workItem from="1516091910808" duration="420000" />
+      <workItem from="1516092440817" duration="785000" />
+      <workItem from="1516094658217" duration="379000" />
+      <workItem from="1516095125565" duration="330000" />
+      <workItem from="1516095715365" duration="1971000" />
+      <workItem from="1516100306208" duration="46000" />
+      <workItem from="1516155043259" duration="85000" />
+      <workItem from="1516156597567" duration="790000" />
+      <workItem from="1516171619596" duration="407000" />
+      <workItem from="1516172203929" duration="62000" />
+      <workItem from="1516177238102" duration="501000" />
+      <workItem from="1516182015274" duration="598000" />
+      <workItem from="1516241751794" duration="93000" />
+      <workItem from="1516243024177" duration="552000" />
+      <workItem from="1516243736610" duration="260000" />
+      <workItem from="1516244468249" duration="65000" />
+      <workItem from="1516247723241" duration="26000" />
+      <workItem from="1516260476622" duration="347000" />
+      <workItem from="1516260871326" duration="856000" />
+      <workItem from="1516263220162" duration="55000" />
+      <workItem from="1516270104927" duration="29000" />
+      <workItem from="1516270190953" duration="11000" />
+      <workItem from="1516327482018" duration="44000" />
+      <workItem from="1516331019518" duration="188000" />
+      <workItem from="1516331266310" duration="101000" />
+      <workItem from="1516331814236" duration="1371000" />
+      <workItem from="1516342615255" duration="13000" />
+      <workItem from="1516348061358" duration="528000" />
+      <workItem from="1516348615559" duration="156000" />
+      <workItem from="1516357084774" duration="45000" />
+      <workItem from="1516499343006" duration="1239000" />
+      <workItem from="1516588517237" duration="1167000" />
+      <workItem from="1516590148482" duration="169000" />
+      <workItem from="1516590333778" duration="29000" />
+      <workItem from="1516590381996" duration="336000" />
+      <workItem from="1516590785580" duration="126000" />
+      <workItem from="1516591018628" duration="81000" />
+      <workItem from="1516591345880" duration="23000" />
+      <workItem from="1516591404146" duration="116000" />
+      <workItem from="1516591570935" duration="276000" />
+      <workItem from="1516591943558" duration="24000" />
+      <workItem from="1516592183407" duration="5975000" />
+      <workItem from="1516603272029" duration="267000" />
+      <workItem from="1516603554597" duration="4717000" />
+      <workItem from="1516608491365" duration="728000" />
+      <workItem from="1516609904812" duration="187000" />
+      <workItem from="1516611292560" duration="18000" />
+      <workItem from="1516611727372" duration="18000" />
+      <workItem from="1516613751603" duration="111000" />
+      <workItem from="1516616269949" duration="37000" />
+      <workItem from="1516762055077" duration="1147000" />
+      <workItem from="1516766166289" duration="271000" />
+      <workItem from="1516773666777" duration="33000" />
+      <workItem from="1516780365489" duration="66000" />
+      <workItem from="1516780467289" duration="6000" />
+      <workItem from="1516780484319" duration="115000" />
+      <workItem from="1516782392491" duration="2205000" />
+      <workItem from="1516784756149" duration="95000" />
+      <workItem from="1516785373584" duration="88000" />
+      <workItem from="1516785509132" duration="1802000" />
+      <workItem from="1516787650515" duration="47000" />
+      <workItem from="1516787719608" duration="167000" />
+      <workItem from="1516787920619" duration="2905000" />
+      <workItem from="1516844522980" duration="25000" />
+      <workItem from="1516844677080" duration="1052000" />
+      <workItem from="1516845801152" duration="842000" />
+      <workItem from="1516847036952" duration="1260000" />
+      <workItem from="1516848448792" duration="2410000" />
+      <workItem from="1516850979364" duration="1692000" />
+      <workItem from="1516852721768" duration="1996000" />
+      <workItem from="1516869550784" duration="911000" />
+      <workItem from="1516870652831" duration="613000" />
+      <workItem from="1516873158700" duration="1108000" />
+      <workItem from="1516930780902" duration="60000" />
+      <workItem from="1516931079729" duration="11000" />
+      <workItem from="1516931428125" duration="18000" />
+      <workItem from="1516933049914" duration="388000" />
+      <workItem from="1516933488577" duration="1084000" />
+      <workItem from="1516954267700" duration="12000" />
+      <workItem from="1516954492817" duration="46000" />
+      <workItem from="1516956456654" duration="7000" />
+      <workItem from="1516956938096" duration="3885000" />
+      <workItem from="1516962711431" duration="326000" />
+      <workItem from="1516963049201" duration="1309000" />
+      <workItem from="1517191739502" duration="1046000" />
+      <workItem from="1517193103986" duration="402000" />
+      <workItem from="1517193588898" duration="265000" />
+      <workItem from="1517193874891" duration="18000" />
+      <workItem from="1517194039471" duration="383000" />
+      <workItem from="1517194476185" duration="45000" />
+      <workItem from="1517281188852" duration="913000" />
+      <workItem from="1517282103610" duration="5000" />
+      <workItem from="1517298149485" duration="7000" />
+      <workItem from="1517298294020" duration="1090000" />
+      <workItem from="1517302637112" duration="497000" />
+      <workItem from="1517303299130" duration="178000" />
+      <workItem from="1517304333203" duration="429000" />
+      <workItem from="1517304800269" duration="2414000" />
+      <workItem from="1517362175696" duration="227000" />
+      <workItem from="1517366762400" duration="2058000" />
+      <workItem from="1517378479291" duration="218000" />
+      <workItem from="1517378713592" duration="18000" />
+      <workItem from="1517378817167" duration="8000" />
+      <workItem from="1517453835724" duration="31000" />
+      <workItem from="1517454331633" duration="564000" />
+      <workItem from="1517455309438" duration="3573000" />
+      <workItem from="1517467924915" duration="496000" />
+      <workItem from="1517468961260" duration="83000" />
+      <workItem from="1517469065619" duration="13000" />
+      <workItem from="1517469102286" duration="1382000" />
+      <workItem from="1517471121311" duration="7000" />
+      <workItem from="1517471309216" duration="311000" />
+      <workItem from="1517472365974" duration="113000" />
+      <workItem from="1517472531382" duration="634000" />
+      <workItem from="1517473455462" duration="656000" />
+      <workItem from="1517474128510" duration="196000" />
+      <workItem from="1517474421586" duration="18000" />
+      <workItem from="1517475083335" duration="523000" />
+      <workItem from="1517475670695" duration="3888000" />
+      <workItem from="1517538309537" duration="1858000" />
+      <workItem from="1517540207516" duration="1408000" />
+      <workItem from="1517541816242" duration="165000" />
+      <workItem from="1517542932337" duration="3796000" />
+      <workItem from="1517554023551" duration="3346000" />
+      <workItem from="1517561054476" duration="117000" />
+      <workItem from="1517561239473" duration="280000" />
+      <workItem from="1517562544292" duration="490000" />
+      <workItem from="1517563382449" duration="3475000" />
+      <workItem from="1517567079494" duration="360000" />
+      <workItem from="1517618702539" duration="6575000" />
+      <workItem from="1517643689009" duration="1615000" />
+      <workItem from="1517707017061" duration="2690000" />
+      <workItem from="1517714984083" duration="3741000" />
+      <workItem from="1517723220390" duration="3144000" />
+      <workItem from="1517726474419" duration="633000" />
+      <workItem from="1517727210469" duration="349000" />
+      <workItem from="1517728150728" duration="398000" />
+      <workItem from="1517728571609" duration="499000" />
+      <workItem from="1517729203953" duration="61000" />
+      <workItem from="1517729507967" duration="586000" />
+      <workItem from="1517730133815" duration="722000" />
+      <workItem from="1517730870323" duration="4158000" />
+      <workItem from="1517793841069" duration="9203000" />
+      <workItem from="1517810776842" duration="1146000" />
+      <workItem from="1517812056971" duration="2270000" />
+      <workItem from="1517814833341" duration="4157000" />
+      <workItem from="1517877482725" duration="11728000" />
+      <workItem from="1517905715545" duration="632000" />
+      <workItem from="1519865634013" duration="1666000" />
+      <workItem from="1519867715882" duration="1255000" />
+      <workItem from="1519869066970" duration="233000" />
+      <workItem from="1519869372929" duration="547000" />
+      <workItem from="1519870014991" duration="2893000" />
+      <workItem from="1519872974306" duration="358000" />
+      <workItem from="1519873595903" duration="1327000" />
+      <workItem from="1519875983268" duration="763000" />
+      <workItem from="1519876809925" duration="1841000" />
+      <workItem from="1519883478123" duration="1072000" />
+      <workItem from="1519884981238" duration="680000" />
+      <workItem from="1519885774500" duration="237000" />
+      <workItem from="1519886079867" duration="896000" />
+      <workItem from="1519887002856" duration="1179000" />
+      <workItem from="1519888199266" duration="45000" />
+      <workItem from="1519888276487" duration="1452000" />
+      <workItem from="1519889807706" duration="553000" />
+      <workItem from="1519890396322" duration="4045000" />
+      <workItem from="1519894603909" duration="177000" />
+      <workItem from="1519894846469" duration="1268000" />
+      <workItem from="1519898344419" duration="3735000" />
+      <workItem from="1519953660362" duration="1800000" />
+      <workItem from="1519960492398" duration="250000" />
+      <workItem from="1519960876271" duration="104000" />
+      <workItem from="1519961617239" duration="647000" />
+      <workItem from="1519962575605" duration="128000" />
+      <workItem from="1519962770339" duration="10451000" />
+      <workItem from="1519977232566" duration="257000" />
+      <workItem from="1520212418375" duration="2514000" />
+      <workItem from="1520219486137" duration="5060000" />
+      <workItem from="1520240467144" duration="3303000" />
+      <workItem from="1520303669276" duration="932000" />
+      <workItem from="1520304805462" duration="855000" />
+      <workItem from="1520306221973" duration="1362000" />
+      <workItem from="1520307636221" duration="121000" />
+      <workItem from="1520307782319" duration="523000" />
+      <workItem from="1520324189592" duration="2539000" />
+      <workItem from="1520385663981" duration="2693000" />
+      <workItem from="1520389944914" duration="748000" />
+      <workItem from="1520391917941" duration="81000" />
+      <workItem from="1520405041051" duration="17000" />
+      <workItem from="1520407458855" duration="973000" />
+      <workItem from="1520413169918" duration="803000" />
+      <workItem from="1520414070639" duration="77000" />
+      <workItem from="1520414666834" duration="390000" />
+      <workItem from="1520416417141" duration="185000" />
+      <workItem from="1520416769169" duration="1860000" />
+      <workItem from="1520418745681" duration="32000" />
+      <workItem from="1520472241981" duration="4891000" />
+      <workItem from="1520478126738" duration="62000" />
+      <workItem from="1520558950979" duration="1255000" />
+      <workItem from="1520583369397" duration="24000" />
+      <workItem from="1520585090939" duration="4868000" />
+      <workItem from="1520817298913" duration="617000" />
+      <workItem from="1520821021424" duration="165000" />
+      <workItem from="1520821218989" duration="62000" />
+      <workItem from="1520822803417" duration="88000" />
+      <workItem from="1520838749724" duration="16000" />
+      <workItem from="1520849323959" duration="32000" />
+      <workItem from="1520849356900" duration="6000" />
+      <workItem from="1520851634569" duration="125000" />
+      <workItem from="1520908291601" duration="3168000" />
+      <workItem from="1520912283290" duration="863000" />
+      <workItem from="1520913354481" duration="32000" />
+      <workItem from="1520922264086" duration="47000" />
+      <workItem from="1520922321577" duration="391000" />
+      <workItem from="1520922781242" duration="227000" />
+      <workItem from="1520923110112" duration="123000" />
+      <workItem from="1520923503734" duration="36000" />
+      <workItem from="1520933783974" duration="353000" />
+      <workItem from="1520934160950" duration="1225000" />
+      <workItem from="1520937044314" duration="38000" />
+      <workItem from="1520990910416" duration="609000" />
+      <workItem from="1520992216297" duration="10000" />
+      <workItem from="1520992227280" duration="7000" />
+      <workItem from="1520993850208" duration="7000" />
+      <workItem from="1520996798908" duration="25000" />
+      <workItem from="1520996834557" duration="21000" />
+      <workItem from="1520999175039" duration="4000" />
+      <workItem from="1521008339633" duration="26000" />
+      <workItem from="1521008902468" duration="8000" />
+      <workItem from="1521009105262" duration="273000" />
+      <workItem from="1521009598189" duration="9000" />
+      <workItem from="1521013540756" duration="98000" />
+      <workItem from="1521014003339" duration="847000" />
+      <workItem from="1521018654756" duration="428000" />
+      <workItem from="1521020081460" duration="19000" />
+      <workItem from="1521020359147" duration="67000" />
+      <workItem from="1521021817167" duration="13000" />
+      <workItem from="1521023245258" duration="373000" />
+      <workItem from="1521076618084" duration="956000" />
+      <workItem from="1521077652821" duration="118000" />
+      <workItem from="1521077879202" duration="1093000" />
+      <workItem from="1521081357635" duration="57000" />
+      <workItem from="1521083246766" duration="13000" />
+      <workItem from="1521083690874" duration="107000" />
+      <workItem from="1521099250517" duration="230000" />
+      <workItem from="1521099611207" duration="22000" />
+      <workItem from="1521104098073" duration="310000" />
+      <workItem from="1521108661596" duration="478000" />
+      <workItem from="1521109333110" duration="12000" />
+      <workItem from="1521166146733" duration="106000" />
+      <workItem from="1521166342392" duration="13000" />
+      <workItem from="1521167307070" duration="5000" />
+      <workItem from="1521181949734" duration="246000" />
+      <workItem from="1521183902296" duration="12000" />
+      <workItem from="1521186275586" duration="16000" />
+      <workItem from="1521189316757" duration="271000" />
+      <workItem from="1521189600127" duration="1723000" />
+      <workItem from="1521191407578" duration="1786000" />
+      <workItem from="1521193854209" duration="22000" />
+      <workItem from="1521194011718" duration="2643000" />
+      <workItem from="1521422246429" duration="3881000" />
+      <workItem from="1521426150013" duration="1243000" />
+      <workItem from="1521427545790" duration="45000" />
+      <workItem from="1521427948676" duration="22000" />
+      <workItem from="1521428247112" duration="794000" />
+      <workItem from="1521429061283" duration="604000" />
+      <workItem from="1521429783721" duration="35000" />
+      <workItem from="1521429864820" duration="14000" />
+      <workItem from="1521429901186" duration="243000" />
+      <workItem from="1521430162591" duration="374000" />
+      <workItem from="1521430661883" duration="796000" />
+      <workItem from="1521431482829" duration="119000" />
+      <workItem from="1521431627928" duration="1842000" />
+      <workItem from="1521438806968" duration="335000" />
+      <workItem from="1521439235452" duration="283000" />
+      <workItem from="1521439720942" duration="3547000" />
+      <workItem from="1521443427890" duration="63000" />
+      <workItem from="1521443502366" duration="3727000" />
+      <workItem from="1521448299083" duration="3637000" />
+      <workItem from="1521451978983" duration="2100000" />
+      <workItem from="1521455239090" duration="902000" />
+      <workItem from="1521508598454" duration="778000" />
+      <workItem from="1521509460578" duration="92000" />
+      <workItem from="1521509644813" duration="255000" />
+      <workItem from="1521509927500" duration="2224000" />
+      <workItem from="1521513518645" duration="821000" />
+      <workItem from="1521515208807" duration="2810000" />
+      <workItem from="1521518034498" duration="2324000" />
+      <workItem from="1521524828426" duration="604000" />
+      <workItem from="1521525513099" duration="406000" />
+      <workItem from="1521526027096" duration="43000" />
+      <workItem from="1521526573653" duration="79000" />
+      <workItem from="1521526679546" duration="31000" />
+      <workItem from="1521526738636" duration="905000" />
+      <workItem from="1521527663793" duration="1067000" />
+      <workItem from="1521530110407" duration="5304000" />
+      <workItem from="1521594440131" duration="2690000" />
+      <workItem from="1521601519080" duration="627000" />
+      <workItem from="1521602182425" duration="157000" />
+      <workItem from="1521604656141" duration="184000" />
+      <workItem from="1521604943590" duration="1105000" />
+      <workItem from="1521611970190" duration="9000" />
+      <workItem from="1521612375545" duration="7000" />
+      <workItem from="1521612490277" duration="11000" />
+      <workItem from="1521613186402" duration="462000" />
+      <workItem from="1521615173856" duration="41000" />
+      <workItem from="1521618714965" duration="35000" />
+      <workItem from="1521619137403" duration="1438000" />
+      <workItem from="1521620858302" duration="127000" />
+      <workItem from="1521621096351" duration="452000" />
+      <workItem from="1521621814536" duration="1464000" />
+      <workItem from="1521624214322" duration="30000" />
+      <workItem from="1521624360114" duration="5000" />
+      <workItem from="1521624524491" duration="1481000" />
+      <workItem from="1521626070702" duration="34000" />
+      <workItem from="1521626222615" duration="1240000" />
+      <workItem from="1521628142552" duration="392000" />
+      <workItem from="1521680606686" duration="817000" />
+      <workItem from="1521681914638" duration="4079000" />
+      <workItem from="1521686283104" duration="443000" />
+      <workItem from="1521686992634" duration="1548000" />
+      <workItem from="1521688876737" duration="25000" />
+      <workItem from="1521688912133" duration="22000" />
+      <workItem from="1521689229461" duration="63000" />
+      <workItem from="1521689300197" duration="429000" />
+      <workItem from="1521689762988" duration="148000" />
+      <workItem from="1521689949147" duration="530000" />
+      <workItem from="1521690665486" duration="38000" />
+      <workItem from="1521690731575" duration="170000" />
+      <workItem from="1521690911163" duration="1759000" />
+      <workItem from="1521697817652" duration="2047000" />
+      <workItem from="1521700045228" duration="132000" />
+      <workItem from="1521700196407" duration="231000" />
+      <workItem from="1521700635443" duration="1169000" />
+      <workItem from="1521704087776" duration="385000" />
+      <workItem from="1521705046437" duration="1200000" />
+      <workItem from="1521710770096" duration="4017000" />
+      <workItem from="1521767780873" duration="1841000" />
+      <workItem from="1521769715956" duration="945000" />
+      <workItem from="1521772770085" duration="149000" />
+      <workItem from="1521773428699" duration="323000" />
+      <workItem from="1521773850076" duration="267000" />
+      <workItem from="1521774511691" duration="90000" />
+      <workItem from="1521776236621" duration="6000" />
+      <workItem from="1521776631185" duration="203000" />
+      <workItem from="1521776855820" duration="502000" />
+      <workItem from="1521777393946" duration="3167000" />
+      <workItem from="1521784895372" duration="197000" />
+      <workItem from="1521785148639" duration="4591000" />
+      <workItem from="1521790155802" duration="711000" />
+      <workItem from="1521791070376" duration="1457000" />
+      <workItem from="1521792552461" duration="10000" />
+      <workItem from="1521792576123" duration="4364000" />
+      <workItem from="1521797939957" duration="1549000" />
+      <workItem from="1522026986499" duration="5723000" />
+      <workItem from="1522034398753" duration="390000" />
+      <workItem from="1522034804165" duration="641000" />
+      <workItem from="1522035519812" duration="6489000" />
+      <workItem from="1522049273089" duration="150000" />
+      <workItem from="1522055199539" duration="1809000" />
+      <workItem from="1522112764955" duration="596000" />
+      <workItem from="1522117846463" duration="35000" />
+      <workItem from="1522129856461" duration="814000" />
+      <workItem from="1522131593673" duration="223000" />
+      <workItem from="1522131838257" duration="5655000" />
+      <workItem from="1522137522103" duration="583000" />
+      <workItem from="1522138155255" duration="1207000" />
+      <workItem from="1522139380436" duration="35000" />
+      <workItem from="1522139423007" duration="3812000" />
+      <workItem from="1522144068406" duration="367000" />
+      <workItem from="1522144716108" duration="1993000" />
+      <workItem from="1522200622150" duration="1146000" />
+      <workItem from="1522203810995" duration="82000" />
+      <workItem from="1522204857625" duration="887000" />
+      <workItem from="1522206095725" duration="63000" />
+      <workItem from="1522206192319" duration="376000" />
+      <workItem from="1522208029946" duration="2065000" />
+      <workItem from="1522210336291" duration="7395000" />
+      <workItem from="1522324093110" duration="18000" />
+      <workItem from="1522831839534" duration="12000" />
+      <workItem from="1523163334318" duration="1855000" />
+      <workItem from="1523235938955" duration="11000" />
+      <workItem from="1523937557791" duration="56000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1558834000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="81" y="55" width="1683" height="1012" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18236353" sideWeight="0.4957627" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32974428" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2497332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17625134" sideWeight="0.5042373" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956153" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36608067" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32974428" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956153" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14361702" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36608067" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2497332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="146" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://V:/php/seat_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="12" column="2" lean-forward="false" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/seat_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/department_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="14" column="43" lean-forward="false" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/department_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/customer_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="13" column="43" lean-forward="false" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/customer_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="11" column="43" lean-forward="false" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/category_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="11" column="43" lean-forward="false" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/category_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="31" column="37" lean-forward="true" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/employee_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="11" column="43" lean-forward="true" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+          <folding>
+            <element signature="e#317#1304#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/communication_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/reservation_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4230">
+          <caret line="141" column="2" lean-forward="false" selection-start-line="141" selection-start-column="2" selection-end-line="144" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/employee_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="43" />
+          <folding>
+            <element signature="e#361#795#0#PHP" expanded="false" />
+            <element signature="e#796#1277#0#PHP" expanded="false" />
+            <element signature="e#1279#3902#0#PHP" expanded="false" />
+            <element signature="e#3904#5006#0#PHP" expanded="false" />
+            <element signature="e#4282#4904#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/permission.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="295" column="29" lean-forward="true" selection-start-line="295" selection-start-column="29" selection-end-line="295" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://R:/php/redis_id.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2959">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/reservation_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/login_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1429">
+          <caret line="211" column="27" lean-forward="false" selection-start-line="211" selection-start-column="27" selection-end-line="211" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/shopinfo_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="13" column="37" lean-forward="false" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/printer_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10440">
+          <caret line="348" column="62" lean-forward="false" selection-start-line="348" selection-start-column="62" selection-end-line="348" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/mgo_order_status.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="13" column="64" lean-forward="false" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/shopinfo_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/position_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="51" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/mgo_stat_platform_byday.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2070">
+          <caret line="72" column="20" lean-forward="false" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/mgo_stat_shop_byday.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1980">
+          <caret line="69" column="20" lean-forward="false" selection-start-line="69" selection-start-column="20" selection-end-line="69" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/position_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/get_passwd_prompt.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/check_key.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-109">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/menu_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="351" column="24" lean-forward="false" selection-start-line="351" selection-start-column="24" selection-end-line="351" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/news_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="166" column="9" lean-forward="false" selection-start-line="166" selection-start-column="9" selection-end-line="166" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/cfg.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/cache.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="43" column="20" lean-forward="false" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/food_status_check.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="41" column="40" lean-forward="true" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/mgo_shop.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14778">
+          <caret line="1013" column="20" lean-forward="false" selection-start-line="1013" selection-start-column="20" selection-end-line="1013" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/shop_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1290">
+          <caret line="397" column="11" lean-forward="false" selection-start-line="397" selection-start-column="11" selection-end-line="397" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/mgo_employee.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7020">
+          <caret line="237" column="5" lean-forward="false" selection-start-line="237" selection-start-column="5" selection-end-line="237" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/order_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2580">
+          <caret line="86" column="5" lean-forward="false" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/menu_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="173" column="23" lean-forward="false" selection-start-line="173" selection-start-column="23" selection-end-line="173" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/外包项目/手机协议/手机app协议20180307.txt" />
+    <entry file="file://E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/外包项目/协议/index-20180322.md" />
+    <entry file="file://V:/php/shop_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2880">
+          <caret line="96" column="43" lean-forward="false" selection-start-line="96" selection-start-column="43" selection-end-line="96" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/global.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/mgo_order.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="761">
+          <caret line="226" column="55" lean-forward="false" selection-start-line="226" selection-start-column="55" selection-end-line="226" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/page_util.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24630">
+          <caret line="821" column="9" lean-forward="false" selection-start-line="821" selection-start-column="9" selection-end-line="821" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/接口文档/店铺管理端接口定义.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="2611" column="21" lean-forward="false" selection-start-line="2611" selection-start-column="21" selection-end-line="2611" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://R:/php/errcode.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4800">
+          <caret line="160" column="13" lean-forward="false" selection-start-line="160" selection-start-column="13" selection-end-line="160" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/接口文档/运营端接口定义.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66000">
+          <caret line="2200" column="51" lean-forward="false" selection-start-line="2200" selection-start-column="51" selection-end-line="2200" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/mgo_reservation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1740">
+          <caret line="61" column="28" lean-forward="false" selection-start-line="61" selection-start-column="28" selection-end-line="61" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/const.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9000">
+          <caret line="300" column="10" lean-forward="false" selection-start-line="300" selection-start-column="10" selection-end-line="300" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/mgo_menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18810">
+          <caret line="630" column="17" lean-forward="false" selection-start-line="630" selection-start-column="17" selection-end-line="630" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/redis_id.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="138" column="5" lean-forward="false" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/order_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="930">
+          <caret line="999" column="34" lean-forward="false" selection-start-line="999" selection-start-column="34" selection-end-line="999" selection-end-column="34" />
+          <folding>
+            <element signature="e#662#1341#0#PHP" expanded="false" />
+            <element signature="e#1343#3825#0#PHP" expanded="false" />
+            <element signature="e#3827#6657#0#PHP" expanded="false" />
+            <element signature="e#6659#7609#0#PHP" expanded="false" />
+            <element signature="e#7618#8404#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

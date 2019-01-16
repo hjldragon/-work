@@ -1,0 +1,262 @@
+﻿@charset "utf-8";
+
+/*	RESET
+**********************************************************************/
+
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+img
+{
+	border: none;
+}
+
+
+/*	FONT & TEXT DECORATION
+**********************************************************************/
+
+html, body
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 95%;
+	line-height: 130%;
+	text-align: left;
+}
+
+a
+{
+	color: #0D2EA0;
+	text-decoration: none;
+}
+
+a:hover
+{
+	text-decoration: underline;
+}
+
+#frame_contents dd a{
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+/*	PAGE STRUCTURE
+**********************************************************************/
+
+html, body
+{
+	color: #333333;
+	background-color: #FFFFFF;
+}
+
+#document
+{
+	margin: 0px 0px 0px 10px;
+	width: 600px;
+	height: auto;
+}
+
+#header
+{
+}
+
+#contents
+{
+}
+
+#navigation
+{
+}
+
+#footer
+{
+	margin: 10px 0px 4px 0px;
+	padding: 10px 0px 0px 0px;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #CCCCCC;
+}
+
+
+/*	DOCUMENT
+**********************************************************************/
+
+#document
+{
+}
+
+
+/*	HEADER
+**********************************************************************/
+
+#header
+{
+}
+
+
+/*	CONTENTS
+**********************************************************************/
+
+#contents
+{
+}
+
+#contents #frame_top
+{
+	background: url(../images/flame_top.gif) no-repeat 0 bottom;
+	height: 15px;
+}
+
+#contents #frame_side
+{
+	background: url(../images/flame_side.gif) repeat-y 0 0;
+	vertical-align: top;
+}
+
+#contents #frame_side #frame_contents
+{
+	margin: 0px 45px 0px 45px;
+}
+
+#contents #frame_side #frame_contents #title
+{
+	margin: 0px 0px 20px 0px;
+	padding: 26px 0px 7px 0px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;
+	font-size: 140%;
+	font-weight: bold;
+	color: #0C2C84;
+}
+
+#contents #frame_side #frame_contents #main
+{
+    padding: 0px 0px 20px 0px;
+	height: 100%;
+}
+
+#contents #frame_side #frame_contents #main dl
+{
+}
+
+#contents #frame_side #frame_contents #main dl dt
+{
+	margin: 0px 5px 2px 5px;
+	color: #0C2C84;
+	font-size: 115%;
+	font-weight: bold;
+}
+
+#contents #frame_side #frame_contents #main dl dt.comment
+{
+	margin: 0px 5px 0px 0px;
+	text-align: right;
+	color: #B22222;
+	font-size: 80%;
+	font-weight: bold;
+}
+
+#contents #frame_side #frame_contents #main dl dt.comment:before
+{
+/*
+	content: "[";
+*/
+}
+
+#contents #frame_side #frame_contents #main dl dt.comment:after
+{
+/*
+	content: "]";
+*/
+}
+
+#contents #frame_side #frame_contents #main dl dd
+{
+	margin: 5px 5px 25px 5px;
+	color: #0C2C84;
+}
+
+#contents #frame_bottom
+{
+	background: url(../images/flame_bottom.gif) no-repeat 0 0;
+	height: 15px;
+}
+
+.title_supported {
+	font-size: 80%;
+	font-weight: normal;
+}
+
+.item_supported {
+	font-size: 80%;
+	font-weight: normal;
+	display: block;
+}
+
+/*	NAVIGATION
+**********************************************************************/
+
+#navigation
+{
+	height: 30px;			/* 暫定対策 */
+}
+
+#navigation #button
+{
+	float: left;
+	position: relative;
+	left: 50%;
+}
+
+#navigation #button:after
+{
+	clear: both;
+	display: block;
+	visibility: hidden;
+	height: 0;
+	font-size: 0;
+	content: "";
+}
+
+#navigation #button input
+{
+	position: relative;
+	left: -50%;
+}
+
+#navigation #page_top
+{
+	float: right;
+	margin: 0px 10px 5px 0px;
+	text-align: right;
+}
+
+#navigation #page_top:after
+{
+	clear: both;
+	display: block;
+	visibility: hidden;
+	height: 0;
+	font-size: 0;
+	content: "";
+}
+
+
+/*	FOOTER
+**********************************************************************/
+
+#footer
+{
+}
+
+#footer #copyright
+{
+	text-align: center;
+	color: #0D2EA0;
+	font-size: 80%;
+}
+
+

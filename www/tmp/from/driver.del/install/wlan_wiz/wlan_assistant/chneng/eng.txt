@@ -1,0 +1,42 @@
+WA0001,Wireless Device Setup Wizard
+WA0002,1.01
+WA0101,Please wait...
+WA0201,Installation confirmation
+WA0202,During installation the wireless settings on your computer or wireless access point will automatically be detected.Before connecting the wireless device to a corporate network please confirm with the network administrator.
+WA0203,Please note that the wizard will temporarily disconnect you from your wireless network so that it can connect to your device. During this time you will be disconnected from all network services, including the Internet.
+WA0204,Checked and confirmed
+WA0301,Detecting existing wireless network settings on your computer
+WA0302,The wireless network settings of your computer or wireless access point have been detected.
+WA0303,The detected wireless network name (Wireless Access Point/Router name):
+WA0304,SSID:
+WA0305,Would you like to connect the device to this wireless network?
+WA0306,Yes, I want to connect the device to this wireless network.
+WA0307,No, I want to connect the device to another wireless network.
+WA0401,Enable Wireless
+WA0402,You should now enable wireless networking on the device using its control panel. Another window should open with further details on how to do this.
+WA0403,When you enable wireless networking on the device, this wizard will automatically continue the setup.
+WA0404,(*) If the "Set Network Location" screen appears, click "Cancel".
+WA0501,Submitting settings......Please wait...
+WA0601,Check the connection result of the "Wireless Setup"
+WA0602,The "WLAN Report" page will be printed by the device. Find <Connection> on the page and check the description to confirm the result of the connection.
+WA0603,* This print may take up to 2 minutes.
+WA0604,Select the result from the list of selections below and click "Next".
+WA0605,"Connection : OK"
+WA0606,"Connection : Failed"
+WA4001,Exit Setup
+WA4002,Setup is not complete.
+WA4003,If you quit this setup program, the wireless device will not be configured.
+WA4004,To continue this setup program, click "Resume".
+WA4005,To quit this setup program, click "Exit".
+WA5001,Failed to find the device
+WA5002,Would you like to try again using the same setup process or try something else?
+WA5003,Retry
+WA5004,If you want to try the same setup process again, we recommend you try temporarily disabling any security software, such as a firewall, that might be blocking it.
+WA5005,Try something else
+WA5101,Failed to connect
+WA5102,The installer will give you some options to try another connection method.  Click "Next" to proceed.
+WA9901,< Back
+WA9902,Cancel
+WA9903,Next >
+WA9904,Exit
+WA9905,Resume

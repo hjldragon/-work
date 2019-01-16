@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Справка системы управления через веб-интерфейс</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">Служба</div>
+        <dl>
+<dt>Обзор</dt>
+<dd>На этой странице можно изменить параметры, связанные со службой, выбранной в списке служб.</dd>
+<dt>Имя службы</dt>
+<dd>Указывается имя службы. Обычно изменить значение в этом поле не нужно.</dd>
+<dt>Порт службы</dt>
+<dd>Указывается связанный со службой физический порт.</dd>
+<dt>Протоколы</dt>
+<dd>Эти флажки определяют разрешенные для этой службы сетевые протоколы.</dd>
+<dt>Фильтр</dt>
+<dd>Здесь можно выбрать фильтр данных для службы.<br />
+0 - нет фильтра, данные проходят без изменения.<br />
+1 - подстановка текста, по умолчанию CRLF для LF.<br />
+2 - означает задание AppleTalk. Фильтрация зависит от оборудования и выбранных параметров.<br />
+3 - обычный текст преобразуется в Postscript.<br />
+4 - выходные данные преобразуются в Postscript Tagged Binary.</dd>
+<dt>Управляющие строки</dt>
+<dd>Указывает строки данных, отправляемые в начале или в конце задания.</dd>
+<dt>Порт Raw TCP</dt>
+<dd>Этот параметр определяет порт TCP (если не равен нулю), используемый для подключения к данной службе.</dd>
+<dt>Двусторонняя связь</dt>
+<dd>Если этот флажок установлен, служба отправит данные обратно с устройства в сеть. Обычно менять значение этого параметра не следует. В случае недвунаправленного устройства PostScript можно отключить поддержку двунаправленности, чтобы включить спуфинг AppleTalk.</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Закрыть" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

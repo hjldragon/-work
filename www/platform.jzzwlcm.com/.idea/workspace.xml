@@ -1,0 +1,1262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="feb058b9-5c52-4595-b990-47e1fec06944" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+            <file leaf-file-name="运营端接口定义.txt" pinned="false" current-in-tab="false">
+              <entry file="file://E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/接口文档/运营端接口定义.txt">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="258">
+                    <caret line="843" column="23" lean-forward="false" selection-start-line="843" selection-start-column="17" selection-end-line="843" selection-end-column="23" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="mgo_ag_employee.php" pinned="false" current-in-tab="false">
+              <entry file="file://Q:/php/mgo_ag_employee.php">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="450">
+                    <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="const.php" pinned="false" current-in-tab="true">
+              <entry file="file://Q:/php/const.php">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="535">
+                    <caret line="281" column="10" lean-forward="false" selection-start-line="281" selection-start-column="10" selection-end-line="281" selection-end-column="20" />
+                    <folding>
+                      <element signature="n#AgentType#0;n#!!top" expanded="false" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="cache.php" pinned="false" current-in-tab="false">
+              <entry file="file://R:/php/cache.php">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="355">
+                    <caret line="564" column="19" lean-forward="false" selection-start-line="564" selection-start-column="19" selection-end-line="564" selection-end-column="19" />
+                    <folding>
+                      <element signature="e#594#1588#0#PHP" expanded="false" />
+                      <element signature="e#647#967#0#PHP" expanded="false" />
+                      <element signature="e#973#1048#0#PHP" expanded="false" />
+                      <element signature="e#1054#1128#0#PHP" expanded="false" />
+                      <element signature="e#1134#1214#0#PHP" expanded="false" />
+                      <element signature="e#1220#1304#0#PHP" expanded="false" />
+                      <element signature="e#1327#1407#0#PHP" expanded="false" />
+                      <element signature="e#1413#1477#0#PHP" expanded="false" />
+                      <element signature="e#1495#1586#0#PHP" expanded="false" />
+                      <element signature="e#1603#2174#0#PHP" expanded="false" />
+                      <element signature="e#2184#2772#0#PHP" expanded="false" />
+                      <element signature="e#2784#3720#0#PHP" expanded="false" />
+                      <element signature="e#3740#4747#0#PHP" expanded="false" />
+                      <element signature="e#4758#5499#0#PHP" expanded="false" />
+                      <element signature="e#5520#6302#0#PHP" expanded="false" />
+                      <element signature="e#6318#6918#0#PHP" expanded="false" />
+                      <element signature="e#6929#7501#0#PHP" expanded="false" />
+                      <element signature="e#7511#8177#0#PHP" expanded="false" />
+                      <element signature="e#8187#9360#0#PHP" expanded="false" />
+                      <element signature="e#9368#10092#0#PHP" expanded="false" />
+                      <element signature="e#10104#11248#0#PHP" expanded="false" />
+                      <element signature="e#11258#12107#0#PHP" expanded="false" />
+                      <element signature="e#12119#12703#0#PHP" expanded="false" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="mgo_platformer.php" pinned="false" current-in-tab="false">
+              <entry file="file://Q:/php/mgo_platformer.php">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="2271">
+                    <caret line="178" column="5" lean-forward="false" selection-start-line="178" selection-start-column="5" selection-end-line="178" selection-end-column="5" />
+                    <folding>
+                      <element signature="e#2381#4653#0#PHP" expanded="false" />
+                      <element signature="e#4685#5046#0#PHP" expanded="false" />
+                      <element signature="e#5052#5435#0#PHP" expanded="false" />
+                      <element signature="e#5467#5834#0#PHP" expanded="false" />
+                      <element signature="e#5840#7307#0#PHP" expanded="false" />
+                      <element signature="e#7313#8043#0#PHP" expanded="false" />
+                      <element signature="e#8049#8392#0#PHP" expanded="false" />
+                      <element signature="e#8410#9159#0#PHP" expanded="false" />
+                      <element signature="e#9182#9583#0#PHP" expanded="false" />
+                      <element signature="e#9589#9973#0#PHP" expanded="false" />
+                      <element signature="e#10015#10408#0#PHP" expanded="false" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="home_board.php" pinned="false" current-in-tab="true">
+        <entry file="file://Q:/php/home_board.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-40">
+              <caret line="72" column="53" lean-forward="true" selection-start-line="72" selection-start-column="53" selection-end-line="72" selection-end-column="53" />
+              <folding>
+                <element signature="e#495#1432#0#PHP" expanded="false" />
+                <element signature="e#4190#6188#0#PHP" expanded="false" />
+                <element signature="e#6211#6996#0#PHP" expanded="false" />
+                <element signature="e#7009#7898#0#PHP" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="platformer_save.php" pinned="false" current-in-tab="false">
+        <entry file="file://Q:/php/platformer_save.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+              <folding>
+                <element signature="e#237#3358#0#PHP" expanded="false" />
+                <element signature="e#3367#3933#0#PHP" expanded="false" />
+                <element signature="e#3942#4552#0#PHP" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="shop_save.php" pinned="false" current-in-tab="false">
+        <entry file="file://Q:/php/shop_save.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="362">
+              <caret line="209" column="0" lean-forward="false" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
+              <folding>
+                <element signature="e#536#2093#0#PHP" expanded="false" />
+                <marker date="1522312202083" expanded="false" signature="9263:9805" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="9840:10539" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="10565:11320" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="11350:12045" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="12094:13659" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="13711:14471" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="14512:15283" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="15330:17145" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="17197:19202" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="19243:19865" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="19906:20598" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="20633:21274" ph="{...}" />
+                <marker date="1522312202083" expanded="false" signature="21310:22136" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="permission.php" pinned="false" current-in-tab="false">
+        <entry file="file://Q:/php/permission.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-944">
+              <caret line="235" column="5" lean-forward="true" selection-start-line="235" selection-start-column="5" selection-end-line="235" selection-end-column="5" />
+              <folding>
+                <element signature="n#PageCheck#0;n#Permission#0;n#!!top" expanded="false" />
+                <element signature="n#AdminCheck#0;n#Permission#0;n#!!top" expanded="false" />
+                <element signature="n#EmployeePermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+                <element signature="n#DoEmployeePermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+                <element signature="n#CheckIsPermission#0;n#Permission#0;n#!!top" expanded="false" />
+                <element signature="n#UserPermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+                <element signature="n#ShopCheck#0;n#Permission#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="agent_save.php" pinned="false" current-in-tab="false">
+        <entry file="file://Q:/php/agent_save.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="421">
+              <caret line="236" column="34" lean-forward="false" selection-start-line="236" selection-start-column="34" selection-end-line="236" selection-end-column="34" />
+              <folding>
+                <element signature="e#445#6985#0#PHP" expanded="false" />
+                <element signature="e#6997#8353#0#PHP" expanded="false" />
+                <element signature="e#8365#9210#0#PHP" expanded="false" />
+                <element signature="e#9219#9866#0#PHP" expanded="false" />
+                <element signature="e#9875#10720#0#PHP" expanded="false" />
+                <element signature="e#10722#12404#0#PHP" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="page_util.php" pinned="false" current-in-tab="false">
+        <entry file="file://Q:/php/page_util.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-64">
+              <caret line="20" column="16" lean-forward="false" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mgo_pl_position.php" pinned="false" current-in-tab="false">
+        <entry file="file://Q:/php/mgo_pl_position.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="230">
+              <caret line="14" column="12" lean-forward="false" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="34" />
+              <folding>
+                <element signature="e#1877#1947#0#PHP" expanded="false" />
+                <element signature="e#1953#3684#0#PHP" expanded="false" />
+                <element signature="e#3690#4057#0#PHP" expanded="false" />
+                <element signature="e#4063#4849#0#PHP" expanded="false" />
+                <element signature="e#4855#5423#0#PHP" expanded="false" />
+                <element signature="e#5429#6031#0#PHP" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>职位</find>
+      <find>平台员工列表</find>
+      <find>商品</find>
+      <find>meal_after</find>
+      <find>工商信息</find>
+      <find>CATE</find>
+      <find>shop_get</find>
+      <find>goods_save.php</find>
+      <find>代理商平台</find>
+      <find>GenAgDepartmentId</find>
+      <find>代理商</find>
+      <find>保存/编辑 平台员工职位</find>
+      <find>ag_position_get.php</find>
+      <find>shop_get.php</find>
+      <find>代理商员工</find>
+      <find>员工列表</find>
+      <find>get_agemployee_list</find>
+      <find>repast_permit_num</find>
+      <find>get_platformer_list</find>
+      <find>列表</find>
+      <find>文章</find>
+      <find>公告</find>
+      <find>get_ag_e</find>
+      <find>密码</find>
+      <find>PASSWORD_TWO_DIF</find>
+      <find>USER_PASSWD_ERR</find>
+      <find>反馈</find>
+      <find>运营平台</find>
+      <find>平台员工职位</find>
+      <find>Em</find>
+    </findStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="Q:/php/agent_apply_get.php" />
+        <option value="Q:/php/goods_get.php" />
+        <option value="V:/php/mgo_shop.php" />
+        <option value="Q:/php/mgo_goods_category.php" />
+        <option value="Q:/php/goods_category_save.php" />
+        <option value="Q:/php/goods_save.php" />
+        <option value="R:/php/redis_id.php" />
+        <option value="Q:/php/mgo_ag_department.php" />
+        <option value="Q:/php/ag_employee_save.php" />
+        <option value="Q:/php/shop_get.php" />
+        <option value="Q:/php/ag_position_save.php" />
+        <option value="Q:/php/report_get.php" />
+        <option value="Q:/php/department_save.php" />
+        <option value="Q:/php/department_get.php" />
+        <option value="Q:/php/shopinfo_save.php" />
+        <option value="Q:/php/mgo_article.php" />
+        <option value="Q:/php/article_get.php" />
+        <option value="Q:/php/article_save.php" />
+        <option value="Q:/php/mgo_goods.php" />
+        <option value="Q:/php/mgo_news.php" />
+        <option value="Q:/php/news_get.php" />
+        <option value="Q:/php/mgo_printer.php" />
+        <option value="Q:/php/news_save.php" />
+        <option value="Q:/php/platformer_get.php" />
+        <option value="Q:/php/mgo_user.php" />
+        <option value="R:/php/errcode.php" />
+        <option value="Q:/php/user_info.php" />
+        <option value="Q:/php/mgo_stat_customer_byday.php" />
+        <option value="Q:/php/mgo_stat_shop_byday.php" />
+        <option value="Q:/php/mgo_ag_employee.php" />
+        <option value="Q:/php/ag_employee_get.php" />
+        <option value="Q:/php/mgo_stat_pending_byday.php" />
+        <option value="Q:/php/mgo_agent.php" />
+        <option value="Q:/php/mgo_user_feedback.php" />
+        <option value="Q:/php/user_feedback_get.php" />
+        <option value="Q:/php/mgo_shop.php" />
+        <option value="Q:/php/mgo_stat_agent_byday.php" />
+        <option value="Q:/php/agent_save.php" />
+        <option value="Q:/php/pl_position_save.php" />
+        <option value="Q:/php/agent_get.php" />
+        <option value="Q:/php/login_save.php" />
+        <option value="Q:/php/mgo_stat_platform_byday.php" />
+        <option value="E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/接口文档/运营端接口定义.txt" />
+        <option value="Q:/php/const.php" />
+        <option value="V:/php/permission.php" />
+        <option value="Q:/php/mgo_platformer.php" />
+        <option value="R:/php/cache.php" />
+        <option value="Q:/php/platformer_save.php" />
+        <option value="Q:/php/shop_save.php" />
+        <option value="Q:/php/home_board.php" />
+        <option value="Q:/php/permission.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="222" />
+    <option name="y" value="23" />
+    <option name="width" value="1938" />
+    <option name="height" value="1049" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Q" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Q:" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Q" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Q:" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="php" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="T:/" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="feb058b9-5c52-4595-b990-47e1fec06944" name="Default" comment="" />
+      <created>1515401971285</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1515401971285</updated>
+      <workItem from="1515401972522" duration="2151000" />
+      <workItem from="1515489104102" duration="21000" />
+      <workItem from="1515995478445" duration="390000" />
+      <workItem from="1515996205650" duration="102000" />
+      <workItem from="1515997639660" duration="176000" />
+      <workItem from="1515997846766" duration="1630000" />
+      <workItem from="1515999502109" duration="10000" />
+      <workItem from="1515999676069" duration="368000" />
+      <workItem from="1516000177272" duration="259000" />
+      <workItem from="1516011021973" duration="1338000" />
+      <workItem from="1516070289117" duration="981000" />
+      <workItem from="1516074586782" duration="775000" />
+      <workItem from="1516081911569" duration="152000" />
+      <workItem from="1516082064930" duration="6703000" />
+      <workItem from="1516089055375" duration="2293000" />
+      <workItem from="1516091718704" duration="191000" />
+      <workItem from="1516092334390" duration="106000" />
+      <workItem from="1516093227460" duration="1429000" />
+      <workItem from="1516095046351" duration="78000" />
+      <workItem from="1516095457231" duration="254000" />
+      <workItem from="1516097698084" duration="2605000" />
+      <workItem from="1516152438535" duration="1956000" />
+      <workItem from="1516155129007" duration="1422000" />
+      <workItem from="1516157389216" duration="9428000" />
+      <workItem from="1516172028131" duration="175000" />
+      <workItem from="1516172266749" duration="4680000" />
+      <workItem from="1516177740495" duration="4271000" />
+      <workItem from="1516182615091" duration="2617000" />
+      <workItem from="1516239270295" duration="2479000" />
+      <workItem from="1516241845624" duration="1175000" />
+      <workItem from="1516243581109" duration="154000" />
+      <workItem from="1516243997484" duration="470000" />
+      <workItem from="1516244534090" duration="3186000" />
+      <workItem from="1516247750198" duration="3334000" />
+      <workItem from="1516256340785" duration="2986000" />
+      <workItem from="1516263276529" duration="5706000" />
+      <workItem from="1516326085835" duration="382000" />
+      <workItem from="1516327527118" duration="3071000" />
+      <workItem from="1516333187146" duration="3240000" />
+      <workItem from="1516342629158" duration="8000" />
+      <workItem from="1516343006669" duration="110000" />
+      <workItem from="1516343297975" duration="4416000" />
+      <workItem from="1516348772455" duration="4183000" />
+      <workItem from="1516352993956" duration="4027000" />
+      <workItem from="1516357131068" duration="2042000" />
+      <workItem from="1516414697565" duration="1531000" />
+      <workItem from="1516527636936" duration="1974000" />
+      <workItem from="1516583939302" duration="4169000" />
+      <workItem from="1516590132613" duration="15000" />
+      <workItem from="1516590770284" duration="15000" />
+      <workItem from="1516609221171" duration="606000" />
+      <workItem from="1516610092610" duration="1197000" />
+      <workItem from="1516611311901" duration="414000" />
+      <workItem from="1516611746896" duration="2002000" />
+      <workItem from="1516613863399" duration="2404000" />
+      <workItem from="1516616308168" duration="2099000" />
+      <workItem from="1516672130811" duration="24738000" />
+      <workItem from="1516756736069" duration="3040000" />
+      <workItem from="1516766521992" duration="1685000" />
+      <workItem from="1516772582433" duration="12000" />
+      <workItem from="1516772927326" duration="738000" />
+      <workItem from="1516773743301" duration="4627000" />
+      <workItem from="1516780600291" duration="1787000" />
+      <workItem from="1516784852131" duration="520000" />
+      <workItem from="1516785462164" duration="46000" />
+      <workItem from="1516845730637" duration="69000" />
+      <workItem from="1516846645058" duration="391000" />
+      <workItem from="1516850861399" duration="117000" />
+      <workItem from="1516860109065" duration="9255000" />
+      <workItem from="1516870463318" duration="188000" />
+      <workItem from="1516871267144" duration="1795000" />
+      <workItem from="1516874268600" duration="3216000" />
+      <workItem from="1516930750498" duration="29000" />
+      <workItem from="1516931318951" duration="108000" />
+      <workItem from="1516934574651" duration="13353000" />
+      <workItem from="1516954539992" duration="1397000" />
+      <workItem from="1516962693895" duration="17000" />
+      <workItem from="1516963038582" duration="10000" />
+      <workItem from="1517017227397" duration="6795000" />
+      <workItem from="1517101972253" duration="838000" />
+      <workItem from="1517188487756" duration="1445000" />
+      <workItem from="1517192787134" duration="316000" />
+      <workItem from="1517194423712" duration="51000" />
+      <workItem from="1517194528949" duration="3641000" />
+      <workItem from="1517205041686" duration="13449000" />
+      <workItem from="1517274721794" duration="5123000" />
+      <workItem from="1517282109201" duration="4595000" />
+      <workItem from="1517296476058" duration="242000" />
+      <workItem from="1517299385991" duration="2521000" />
+      <workItem from="1517303135764" duration="162000" />
+      <workItem from="1517303478395" duration="853000" />
+      <workItem from="1517362403573" duration="3439000" />
+      <workItem from="1517368822761" duration="4252000" />
+      <workItem from="1517377910555" duration="7000" />
+      <workItem from="1517378194557" duration="160000" />
+      <workItem from="1517378732525" duration="84000" />
+      <workItem from="1517380792863" duration="6756000" />
+      <workItem from="1517446744806" duration="1812000" />
+      <workItem from="1517471132444" duration="7000" />
+      <workItem from="1517475607856" duration="62000" />
+      <workItem from="1517537527913" duration="779000" />
+      <workItem from="1517567025317" duration="53000" />
+      <workItem from="1519867498671" duration="182000" />
+      <workItem from="1519882991338" duration="481000" />
+      <workItem from="1519976667386" duration="564000" />
+      <workItem from="1519977732088" duration="295000" />
+      <workItem from="1520216914567" duration="1406000" />
+      <workItem from="1520300140172" duration="1793000" />
+      <workItem from="1520306180728" duration="40000" />
+      <workItem from="1520307585365" duration="50000" />
+      <workItem from="1520308308585" duration="3875000" />
+      <workItem from="1520394185724" duration="3820000" />
+      <workItem from="1520477321604" duration="802000" />
+      <workItem from="1520478189802" duration="12904000" />
+      <workItem from="1520560523756" duration="12723000" />
+      <workItem from="1520582354803" duration="954000" />
+      <workItem from="1520818902861" duration="2110000" />
+      <workItem from="1520821290548" duration="1000000" />
+      <workItem from="1520822892335" duration="9906000" />
+      <workItem from="1520839412683" duration="9363000" />
+      <workItem from="1520849363927" duration="2266000" />
+      <workItem from="1520851760203" duration="898000" />
+      <workItem from="1520904038626" duration="3201000" />
+      <workItem from="1520913158047" duration="195000" />
+      <workItem from="1520913387949" duration="4829000" />
+      <workItem from="1520923543154" duration="7779000" />
+      <workItem from="1520934138220" duration="22000" />
+      <workItem from="1520935387860" duration="775000" />
+      <workItem from="1520936709335" duration="334000" />
+      <workItem from="1520992548354" duration="1298000" />
+      <workItem from="1520993858083" duration="2938000" />
+      <workItem from="1520996824409" duration="9000" />
+      <workItem from="1520997042099" duration="2131000" />
+      <workItem from="1520999180422" duration="5678000" />
+      <workItem from="1521008293408" duration="46000" />
+      <workItem from="1521009379894" duration="206000" />
+      <workItem from="1521009621429" duration="3119000" />
+      <workItem from="1521013771083" duration="167000" />
+      <workItem from="1521014852197" duration="1982000" />
+      <workItem from="1521017318194" duration="1332000" />
+      <workItem from="1521019522701" duration="555000" />
+      <workItem from="1521020426747" duration="121000" />
+      <workItem from="1521021139927" duration="649000" />
+      <workItem from="1521022732434" duration="510000" />
+      <workItem from="1521023620973" duration="176000" />
+      <workItem from="1521076595491" duration="21000" />
+      <workItem from="1521078974335" duration="2123000" />
+      <workItem from="1521081416083" duration="1828000" />
+      <workItem from="1521083295216" duration="394000" />
+      <workItem from="1521083798556" duration="7872000" />
+      <workItem from="1521097499216" duration="1337000" />
+      <workItem from="1521099733583" duration="4312000" />
+      <workItem from="1521104408648" duration="426000" />
+      <workItem from="1521104881995" duration="3100000" />
+      <workItem from="1521108060093" duration="23000" />
+      <workItem from="1521108345936" duration="152000" />
+      <workItem from="1521108642310" duration="16000" />
+      <workItem from="1521109345912" duration="206000" />
+      <workItem from="1521110185316" duration="321000" />
+      <workItem from="1521162623148" duration="1350000" />
+      <workItem from="1521166118173" duration="22000" />
+      <workItem from="1521166253907" duration="88000" />
+      <workItem from="1521166822286" duration="415000" />
+      <workItem from="1521167313499" duration="347000" />
+      <workItem from="1521167682559" duration="163000" />
+      <workItem from="1521168044641" duration="32000" />
+      <workItem from="1521168598546" duration="8804000" />
+      <workItem from="1521182196453" duration="1580000" />
+      <workItem from="1521183915223" duration="1443000" />
+      <workItem from="1521185611074" duration="535000" />
+      <workItem from="1521186292704" duration="3017000" />
+      <workItem from="1521191324925" duration="82000" />
+      <workItem from="1521429043034" duration="17000" />
+      <workItem from="1521448234711" duration="64000" />
+      <workItem from="1521454269719" duration="961000" />
+      <workItem from="1521524677641" duration="149000" />
+      <workItem from="1521526070992" duration="501000" />
+      <workItem from="1521526653818" duration="25000" />
+      <workItem from="1521526711062" duration="26000" />
+      <workItem from="1521599572866" duration="1944000" />
+      <workItem from="1521602150041" duration="32000" />
+      <workItem from="1521602340003" duration="2311000" />
+      <workItem from="1521604841280" duration="101000" />
+      <workItem from="1521610351574" duration="988000" />
+      <workItem from="1521612383443" duration="65000" />
+      <workItem from="1521612502676" duration="241000" />
+      <workItem from="1521613086088" duration="99000" />
+      <workItem from="1521613915482" duration="432000" />
+      <workItem from="1521615215717" duration="269000" />
+      <workItem from="1521616880119" duration="444000" />
+      <workItem from="1521618753919" duration="380000" />
+      <workItem from="1521620660636" duration="197000" />
+      <workItem from="1521620986417" duration="109000" />
+      <workItem from="1521621549441" duration="264000" />
+      <workItem from="1521626006605" duration="46000" />
+      <workItem from="1521626105293" duration="116000" />
+      <workItem from="1521627464183" duration="677000" />
+      <workItem from="1521686731642" duration="261000" />
+      <workItem from="1521688935297" duration="293000" />
+      <workItem from="1521690704339" duration="16000" />
+      <workItem from="1521697703660" duration="110000" />
+      <workItem from="1521700428749" duration="206000" />
+      <workItem from="1521704476984" duration="568000" />
+      <workItem from="1521709226514" duration="1538000" />
+      <workItem from="1521770666243" duration="2099000" />
+      <workItem from="1521773752782" duration="96000" />
+      <workItem from="1521774504234" duration="7000" />
+      <workItem from="1521774603104" duration="119000" />
+      <workItem from="1521776246046" duration="375000" />
+      <workItem from="1521796948635" duration="990000" />
+      <workItem from="1521799491752" duration="2158000" />
+      <workItem from="1522046314071" duration="1775000" />
+      <workItem from="1522049424209" duration="4641000" />
+      <workItem from="1522113363813" duration="3906000" />
+      <workItem from="1522117882720" duration="3023000" />
+      <workItem from="1522202023386" duration="1733000" />
+      <workItem from="1522203898793" duration="957000" />
+      <workItem from="1522206569248" duration="788000" />
+      <workItem from="1522230242367" duration="3013000" />
+      <workItem from="1522286618513" duration="10980000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="422139000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="222" y="23" width="1938" height="1049" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13525027" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16400427" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="48" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://R:/php/redis_id.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_printer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/shopinfo_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60">
+          <caret line="96" column="33" lean-forward="false" selection-start-line="96" selection-start-column="33" selection-end-line="96" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_news.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18510">
+          <caret line="620" column="20" lean-forward="false" selection-start-line="620" selection-start-column="20" selection-end-line="620" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/news_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2070">
+          <caret line="69" column="36" lean-forward="false" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_order.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="770">
+          <caret line="610" column="13" lean-forward="false" selection-start-line="610" selection-start-column="13" selection-end-line="610" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/order_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="770">
+          <caret line="189" column="1" lean-forward="false" selection-start-line="189" selection-start-column="1" selection-end-line="196" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/printer_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/current_dir_env.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2892">
+          <caret line="234" column="69" lean-forward="false" selection-start-line="234" selection-start-column="69" selection-end-line="234" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/user_info.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="236" column="44" lean-forward="false" selection-start-line="236" selection-start-column="44" selection-end-line="236" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/redis_login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/current_dir_env.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="4" column="38" lean-forward="false" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://R:/php/errcode.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="15" column="20" lean-forward="false" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_stat_customer_byday.php" />
+    <entry file="file://X:/php/mgo_stat_customer_byday.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="659">
+          <caret line="127" column="4" lean-forward="false" selection-start-line="127" selection-start-column="4" selection-end-line="142" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/news_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="199" column="12" lean-forward="false" selection-start-line="199" selection-start-column="12" selection-end-line="199" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/article_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4190">
+          <caret line="156" column="30" lean-forward="true" selection-start-line="156" selection-start-column="30" selection-end-line="156" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_agent_apply.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1680">
+          <caret line="59" column="6" lean-forward="false" selection-start-line="59" selection-start-column="6" selection-end-line="59" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/article_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1110">
+          <caret line="37" column="31" lean-forward="false" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/agent_apply_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="10" column="31" lean-forward="false" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/platformer_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="106" column="28" lean-forward="true" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/ag_employee_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="72" column="34" lean-forward="false" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_stat_pending_byday.php" />
+    <entry file="file://Q:/php/mgo_stat_news_byday.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-90">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/user_feedback_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="24" column="7" lean-forward="false" selection-start-line="24" selection-start-column="7" selection-end-line="25" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/communication_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/user_feedback_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1350">
+          <caret line="45" column="5" lean-forward="true" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_user_feedback.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="37" column="41" lean-forward="false" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_shop.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18120">
+          <caret line="1157" column="10" lean-forward="false" selection-start-line="1157" selection-start-column="10" selection-end-line="1157" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_stat_shop_byday.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="736">
+          <caret line="193" column="20" lean-forward="false" selection-start-line="193" selection-start-column="20" selection-end-line="193" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/employee_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding>
+            <element signature="n#GetEmployeeInfo#0;n#!!top" expanded="false" />
+            <element signature="n#GetEmployeeList#0;n#!!top" expanded="false" />
+            <element signature="n#GetEmployeeOneInfo#0;n#!!top" expanded="false" />
+            <element signature="n#GetEmployeeAllList#0;n#!!top" expanded="false" />
+            <element signature="n#InviteGetUserInfo#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_agent.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="736">
+          <caret line="427" column="20" lean-forward="false" selection-start-line="427" selection-start-column="20" selection-end-line="427" selection-end-column="20" />
+          <folding>
+            <element signature="e#2719#4009#0#PHP" expanded="false" />
+            <element signature="e#4015#4242#0#PHP" expanded="false" />
+            <element signature="e#4306#4370#0#PHP" expanded="false" />
+            <element signature="e#4376#8259#0#PHP" expanded="false" />
+            <element signature="e#8286#8629#0#PHP" expanded="false" />
+            <element signature="e#8656#9042#0#PHP" expanded="false" />
+            <element signature="e#9048#10322#0#PHP" expanded="false" />
+            <element signature="e#10328#13266#0#PHP" expanded="false" />
+            <element signature="e#13272#14114#0#PHP" expanded="false" />
+            <element signature="e#14593#15317#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/pl_position_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+          <folding>
+            <element signature="e#254#1958#0#PHP" expanded="false" />
+            <element signature="e#1960#2743#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/login_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3870">
+          <caret line="129" column="53" lean-forward="false" selection-start-line="129" selection-start-column="53" selection-end-line="129" selection-end-column="53" />
+          <folding>
+            <element signature="e#4560#5130#0#PHP" expanded="false" />
+            <element signature="e#5143#7241#0#PHP" expanded="false" />
+            <element signature="e#7258#8689#0#PHP" expanded="false" />
+            <element signature="e#8697#10016#0#PHP" expanded="false" />
+            <element signature="e#10024#11934#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_stat_agent_byday.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1710">
+          <caret line="60" column="20" lean-forward="false" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
+          <folding>
+            <element signature="e#2369#2720#0#PHP" expanded="false" />
+            <element signature="e#2726#3536#0#PHP" expanded="false" />
+            <element signature="e#3542#4701#0#PHP" expanded="false" />
+            <element signature="e#4707#5643#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/agent_get.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2490">
+          <caret line="367" column="33" lean-forward="false" selection-start-line="367" selection-start-column="33" selection-end-line="367" selection-end-column="33" />
+          <folding>
+            <element signature="n#GetAgentInfo#0;n#!!top" expanded="false" />
+            <element signature="n#GetAgentList#0;n#!!top" expanded="false" />
+            <element signature="n#GetAgentAllList#0;n#!!top" expanded="false" />
+            <element signature="n#GetAgentSonData#0;n#!!top" expanded="false" />
+            <element signature="n#array_unset_tt#0;n#!!top" expanded="false" />
+            <element signature="n#GetAgentShopData#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_stat_platform_byday.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="241" column="61" lean-forward="false" selection-start-line="241" selection-start-column="61" selection-end-line="241" selection-end-column="66" />
+          <folding>
+            <element signature="e#2409#2487#0#PHP" expanded="false" />
+            <element signature="e#3930#4301#0#PHP" expanded="false" />
+            <element signature="e#4307#5126#0#PHP" expanded="false" />
+            <element signature="e#5132#6329#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://V:/php/permission.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="35" column="25" lean-forward="false" selection-start-line="35" selection-start-column="4" selection-end-line="51" selection-end-column="5" />
+          <folding>
+            <element signature="n#PageCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#AdminCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#EmployeePermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#DoEmployeePermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#CheckIsPermission#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#UserPermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#ShopCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#PhonePermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#PadUserPermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#PadCheckIsPermission#0;n#Permission#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/phpstudy/WWW/公司文档/公司项目/新吃货项目/接口文档/运营端接口定义.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="843" column="23" lean-forward="false" selection-start-line="843" selection-start-column="17" selection-end-line="843" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/page_util.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-64">
+          <caret line="20" column="16" lean-forward="false" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://R:/php/cache.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="564" column="19" lean-forward="false" selection-start-line="564" selection-start-column="19" selection-end-line="564" selection-end-column="19" />
+          <folding>
+            <element signature="e#594#1588#0#PHP" expanded="false" />
+            <element signature="e#647#967#0#PHP" expanded="false" />
+            <element signature="e#973#1048#0#PHP" expanded="false" />
+            <element signature="e#1054#1128#0#PHP" expanded="false" />
+            <element signature="e#1134#1214#0#PHP" expanded="false" />
+            <element signature="e#1220#1304#0#PHP" expanded="false" />
+            <element signature="e#1327#1407#0#PHP" expanded="false" />
+            <element signature="e#1413#1477#0#PHP" expanded="false" />
+            <element signature="e#1495#1586#0#PHP" expanded="false" />
+            <element signature="e#1603#2174#0#PHP" expanded="false" />
+            <element signature="e#2184#2772#0#PHP" expanded="false" />
+            <element signature="e#2784#3720#0#PHP" expanded="false" />
+            <element signature="e#3740#4747#0#PHP" expanded="false" />
+            <element signature="e#4758#5499#0#PHP" expanded="false" />
+            <element signature="e#5520#6302#0#PHP" expanded="false" />
+            <element signature="e#6318#6918#0#PHP" expanded="false" />
+            <element signature="e#6929#7501#0#PHP" expanded="false" />
+            <element signature="e#7511#8177#0#PHP" expanded="false" />
+            <element signature="e#8187#9360#0#PHP" expanded="false" />
+            <element signature="e#9368#10092#0#PHP" expanded="false" />
+            <element signature="e#10104#11248#0#PHP" expanded="false" />
+            <element signature="e#11258#12107#0#PHP" expanded="false" />
+            <element signature="e#12119#12703#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_ag_employee.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_platformer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2271">
+          <caret line="178" column="5" lean-forward="false" selection-start-line="178" selection-start-column="5" selection-end-line="178" selection-end-column="5" />
+          <folding>
+            <element signature="e#2381#4653#0#PHP" expanded="false" />
+            <element signature="e#4685#5046#0#PHP" expanded="false" />
+            <element signature="e#5052#5435#0#PHP" expanded="false" />
+            <element signature="e#5467#5834#0#PHP" expanded="false" />
+            <element signature="e#5840#7307#0#PHP" expanded="false" />
+            <element signature="e#7313#8043#0#PHP" expanded="false" />
+            <element signature="e#8049#8392#0#PHP" expanded="false" />
+            <element signature="e#8410#9159#0#PHP" expanded="false" />
+            <element signature="e#9182#9583#0#PHP" expanded="false" />
+            <element signature="e#9589#9973#0#PHP" expanded="false" />
+            <element signature="e#10015#10408#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/mgo_pl_position.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="14" column="12" lean-forward="false" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="34" />
+          <folding>
+            <element signature="e#1877#1947#0#PHP" expanded="false" />
+            <element signature="e#1953#3684#0#PHP" expanded="false" />
+            <element signature="e#3690#4057#0#PHP" expanded="false" />
+            <element signature="e#4063#4849#0#PHP" expanded="false" />
+            <element signature="e#4855#5423#0#PHP" expanded="false" />
+            <element signature="e#5429#6031#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/const.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="281" column="10" lean-forward="false" selection-start-line="281" selection-start-column="10" selection-end-line="281" selection-end-column="20" />
+          <folding>
+            <element signature="n#AgentType#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/agent_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="236" column="34" lean-forward="false" selection-start-line="236" selection-start-column="34" selection-end-line="236" selection-end-column="34" />
+          <folding>
+            <element signature="e#445#6985#0#PHP" expanded="false" />
+            <element signature="e#6997#8353#0#PHP" expanded="false" />
+            <element signature="e#8365#9210#0#PHP" expanded="false" />
+            <element signature="e#9219#9866#0#PHP" expanded="false" />
+            <element signature="e#9875#10720#0#PHP" expanded="false" />
+            <element signature="e#10722#12404#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/shop_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="209" column="0" lean-forward="false" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
+          <folding>
+            <element signature="e#536#2093#0#PHP" expanded="false" />
+            <marker date="1522312202083" expanded="false" signature="9263:9805" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="9840:10539" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="10565:11320" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="11350:12045" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="12094:13659" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="13711:14471" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="14512:15283" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="15330:17145" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="17197:19202" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="19243:19865" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="19906:20598" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="20633:21274" ph="{...}" />
+            <marker date="1522312202083" expanded="false" signature="21310:22136" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/permission.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-944">
+          <caret line="235" column="5" lean-forward="true" selection-start-line="235" selection-start-column="5" selection-end-line="235" selection-end-column="5" />
+          <folding>
+            <element signature="n#PageCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#AdminCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#EmployeePermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#DoEmployeePermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#CheckIsPermission#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#UserPermissionCheck#0;n#Permission#0;n#!!top" expanded="false" />
+            <element signature="n#ShopCheck#0;n#Permission#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/platformer_save.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+          <folding>
+            <element signature="e#237#3358#0#PHP" expanded="false" />
+            <element signature="e#3367#3933#0#PHP" expanded="false" />
+            <element signature="e#3942#4552#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Q:/php/home_board.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-40">
+          <caret line="72" column="53" lean-forward="true" selection-start-line="72" selection-start-column="53" selection-end-line="72" selection-end-column="53" />
+          <folding>
+            <element signature="e#495#1432#0#PHP" expanded="false" />
+            <element signature="e#4190#6188#0#PHP" expanded="false" />
+            <element signature="e#6211#6996#0#PHP" expanded="false" />
+            <element signature="e#7009#7898#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

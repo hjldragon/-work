@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Ayuda de la Administración basada en Web</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">TCP/IP Configuración avanzada (Cableada)</div>
+        <dl>
+<dt>Intentos de arranque</dt>
+<dd>Si el método no es STATIC, este campo indica cuántas veces el protocolo(s) especificado por el campo de método se probará para obtener nuevos parámetros de direcciones. Si no se recibe ninguna nueva dirección después de este número de intentos, se utilizarán los valores de dirección existentes.</dd>
+<dt>Configuración del arranque RARP</dt>
+<dd>Si el método de arranque es RARP (o AUTO, que incluye RARP), estos dos indicadores muestran si RARP (que proporciona una dirección únicamente) debe establecer la máscara de subred basándose en esa dirección o la puerta de acceso a la dirección de la máquina que proporciona la información RARP.</dd>
+<dt>Tiempo de espera TCP</dt>
+<dd>Si un trabajo con base TCP está inactivo (no envía datos) durante el período de tiempo especificado, se terminará el trabajo. <br />
+Un valor de cero (0) desactiva esta función y los trabajos nunca agotarán el tiempo de espera. <br />
+El tiempo de espera puede especificarse en minutos seleccionando la unidad apropiada.</dd>
+<dt>Método del servidor DNS</dt>
+<dd>Si su red utiliza un servidor DHCP para asignar las direcciones IP a los dispositivos de la red, entonces es posible configurar su servidor DHCP para asignar automáticamente otras direcciones IP tales como la del servidor DNS.<br />
+*Si tiene alguna duda, contacte con su Administrador de la Red.</dd>
+<dd>AUTO (Por defecto) - Si su servidor DHCP está configurado para asignar direcciones IP de DNS entonces AUTO recibirá automáticamente las direcciones IP de DNS desde el servidor DHCP.<br />
+STATIC - Seleccione este valor si desea asignar manualmente las direcciones IP del servidor DNS.</dd>
+<dt>Dirección primaria IP del servidor DNS</dt>
+<dd>Si su red está configurada para usar un servidor DNS (Domain Name Service: Servidor de Nombres de Dominio), este campo especifica la dirección IP del servidor primario DNS.</dd>
+<dt>Dirección secundaria IP del servidor DNS</dt>
+<dd>Este campo especifica la dirección IP del servidor DNS secundario. Se utiliza como respaldo a la dirección del servidor DNS primario. Si el servidor primario no está disponible, el dispositivo se pondrá en contacto con el servidor DNS secundario.</dd>
+<dt>Tiempo de espera de la puerta de acceso</dt>
+<dd>Este es el tiempo que el dispositivo esperará para encontrar los servidores DNS/SMTP que se acceden a través de la puerta de enlace (Router). Si no se puede encontrar el servidor dentro del tiempo establecido, se producirá un error de "Tiempo de espera".<br />
+Dependiendo de la puerta de enlace (Router), se deberá establecer el tiempo adecuado. Es recomendable establecer unos 60 segundos, si utiliza un router con acceso telefónico. (El tiempo predeterminado es 5 seg.)</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Cerrar" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>加密提交</title>
+<script type="text/javascript" src="./js/md5.min.js"></script>
+<script type="text/javascript" src="./js/aes.min.js"></script>
+<script type="text/javascript" src="./js/pad-zeropadding.js"></script>
+<script type="text/javascript" src="./js/jsencrypt.min.js"></script>
+<script type="text/javascript" src="./js/crypt.js"></script>
+<script type="text/javascript" src="./js/vue.min.js"></script>
+<script type="text/javascript" src="./js/axios.min.js"></script>
+<script type="text/javascript" src="./js/pagestore.js"></script>
+<script type="text/javascript" src="./js/util.js"></script>
+<script type="text/javascript" src="./js/encsubmit.js"></script>
+<body>
+
+<style type="text/css">
+.msg {
+    border: 1px solid #bbbbbb;
+    padding: 0.5rem;
+    font-size: 1.6rem;
+    max-height: 300px;
+    overflow: auto;
+}
+</style>
+
+
+
+<div id="app">
+    <p>接收到的数据：</p>
+    <pre class="msg">{{msg}}</pre>
+    <hr/>
+    <input type="button" @click="test1" value="test1" />
+    <br/>
+</div>
+
+
+
+<script type="text/javascript">
+function ToJson(obj)
+{
+    return JSON.stringify(obj, "", "    ");
+}
+
+const vm = new Vue({
+    el: '#app',
+    data: {
+        msg : "[空]"
+    },
+    methods: {
+        test1(){
+            this.msg = "load...";
+            Http.EncSubmit("../php/order_get.php",
+                {
+                    order_info: 1,
+                    order_id: "7140",
+                    shop_id: "4"
+                },
+                v => {
+                    console.log(v);
+                    this.msg = ToJson(v);
+                }
+            );
+        },
+    }
+});
+</script>

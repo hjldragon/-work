@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <title>Document</title>
+    <style>
+        .btn {
+            border: 1px solid #4351d4;
+            width: 100px;
+            height: 30px;
+            color: #4351d4;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="btn">分享</div>
+    <div class="btn1">调</div>
+    <script>
+        // 取len长的随机字符串
+        var GetRandString = function (len, range) {
+            range = range || "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var s = range.split('');
+            var ret = '';
+            for (var i = 0; i < len; i++) {
+                ret += s[GetRandom(0, s.length - 1)];
+            }
+            return ret;
+        };
+
+        var GetRandom = function (begin, end) {
+            var num = Math.random() * 100000000;
+            return Math.floor(num % (end - begin + 1) + begin);
+        };
+
+        /**
+         * 微信jdk配置
+         */
+        var wxConfig = function () {
+            var appid = "";
+            var sign = "";
+
+            var noncestr = GetRandString(16);
+            var timestamp = parseInt(moment().format('X'));
+            var url = window.location.href;
+            url = url.split("#")[0];
+
+            var dataObj = {
+                get_sign: 1,
+                noncestr: noncestr,
+                timestamp: timestamp,
+                url: url,
+            };
+            console.log(dataObj);
+
+            $.ajax({
+                type: "GET",
+                // url: "http://customer.jzzwlcm.com/php/sign_get_xxx.php",
+                url: "http://wx.jzzwlcm.com/sign_get_xxx.php",
+                data: dataObj,
+                success: function (resp) {
+                    resp = JSON.parse(resp);
+
+                    if (resp.ret === 0) {
+                        appid = resp.data.appid;
+                        sign = resp.data.sign;
+                        
+                        wx.config({
+                            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                            appId: appid, // 必填，公众号的唯一标识
+                            timestamp: parseInt(timestamp), // 必填，生成签名的时间戳
+                            nonceStr: noncestr, // 必填，生成签名的随机串
+                            signature: sign,// 必填，签名，见附录1
+                            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                        });
+                    }
+
+                }
+            });
+        };
+
+        wx.ready(function () {
+            wx.checkJsApi({
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        });
+
+        var sharefirend = function () {
+            var url = "http://wx.jzzwlcm.com/share.php?url=http://customer.jxxxx";
+            console.log(url);
+            console.log(wx);
+
+            wx.onMenuShareAppMessage({
+                title: "新吃货好好好或或或或或", // 分享标题
+                desc: "好吃", // 分享描述
+                link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: "", // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                    alert("确认分享11111111111");
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    alert("取消分享222222222222");
+                }
+            });
+            alert('已注册获取“发送给朋友”状态事件');
+        };
+
+        // var sharefirendP = function () {
+        //     var url = window.location.href;
+        //     console.log(url);
+        //     console.log(wx);
+
+        //     wx.onMenuShareTimeline({
+        //         title: "111", // 分享标题
+        //         desc: "好吃", // 分享描述
+        //         link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+        //         imgUrl: "", // 分享图标
+        //         success: function () {
+        //             // 用户确认分享后执行的回调函数
+        //             alert("确认分享");
+        //         },
+        //         cancel: function () {
+        //             // 用户取消分享后执行的回调函数
+        //             alert("取消分享");
+        //         }
+        //     });
+        //     // alert('已注册获取“发送给朋友”状态事件');
+        // };
+
+        var btn = document.querySelector('.btn');
+        btn.addEventListener('click', sharefirend, false);
+
+        var btn = document.querySelector('.btn1');
+        btn.addEventListener('click', function(){
+            wx.onMenuShareAppMessage();
+        }, false);
+        wxConfig();
+    </script>
+</body>
+
+</html>

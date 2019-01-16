@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh" xml:lang="zh">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>网络基本管理帮助</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">服务</div>
+        <dl>
+<dt>概述</dt>
+<dd>您可以通过此页面修改与您从服务列表上选择的服务相关的参数。</dd>
+<dt>服务名称</dt>
+<dd>此字段指定了服务名。 通常情况下，您不用修改此字段。</dd>
+<dt>服务端口</dt>
+<dd>此字段指定了与服务相关的物理端口。</dd>
+<dt>协议</dt>
+<dd>这些选择框确定了启用此服务的网络协议。</dd>
+<dt>过滤器</dt>
+<dd>指定此服务的数据过滤器。<br />
+0 表示无过滤器，数据不进行修改便可通过。<br />
+1 表示文本置换，LF的默认值为CRLF。<br />
+2 表示AppleTalk作业。过滤器由选择的硬件和选项决定。<br />
+3 将普通文本转换成PostScript。<br />
+4 将输出数据转换成PostScript标记二进制。</dd>
+<dt>控制串</dt>
+<dd>指定每次作业开始或结束时发送的字符串。</dd>
+<dt>Raw TCP 端口</dt>
+<dd>若为非零则定义用于连接此服务的TCP（传输控制协议）端口。</dd>
+<dt>双向</dt>
+<dd>若选择此选项，服务将会把数据从设备发送回网络。 通常情况下，您不用修改此字段。 在非双向PostScript设备的情况下，您要关闭双向支持来启用AppleTalk欺骗。</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="关闭" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

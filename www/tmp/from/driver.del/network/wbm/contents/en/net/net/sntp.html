@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Web Based Management Help</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">SNTP</div>
+        <dl>
+<dt>Overview</dt>
+<dd>This page allows you to configure the SNTP settings.</dd>
+<dt>SNTP Server Method</dt>
+<dd>STATIC; the Device uses the value set on this page for SNTP server and port fields. AUTO; the Device will attempt to use DHCP to acquire these parameters when the server powers up or is reset. The BOOT Method on the TCP/IP page must be set to Auto or DHCP to enable DHCP.</dd>
+<dt>Primary SNTP Server Address</dt>
+<dd>This field is to input the host name or IP address of the Primary SNTP server. (Ex. sntp.example.net -or- 192.0.0.1) If you are using the DNS name of the SNTP server you must use the FQDN (Fully Qualified Domain Name) such as sntp.example.net.</dd>
+<dt>Primary SNTP Server Port</dt>
+<dd>Specify the destination port number of the Primary SNTP server that you will connect to.</dd>
+<dt>Secondary SNTP Server Address</dt>
+<dd>This field is to input the host name or IP address of the Secondary SNTP server. It is used as a backup to the Primary SNTP server address. If the Primary server is unavailable, the Device will contact the Secondary SNTP server.</dd>
+<dt>Secondary SNTP Server Port</dt>
+<dd>Specify the destination port number of the Secondary SNTP server that you will connect to.</dd>
+<dt>Synchronization Interval</dt>
+<dd>The Device will synchronize with the SNTP server automatically at intervals of specified hours.</dd>
+<dt>Synchronization Status</dt>
+<dd>This field displays the synchronization status with the specified SNTP server.<br />
+Succeeded: The last synchronization has succeeded.<br />
+Failed to Synchronize: The last synchronization has failed.<br />
+SNTP Unspecified: Because of incorrect SNTP settings, synchronization has never succeeded from when the Device powered up. Or the SNTP is disabled.<br />
+Synchronizing: The Device is synchronizing with the SNTP server. After a while, press the Refresh button to confirm whether synchronization succeeded. </dd>
+<dd>NOTE:<br />
+The Synchronization Status 'Synchronizing' will continue for up to 2 minutes. If the status is 'Failed to Synchronize' or 'SNTP Unspecified', then the specified SNTP server cannot be found. The SNTP server doesn't exist or the specified host doesn't support SNTP. Check the SNTP server name and port number.</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Close" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

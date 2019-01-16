@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+ <head>
+  <meta name="robots" content="none" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="menu/css/help_menu.css" />
+  <title>Guida Gestione pagina Web</title>
+  <script type="text/javascript">
+  <!--
+   function fold(id,image){
+    obj=document.getElementById(id);
+    if(obj){
+     image.src=(obj.className=="close")?"menu/images/minus.gif":"menu/images/plus.gif";
+     obj.className=(obj.className=="close")?"open":"close";
+    }
+   }
+   
+   function openHelp(url){
+    window.open(url);
+   }
+  -->
+  </script>
+ </head>
+ <body>
+  <div id="document">
+   <div id="header"></div>
+   <div id="contents">
+    <div id="frame_top"></div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="logo"><img src="menu/images/logo.gif" alt="brother" width="109" height="26" /></div>
+      <div id="title">Guida Gestione pagina Web</div>
+      <div id="language">Lingua per Web : 
+       <select id="lang" name="lang" onchange="location.href=this.value">
+        <option value="index_english.html" >English</option>
+        <option value="index_french.html" >Français (France)</option>
+        <option value="index_frenchcanadian.html" >Français (Canada)</option>
+        <option value="index_german.html" >Deutsch</option>
+        <option value="index_dutch.html" >Nederlands</option>
+        <option value="index_spanish.html" >Español</option>
+        <option value="index_italian.html" selected="selected">Italiano</option>
+        <option value="index_japanese.html" >日本語</option>
+        <option value="index_chinese.html" >中文</option>
+        <option value="index_russian.html" >Русский</option>
+       </select>
+      </div>
+      <div id="main">
+       <p class="note_message">Nota, alcune delle funzioni indicate e degli accessori potrebbero non essere supportati da questo modello.</p>
+       <ul id="help_menu_list">
+        <li class="tab_menu">
+         <img src="menu/images/minus.gif" alt="Rete" onclick="fold('network',this);"/>
+         Rete
+         <ul id="network">
+          <li class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Rete" onclick="fold('network_network',this);return false" />
+           Rete
+           <ul id="network_network" class="close">
+            <li class="leaf">
+             <a href="contents/it/net/net/interface.html" onclick="openHelp(this.href);return false;">Interfaccia</a>
+            </li>
+          <li  class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Protocollo" onclick="fold('network_network_protocol',this);"/>
+           <a href="contents/it/net/net/protocol.html" onclick="openHelp(this.href);return false;">Protocollo</a>
+           <ul id="network_network_protocol" class="close">
+            <li class="leaf">
+             <a href="contents/it/net/net/lpd.html" onclick="openHelp(this.href);return false;">LPD</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/ipp.html" onclick="openHelp(this.href);return false;">IPP</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/webservices.html" onclick="openHelp(this.href);return false;">Servizi Web</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/email.html" onclick="openHelp(this.href);return false;">SMTP</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/email_test.html" onclick="openHelp(this.href);return false;">Prova configurazione invio e-mail</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/mdns.html" onclick="openHelp(this.href);return false;">mDNS</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/sntp.html" onclick="openHelp(this.href);return false;">SNTP</a>
+            </li>
+
+           </ul>
+          </li>
+          <li  class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Notifica" onclick="fold('network_network_notification',this);"/>
+           <a href="contents/it/net/net/notification.html" onclick="openHelp(this.href);return false;">Notifica</a>
+           <ul id="network_network_notification" class="close">
+            <li class="leaf">
+             <a href="contents/it/net/net/notification_detail.html" onclick="openHelp(this.href);return false;">Notifica 1</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/notification_detail.html" onclick="openHelp(this.href);return false;">Notifica 2</a>
+            </li>
+
+           </ul>
+          </li>
+          <li  class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Servizio" onclick="fold('network_network_service',this);"/>
+           <a href="contents/it/net/net/service.html" onclick="openHelp(this.href);return false;">Servizio</a>
+           <ul id="network_network_service" class="close">
+            <li class="leaf">
+             <a href="contents/it/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Servizio 1</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Servizio 2</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Servizio 3</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Servizio 4</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Servizio 5</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/net/service_detail.html" onclick="openHelp(this.href);return false;">Servizio 6</a>
+            </li>
+
+           </ul>
+          </li>
+           </ul>
+          </li>
+          <li class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Cablata" onclick="fold('network_wired',this);return false" />
+           Cablata
+           <ul id="network_wired" class="close">
+          <li  class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="TCP/IP (Cablata)" onclick="fold('network_wired_tcpip',this);"/>
+           <a href="contents/it/net/wired/tcpip.html" onclick="openHelp(this.href);return false;">TCP/IP (Cablata)</a>
+           <ul id="network_wired_tcpip" class="close">
+            <li class="leaf">
+             <a href="contents/it/net/wired/tcpip_detail.html" onclick="openHelp(this.href);return false;">TCP/IP Impostazioni avanzate (Cablata)</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/wired/netbios.html" onclick="openHelp(this.href);return false;">NetBIOS (Cablata)</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/wired/ipv6.html" onclick="openHelp(this.href);return false;">IPv6 (Cablata)</a>
+            </li>
+
+           </ul>
+          </li>
+            <li class="leaf">
+             <a href="contents/it/net/wired/ethernet.html" onclick="openHelp(this.href);return false;">Ethernet</a>
+            </li>
+
+           </ul>
+          </li>
+          <li class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Wireless" onclick="fold('network_wireless',this);return false" />
+           Wireless
+           <ul id="network_wireless" class="close">
+          <li  class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="TCP/IP (Wireless)" onclick="fold('network_wireless_tcpip',this);"/>
+           <a href="contents/it/net/wireless/tcpip.html" onclick="openHelp(this.href);return false;">TCP/IP (Wireless)</a>
+           <ul id="network_wireless_tcpip" class="close">
+            <li class="leaf">
+             <a href="contents/it/net/wireless/tcpip_detail.html" onclick="openHelp(this.href);return false;">TCP/IP Impostazioni avanzate (Wireless)</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/wireless/netbios.html" onclick="openHelp(this.href);return false;">NetBIOS (Wireless)</a>
+            </li>
+            <li class="leaf">
+             <a href="contents/it/net/wireless/ipv6.html" onclick="openHelp(this.href);return false;">IPv6 (Wireless)</a>
+            </li>
+
+           </ul>
+          </li>
+            <li class="leaf">
+             <a href="contents/it/net/wireless/wireless.html" onclick="openHelp(this.href);return false;">Wireless (Personale)</a>
+            </li>
+
+           </ul>
+          </li>
+          <li class="subtab_menu">
+           <img src="menu/images/plus.gif" alt="Sicurezza" onclick="fold('network_security',this);return false" />
+           Sicurezza
+           <ul id="network_security" class="close">
+            <li class="leaf">
+             <a href="contents/it/net/security/ipfilter.html" onclick="openHelp(this.href);return false;">Filtro IPv4</a>
+            </li>
+
+           </ul>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">&nbsp;</div>
+    <div id="navigation">
+     <div id="copyright">Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.</div>
+     <div id="page_top"><a href="javascript:window.scroll(0,0);">Top<img src="menu/images/page_top.gif" alt="Top" /></a></div>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

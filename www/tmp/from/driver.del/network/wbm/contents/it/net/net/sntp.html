@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Guida Gestione pagina Web</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">SNTP</div>
+        <dl>
+<dt>Panoramica</dt>
+<dd>In questa pagina è possibile configurare le impostazioni SNTP.</dd>
+<dt>Metodo server SNTP</dt>
+<dd>STATICO: il dispositivo usa il valore impostato in questa pagina per il server SNTP e i campi della porta. AUTO: il dispositivo prova a usare DHCP per acquisire tali parametri quando il server si avvia o viene inizializzato. Il metodo BOOT nella pagina TCP/IP deve essere impostato su AUTO o DHCP per abilitare DHCP.</dd>
+<dt>Indirizzo server SNTP principale</dt>
+<dd>Questo campo consente di immettere il nome host o l'indirizzo IP del server SNTP principale. (Es. sntp.esempio.net o 192.0.0.1) Se si utilizza il nome DNS del server SNTP, occorre usare il nome FQDN (Fully Qualified Domain Name), ad esempio sntp.esempio.net.</dd>
+<dt>Porta server SNTP principale</dt>
+<dd>Specificare il numero della porta di destinazione del server SNTP principale al quale connettersi.</dd>
+<dt>Indirizzo server SNTP secondario</dt>
+<dd>Questo campo consente di immettere il nome host o l'indirizzo IP del server SNTP secondario. Viene utilizzato come backup per l'indirizzo server SNTP principale. Se il server principale non è disponibile, il dispositivo contatterà il server SNTP secondario.</dd>
+<dt>Porta server SNTP secondario</dt>
+<dd>Specificare il numero della porta di destinazione del server SNTP secondario al quale connettersi.</dd>
+<dt>Intervallo di sincronizzazione</dt>
+<dd>Il dispositivo si sincronizzerà automaticamente con il server SNTP ad intervalli alle ore specificate.</dd>
+<dt>Stato sincronizzazione</dt>
+<dd>In questo campo viene visualizzato lo stato della sincronizzazione con il server SNTP specificato.<br />
+Riuscita: l'ultima sincronizzazine è riuscita.<br />
+Non riuscita: l'ultima sincronizzazione non è riuscita.<br />
+SNTP non specificato: a causa di impostazioni SNTP non corrette, la sincronizzazione non è mai avvenuta dall'avvio del dispositivo. Oppure SNTP non è abilitato.<br />
+Sincronizzazione in corso: il dispositivo si sta sincronizzando con il server SNTP. Dopo qualche istante, premere Aggiorna per verificare che la sincronizzazione sia riuscita.</dd>
+<dd>NOTA : <br />
+lo stato di sincronizzazione "Sincronizzazione in corso" si estenderà per 2 minuti al massimo. Se lo stato è "Non riuscita" o "SNTP non specificato", il server SNTP specificato non è stato rilevato. Il server SNTP non esiste o l'host specificato non supporta SNTP. Controllare il nome e il numero di porta SNTP.</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Chiudi" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

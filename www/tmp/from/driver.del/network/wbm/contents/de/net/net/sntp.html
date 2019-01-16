@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Hilfe zum Web Based Management</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">SNTP</div>
+        <dl>
+<dt>Übersicht</dt>
+<dd>Diese Seite ermöglicht die Konfiguration der SNTP-Einstellungen.</dd>
+<dt>SNTP-Server-Methode</dt>
+<dd>STATISCH: Das Gerät verwendet die auf dieser Seite eingestellten Angaben für den SNTP-Server und die Port-Felder. AUTO: Das Gerät versucht, diese Einstellungen über DHCP abzufragen, wenn der Server gestartet oder zurückgesetzt wird. Als BOOT-Methode muss auf der TCP/IP-Seite "AUTO" oder "DHCP" eingestellt sein, um DHCP verwenden zu können.</dd>
+<dt>Adresse des primären SNTP-Servers</dt>
+<dd>Geben Sie in diesem Feld den Hostname oder die IP-Adresse des primären SNTP-Servers ein (z. B. sntp.beispiel.net oder 192.0.0.1). Wenn Sie den DNS-Namen des SNTP-Servers verwenden, müssen Sie den vollständigen Namen der Domäne (FQDN = Fully Qualified Domain Name) verwenden, z. B. sntp.beispiel.net.</dd>
+<dt>Port des primären SNTP-Servers</dt>
+<dd>Geben Sie die Zielportnummer des primären SNTP-Servers ein, zu dem die Verbindung hergestellt werden soll.</dd>
+<dt>Adresse des sekundären SNTP-Servers</dt>
+<dd>Geben Sie in diesem Feld den Hostname oder die IP-Adresse des sekundären SNTP-Servers ein. Dieser wird als Ersatzserver für den primären Server verwendet. Falls der primäre Server nicht erreichbar ist, wendet sich das Gerät an den sekundären SNTP-Server.</dd>
+<dt>Port des sekundären SNTP-Servers</dt>
+<dd>Geben Sie die Zielportnummer des sekundären SNTP-Servers ein, zu dem die Verbindung hergestellt werden soll.</dd>
+<dt>Synchronisationsintervall</dt>
+<dd>Das Gerät synchronisiert sich automatisch mit dem SNTP-Server im angegebenen Stundenintervall.</dd>
+<dt>Synchronisationsstatus</dt>
+<dd>Dieses Feld zeigt den Synchronisationsstatus mit dem angegebenen SNTP-Server an.<br />
+Erfolgreich: Die letzte Synchronisation verlief erfolgreich.<br />
+Synchronisation fehlgeschlagen: Die letzte Synchronisation ist fehlgeschlagen.<br />
+SNTP nicht angegeben: Aufgrund fehlerhafter SNTP-Einstellungen war seit Einschalten des Geräts keine Synchronisation möglich. Oder SNTP ist nicht aktiviert.<br />
+Synchronisation: Das Gerät synchronisiert sich mit dem SNTP-Server. Klicken Sie nach einer Weile auf die Schaltfläche "Aktualisieren", um zu prüfen, ob die Synchronisation erfolgreich war.</dd>
+<dd>ACHTUNG : <br />
+Der Synchronisationsstatus "Synchronisation" wird bis zu 2 Minuten lang angezeigt. Wenn der Status "Synchronisation fehlgeschlagen" oder "SNTP nicht angegeben" angezeigt wird, kann der angegebene SNTP-Server nicht gefunden werden. Entweder gibt es den SNTP-Server nicht oder der angegebene Host unterstützt SNTP nicht. Überprüfen Sie den Namen des SNTP-Servers und die Portnummer.</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Schließen" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

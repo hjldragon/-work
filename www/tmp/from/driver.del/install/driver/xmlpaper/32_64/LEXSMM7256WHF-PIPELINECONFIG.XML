@@ -1,0 +1,33 @@
+<Filters>
+	<Filter dll				= "LEXFPM14A.DLL"
+			clsid			= "{E16B816C-D1FB-43c8-9B0F-0D68ACAC1A40}"
+			name			= "Preparation filter">
+			<Input guid		= "{b8cf8530-5562-47c4-ab67-b1f69ecf961e}" comment="IID_IXpsDocumentProvider"/>
+			<Output guid	= "{4368d8a2-4181-4a9f-b295-3d9a38bb9ba0}" comment="IID_IXpsDocumentConsumer"/>
+	</Filter>
+	<Filter dll				= "LEXFOM14A.DLL"
+			clsid			= "{0338B91C-FB1A-409b-B13C-F0AE34025A82}"
+			name			= "Order filter">
+			<Input guid		= "{b8cf8530-5562-47c4-ab67-b1f69ecf961e}" comment="IID_IXpsDocumentProvider" />
+			<Output guid	= "{4368d8a2-4181-4a9f-b295-3d9a38bb9ba0}" comment="IID_IXpsDocumentConsumer" />
+	</Filter>
+	<Filter dll				= "LEXFLM14A.DLL"
+			clsid			= "{565E8DF1-288C-4eae-BAAC-6DAE5096C63D}"
+			name			= "Layout filter">
+			<Input guid		= "{b8cf8530-5562-47c4-ab67-b1f69ecf961e}" comment="IID_IXpsDocumentProvider"/>
+			<Output guid	= "{4368d8a2-4181-4a9f-b295-3d9a38bb9ba0}" comment="IID_IXpsDocumentConsumer"/>
+	</Filter>
+	<Filter dll				= "LEXFFM14A.DLL"
+			clsid			= "{ACF994F0-C691-4546-8141-A7F794D3CE3E}"
+			name			= "Finisher filter">
+			<Input guid		= "{b8cf8530-5562-47c4-ab67-b1f69ecf961e}" comment="IID_IXpsDocumentProvider"/>
+			<Output guid	= "{4368d8a2-4181-4a9f-b295-3d9a38bb9ba0}" comment="IID_IXpsDocumentConsumer"/>
+	</Filter>
+	<Filter dll				= "LEXFRM14A.DLL"
+			clsid			= "{4048888E-2F5E-491b-9AF4-5963D0011F0F}"
+			name			= "RIP filter">
+			<Input guid		= "{b8cf8530-5562-47c4-ab67-b1f69ecf961e}" comment="IID_IXpsDocumentProvider"/>
+			<Output guid	= "{65bb7f1b-371e-4571-8ac7-912f510c1a38}" comment="IID_IPrintWriteStream"/>
+	</Filter>
+	<FilterServiceProvider dll = "LEUIM14A.DLL"/>
+</Filters>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Beheer via een webbrowser Help</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">SNTP</div>
+        <dl>
+<dt>Overzicht</dt>
+<dd>Op deze pagina kunt u de SNTP-instellingen configureren.</dd>
+<dt>Methode SNTP-server</dt>
+<dd>STATISCH: het apparaat gebruikt de op deze pagina opgegeven waarde voor de SNTP-server en poorten. AUTO: het apparaat vraagt deze parameters op met DHCP zodra de server wordt ingeschakeld of gereset. De opstartmethode op de TCP/IP-pagina moet op AUTO of DHCP staan om DHCP te kunnen gebruiken.</dd>
+<dt>Adres primaire SNTP-server</dt>
+<dd>In dit veld voert u de hostnaam of het IP-adres van de primaire SNTP-server in. (Bijvoorbeeld sntp.voorbeeld.net of 192.0.0.1.) Als u de DNS-naam van de SNTP-server gebruikt, moet u de FQDN (Fully Qualified Domain Name) gebruiken, zoals sntp.voorbeeld.net.</dd>
+<dt>Poort primaire SNTP-server</dt>
+<dd>Geef het poortnummer op van de primaire SNTP-server waarmee u verbinding maakt.</dd>
+<dt>Adres secundaire SNTP-server</dt>
+<dd>In dit veld voert u de hostnaam of het IP-adres van de secundaire SNTP-server in. Dit is een reserve voor de primaire SNTP-server. Als de primaire server niet beschikbaar is, maakt het apparaat contact met de secundaire SNTP-server.</dd>
+<dt>Poort secundaire SNTP-server</dt>
+<dd>Geef het poortnummer op van de secundaire SNTP-server waarmee u verbinding maakt.</dd>
+<dt>Synchronisatie-interval</dt>
+<dd>Het apparaat wordt automatisch gesynchroniseerd met de SNTP-server na een interval van het opgegeven aantal uren.</dd>
+<dt>Synchronisatiestatus</dt>
+<dd>Dit veld bevat de synchronisatiestatus met de opgegeven SNTP-server.<br />
+Geslaagd: De laatste synchronisatie is goed verlopen.<br />
+Synchronisatie mislukt: De laatste synchronisatie is niet goed verlopen.<br />
+SNTP niet opgegeven: Door onjuiste SNTP-instellingen is de synchronisatie nooit goed verlopen van het moment waarop het apparaat werd ingeschakeld. Het kan ook dat SNTP uitstaat.<br />
+Bezig met synchroniseren: Het apparaat wordt gesynchroniseerd met de SNTP-server. Druk na enige tijd op de knop Vernieuwen om te controleren of de synchronisatie is gelukt. </dd>
+<dd>LET OP : <br />
+De synchronisatiestatus Bezig met synchroniseren kan maximaal twee minuten duren. Als de status Synchronisatie mislukt of SNTP niet opgegeven is, is de opgegeven SNTP-server niet gevonden. De SNTP-server bestaat niet of de opgegeven host ondersteunt SNTP niet. Controleer de naam en het poortnummer van de SNTP-server.</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Sluiten" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

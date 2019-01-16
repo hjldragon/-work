@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh" xml:lang="zh">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>网络基本管理帮助</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">SNTP</div>
+        <dl>
+<dt>概述</dt>
+<dd>可以在本页上配置SNTP设置。</dd>
+<dt>SNTP服务器设置方式</dt>
+<dd>静态；设备为SNTP服务器和端口字段使用本页上设置的值。自动；设备启动或复位时，它将尝试使用DHCP来获取这些参数。TCP/IP页上的启动方式必须设为自动或DHCP以启用DHCP。</dd>
+<dt>首选SNTP服务器地址</dt>
+<dd>在此字段中输入首选SNTP服务器的主机名称或IP地址。（例如：sntp.example.net或192.0.0.1）如果正在使用SNTP服务器的DNS名称，则必须使用FQDN（完全合格域名），如：sntp.example.net。</dd>
+<dt>首选SNTP服务器端口</dt>
+<dd>指定要连接的首选SNTP服务器的目的地端口号。</dd>
+<dt>备用SNTP服务器地址</dt>
+<dd>在此字段中输入备用SNTP服务器的主机名称或IP地址。其用作首选SNTP服务器地址的备用地址。如果首选服务器不可用，设备将连接到备用SNTP服务器。</dd>
+<dt>备用SNTP服务器端口</dt>
+<dd>指定要连接的备用SNTP服务器的目的地端口号。</dd>
+<dt>同步间隔</dt>
+<dd>设备将以指定时间的间隔自动与SNTP服务器同步。</dd>
+<dt>同步状态</dt>
+<dd>此区域显示与指定SNTP服务器的同步状态。<br />
+同步成功：最后一次同步成功。<br />
+同步失败：最后一次同步失败。<br />
+SNTP未指定：由于SNTP设置错误，设备开启时始终无法同步成功。或者，SNTP被禁用。<br />
+同步中：设备正在与SNTP服务器同步。稍等片刻，按刷新按钮确认同步是否成功。</dd>
+<dd>注 : <br />
+‘同步中’状态最多会持续2分钟的时间。如果状态为‘同步失败’或‘SNTP未指定’，则无法找到指定的SNTP服务器。SNTP服务器不存在或指定的主机不支持SNTP。请检查SNTP服务器名称和端口号。</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="关闭" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

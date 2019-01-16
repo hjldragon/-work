@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Hilfe zum Web Based Management</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">TCP/IP Erweitere Einstellungen (Verkabelt)</div>
+        <dl>
+<dt>Boot-Versuche</dt>
+<dd>Ist die Methode nicht STATIC, so gibt dieses Feld an wie oft das/die im Feld 'Methode' vorgegebene/n Protokoll/e zum Abfragen der neuen Adressenparameter versucht werden. Wird nach dieser Anzahl an Versuchen keine neue Adresse erhalten, so werden die vorhandenen Werte verwendet.</dd>
+<dt>RARP Boot-Einstellungen</dt>
+<dd>Ist die Boot-Methode RARP (oder AUTO, was RARP beinhaltet) so zeigen diese beiden Markierungen an, ob RARP (das nur eine Adresse liefert) die Subnet Mask basierend auf diese Adresse einstellen soll, oder das Gateway, basierend auf den die RARP-Information bereitstellenden Host.</dd>
+<dt>TCP-Zeitlimit</dt>
+<dd>Wenn sich ein TCP-basierter Job für einen bestimmten Zeitraum im Leerlauf befindet (sendet keine Daten), wird er gelöscht.<br />
+Ein Wert von Null (0) deaktiviert diese Funktion und Jobs sind in ihrer Gültigkeit zeitlich unbegrenzt.<br />
+Die Zeit bis zum Löschen eines Jobs kann in Minuten festgelegt werden.</dd>
+<dt>DNS-Servermethode</dt>
+<dd>Wenn in Ihrem Netzwerk ein DHCP-Server zum Zuweisen von IP-Adressen verwendet wird, kann dieser so konfiguriert werden, dass er auch andere IP-Adressen, wie z.B. die Adresse des DNS-Servers automatisch vergibt.</dd>
+<dd>AUTO (Standardeinstellung) - Wenn Ihr DHCP-Server so konfiguriert ist, dass er DNS IP-Adressen zuweist, bewirkt die Einstellung Auto, dass der DNS-Server die IP-Adressen automatisch vom DHCP-Server erhält.<br />
+STATIC - Wählen Sie diese Einstellung, wenn Sie die IP-Adressen des DNS-Servers manuell eingeben möchten.</dd>
+<dt>Primäre DNS-Server-IP-Adresse</dt>
+<dd>Wenn in Ihrem Netzwerk ein DNS-Server (Domain Name Service) verwendet wird, gibt dieses Feld die IP-Adresse des primären DNS-Servers an.</dd>
+<dt>Sekundäre DNS-Server-IP-Adresse</dt>
+<dd>Dieses Feld gibt die IP-Adresse des sekundären DNS-Servers an. Sie wird als Backup für die primäre DNS-Serveradresse verwendet. Falls der Primärserver nicht verfügbar ist, kontaktiert das Gerät den sekundären DNS-Server.</dd>
+<dt>Gateway-Timeout</dt>
+<dd>Das Gerät wartet nun darauf, dass die DNS/SMTP-Server gefunden werden, auf die über das Gateway (den Router) zugegriffen wird. Wenn die Server nicht innerhalb der vorgegebenen Zeit gefunden werden, tritt ein Zeitüberschreitungsfehler auf.<br />
+Die richtige Zeit muss je nach verwendetem Gateway (Router) eingestellt werden. Wenn ein Router an einer Wählverbindung verwendet wird, empfehlen wir mehr als 60 Sekunden. (Die Standardzeit ist 5 Sek.)</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Schließen" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

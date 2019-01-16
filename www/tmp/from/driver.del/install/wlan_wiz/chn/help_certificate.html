@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>证书配置。</title>
+
+
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="basic.css" type="text/css">
+
+
+
+</head>
+<body bgcolor="#FFFFFF">
+
+<!--top bar-->
+<IFRAME src="top_bar.html" name="top_bar" scrolling="NO" frameborder="0" width="100%" height="60"></IFRAME>
+<!--top bar end-->
+
+<br>
+
+<!--text-->
+<table border="0" cellspacing="0" cellpadding="5" width="580">
+<tr><td colspan=2></td></tr>
+<tr><td width="50"></td><td>
+<span style="font-size: 120%;"><b>证书配置。</b></span>
+</td></tr>
+<tr><td colspan=2 height="10"></td></tr>
+<tr><td colspan=2></td></tr>
+<tr><td width="50"></td><td>
+</td></tr>
+
+<tr><td colspan=2 height="30"></td></tr>	
+<tr><td width="50"></td><td>
+<b>客户端证书</b>
+</td></tr>
+<tr><td width="50"></td><td>
+选择EAP-TLS验证的客户端证书。请注意，您必须先通过设备的内部网页（EWS）在“配置证书”页面上设置证书。（使用除EAP-TLS外的某一验证方法时,您无需选择客户端证书）
+<br>
+
+
+
+
+<tr><td colspan=2 height="30"></td></tr>	
+<tr><td width="50"></td><td>
+<b>服务器证书验证</b>
+</td></tr>
+<tr><td width="50"></td><td>选择服务器证书验证方法。（使用LEAP时，无需选择验证方法。）<ul>
+<li>
+无验证
+<br>
+受信任的服务器证书，无需验证。
+<br><br>
+
+<li>
+CA证书
+<br>
+CA颁发的服务器证书由安装在本设备上的CA证书验证。请注意，您必须先通过设备的内部网页（EWS）在“配置证书”页面上设置证书。
+<br><br>
+
+<li>
+CA证书 + 服务器ID
+<br>
+验证服务器证书（由CA颁发并支持本机中安装的CA证书）和公用名（服务器ID）。请注意，您必须先通过设备的内部网页（EWS）在“配置证书”页面上设置证书。
+<br><br>
+</ul>
+
+
+
+<tr><td colspan=2 height="30"></td></tr>	
+<tr><td width="50"></td><td>
+<b>服务器ID</b>
+</td></tr>
+<tr><td width="50"></td><td>
+输入用于服务器证书验证的服务器ID。服务器ID是服务器证书的公用名。
+<br><br>
+<tr><td colspan=2 height="30"></td></tr>	
+<tr><td width="50"></td><td>
+<b>配置证书</b>
+</td></tr>
+<tr><td width="50"></td><td>
+如果使用客户端证书或CA证书，则必须先通过设备的内部网页（EWS）在“配置证书”页面上设置证书。
+<br><br>
+</ul>
+
+
+</td></tr>
+<tr><td width="50"></td><td>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td width="70"></td><td>
+	<img src="img/key.gif" width="107" height="90" border="0" alt="image">
+	</td></tr></table>
+
+
+</td></tr>
+<tr><td colspan=2 height="10">
+</td></tr></table>
+
+<hr>
+
+<!--Copyright-->
+<IFRAME src="copy.html" name="copyright" align="middle" scrolling="NO" frameborder="0" width="100%" height="40"></IFRAME>
+
+</body>
+</html>

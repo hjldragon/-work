@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>验证方法和加密模式</title>
+
+
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="basic.css" type="text/css">
+
+
+
+</head>
+<body bgcolor="#FFFFFF">
+
+<!--top bar-->
+<IFRAME src="top_bar.html" name="top_bar" scrolling="NO" frameborder="0" width="100%" height="60"></IFRAME>
+<!--top bar end-->
+
+<br>
+
+<!--text-->
+<table border="0" cellspacing="0" cellpadding="5" width="580">
+<tr><td colspan=2></td></tr>
+<tr><td width="50"></td><td>
+<span style="font-size: 120%;"><b>验证方法和加密模式</b></span>
+</td></tr>
+<tr><td colspan=2 height="10"></td></tr>
+<tr><td colspan=2></td></tr>
+<tr><td width="50"></td><td>
+大多数无线网络都使用某种安全设置。这些安全设置定义了验证（设备如何在网络上验证自己）和加密方法（数据在网络上传送时如何加密）。如果您在配置您的无线设备时没有正确地指定这些选项，将无法连接到无线网络。因此在配置这些选项时请务必小心。请参阅以下信息以了解您的无线设备支持哪种验证和加密方法。
+</td></tr>
+
+
+<tr><td colspan=2 height="30"></td></tr>	
+<tr><td width="50"></td><td>
+<b>验证方法  </b>
+</td></tr>
+<tr><td width="50"></td><td>
+<ul>
+<li>
+开放系统<br>
+允许无线设备不需要任何验证就可访问网络 <br><br>
+
+<li>
+共享密钥（仅基础模式）<br>
+所有要访问无线网络的设备共享一个预先设定的密钥。 <br><br>
+<li>
+WPA/WPA2-PSK<br>
+访问无线网络的所有设备共享一个预先设定的密码组合。这个验证方法通过一个强大的加密方法可使您安全地通信。  <br>WPA/WPA2-PSK 仅用于无线基础架构网络。
+<br><br>
+<li>
+LEAP (不适用于某些型号)<br>
+
+Cisco® LEAP （轻度扩展验证协议） 是由 Cisco 系统有限公司开发的,它使用用户名和密码来进行验证。
+<br><br>
+<li>
+EAP-FAST/PEAP/EAP-TTLS (不适用于某些型号)<br>
+
+Cisco® EAP-FAST（扩展身份验证协议－通过安全隧道的灵活认证）/ PEAP（受保护的扩展身份验证协议）/EAP-TTLS（扩展身份验证协议－隧道传输层安全）使用用户ID和通行证．您可以使用CA证书来验证服务器证书．
+<br><br>
+<li>
+EAP-TLS(不适用于某些型号)<br>EAP-TLS（扩展身份验证协议－传输层安全）使用用户ID和客户端证书进行验证。您还可以通过使用CA证书验证SSL服务器证书。 <br><br>
+</ul>
+
+
+
+
+
+<tr><td width="50"></td><td>
+<b>内部验证方法(不适用于某些型号)</b>
+</td></tr>
+<tr><td width="50"></td><td>
+您需要根据所选项目指定其中一种内部验证方法。
+<ul>
+<li>
+无<br>MS-CHAPv2用于参数配置，而且也是一种对应第二阶段验证方法的EAP-FAST方法。 
+<br><br>
+
+<li>
+MS-CHAPv2<br>
+MS-CHAPv2（Microsoft 质询握手身份验证协议 版本 2）是一种用于EAP-FAST/PEAP/EAP-TTLS的内部验证方法。<br><br>
+<li>
+GTC<br>
+GTC（通用令牌卡）是一种用于EAP-FAST/PEAP的内部验证方法。<br><br>
+<li>
+MS-CHAP<br>
+MS-CHAP（Microsoft 质询握手身份验证协议）是一种用于EAP-TTLS的内部验证方法。<br><br>
+<li>
+CHAP<br>
+CHAP（质询握手身份验证协议）是一种用于EAP-TTLS的内部验证方法。<br><br>
+<li>
+PAP<br>
+PAP（密码验证协议）是一种用于EAP-TTLS的内部验证方法。<br><br>
+</ul>
+
+
+
+
+<tr><td width="50"></td><td>
+<b>加密方法  </b>
+</td></tr>
+<tr><td width="50"></td><td>
+
+<ul>
+<li>无<br>
+未使用过加密方法 <br><br>
+
+<li>WEP (有线等效协议)<br>
+数据通过用户选择的一个安全密钥被传送和接收。<br><br>
+<li>TKIP<br>
+TKIP（临时密钥完整性协议）消除了由于恶意访问者使用手动分配的WEP密钥而引起安全性隐患的可能性。TKIP是自动生成的，而且要比WEP密钥长。<br><br>
+<li>AES<br>
+AES （高级加密标准）是由 Wi-Fi(R)权威认可的强大的加密标准。<br><br>
+<li>CKIP<br>
+这是Cisco 系统有限公司针对LEAP的初始密钥完整协议。
+</ul>
+
+</td></tr>
+<tr><td width="50"></td><td>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td width="70"></td><td>
+	<img src="img/key.gif" width="107" height="90" border="0" alt="image">
+	</td></tr></table>
+
+
+</td></tr>
+<tr><td colspan=2 height="10">
+</td></tr></table>
+
+<hr>
+
+<!--Copyright-->
+<IFRAME src="copy.html" name="copyright" align="middle" scrolling="NO" frameborder="0" width="100%" height="40"></IFRAME>
+
+</body>
+</html>

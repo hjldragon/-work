@@ -1,0 +1,16 @@
+[DSIInfo]
+DSM_Signature=BRDSM110
+SeriesSettingFile=LEXM14A.DSI
+LanguageInfo=zh-CN
+[FileList]
+Readback=LEOMM7256WHF.INI
+Init=LEDMM7256WHF.DAT
+ExInit=LEXEMM7256WHF.DAT
+[DriverInfo]
+ModelName=M7256WHF
+ModelNameForReadback=Lenovo M7256WHF
+DriverType=1221
+[DriverInfo_zh-CN]
+SolutionCenterUrlFormat=http://www.lenovo.com.cn
+[Capability_zh-CN]
+PaperSize=ISOA4,NorthAmericaLetter,NorthAmericaLegal,NorthAmericaExecutive,ISOA5,ISOA5LongEdge,ISOB5Envelope,16K_195x270mm,16K_184x260mm,16K_197x273mm,JISB5,OtherMetricFolio,ISOA3,JISB4,NorthAmericaTabloid,CustomMediaSize

@@ -1,0 +1,27 @@
+<?php
+declare(encoding='UTF-8');
+namespace Wx;
+ini_set('date.timezone','Asia/Shanghai');
+require_once "WxUtil.php";
+
+
+
+$openid = \Wx\Util::GetOpenid();
+
+// echo "<pre>";
+// print_r($_REQUEST);
+// echo "\n";
+// echo htmlspecialchars($_SERVER['QUERY_STRING']);
+// echo "openid=$openid";
+// $callback = $_REQUEST['callback'];
+// $js =<<< eof
+// $callback({openid:"$openid"});
+// eof;
+// echo $js;
+
+// // // 跳回调用页，并带上openid
+$url = "http://of.jzzwlcm.com/menu.php?openid=$openid&{$_SERVER['QUERY_STRING']}";
+// //echo "$url";
+header("HTTP/1.1 302 See Other");
+header("Location: $url");
+?>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Hilfe zum Web Based Management</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">Service</div>
+        <dl>
+<dt>Überblick</dt>
+<dd>Auf dieser Seite können die Parameter für den aus der Serviceliste ausgewählten Service modifiziert werden.</dd>
+<dt>Servicename</dt>
+<dd>Gibt den Namen des Services an. Gewöhnlich braucht dieses Feld nicht geändert zu werden.</dd>
+<dt>Serviceanschluß</dt>
+<dd>Gibt den zu diesem Service gehörigen tatsächlich vorhandenen Anschluss an.</dd>
+<dt>Protokolle</dt>
+<dd>Über diese Kontrollkästchen werden die für diesen Service aktivierten Protokolle definiert.</dd>
+<dt>Filter</dt>
+<dd>Hier wird bei Bedarf der Datenfilter für diesen Service vorgegeben.<br />
+0 bedeutet kein Filter, die Daten passieren unverändert durch.<br />
+1 bedeutet Text ersetzen, Standard ist CRLF für LF.<br />
+2 zeigt AppleTalk-Druckauftrag an. Filter hängt von Hardware und ausgewählten Optionen ab.<br />
+3 wandelt normalen Text in PostScript um.<br />
+4 wandelt ausgegebene Daten in binäre (tagged) PostScript-Daten um.</dd>
+<dt>Steuerzeichenfolgen</dt>
+<dd>Zur Definition der am Anfang oder am Ende eines Auftrags zu sendenden Zeichen.</dd>
+<dt>Raw-TCP-Anschluß</dt>
+<dd>Ist diese Einstellung nicht Null, so definiert sie einen für den Anschluss zu diesem Service zu verwendenden TCP-Anschluss.</dd>
+<dt>Bidirektional</dt>
+<dd>Ist diese Option aktiviert, so schickt der Service Daten vom Gerät zum Netzwerk zurück. Gewöhnlich braucht man diese Einstellung nicht zu ändern. Bei nicht bidirektionalen PostScript-Geräten kann man die bidirektionale Unterstützung abschalten, um AppleTalk-Spoofing zu ermöglichen.</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Schließen" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

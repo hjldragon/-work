@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Web Based Management Help</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">TCP/IP Advanced Settings (Wired)</div>
+        <dl>
+<dt>Boot Tries</dt>
+<dd>If the method is not STATIC, this field indicates how many times the protocol(s) specified by the method field are tried to get new address parameters. If no new address is received after this number of tries, the existing address values are used.</dd>
+<dt>RARP Boot Settings</dt>
+<dd>If the boot method is RARP (or AUTO, which includes RARP) these two flags indicate whether RARP (which provides only an address) should set the subnet mask based on that address or the gateway to the address of the host providing the RARP information.</dd>
+<dt>TCP Timeout</dt>
+<dd>If a TCP-based job is idle (sends no data) for the period of time specified, the job will be terminated.<br />
+A value of zero (0) disables this feature, and jobs will never time out.<br />
+The timeout may be specified in minutes, by selecting the appropriate units.</dd>
+<dt>DNS Server Method</dt>
+<dd>If your network uses a DHCP server to allocate network devices with IP addresses it is possible to configure your DHCP server to allocate other IP addresses such as the DNS Server automatically.<br />
+*If in doubt contact your Network Administrator.</dd>
+<dd>AUTO (Default) - If your DHCP server is configured to allocate DNS IP addresses then AUTO will automatically receive the DNS IP Addresses from the DHCP server.<br />
+STATIC - Choose this selection if you wish to manually enter the DNS Server's IP addresses.</dd>
+<dt>Primary DNS Server IP Address</dt>
+<dd>If your network is configured to use a DNS Server (Domain Name Service) this field specifies the IP address of the primary DNS server.</dd>
+<dt>Secondary DNS Server IP Address</dt>
+<dd>This field specifies the IP address of the secondary DNS server. It is used as a backup to the Primary DNS server address. If the Primary server is unavailable, the Device will contact the Secondary DNS server.</dd>
+<dt>Gateway Timeout</dt>
+<dd>This is the time that the Device will wait to find the DNS/SMTP server that are accessed through the Gateway(Router). If the server's cannot be found within the set time a "Timeout" error will occur.<br />
+Depending on the Gateway(Router), you should set the proper time. We recommend over 60 seconds, if you use a dialup router. (Default time is 5 sec)</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Close" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

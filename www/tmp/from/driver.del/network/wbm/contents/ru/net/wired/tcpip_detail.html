@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Справка системы управления через веб-интерфейс</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">TCP/IP Дополнительные параметры (Проводной)</div>
+        <dl>
+<dt>Попыток загрузки</dt>
+<dd>Если задан метод, отличный от STATIC, это поле показывает, сколько раз протоколы, указанные в поле метода загрузки, пытаются получить новый адрес. Если после указанного количества попыток не удастся получить новый адрес, будет использоваться существующий адрес.</dd>
+<dt>Параметры загрузки RARP</dt>
+<dd>Если методом загрузки является RARP (или АВТО, который включает в себя RARP), эти два флажка указывают, должен ли RARP (который дает только адрес) устанавливать маску подсети на основе этого адреса или шлюз по адресу хоста.</dd>
+<dt>Тайм-аут TCP</dt>
+<dd>Если задание, отправляемое на печать по протоколу TCP, находится в состоянии бездействия (не отправляются никакие данные) в течение указанного периода времени, задание будет остановлено.<br />
+С помощью значения "ноль" (0) можно выключить эту функцию, и задание никогда не превысит тайм-аут.<br />
+Значение тайм-аута можно указать в минутах, выбрав соответствующую единицу измерения.</dd>
+<dt>Метод сервера DNS</dt>
+<dd>Если сеть использует сервер DHCP для выделения устройств с IP-адресами, то сервер DHCP можно настроить на автоматическое выделение других IP-адресов, например, сервера DNS.<br />
+*За помощью обратитесь к администратору сети.</dd>
+<dd>AUTO (по умолчанию) - Если сервер DHCP настроен на выделение IP-адресов DNS, то метод AUTO будет автоматически получать IP-адреса DNS от сервера DHCP.<br />
+STATIC - Выберите этот метод, если нужно вручную ввести IP-адреса сервера DNS.</dd>
+<dt>IP-адрес основного сервера DNS</dt>
+<dd>Если сеть настроена на использование сервера DNS, то в этом поле указывается IP-адрес основного сервера DNS.</dd>
+<dt>IP-адрес альтернативного сервера DNS</dt>
+<dd>В этом поле указывается IP-адрес альтернативного сервера DNS. Он используется как резервный на случай недоступности основного сервера DNS. Если основной сервер DNS недоступен, устройство обратится к альтернативному серверу DNS.</dd>
+<dt>Тайм-аут шлюза</dt>
+<dd>Это время ожидания устройства при поиске сервера DNS/SMTP, доступ к которому осуществляется через шлюз (маршрутизатор). Если сервер не будет найден в течение установленного промежутка времени, появится сообщение об ошибке «Тайм-аут».<br />
+В зависимости от шлюза (маршрутизатора) следует задать правильное время ожидания. При использовании коммутируемого маршрутизатора рекомендуется установить более 60 секунд. (Время по умолчанию – 5 секунд.)</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Закрыть" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,309 @@
+﻿@charset "utf-8";
+
+/*	RESET
+**********************************************************************/
+
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+img
+{
+	border: none;
+}
+
+
+/*	FONT & TEXT DECORATION
+**********************************************************************/
+
+html, body
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 95%;
+	text-align: left;
+}
+
+a:link
+{
+	color: #0D2EA0;
+	text-decoration: none;
+}
+
+a:visited
+{
+	color: #0D2EA0;
+	text-decoration: none;
+}
+
+a:hover
+{
+	color: #0D2EA0;
+	text-decoration: underline;
+}
+
+a:active
+{
+	color: #469449;
+	text-decoration: none;
+}
+
+
+/*	PAGE STRUCTURE
+**********************************************************************/
+
+html, body
+{
+	color: #333333;
+	background-color: #FFFFFF;
+}
+
+#document
+{
+	margin: 0px 0px 0px 10px;
+	width: 600px;
+	height: auto;
+}
+
+#header
+{
+}
+
+#contents
+{
+}
+
+#navigation
+{
+}
+
+/*	DOCUMENT
+**********************************************************************/
+
+#document
+{
+}
+
+
+/*	HEADER
+**********************************************************************/
+
+#header
+{
+}
+
+
+/*	CONTENTS
+**********************************************************************/
+
+#contents
+{
+}
+
+#contents #frame_top
+{
+	height: 15px;
+	background-image: url(../images/flame_top.gif);
+	background-repeat: no-repeat;
+	background-position: 0 bottom;
+}
+
+#contents #frame_side
+{
+	background: url(../images/flame_side.gif) repeat-y 0 0;
+	vertical-align: top;
+}
+
+#contents #frame_side #frame_contents
+{
+	margin: 0px 45px 0px 45px;
+}
+
+#contents #frame_side #frame_contents #logo
+{
+	float: right;
+	display: block;
+	clear: right;
+	margin-top: 18px;
+	margin-left: 30px;
+}
+
+#contents #frame_side #frame_contents #title
+{
+	margin: 0px 0px 15px 0px;
+	padding: 26px 0px 10px 0px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;
+	font-size: 140%;
+	font-weight: bold;
+	color: #0C2C84;
+}
+
+#contents #frame_side #frame_contents #language
+{
+	display: block;
+	text-align: right;
+	clear: right;
+	color: #0C2C84;
+	font-size: 90%;
+	margin: 0;
+}
+
+#contents #frame_side #frame_contents #main
+{
+	padding-top: 35px;
+	padding-top: 12px;
+	padding-right: 0px;
+	padding-bottom: 27px;
+	padding-left: 0px;
+}
+
+#contents #frame_bottom
+{
+	background: url(../images/flame_bottom.gif) no-repeat 0 0;
+	height: 15px;
+}
+
+/*	Written by M.Matsuda	*/
+
+.title_supported {
+	font-size: 80%;
+	font-weight: normal;
+	margin-left: 10px;
+}
+
+.item_supported {
+	font-size: 80%;
+	font-weight: normal;
+	margin-left: 10px;
+}
+
+ul #help_menu_list{
+}
+
+li{
+	list-style-type: none;
+	margin: 15px 10px 15px 0px;
+}
+
+li ul li{
+	margin-left:15px;
+}
+
+li ul li ul li{
+	margin: 5px 15px 5px 15px;
+}
+
+.leaf{
+	margin: 5px 0px 5px 32px;
+	font-weight: normal;
+	font-size: 80%
+}
+
+#help_menu_list img{
+	margin-right:5px;
+}
+
+.tab_menu{
+	color: #0C2C84;
+	font-size: 115%;
+	font-weight: bold;
+}
+
+.subtab_menu li{
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+#menu ul li span
+{
+	margin-left:20px;
+	padding-left:100px;
+	text-indent: 10px;
+	top: 7px;
+	left: 5px;
+	width: 12px;
+	height: 12px;
+	cursor: auto;
+}
+
+.open{
+	displya:block;
+}
+.close{
+	display:none;
+}
+
+.note_message{
+	color: #0C2C84;
+	margin-bottom: 10px;
+}
+
+/*	NAVIGATION
+**********************************************************************/
+
+#navigation
+{
+	height: 30px;			/* 暫定対策 */
+}
+
+#navigation #button
+{
+	float: left;
+	position: relative;
+	left: 50%;
+}
+
+#navigation #button:after
+{
+	clear: both;
+	display: block;
+	visibility: hidden;
+	height: 0;
+	font-size: 0;
+	content: "";
+}
+
+#navigation #button input
+{
+	position: relative;
+	left: -50%;
+}
+
+#navigation #page_top
+{
+	float: right;
+	margin: 0px 10px 5px 0px;
+	text-align: right;
+}
+
+#navigation #page_top:after
+{
+	clear: both;
+	display: block;
+	visibility: hidden;
+	height: 0;
+	font-size: 0;
+	content: "";
+}
+
+
+/*	FOOTER
+**********************************************************************/
+
+
+
+#navigation #copyright
+{
+	float: left;
+	position: relative;
+	color: #0D2EA0;
+	font-size: 80%;
+	width: 540px;
+	text-align: center;
+	left: 30px;
+}
+
+

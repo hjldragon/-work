@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh" xml:lang="zh">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>网络基本管理帮助</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">TCP/IP 高级设置 (有线)</div>
+        <dl>
+<dt>引导尝试</dt>
+<dd>若方式不是静态，此字段表示通过方式栏指定的协议尝试获取新地址参数的次数。 在进行这个次数的尝试后，若仍未获得新地址，将使用现有的地址值。</dd>
+<dt>RARP引导设置</dt>
+<dd>若引导方式为RARP（反向地址解析协议）[或自动，其中包括RARP（反向地址解析协议）],这两个标志表示RARP（反向地址解析协议）是否在地址或网关的基础上将子网掩码设定为提供RARP（反向地址解析协议）信息的主机地址。</dd>
+<dt>TCP超时</dt>
+<dd>如果指定时间内基于TCP的工作是空闲的（没有发送数据），那么工作将被终止。<br />
+数值是0时，此功能不可用，那么工作将不会终止。<br />
+通过选择合适的分钟单位，可以指定中断时间。</dd>
+<dt>DNS服务器方式</dt>
+<dd>若网络使用了DHCP（动态主机配置协议）服务器给网络设备分配IP（网际协议）地址，您可以将DHCP（动态主机配置协议）服务器设置为自动分配其他IP（网际协议）地址，如DNS（域名服务）服务器。<br />
+*若有疑问，请与您的网络管理员联系。</dd>
+<dd>自动（默认）-若将您的DHCP（动态主机配置协议）服务器设置为分配DNS（域名服务）IP（网际协议）地址，自动设置将会自动从DHCP（动态主机配置协议）服务器接收DNS（域名服务）IP（网际协议）地址。<br />
+静态-若您希望手动输入DHCP（动态主机配置协议）服务器的IP（网际协议）地址请选择此选项。</dd>
+<dt>主DNS服务器IP地址</dt>
+<dd>若将您的网络设置为使用DNS（域名服务）服务器，此字段指定了主DNS（域名服务）服务器的IP（网际协议）地址。</dd>
+<dt>次DNS服务器IP地址</dt>
+<dd>此字段指定了次DNS（域名服务）服务器使用的IP（网际协议）地址。 这作为主DNS（域名服务）服务器地址的备份使用。若无主服务器，设备将会和次DNS（域名服务）服务器联系。</dd>
+<dt>网关超时</dt>
+<dd>此时，该设备将等待查找通过网关（路由器）进行访问的 DNS/SMTP 服务器。 如果在设定时间内找不到该服务器，将发生超时错误。<br />
+应根据网关（路由器）设置适当的时间。 如果使用拨号路由器，建议设为 60 秒以上。 （默认时间为 5 秒）</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="关闭" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

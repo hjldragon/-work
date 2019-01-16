@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Ayuda de la Administración basada en Web</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">SNTP</div>
+        <dl>
+<dt>Visión general</dt>
+<dd>En esta página puede configurar los ajustes de SNTP.</dd>
+<dt>Método del servidor SNTP</dt>
+<dd>ESTÁTICO; el dispositivo usa el valor configurado en esta página para los campos del servidor y del puerto SNTP. AUTOMÁTICO; el dispositivo intentará usar DHCP para adquirir estos parámetros cuando se encienda o reinicie el servidor. El método de arranque en la página TCP/IP debe estar configurado en AUTOMÁTICO o DHCP para permitir DHCP</dd>
+<dt>Dirección del servidor SNTP primario</dt>
+<dd>Escriba en este campo el nombre de host o la dirección IP del servidor SNTP primario. (Por ej. sntp.ejemplo.net -o- 192.0.0.1). Si usa el nombre DNS del servidor SNTP, tiene que usar el FQDN (nombre de dominio plenamente cualificado), por ej. sntp.ejemplo.net.</dd>
+<dt>Puerto del servidor SNTP primario</dt>
+<dd>Especifique el número del puerto de destino del servidor SNTP primario al que se va a conectar.</dd>
+<dt>Dirección del servidor SNTP secundario</dt>
+<dd>Escriba en este campo el nombre de host o la dirección IP del servidor SNTP secundario. Sirve como copia de seguridad de la dirección del servidor SNTP primario. Si el servidor primario no está disponible, el dispositivo contactará con el servidor SNTP secundario.</dd>
+<dt>Puerto del servidor SNTP secundario</dt>
+<dd>Especifique el número del puerto de destino del servidor SNTP secundario al que se va a conectar.</dd>
+<dt>Intervalo de sincronización</dt>
+<dd>El dispositivo se sincronizará con el servidor SNTP automáticamente a intervalos de horas especificados.</dd>
+<dt>Estado de la sincronización</dt>
+<dd>Este campo muestra el estado de la sincronización con el servidor SNTP especificado.<br />
+Satisfactoria: La última sincronización se ha realizado correctamente.<br />
+Sincronización fallida: La última sincronización no se ha realizado.<br />
+SNTP sin especificar: Por una configuración de SNTP incorrecta, no se ha podido sincronizar cuando se encendió el dispositivo. O bien está desactivado el SNTP.<br />
+Sincronizando: El dispositivo está sincronizándose con el servidor SNTP. Dentro de un rato, pulse el botón Actualizar para comprobar si se han sincronizado satisfactoriamente.</dd>
+<dd>NOTA :<br />
+El estado 'Sincronizando' dura 2 minutos como máximo. Si el estado es 'Sincronización fallida' o 'SNTP sin especificar', el servidor SNTP especificado no se puede encontrar. El servidor SNTP no existe o el host especificado no admite SNTP. Revise el nombre y el número de puerto del servidor SNTP.</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Cerrar" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

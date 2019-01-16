@@ -1,0 +1,93 @@
+;; (C) 1993 - 2013 Brother Industries, Ltd. All Rights Reserved.
+
+[Version]
+Signature = "$Windows NT$"
+Provider = %Company%
+ClassGUID = {4D36E979-E325-11CE-BFC1-08002BE10318}
+Class = Printer
+CatalogFile = LEOFX13A.CAT
+DriverVer = 03/17/2014,1.2.1.0
+DriverPackageDisplayName = "PC-FAX v.3.2"
+DriverIsolation = 2
+
+[Manufacturer]
+%Company% = DriverName,NTx86,NTamd64
+
+[DriverName]
+"PC-FAX v.3.2" = LESXA4FAX13A.DSI,USBPRINT\LENOVOPC-FAX_V.3.2,LENOVOPC-FAX_V.3.2
+
+[DriverName.NTx86]
+"PC-FAX v.3.2" = LESXA4FAX13A.DSI,USBPRINT\LENOVOPC-FAX_V.3.2,LENOVOPC-FAX_V.3.2
+
+[DriverName.NTamd64]
+"PC-FAX v.3.2" = LESXA4FAX13A.DSI,USBPRINT\LENOVOPC-FAX_V.3.2,LENOVOPC-FAX_V.3.2
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+[LESXA4FAX13A.DSI]
+CopyFiles = LESXA4FAX13A,LEOFX13A,RBDIR,SPLCTRLDIR,APIDLL,PrtDrvCoInstallerCopyFiles
+DataFile = LESXA4FAX13A.DSI
+DataSection = LEOFX13A_DATA
+
+[LEOFX13A_DATA]
+DriverFile = LEPRF13A.DLL
+ConfigFile = LEUIF13A.DLL
+HelpFile = LEOFX13A_en-GB.CHM
+
+[LEOFX13A]
+LEPRF13A.DLL
+LEUIF13A.DLL
+LELGF13A_en-GB.DLL
+LELGF13A_zh-CN.DLL
+LEBMF13A.DLL
+LEENF13A.DLL
+LERIF13A.DLL
+LEOFX13A_en-GB.CHM
+LEOFX13A_zh-CN.CHM
+LEOFX13A.DSI
+
+[LESXA4FAX13A]
+LESXA4FAX13A.DSI
+
+[RBDIR]
+
+[SPLCTRLDIR]
+
+[APIDLL]
+
+[PrtDrvCoInstallerCopyFiles]
+
+
+[SourceDisksNames.x86]
+1 = %Disk1%,,,"i386"
+2 = %Disk1%,,,
+
+[SourceDisksNames.amd64]
+1 = %Disk1%,,,"amd64"
+2 = %Disk1%,,,
+
+[SourceDisksFiles]
+LEPRF13A.DLL = 1
+LEUIF13A.DLL = 1
+LELGF13A_en-GB.DLL = 1
+LELGF13A_zh-CN.DLL = 1
+LEBMF13A.DLL = 1
+LEENF13A.DLL = 1
+LERIF13A.DLL = 1
+LEOFX13A_en-GB.CHM = 2
+LEOFX13A_zh-CN.CHM = 2
+LEOFX13A.DSI = 2
+LESXA4FAX13A.DSI = 2
+
+[DestinationDirs]
+DefaultDestDir = 66000
+RBDIR = 16425
+SPLCTRLDIR = 66002
+APIDLL = 16425
+PrtDrvCoInstallerCopyFiles = 66002
+
+[Strings]
+Company = "Lenovo"
+PrinterClassName = "Printers"
+Disk1 = "Lenovo Laser Printer Driver Disk"

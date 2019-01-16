@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<meta name="msapplication-tap-highlight" content="no">
+<meta content="type" http-equiv="application/x-www-form-urlencoded">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta content="telephone=no" name="format-detection">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<link rel="stylesheet" href="css/main.css?1494609357" type="text/css">
+<title>正在支付...</title>
+<?php
+ini_set('date.timezone','Asia/Shanghai');
+require_once "WxUnifiedorder.php";
+
+$param = json_decode($_GET['p']);
+
+$unifiedorder = new \Wx\Unifiedorder();
+
+if(!$param->attach)
+{
+    $param->attach = "无";
+}
+if(!$param->referer)
+{
+    $param->referer = "http://of.jzzwlcm.com/error.php";
+}
+
+
+$unifiedorder->SetParam('body', (string)$param->body);                          // 商品描述
+$unifiedorder->SetParam('attach', $param->attach);                              // 附加数据
+$unifiedorder->SetParam('out_trade_no', $param->order_time + "_" + $param->out_trade_no);                  // 商户订单号
+$unifiedorder->SetParam('sub_mch_id', $param->sub_mch_id);                      // 子商户号
+$unifiedorder->SetParam('notify_url', \Wx\Cfg::WX_URL_NOTIFY_URL);              // 通知地址
+$unifiedorder->SetParam('total_fee', (int)$param->total_fee);                   // 总金额
+$unifiedorder->SetParam('openid', $param->openid);
+
+
+// print_r($unifiedorder);
+$xml = $unifiedorder->Submit();
+$unifiedorder_ret = \Wx\Util::XmlToJson($xml);
+$unifiedorder_ret = json_decode($unifiedorder_ret);
+// print_r($unifiedorder_ret);
+$tmp = [
+    "appId"     => (string)$unifiedorder_ret->appid,
+    "signType"  => "MD5",
+    "package"   => "prepay_id={$unifiedorder_ret->prepay_id}",
+    "timeStamp" => (string)time(),
+    "nonceStr"  => (string)md5(rand()),
+];
+$tmp["paySign"] = \Wx\Util::GetSign($tmp);
+$pay_param = json_encode($tmp);
+// print_r($pay_param);
+// echo "<hr>";
+// print_r($param->referer);
+// exit();
+// print_r($param);
+?>
+
+
+<script type="text/javascript">
+//调用微信JS api 支付
+function jsApiCall()
+{
+    WeixinJSBridge.invoke(
+        'getBrandWCPayRequest',
+        <?php echo $pay_param; ?>,
+        function(res){
+            // WeixinJSBridge.log(res.err_msg);
+            //alert("xxxx1:" + res.err_code + "--" + res.err_desc + "--" + res.err_msg);
+            // window.history.back();
+            // window.history.go(-2);
+            // WeixinJSBridge.call('closeWindow');  // 关闭当前页面回到微信对话窗口
+
+            if(res.err_msg != "get_brand_wcpay_request:ok"
+                && res.err_msg != "get_brand_wcpay_request:cancel" )
+            {
+                alert("支付出错，请联系服务员处理。");
+            }
+            else if(res.err_msg == "get_brand_wcpay_request:cancel" )
+            {
+                alert("您取消了支付，订单将不处理。您可以在菜单“我”->“我的订单”中再次打开订单，重新支付。");
+            }
+
+            var msg = document.getElementById("id_msg");
+            msg.innerHTML = "正在返回...";
+            location.href = "<?=$param->referer?>";
+
+            // // get_brand_wcpay_request:ok -- 支付成功
+            // // get_brand_wcpay_request:cancel -- 主动放弃
+            // // 或者get_brand_wcpay_request:fail -- 错误
+            // if(res.err_msg == "get_brand_wcpay_request:ok" )
+            // {
+            //     location.href = "<?=$param->referer?>&payret=1";
+            // }
+            // else
+            // {
+            //     location.href = "<?=$param->referer?>&payret=2";
+            // }
+        }
+    );
+}
+
+function callpay()
+{
+    if (typeof WeixinJSBridge == "undefined"){
+        if( document.addEventListener ){
+            document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+        }else if (document.attachEvent){
+            document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+            document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+        }
+    }else{
+        jsApiCall();
+    }
+}
+
+callpay();
+</script>
+<body>
+<style type="text/css">
+.title {
+    font-size: 1.80424rem;
+}
+.order_id,
+.order_payable {
+    font-size: 3.90391rem;
+}
+.welcome {
+    font-size: 1.40391rem;
+    margin: 2.0832rem;
+}
+</style>
+<div class="title">正在支付...</div>
+
+<div class="order_id">
+单号：<?=$param->order_id?><br/>
+</div>
+
+<div class="order_payable">
+金额：<?=round((int)$param->total_fee / 100, 2)?>元
+</div>
+
+<div class="welcome">
+感谢您的使用，金蜘蛛祝您生活愉快！<span id="id_msg"></span>
+</div>
+
+
+</body>

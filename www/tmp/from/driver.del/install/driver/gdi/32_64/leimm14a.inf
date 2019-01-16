@@ -1,0 +1,984 @@
+;=======================================================================
+;  Lenovo Scanner Setup File
+;  Copyright (c) 2014 Lenovo (Beijing) Limited
+;  Copyright (c) 2014 Brother Industries, Ltd.
+;  FileName  :  leimm14a.inf
+;  Function  :  Scanner(Image)
+;  I/F       :  USB / LAN
+;  OS        :  XP / Vista / 7 / 8
+;  Model     :  M7206W
+;               M7216NWA
+;               M7256WHF
+;=======================================================================
+[Version]
+Signature="$Windows NT$"
+Class=Image
+ClassGUID={6bdd1fc6-810f-11d0-bec7-08002be2092f}
+Provider=%Provider%
+DriverPackageType=PlugAndPlay
+DriverPackageDisplayName=%DriverPackageDisplayName%
+DriverVer=05/09/2014,01.00.00.00
+CatalogFile=leimm14a.cat
+
+[Manufacturer]
+%Manufact%=MODEL,NTx86.5.1.1,NTamd64.5.2.1,NTx86.6.0.1,NTamd64.6.0.1,NTx86.5.1,NTamd64.5.2
+
+[MODEL]
+
+[MODEL.NTx86.5.1.1]
+%M7206W.USB.SCN%   = M7206W.USB.SCN.WXP32, USB\VID_17EF&PID_5624&MI_01
+%M7216NWA.USB.SCN% = M7216NWA.USB.SCN.WXP32,USB\VID_17EF&PID_5625&MI_01
+%M7256WHF.USB.SCN% = M7256WHF.USB.SCN.WXP32, USB\VID_17EF&PID_5626&MI_01
+%M7206W.NET.SCN%   = M7206W.NET.SCN.WXP, VID_17EF&PID_5624&NETSCN
+%M7216NWA.NET.SCN% = M7216NWA.NET.SCN.WXP,VID_17EF&PID_5625&NETSCN
+%M7256WHF.NET.SCN% = M7256WHF.NET.SCN.WXP, VID_17EF&PID_5626&NETSCN
+
+[MODEL.NTamd64.5.2.1]
+%M7206W.USB.SCN%   = M7206W.USB.SCN.WXP64, USB\VID_17EF&PID_5624&MI_01
+%M7216NWA.USB.SCN% = M7216NWA.USB.SCN.WXP64,USB\VID_17EF&PID_5625&MI_01
+%M7256WHF.USB.SCN% = M7256WHF.USB.SCN.WXP64, USB\VID_17EF&PID_5626&MI_01
+%M7206W.NET.SCN%   = M7206W.NET.SCN.WXP, VID_17EF&PID_5624&NETSCN
+%M7216NWA.NET.SCN% = M7216NWA.NET.SCN.WXP,VID_17EF&PID_5625&NETSCN
+%M7256WHF.NET.SCN% = M7256WHF.NET.SCN.WXP, VID_17EF&PID_5626&NETSCN
+
+[MODEL.NTx86.6.0.1]
+%M7206W.USB.SCN%   = M7206W.USB.SCN, USB\VID_17EF&PID_5624&MI_01
+%M7216NWA.USB.SCN% = M7216NWA.USB.SCN,USB\VID_17EF&PID_5625&MI_01
+%M7256WHF.USB.SCN% = M7256WHF.USB.SCN, USB\VID_17EF&PID_5626&MI_01
+%M7206W.NET.SCN%   = M7206W.NET.SCN, VID_17EF&PID_5624&NETSCN
+%M7216NWA.NET.SCN% = M7216NWA.NET.SCN,VID_17EF&PID_5625&NETSCN
+%M7256WHF.NET.SCN% = M7256WHF.NET.SCN, VID_17EF&PID_5626&NETSCN
+
+[MODEL.NTamd64.6.0.1]
+%M7206W.USB.SCN%   = M7206W.USB.SCN, USB\VID_17EF&PID_5624&MI_01
+%M7216NWA.USB.SCN% = M7216NWA.USB.SCN,USB\VID_17EF&PID_5625&MI_01
+%M7256WHF.USB.SCN% = M7256WHF.USB.SCN, USB\VID_17EF&PID_5626&MI_01
+%M7206W.NET.SCN%   = M7206W.NET.SCN, VID_17EF&PID_5624&NETSCN
+%M7216NWA.NET.SCN% = M7216NWA.NET.SCN,VID_17EF&PID_5625&NETSCN
+%M7256WHF.NET.SCN% = M7256WHF.NET.SCN, VID_17EF&PID_5626&NETSCN
+
+[MODEL.NTx86.5.1]   ; XP and later (Server & DomainControler)
+
+[MODEL.NTamd64.5.2] ; XP and later (Server & DomainControler)
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+;----------------------------------------
+; M7206W
+;----------------------------------------
+;----------------------------------------
+; USB: XP32
+;----------------------------------------
+[M7206W.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7206W.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.AddReg
+CopyFiles     = BrWia10USB.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFeUSB.M7206W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7206W.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[M7206W.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%M7206W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameUSB%
+ModelName=%MODELNAME.M7206W%
+
+[M7206W.USB.SCN.WXP32.NT.CoInstallers]
+AddReg=BrCoInstaller_AddReg
+CopyFiles=BrCoInstaller.CopyFiles
+
+;----------------------------------------
+; USB: XP64
+;----------------------------------------
+[M7206W.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7206W.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.AddReg
+CopyFiles     = BrWia10USB.CopyFiles,BrTwdsFeUSB.M7206W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7206W.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[M7206W.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%M7206W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameUSB%
+ModelName=%MODELNAME.M7206W%
+
+[M7206W.USB.SCN.WXP64.NT.CoInstallers]
+AddReg=BrCoInstaller_AddReg
+CopyFiles=BrCoInstaller.CopyFiles
+
+;----------------------------------------
+; USB: Vista / 7 / 8
+;----------------------------------------
+[M7206W.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7206W.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.AddReg
+CopyFiles     = BrWia20USB.CopyFiles,BrTwdsFeUSB.M7206W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7206W.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[M7206W.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%M7206W.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameUSB%
+ModelName=%MODELNAME.M7206W%
+ChangePaperSize=0
+
+[M7206W.USB.SCN.NT.CoInstallers]
+AddReg=BrCoInstaller_AddReg
+CopyFiles=BrCoInstaller.CopyFiles
+
+;----------------------------------------
+; NET: XP
+;----------------------------------------
+[M7206W.NET.SCN.WXP.NT]
+Include       = sti.inf
+Needs         = STI.SerialSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7206W.NET.SCN.WXP.DeviceData
+AddReg        = BrWia10Net.AddReg,BrWiaNetUi.AddReg,BrModel.AddReg
+CopyFiles     = BrWia10Net.CopyFiles,BrTwdsFeNet.M7206W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7206W.NET.SCN.WXP.NT.Services]
+Include = sti.inf
+Needs   = STI.SerialSection.Services
+
+[M7206W.NET.SCN.WXP.DeviceData]
+Server=local
+UI Class ID={4B29E704-7E5A-466c-A5FD-8BAEC62DC2BA}
+TwainDS=%TWAINDS.Prefix%%M7206W.NET.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameNet%
+LISTNAME=%MODELNAME.M7206W%
+
+;----------------------------------------
+; NET: Vista / 7 / 8
+;----------------------------------------
+[M7206W.NET.SCN.NT]
+Include       = sti.inf
+Needs         = STI.SerialSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7206W.NET.SCN.DeviceData
+AddReg        = BrWia20Net.AddReg,BrWiaNetUi.AddReg,BrModel.AddReg
+CopyFiles     = BrWia20Net.CopyFiles,BrTwdsFeNet.M7206W.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7206W.NET.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.SerialSection.Services
+
+[M7206W.NET.SCN.DeviceData]
+Server=local
+UI Class ID={4B29E704-7E5A-466c-A5FD-8BAEC62DC2BA}
+TwainDS=%TWAINDS.Prefix%%M7206W.NET.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameNet%
+LISTNAME=%MODELNAME.M7206W%
+ChangePaperSize=0
+
+;----------------------------------------
+; M7216NWA
+;----------------------------------------
+;----------------------------------------
+; USB: XP32
+;----------------------------------------
+[M7216NWA.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7216NWA.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.SX.AddReg
+CopyFiles     = BrWia10USB.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFeUSB.M7216NWA.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7216NWA.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[M7216NWA.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%M7216NWA.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameUSB%
+ModelName=%MODELNAME.M7216NWA%
+
+[M7216NWA.USB.SCN.WXP32.NT.CoInstallers]
+AddReg=BrCoInstaller_AddReg
+CopyFiles=BrCoInstaller.CopyFiles
+
+;----------------------------------------
+; USB: XP64
+;----------------------------------------
+[M7216NWA.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7216NWA.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.SX.AddReg
+CopyFiles     = BrWia10USB.CopyFiles,BrTwdsFeUSB.M7216NWA.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7216NWA.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[M7216NWA.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%M7216NWA.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameUSB%
+ModelName=%MODELNAME.M7216NWA%
+
+[M7216NWA.USB.SCN.WXP64.NT.CoInstallers]
+AddReg=BrCoInstaller_AddReg
+CopyFiles=BrCoInstaller.CopyFiles
+
+;----------------------------------------
+; USB: Vista / 7 / 8
+;----------------------------------------
+[M7216NWA.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7216NWA.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.SX.AddReg
+CopyFiles     = BrWia20USB.CopyFiles,BrTwdsFeUSB.M7216NWA.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7216NWA.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[M7216NWA.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%M7216NWA.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameUSB%
+ModelName=%MODELNAME.M7216NWA%
+ChangePaperSize=0
+
+[M7216NWA.USB.SCN.NT.CoInstallers]
+AddReg=BrCoInstaller_AddReg
+CopyFiles=BrCoInstaller.CopyFiles
+
+;----------------------------------------
+; NET: XP
+;----------------------------------------
+[M7216NWA.NET.SCN.WXP.NT]
+Include       = sti.inf
+Needs         = STI.SerialSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7216NWA.NET.SCN.WXP.DeviceData
+AddReg        = BrWia10Net.AddReg,BrWiaNetUi.AddReg,BrModel.SX.AddReg
+CopyFiles     = BrWia10Net.CopyFiles,BrTwdsFeNet.M7216NWA.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7216NWA.NET.SCN.WXP.NT.Services]
+Include = sti.inf
+Needs   = STI.SerialSection.Services
+
+[M7216NWA.NET.SCN.WXP.DeviceData]
+Server=local
+UI Class ID={4B29E704-7E5A-466c-A5FD-8BAEC62DC2BA}
+TwainDS=%TWAINDS.Prefix%%M7216NWA.NET.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameNet%
+LISTNAME=%MODELNAME.M7216NWA%
+
+;----------------------------------------
+; NET: Vista / 7 / 8
+;----------------------------------------
+[M7216NWA.NET.SCN.NT]
+Include       = sti.inf
+Needs         = STI.SerialSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7216NWA.NET.SCN.DeviceData
+AddReg        = BrWia20Net.AddReg,BrWiaNetUi.AddReg,BrModel.SX.AddReg
+CopyFiles     = BrWia20Net.CopyFiles,BrTwdsFeNet.M7216NWA.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7216NWA.NET.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.SerialSection.Services
+
+[M7216NWA.NET.SCN.DeviceData]
+Server=local
+UI Class ID={4B29E704-7E5A-466c-A5FD-8BAEC62DC2BA}
+TwainDS=%TWAINDS.Prefix%%M7216NWA.NET.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameNet%
+LISTNAME=%MODELNAME.M7216NWA%
+ChangePaperSize=0
+
+;----------------------------------------
+; M7256WHF
+;----------------------------------------
+;----------------------------------------
+; USB: XP32
+;----------------------------------------
+[M7256WHF.USB.SCN.WXP32.NT]
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7256WHF.USB.SCN.WXP32.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.SX.AddReg
+CopyFiles     = BrWia10USB.CopyFiles,BrScnUsb.CopyFiles,BrTwdsFeUSB.M7256WHF.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7256WHF.USB.SCN.WXP32.NT.Services]
+AddService = BrScnUsb, 0x00000002, BrScnUsb.AddService
+
+[M7256WHF.USB.SCN.WXP32.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%M7256WHF.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameUSB%
+ModelName=%MODELNAME.M7256WHF%
+
+[M7256WHF.USB.SCN.WXP32.NT.CoInstallers]
+AddReg=BrCoInstaller_AddReg
+CopyFiles=BrCoInstaller.CopyFiles
+
+;----------------------------------------
+; USB: XP64
+;----------------------------------------
+[M7256WHF.USB.SCN.WXP64.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7256WHF.USB.SCN.WXP64.DeviceData
+AddReg        = BrWia10USB.AddReg,BrModel.SX.AddReg
+CopyFiles     = BrWia10USB.CopyFiles,BrTwdsFeUSB.M7256WHF.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7256WHF.USB.SCN.WXP64.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[M7256WHF.USB.SCN.WXP64.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%M7256WHF.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameUSB%
+ModelName=%MODELNAME.M7256WHF%
+
+[M7256WHF.USB.SCN.WXP64.NT.CoInstallers]
+AddReg=BrCoInstaller_AddReg
+CopyFiles=BrCoInstaller.CopyFiles
+
+;----------------------------------------
+; USB: Vista / 7 / 8
+;----------------------------------------
+[M7256WHF.USB.SCN.NT]
+Include       = sti.inf
+Needs         = STI.USBSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7256WHF.USB.SCN.DeviceData
+AddReg        = BrWia20USB.AddReg,BrModel.SX.AddReg
+CopyFiles     = BrWia20USB.CopyFiles,BrTwdsFeUSB.M7256WHF.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7256WHF.USB.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.USBSection.Services
+
+[M7256WHF.USB.SCN.DeviceData]
+Server=local
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+TwainDS=%TWAINDS.Prefix%%M7256WHF.USB.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameUSB%
+ModelName=%MODELNAME.M7256WHF%
+ChangePaperSize=0
+
+[M7256WHF.USB.SCN.NT.CoInstallers]
+AddReg=BrCoInstaller_AddReg
+CopyFiles=BrCoInstaller.CopyFiles
+
+;----------------------------------------
+; NET: XP
+;----------------------------------------
+[M7256WHF.NET.SCN.WXP.NT]
+Include       = sti.inf
+Needs         = STI.SerialSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7256WHF.NET.SCN.WXP.DeviceData
+AddReg        = BrWia10Net.AddReg,BrWiaNetUi.AddReg,BrModel.SX.AddReg
+CopyFiles     = BrWia10Net.CopyFiles,BrTwdsFeNet.M7256WHF.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7256WHF.NET.SCN.WXP.NT.Services]
+Include = sti.inf
+Needs   = STI.SerialSection.Services
+
+[M7256WHF.NET.SCN.WXP.DeviceData]
+Server=local
+UI Class ID={4B29E704-7E5A-466c-A5FD-8BAEC62DC2BA}
+TwainDS=%TWAINDS.Prefix%%M7256WHF.NET.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameNet%
+LISTNAME=%MODELNAME.M7256WHF%
+
+;----------------------------------------
+; NET: Vista / 7 / 8
+;----------------------------------------
+[M7256WHF.NET.SCN.NT]
+Include       = sti.inf
+Needs         = STI.SerialSection
+SubClass      = StillImage
+DeviceType    = 1
+DeviceSubType = 0x1
+Capabilities  = 0x39
+PortSelect    = NO
+Events        = BrEvents
+DeviceData    = M7256WHF.NET.SCN.DeviceData
+AddReg        = BrWia20Net.AddReg,BrWiaNetUi.AddReg,BrModel.SX.AddReg
+CopyFiles     = BrWia20Net.CopyFiles,BrTwdsFeNet.M7256WHF.CopyFiles,BrTwdsMain.CopyFiles,BrTwdsLang.CopyFiles
+ICMProfiles   = "sRGB Color Space Profile.icm"
+
+[M7256WHF.NET.SCN.NT.Services]
+Include = sti.inf
+Needs   = STI.SerialSection.Services
+
+[M7256WHF.NET.SCN.DeviceData]
+Server=local
+UI Class ID={4B29E704-7E5A-466c-A5FD-8BAEC62DC2BA}
+TwainDS=%TWAINDS.Prefix%%M7256WHF.NET.SCN%
+Model=0-GENERAL
+STIFILE=%StiCoreFileNameNet%
+LISTNAME=%MODELNAME.M7256WHF%
+ChangePaperSize=0
+
+;----------------------------------------
+; Add reg DeviceData
+;
+[BrModel.AddReg]
+HKR,DeviceData,ScannerType     ,0x00000,2
+HKR,DeviceData,DocHandling     ,0x00000,2
+HKR,DeviceData,ResoType        ,0x00000,2
+HKR,DeviceData,MaxResoNo       ,0x00000,8
+HKR,DeviceData,MaxResoCatalog  ,0x00000,12
+HKR,DeviceData,OpticalResoX    ,0x00000,600
+HKR,DeviceData,OpticalResoY    ,0x00000,1200
+HKR,DeviceData,BedDocWidth     ,0x00000,8268
+HKR,DeviceData,BedDocHeight    ,0x00000,11456
+HKR,DeviceData,EventImage      ,0x00000,1
+HKR,DeviceData,EventOcr        ,0x00000,0
+HKR,DeviceData,EventEmail      ,0x00000,1
+HKR,DeviceData,EventFile2      ,0x00000,1
+HKR,DeviceData,SetupInit       ,0x00000,1
+HKR,DeviceData,EnCmpJ          ,0x00000,1
+HKR,DeviceData,CmpRate         ,0x00000,2
+HKR,DeviceData,Command-S       ,0x00000,1
+HKR,DeviceData,Command-D       ,0x00000,1
+HKR,DeviceData,Command-K       ,0x00000,0
+HKR,DeviceData,SkeyHandling    ,0x00000,1
+HKR,DeviceData,DuplexScn       ,0x00000,0
+HKR,DeviceData,BedHReg         ,0x00000,1
+HKR,DeviceData,BrOemFlg        ,0x00000,1
+
+[BrModel.SX.AddReg]
+HKR,DeviceData,ScannerType     ,0x00000,2
+HKR,DeviceData,DocHandling     ,0x00000,3
+HKR,DeviceData,ResoType        ,0x00000,2
+HKR,DeviceData,MaxResoNo       ,0x00000,8
+HKR,DeviceData,MaxResoCatalog  ,0x00000,12
+HKR,DeviceData,OpticalResoX    ,0x00000,600
+HKR,DeviceData,OpticalResoY    ,0x00000,1200
+HKR,DeviceData,BedDocWidth     ,0x00000,8268
+HKR,DeviceData,BedDocHeight    ,0x00000,11456
+HKR,DeviceData,FeederDocWidth  ,0x00000,8268
+HKR,DeviceData,FeederDocHeight ,0x00000,13763
+HKR,DeviceData,EventImage      ,0x00000,1
+HKR,DeviceData,EventOcr        ,0x00000,0
+HKR,DeviceData,EventEmail      ,0x00000,1
+HKR,DeviceData,EventFile2      ,0x00000,1
+HKR,DeviceData,SetupInit       ,0x00000,1
+HKR,DeviceData,EnCmpJ          ,0x00000,1
+HKR,DeviceData,CmpRate         ,0x00000,2
+HKR,DeviceData,Command-S       ,0x00000,1
+HKR,DeviceData,Command-D       ,0x00000,1
+HKR,DeviceData,Command-K       ,0x00000,0
+HKR,DeviceData,SkeyHandling    ,0x00000,1
+HKR,DeviceData,DuplexScn       ,0x00000,0
+HKR,DeviceData,BedHReg         ,0x00000,1
+HKR,DeviceData,FeederReg       ,0x00000,1
+HKR,DeviceData,DocMaxPages     ,0x00000,10
+HKR,DeviceData,BrOemFlg        ,0x00000,1
+
+;----------------------------------------
+; Add reg USB
+;
+[BrWia10USB.AddReg]
+HKR,,HardwareConfig,1,4
+HKR,,USDClass,,"{DF2E1D41-D15E-46AF-B5B1-7D8ADC1D60FD}"
+HKR,DeviceData,OpenTimeout,0x10001,360000
+HKCR,CLSID\{DF2E1D41-D15E-46AF-B5B1-7D8ADC1D60FD} ,,,%BrWiaUsd%
+HKCR,CLSID\{DF2E1D41-D15E-46AF-B5B1-7D8ADC1D60FD}\InProcServer32,,,%11%\%Wia10FileName%
+HKCR,CLSID\{DF2E1D41-D15E-46AF-B5B1-7D8ADC1D60FD}\InProcServer32,ThreadingModel,,"Both"
+
+[BrWia20USB.AddReg]
+HKR,,HardwareConfig,1,4
+HKR,,USDClass,,"{8586D0D0-1A8B-4ADC-82B3-0E2C581310AE}"
+HKR,DeviceData,OpenTimeout,0x10001,360000
+HKCR,CLSID\{8586D0D0-1A8B-4ADC-82B3-0E2C581310AE} ,,,%BrWiaUsd%
+HKCR,CLSID\{8586D0D0-1A8B-4ADC-82B3-0E2C581310AE}\InProcServer32,,,%11%\%Wia20FileName%
+HKCR,CLSID\{8586D0D0-1A8B-4ADC-82B3-0E2C581310AE}\InProcServer32,ThreadingModel,,"Both"
+
+[BrCoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000,"BrCiImg.dll,BrImgDrvCoInstaller"
+
+;----------------------------------------
+; Add reg NET
+;
+[BrWia10Net.AddReg]
+HKR,,HardwareConfig,1,1
+HKR,,USDClass,,"{DF2E1D41-D15E-46AF-B5B1-7D8ADC1D60FD}"
+HKR,,CreateFileName,,BRNET
+HKR,DeviceData,OpenTimeout,0x10001,360000
+HKCR,CLSID\{DF2E1D41-D15E-46AF-B5B1-7D8ADC1D60FD} ,,,%BrWiaUsd%
+HKCR,CLSID\{DF2E1D41-D15E-46AF-B5B1-7D8ADC1D60FD}\InProcServer32,,,%11%\%Wia10FileName%
+HKCR,CLSID\{DF2E1D41-D15E-46AF-B5B1-7D8ADC1D60FD}\InProcServer32,ThreadingModel,,"Both"
+
+[BrWia20Net.AddReg]
+HKR,,HardwareConfig,1,1
+HKR,,USDClass,,"{8586D0D0-1A8B-4ADC-82B3-0E2C581310AE}"
+HKR,,CreateFileName,,BRNET
+HKR,DeviceData,OpenTimeout,0x10001,360000
+HKCR,CLSID\{8586D0D0-1A8B-4ADC-82B3-0E2C581310AE} ,,,%BrWiaUsd%
+HKCR,CLSID\{8586D0D0-1A8B-4ADC-82B3-0E2C581310AE}\InProcServer32,,,%11%\%Wia20FileName%
+HKCR,CLSID\{8586D0D0-1A8B-4ADC-82B3-0E2C581310AE}\InProcServer32,ThreadingModel,,"Both"
+
+[BrWiaNetUi.AddReg]
+HKCR,CLSID\{4B29E704-7E5A-466c-A5FD-8BAEC62DC2BA},,,"WIA Driver UI Extension"
+HKCR,CLSID\{4B29E704-7E5A-466c-A5FD-8BAEC62DC2BA}\shellex\PropertySheetHandlers\{65F642BF-7D2E-4848-96E8-E2B24655E87B}
+HKCR,CLSID\{65F642BF-7D2E-4848-96E8-E2B24655E87B},,,"WIA Property Sheet Handlers"
+HKCR,CLSID\{65F642BF-7D2E-4848-96E8-E2B24655E87B}\InProcServer32,,,%11%\BrWiaNCp.dll
+HKCR,CLSID\{65F642BF-7D2E-4848-96E8-E2B24655E87B}\InProcServer32,ThreadingModel,,"Both"
+
+;----------------------------------------
+; Add Service
+;
+[BrScnUsb.AddService]
+DisplayName    = %BrScnUsb.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\BrScnUsb.sys
+LoadOrderGroup = Base
+
+;----------------------------------------
+; Events
+;
+[BrEvents]
+ScanToOcr   = %ScanToOcr%,{9d095b89-37d6-4877-afed-62a297dc6dbe},*
+ScanToSpApp = %ScanToSpApp%,{a6c5a715-8c6e-11d2-977a-0000f87a926f},*
+ScanToEmail = %ScanToEmail%,{c686dcee-54f2-419e-9a27-2fc7f2e98f9e},*
+ScanToFile  = %ScanToFile%,{fc4767c1-c8b3-48a2-9cfa-2e90cb3d3590},*
+
+;----------------------------------------
+; Copy Files USB
+;
+[BrScnUsb.CopyFiles]
+BrScnUsb.sys
+
+[BrWia10USB.CopyFiles]
+BrWia13b.dll
+BrUsi13b.dll
+BrJDec.dll
+
+[BrWia20USB.CopyFiles]
+BrWi213b.dll
+BrUsi13b.dll
+BrJDec.dll
+
+[BrCoInstaller.CopyFiles]
+BrCiImg.dll
+
+;----------------------------------------
+; Copy Files NET
+;
+[BrWia10Net.CopyFiles]
+BrWia13b.dll
+BrJDec.dll
+
+[BrWia20Net.CopyFiles]
+BrWi213b.dll
+BrJDec.dll
+
+;[BrWiaNetCommon32.CopyFiles]
+;BrWiaNCp.dll
+;BrNetSti.dll
+;NSSearch.dll
+;BrMuSNMP.dll
+;Brnsplg.dll
+
+;[BrWiaNetCommon64.CopyFiles]
+;BrWiaNCp.dll
+;BrNetSti.dll
+;NSSRH64.dll
+;BrSNMP64.dll
+;Brnsplg.dll
+
+;----------------------------------------
+; Copy Files Common
+;
+[BrTwdsMain.CopyFiles]
+BrTwds.dll
+BrTwdsUi.dll
+BrTwdScn.dll
+BrScnDev.dll
+BrStiIf.dll
+BrScnFlt.dll
+BrTwJDec.dll
+
+[BrTwdsLang.CopyFiles]
+BRScnm14aAru.chm
+BRScnm14aBul.chm
+BRScnm14aChn.chm
+BRScnm14aCht.chm
+BRScnm14aCze.chm
+BRScnm14aDan.chm
+BRScnm14aDut.chm
+BRScnm14aEng.chm
+BRScnm14aFin.chm
+BRScnm14aFrc.chm
+BRScnm14aFre.chm
+BRScnm14aGer.chm
+BRScnm14aHrv.chm
+BRScnm14aHun.chm
+BRScnm14aInd.chm
+BRScnm14aIta.chm
+BRScnm14aJpn.chm
+BRScnm14aKor.chm
+BRScnm14aNor.chm
+BRScnm14aPol.chm
+BRScnm14aPor.chm
+BRScnm14aPtb.chm
+BRScnm14aRom.chm
+BRScnm14aRus.chm
+BRScnm14aSlv.chm
+BRScnm14aSpa.chm
+BRScnm14aSrl.chm
+BRScnm14aSvk.chm
+BRScnm14aSwe.chm
+BRScnm14aTha.chm
+BRScnm14aTrk.chm
+BRScnm14aUkr.chm
+BRScnm14aUsa.chm
+BRScnm14aVit.chm
+BrTwdAru.dll
+BrTwdBul.dll
+BrTwdChn.dll
+BrTwdCht.dll
+BrTwdCze.dll
+BrTwdDan.dll
+BrTwdDut.dll
+BrTwdEng.dll
+BrTwdFin.dll
+BrTwdfrc.dll
+BrTwdFre.dll
+BrTwdGer.dll
+BrTwdHrv.dll
+BrTwdHun.dll
+BrTwdInd.dll
+BrTwdIta.dll
+BrTwdJpn.dll
+BrTwdKor.dll
+BrTwdNor.dll
+BrTwdPol.dll
+BrTwdPor.dll
+BrTwdPtb.dll
+BrTwdRom.dll
+BrTwdRus.dll
+BrTwdSlv.dll
+BrTwdSpa.dll
+BrTwdSrl.dll
+BrTwdSvk.dll
+BrTwdSwe.dll
+BrTwdTha.dll
+BrTwdTrk.dll
+BrTwdUkr.dll
+BrTwdUsa.dll
+BrTwdVit.dll
+
+[BrTwdsFeUSB.M7206W.CopyFiles]
+BrTwdFe.ds
+TWM7206WU.ini
+
+[BrTwdsFeUSB.M7216NWA.CopyFiles]
+BrTwdFe.ds
+TWM7216NWAU.ini
+
+[BrTwdsFeUSB.M7256WHF.CopyFiles]
+BrTwdFe.ds
+TWM7256WHFU.ini
+
+[BrTwdsFeNet.M7206W.CopyFiles]
+BrTwdFe.ds
+TWM7206WN.ini
+
+[BrTwdsFeNet.M7216NWA.CopyFiles]
+BrTwdFe.ds
+TWM7216NWAN.ini
+
+[BrTwdsFeNet.M7256WHF.CopyFiles]
+BrTwdFe.ds
+TWM7256WHFN.ini
+
+;----------------------------------------
+; Destination Directories
+;
+[DestinationDirs]
+DefaultDestDir       = 11
+BrScnUsb.CopyFiles   = 12
+BrTwdsMain.CopyFiles = 10,TWAIN_32\%TwainDirName%\Common
+BrTwdsLang.CopyFiles = 10,TWAIN_32\%TwainDirName%\Lang
+
+BrTwdsFeUSB.M7206W.CopyFiles   = 10,TWAIN_32\%TwainDirName%\M7206WU
+BrTwdsFeUSB.M7216NWA.CopyFiles = 10,TWAIN_32\%TwainDirName%\M7216NWAU
+BrTwdsFeUSB.M7256WHF.CopyFiles = 10,TWAIN_32\%TwainDirName%\M7256WHFU
+BrTwdsFeNet.M7206W.CopyFiles   = 10,TWAIN_32\%TwainDirName%\M7206WN
+BrTwdsFeNet.M7216NWA.CopyFiles = 10,TWAIN_32\%TwainDirName%\M7216NWAN
+BrTwdsFeNet.M7256WHF.CopyFiles = 10,TWAIN_32\%TwainDirName%\M7256WHFN
+
+;----------------------------------------
+; Source Disks
+;
+[SourceDisksNames]
+1 = %BrDrvDisk1%
+
+[SourceDisksNames.x86]
+3 = %BrDrvDisk1%,,,x86
+
+[SourceDisksNames.amd64]
+4 = %BrDrvDisk1%,,,amd64
+
+[SourceDisksFiles]
+BrScnUsb.sys = 1,,
+
+BrTwdFe.ds     = 1,,
+BrTwds.dll     = 1,,
+BrTwdsUi.dll   = 1,,
+BrTwdScn.dll   = 1,,
+BrScnDev.dll   = 1,,
+BrStiIf.dll    = 1,,
+BrScnFlt.dll   = 1,,
+BrTwJDec.dll   = 1,,
+
+BRScnm14aAru.chm = 1,,
+BRScnm14aBul.chm = 1,,
+BRScnm14aChn.chm = 1,,
+BRScnm14aCht.chm = 1,,
+BRScnm14aCze.chm = 1,,
+BRScnm14aDan.chm = 1,,
+BRScnm14aDut.chm = 1,,
+BRScnm14aEng.chm = 1,,
+BRScnm14aFin.chm = 1,,
+BRScnm14aFrc.chm = 1,,
+BRScnm14aFre.chm = 1,,
+BRScnm14aGer.chm = 1,,
+BRScnm14aHrv.chm = 1,,
+BRScnm14aHun.chm = 1,,
+BRScnm14aInd.chm = 1,,
+BRScnm14aIta.chm = 1,,
+BRScnm14aJpn.chm = 1,,
+BRScnm14aKor.chm = 1,,
+BRScnm14aNor.chm = 1,,
+BRScnm14aPol.chm = 1,,
+BRScnm14aPor.chm = 1,,
+BRScnm14aPtb.chm = 1,,
+BRScnm14aRom.chm = 1,,
+BRScnm14aRus.chm = 1,,
+BRScnm14aSlv.chm = 1,,
+BRScnm14aSpa.chm = 1,,
+BRScnm14aSrl.chm = 1,,
+BRScnm14aSvk.chm = 1,,
+BRScnm14aSwe.chm = 1,,
+BRScnm14aTha.chm = 1,,
+BRScnm14aTrk.chm = 1,,
+BRScnm14aUkr.chm = 1,,
+BRScnm14aUsa.chm = 1,,
+BRScnm14aVit.chm = 1,,
+BrTwdAru.dll = 1,,
+BrTwdBul.dll = 1,,
+BrTwdChn.dll = 1,,
+BrTwdCht.dll = 1,,
+BrTwdCze.dll = 1,,
+BrTwdDan.dll = 1,,
+BrTwdDut.dll = 1,,
+BrTwdEng.dll = 1,,
+BrTwdFin.dll = 1,,
+BrTwdfrc.dll = 1,,
+BrTwdFre.dll = 1,,
+BrTwdGer.dll = 1,,
+BrTwdHrv.dll = 1,,
+BrTwdHun.dll = 1,,
+BrTwdInd.dll = 1,,
+BrTwdIta.dll = 1,,
+BrTwdJpn.dll = 1,,
+BrTwdKor.dll = 1,,
+BrTwdNor.dll = 1,,
+BrTwdPol.dll = 1,,
+BrTwdPor.dll = 1,,
+BrTwdPtb.dll = 1,,
+BrTwdRom.dll = 1,,
+BrTwdRus.dll = 1,,
+BrTwdSlv.dll = 1,,
+BrTwdSpa.dll = 1,,
+BrTwdSrl.dll = 1,,
+BrTwdSvk.dll = 1,,
+BrTwdSwe.dll = 1,,
+BrTwdTha.dll = 1,,
+BrTwdTrk.dll = 1,,
+BrTwdUkr.dll = 1,,
+BrTwdUsa.dll = 1,,
+BrTwdVit.dll = 1,,
+
+TWM7206WU.ini   = 1,,
+TWM7216NWAU.ini = 1,,
+TWM7256WHFU.ini = 1,,
+TWM7206WN.ini   = 1,,
+TWM7216NWAN.ini = 1,,
+TWM7256WHFN.ini = 1,,
+
+[SourceDisksFiles.x86]
+BrWia13b.dll = 3,,
+BrWi213b.dll = 3,,
+BrUsi13b.dll = 3,,
+BrJDec.dll   = 3,,
+BrCiImg.dll  = 3,,
+
+[SourceDisksFiles.amd64]
+BrWia13b.dll = 4,,
+BrWi213b.dll = 4,,
+BrUsi13b.dll = 4,,
+BrJDec.dll   = 4,,
+BrCiImg.dll  = 4,,
+
+;----------------------------------------
+; Localizable Strings
+;
+[Strings]
+Provider = "Lenovo"
+Manufact = "Lenovo"
+DriverPackageDisplayName = "M7206W, M7216NWA, M7256WHF"
+
+BrDrvDisk1       = "Lenovo Scanner Driver Disk"
+BrScnUsb.SvcDesc = "Lenovo USB Still Image driver"
+BrWiaUsd         = "Lenovo Wia Scanner minidriver"
+
+ScanToOcr   = "Scan To OCR - Button Press"
+ScanToSpApp = "Scan To Image - Button Press"
+ScanToEmail = "Scan To E-mail - Button Press"
+ScanToFile  = "Scan To File - Button Press"
+
+TWAINDS.Prefix     = "TW-"
+StiCoreFileNameUSB = "BrUsi13b.dll"
+StiCoreFileNameNet = "BrNetSti.dll"
+Wia10FileName      = "BrWia13b.dll"
+Wia20FileName      = "BrWi213b.dll"
+TwainDirName       = "BrScm14a"
+
+M7206W.USB.SCN   = "Lenovo M7206W"
+M7216NWA.USB.SCN = "Lenovo M7216NWA"
+M7256WHF.USB.SCN = "Lenovo M7256WHF"
+M7206W.NET.SCN   = "Lenovo M7206W LAN"
+M7216NWA.NET.SCN = "Lenovo M7216NWA LAN"
+M7256WHF.NET.SCN = "Lenovo M7256WHF LAN"
+
+MODELNAME.M7206W   = "M7206W"
+MODELNAME.M7216NWA = "M7216NWA"
+MODELNAME.M7256WHF = "M7256WHF"

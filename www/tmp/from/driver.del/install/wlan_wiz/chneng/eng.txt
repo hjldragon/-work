@@ -1,0 +1,160 @@
+WS01000010,Wireless Device Setup Wizard
+WS01000040,2.02
+WS02010010,Welcome
+WS02010020,Welcome to the Wireless Setup Wizard
+WS04000010,IP Address Configuration
+WS04000020,Configure the IP address of the Wireless Device
+WS04000030,Obtain an IP address automatically.
+WS04000050,Set Static IP address
+WS04000060,IP Address
+WS04000070,Subnet mask
+WS04000080,Gateway
+WS05020010,Wireless Network Name
+WS05020020,Configure the wireless network name that the device will be associated with.
+WS05020030,Name(SSID)
+WS05020040,This is an Ad-hoc network and there is no access point.
+WS05020060,Channel
+WS05030010,Searching for Wireless Networks...
+WS05040010,Available Wireless Networks
+WS05040020,Choose the SSID that you checked in advance.
+WS05040040,Name (SSID)
+WS05040050,Channel
+WS05040060,Wireless Mode
+WS05040070,Signal
+WS05040080,Access Point / Base Station
+WS05040090,Ad-hoc Network
+WS05040100,If the SSID (Identification of your Wireless Access Point) does not appear in this list, or if you are hiding it, you may still be able to configure it by clicking the 'Advanced' button.
+WS05040110,802.11b/g (11Mbps/54Mbps)
+WS05040120,802.11b (11Mbps)
+WS05040130,802.11g (54Mbps)
+WS05040140,802.11b/g/n
+WS05040150,802.11n
+WS05060010,ATTENTION!
+WS05060020,This Wireless Network is not secure. It is not using secure authentication and encryption.
+WS05060030,Do you want to continue setup?
+WS05060040,Name (SSID) :
+WS06000010,Authentication Method and Encryption Mode
+WS06000020,Configure the Authentication Method and Encryption Mode
+WS06000030,Authentication Method
+WS06000040,Encryption Mode
+WS06000050,Network Key
+WS06000070,Name (SSID) :
+WS06000080,Inner Authentication Method
+WS07000010,Wireless Network Settings Confirmation
+WS07000020,Click "Next" to submit following settings to the device
+WS07000060,Communication mode
+WS07000070,Infrastructure
+WS07000080,Ad-hoc
+WS07000090,Name (SSID)
+WS07000150,Auto
+WS07000190,IP Address
+WS07000200,Subnet mask
+WS07000210,Gateway
+WS07000220,Channel
+WS07000230,Authentication Method
+WS07000240,Encryption Mode
+WS07000270,Change IP Address
+WS07000280,Inner Authentication Method
+WS08010010,Submitting settings ...... Please wait...
+WS21000010,User Authentication
+WS21000020,Configure the Authentication Method and Encryption mode
+WS21000030,Name (SSID) :
+WS21000040,User Authentication
+WS21000050,User ID
+WS21000060,User Password
+WS43000000,Network Key Configuration
+WS43000010,Please enter the network security key which you checked earlier.
+WS43000020,Your wireless network Authentication and Encryption type will automatically be detected. You only need to enter the Network Key.
+WS44000010,Certificate Configuration
+WS44000020,Configure the Client Certificate and Server Certificate Verification.
+WS44000030,Name (SSID) :
+WS44000040,Client Certificate
+WS44000050,Server Certificate Verification
+WS44000051,No Verification
+WS44000052,CA Cert.
+WS44000053,CA Cert. + Server ID
+WS44000060,Server ID
+WS46000010,Failed to connect to the network
+WS46000020,Confirm the following and then click Retry.
+WS46000230,Your wireless access point/router cannot be detected.(TS-02)
+WS46000240,Please try the following:
+WS46000250,- Check that you are selecting the correct SSID (network name) and are entering the correct network key
+WS46000260,- Check that your wireless access point/router is not using any additional security settings, such as MAC address filtering
+WS46000270,- Try moving the device closer to your wireless access point/router.  Once connected to the network, you should be able to move it back to its previous location
+WS46000280,MAC Address:
+WS46000330,The device cannot connect to your wireless access point/router.(TS-03)
+WS46000340,- Check that you are selecting the correct SSID (network name) and are entering the correct network key
+WS46000350,- If you do not know this information, please refer to the documentation from the manufacturer or supplier of your wireless access point/router
+WS46000430,Unsupported authentication/encryption method has been detected on your wireless access point/router.(TS-04)
+WS46000440,- Your wireless access point/router is using an authentication/encryption method that is not supported by the device. Check that you are selecting the correct SSID (network name)
+WS46000530,The specified SSID and network key are incorrect.(TS-05)
+WS46000540,-  Check that you are selecting the correct SSID (network name) and are entering the correct network key
+WS46000630,The specified wireless security information is incorrect.(TS-06)
+WS46000640,- Check the authentication/encryption method that you are selecting and make sure you are entering the correct network key
+WS50000010,Installation confirmation
+WS50000020,During installation the wireless settings on your computer or wireless access point will automatically be detected.Before connecting the wireless device to a corporate network please confirm with the network administrator.
+WS50000030,Checked and confirmed
+WS51000010,Detecting existing wireless network settings on your Computer
+WS51000020,The wireless network settings of your computer or wireless access point have been detected.
+WS51000030,The wireless network name detected (Wireless Access Point/Router name):
+WS51000040,SSID:
+WS51000050,Would you like to connect to the wireless network using these settings?
+WS51000060,Yes
+WS51000070,No
+WS98050010,Invalid Network Key
+WS98050020,(ASCII WEP Key)
+WS98050030,You did not correctly enter the WEP key information.
+WS98050040,64(40) bit WEP   : "Hello"
+WS98050050,128(104) bit WEP : "Wirelesscomms"
+WS98050060,Enter 5 or 13 text characters. For example:
+WS98060010,Invalid Network Key
+WS98060020,(Hex. WEP Key)
+WS98060030,You did not correctly enter the WEP key information.
+WS98060040,Enter 10 or 26 digits of hexadecimal data. For example:
+WS98060050,64(40) bit WEP   : "71f2234aba"
+WS98060060,128(104) bit WEP : "71f2234ab56cd709e5412aa3ba"
+WS98070010,Exit Setup
+WS98070020,Setup is not complete.
+WS98070030,If you quit this setup program the Wireless Device is not configured.
+WS98070040,To continue this setup program, click "Resume"
+WS98070050,To quit this setup program, click "Exit".
+WS98100010,Invalid Network Key
+WS98100020,The Passphrase is an ASCII string of 8-63 characters.
+WS98150010,Invalid Network Key
+WS98150020,You did not correctly enter the network key.Enter 5 or 8-63 characters depending on your security method.
+WS98150030,For more information see the Help text.
+WS98160010,USB connection error
+WS98160020,Please confirm that a USB cable is connected to your device.
+WS98160030,Please confirm that your device is on.
+WS99010010,OK
+WS99010020,Cancel
+WS99010030,Exit
+WS99010040,< Back
+WS99010050,Next >
+WS99010060,Help
+WS99010070,Refresh
+WS99010090,Resume
+WS99010100,Advanced
+WS99010130,Where is my SSID?
+WS99010140,Where is my network key?
+WS99010150,Retry >
+WS99020100,Open System
+WS99020110,Shared Key
+WS99020120,WPA / WPA2-PSK
+WS99020160,LEAP
+WS99020170,EAP-FAST
+WS99020180,PEAP
+WS99020190,EAP-TTLS
+WS99020200,None
+WS99020210,WEP
+WS99020220,TKIP
+WS99020230,AES
+WS99020240,CKIP
+WS99020250,TKIP+AES
+WS99020500,EAP-TLS
+WS99030100,NONE
+WS99030110,GTC
+WS99030120,MS-CHAPv2
+WS99030130,CHAP
+WS99030140,MS-CHAP
+WS99030150,PAP

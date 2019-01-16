@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh" xml:lang="zh">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>网络基本管理帮助</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">无线 (个人)</div>
+        <dl>
+<dt>概述</dt>
+<dd>Brother 设备支持个人和企业级别的安全性设置。本页面用于配置个人或家庭级别的设置。</dd>
+<dt>通信模式</dt>
+<dd>有2种类型的无线网络：基础架构模式和Ad-hoc</dd>
+<dt>基础模式</dt>
+<dd>基础架构模式在网络中心有一个中央接入点，通常为一台无线路由器。Brother设备就是通过这个中央接入点来接收所有作业的。</dd>
+<dt>Ad-hoc</dt>
+<dd>特定模式网络（有时也被称为对等网络）没有中心接入点。 每个无线客户端都可以直接互相通信。 无线设备设置为此模式时，它会直接从发送数据的计算机接收所有作业。</dd>
+<dt>无线网络名称(SSID)</dt>
+<dd>SSID（服务集标识符）指定了使用的无线网络。</dd>
+<dt>通道</dt>
+<dd>无线网络使用信道。最多可以使用13个信道。但是，许多国家都对可用信道的数量有所限制。</dd>
+<dt>验证方式和加密方式</dt>
+<dd>大多数无线网络使用某种安全设置。</dd>
+<dd>这些安全设置定义了验证（设备如何在网络中定义自己）和加密（设备在网络上发送时如何加密数据）。</dd>
+<dd>如果在配置无线设备时没有正确选定这些选项，将无法连接到无线网络。</dd>
+<dd>因此在配置这些选项时要小心谨慎。</dd>
+<dd>请参见以下信息以了解您的无线设备支持的供家庭（个人）使用的验证和加密方法。</dd>
+<dt>验证方式</dt>
+<dd>本设备支持以下方法供家庭（个人）使用：<br />
+- 开放式系统<br />
+- 共享密钥（仅限基础架构模式）<br />
+- WPA/WPA2-PSK</dd>
+<dt>开放式系统</dt>
+<dd>无线设备无需验证就可访问网络。</dd>
+<dt>共享密钥（仅基础网络连接模式）</dt>
+<dd>所有要访问无线网络的设备都共享一个预置密钥。</dd>
+<dt>WPA/WPA2-PSK</dt>
+<dd>访问无线网络的所有设备共享一个预先设定的密码组合。<br />
+这个验证方法通过一个强大的加密方法可使您安全地通信。<br />
+WPA/WPA2-PSK 仅仅用于无线基础网络。</dd>
+<dt>加密方式</dt>
+<dd>加密用于保护数据本身。本设备支持以下方法供家庭（个人）使用：</dd>
+<dt>无</dt>
+<dd>无加密方式被使用。</dd>
+<dt>WEP</dt>
+<dd>使用WEP（有线等效保护），数据可以通过一个密钥进行发送和接收。</dd>
+<dt>TKIP</dt>
+<dd>TKIP(暂时密钥集成协议）清除了可预测性；入侵者可以依靠预测充分利用手工指定WEP密钥带来的安全缺陷。TKIP密钥自动生成且比WEP密钥长，因而比标准的WEP密钥更安全。</dd>
+<dt>AES</dt>
+<dd>AES （高级加密标准）是由 Wi-Fi&reg;权威认可的强大的加密标准。</dd>
+<dt>网络关键字</dt>
+<dd>每个安全方式都有许多规则：</dd>
+<dt>开放式系统/使用WEP（有线等效保护）的共享密钥</dt>
+<dd>输入用来访问网络的WEP（有线等效保护）密钥。 密钥是以ASCII（美国国家信息交换标准码）或HEXADECIMAL（十六进制）格式输入的64位或128位的值。</dd>
+<dt>64(40)位ASCII（美国国家信息交换标准码）</dt>
+<dd>使用5个文本字符。</dd>
+<dd>例如"Hello"（注意大小写）</dd>
+<dt>64(40)位十六进制</dt>
+<dd>使用10位十六进制数据数字。</dd>
+<dd>例如"71f2234aba"</dd>
+<dt>128(104)位ASCII（美国国家信息交换标准码）</dt>
+<dd>使用13个文本字符。</dd>
+<dd>例如"Wirelesscomms"（注意大小写）</dd>
+<dt>128(104)位十六进制</dt>
+<dd>使用26位十六进制数据数字。</dd>
+<dd>例如"71f2234ab56cd709e5412aa3ba"</dd>
+<dt>WPA/WPA2-PSK 和 TKIP/AES</dt>
+<dd>使用字符长度介于7和64之间的预先共享密钥(PSK)。</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="关闭" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+ <head>
+  <meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" />
+  <meta name="Description" content="Description" />
+  <meta name="Keywords" content="Keywords" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript">
+  //<![CDATA[
+  //]]>
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../css/help.css" />
+  <title>Web Based Management Help</title>
+ </head>
+ <body>
+  <div id="document">
+   <div id="contents">
+    <div id="frame_top">
+    </div>
+    <div id="frame_side">
+     <div id="frame_contents">
+      <div id="main">
+        <div id="title">Service</div>
+        <dl>
+<dt>Overview</dt>
+<dd>This page allows you to modify the parameters associated with the service you selected from the service list.</dd>
+<dt>Service Name</dt>
+<dd>Specifies the name of the service. Normally, you do not need to modify this field.</dd>
+<dt>Service Port</dt>
+<dd>Specifies the physical port associated with the service.</dd>
+<dt>Protocols</dt>
+<dd>These check boxes determine the network protocols enabled for this service.</dd>
+<dt>Filter</dt>
+<dd>Specifies the data filter, if any, for this service.<br />
+0 is no filter, data passes unmodified.<br />
+1 is text substitution, by default CRLF for LF.<br />
+2 indicates an AppleTalk job. Filtering depends upon the hardware and options selected.<br />
+3 converts normal text into PostScript.<br />
+4 converts output data into PostScript Tagged Binary.</dd>
+<dt>Control Strings</dt>
+<dd>Specifies data strings to be sent at the start or end of a job.</dd>
+<dt>Raw TCP Port</dt>
+<dd>If non-zero, defines a TCP port to be used for connection to this service.</dd>
+<dt>Bi-Directional</dt>
+<dd>If checked, the service will send data back from the Device to the network. Normally you should not need to change this. In the case of an non-bidirectional PostScript Device, you can turn off bi-directional support to enable AppleTalk spoofing.</dd>
+        </dl>
+      </div>
+     </div>
+    </div>
+    <div id="frame_bottom">
+    </div>
+   </div>
+   <div id="navigation">
+    <div id="button">
+     <input type="button" id="close" name="close" value="Close" onclick="window.close ();" />
+    </div>
+    <div id="page_top">
+     <a href="javascript:window.scroll(0,0);">Top<img src="../../../images/page_top.gif" alt="Top" /></a>
+    </div>
+   </div>
+   <div id="footer">
+    <div id="copyright">
+     Copyright(C) 2000-2014 Lenovo (Beijing) Limited. All Rights Reserved.<br />
+Copyright(C) 2000-2014 Brother Industries, Ltd. All Rights Reserved.
+    </div>
+   </div>
+  </div>
+ </body>
+</html>
