@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Config>
+    <Server>http://api.jzzwlcm.com/</Server>
+    <Socket>ws://srv.jzzwlcm.com:13010/websocket</Socket>
+</Config>

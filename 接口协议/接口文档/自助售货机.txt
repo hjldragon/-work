@@ -1,0 +1,175 @@
+=== 商城商品编辑/创建==
+url = vendor_goods_save.php
+req ={
+      vendor_goods_save: 1,   //参数
+      vendor_goods_id: "VGD5"           //商品id,传就是编辑，不传就是新建
+      vendor_goods_name: "产品名称名称",    //商品名称
+      goods_price: 100000.9,      //商品价格
+      goods_img_list: ["fbcd154da8fcb178fb3c7b2834ed20b3.jpg"],   //商品图片
+      goods_spec:"规格",
+      category_id: "VGC1",      //商品所属分类id
+      sale_off:0                // （1:下架, 0:上架）
+      from_company:"生产企业",        //分类id
+      goods_price: 10.11,  //售价
+      goods_cost_price: 8.99,//成本价
+      goods_stock: 10, // 库存
+      goods_bar_code: "43622135378",//条码
+      shop_id: "SH5" // 店铺id
+      is_weight: 1 // 是否支持称重(1.是,0.否）
+      goods_weight: 2 // 商品重量
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 商品删除==
+url = vendor_goods_save.php
+req ={
+      goods_del: 1,   //参数
+      goods_id_list: ["GD5","GD9"]           //商品id
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+
+=== 商品上下架==
+url = vendor_goods_save.php
+req ={
+      goods_sale_off: 1,   //参数
+      goods_id_list: ["GD5","GD9"] //商品id
+      sale_off:0                   //（1:下架, 0:正常）
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 商品详情===
+url = vendor_goods_get.php.php
+req ={
+     get_goods_info: 1,         //  参数
+     vendor_goods_id: "GD22",     // id
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "info": {
+              "vendor_goods_id":"GD22",
+              "vendor_goods_name":"名称",
+              "sale_off":0,
+              "goods_img_list":[],
+              "goods_spec": "规格",
+              "from_company": "生产企业",
+              "goods_price": 10,
+              "goods_cost_price": 8,
+              "goods_stock": 5,
+              "goods_bar_code": "43622135378",
+              "shop_id": "SH5",
+              "ctime": 154646748
+            }
+    }
+}
+=== 商品列表===
+url = vendor_goods_get.php.php
+req ={
+     get_goods_list: 1,         //  参数
+     category_id: "GD22",     // 分类id
+     search: "GD22",     // 名称/编号搜索（含模糊搜索）
+     sale_off: 0,     // 是否上下架状态
+     page_size: 2,     // 条数
+     page_no: 2,     // 页数
+     sortby: 1,     // (排序1:价格,2:序号)
+     sort: 1,     // //(1:正序,-1:倒序)
+}
+resp ={
+    "ret": 0,
+    "data": {
+        "list": [
+                  {
+                      "vendor_goods_id":"GD22",
+                      "vendor_goods_name":"名称",
+                      "sale_off":0,
+                      "goods_img_list":[],
+                      "goods_spec": "规格",
+                      "category_id": "VGC1",
+                      "from_company": "生产企业",
+                      "goods_price": 10,
+                      "goods_cost_price": 8,
+                      "goods_stock": 5,
+                      "goods_bar_code": "43622135378",
+                      "shop_id": "SH5",
+                      "ctime": 154646748,
+                      "category_name": "分类"
+                  }],
+                          "total": 1,
+                          "page_size": 10,
+                          "page_no": 1
+    }
+}
+=== 商品分类编辑/创建==
+url = vendor_goods_category_save.php
+req ={
+      vg_cate_save: 1,   //参数
+      category_name: "产品名称名称",    //商品分类名称
+      parent_id:"GC1",  //父级分类id 不输入就是1级分类
+      category_id: "GC5",   //分类id 传就是编辑，不传就是新建
+      shop_id: "SH5" //店铺id
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+=== 删除商品分类==
+url = vendor_goods_category_save.php
+req ={
+      delete_goods_category: 1,   //参数
+      category_id: "GC5",           //分类id
+}
+resp ={
+    "ret": 0,
+    "data": {}
+}
+
+ === 商品分类树状结构列表==
+ url = vendor_goods_category_get.php
+ req ={
+          vg_category_list:1,   //参数
+          shop_id: "SH5" //店铺id
+ }
+ resp ={
+     "ret": 0,
+     "data": {
+       "list": [
+                  {
+                       "category_id": "GC5",     //分类id
+                       "category_name": "套餐",  //分类名称
+                       "lastmodtime": 1516697693,
+                       "delete": 0,
+                       "shop_id": "SH5",
+                       "parent_id": "0",   //父级id,没有id就是0
+                       "entry_time": 1516692584
+                       "son": [
+                          {
+                             "category_id": "GC15",     //分类id
+                             "category_name": "套餐1",  //分类名称
+                             "lastmodtime": 1516697693,
+                             "delete": 0,
+                             "shop_id": "SH5",
+                             "parent_id": "GC5",   //父级id,没有id就是0
+                             "entry_time": 1516692584
+                          },
+                          {
+                             "category_id": "GC25",     //分类id
+                             "category_name": "套餐2",  //分类名称
+                             "lastmodtime": 1516697693,
+                             "delete": 0,
+                             "shop_id": "SH5",
+                             "parent_id": "GC5",   //父级id,没有id就是0
+                             "entry_time": 1516692584
+                          }
+                      ]
+                  }
+              ]
+          }
+     }
+ }

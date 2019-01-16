@@ -1,0 +1,47 @@
+<?php
+
+require_once "Log.php";
+require_once "WxUtil.php";
+require_once "WxUnifiedorder.php";
+// $code = $_REQUEST['code'];
+// echo $code;
+
+// $url = 'http://wx.jzzwlcm.com/a.php?code=2';
+// header("Location: $url");
+
+// sleep(10);
+
+
+$openid = "oVQGs1CM07N3qgJNTyQMAIkmxEMw";
+$unifiedorder = new \Wx\Unifiedorder();
+$content->content = 'hello';
+$ret = $unifiedorder->SubmitSend($openid, $content);
+var_dump($ret);
+die;
+
+//     [noncestr] => pko9P0LZfpMuvVTN
+//     [timestamp] => 1513827318071
+//     [url] => http://customer.jzzwlcm.com/index.html?seat_id=SE120&shop_id=SH21&customer_id=23&userid=809
+//     [jsapi_ticket] => HoagFKDcsGMVCIY2vOjf9pPaj_vKIQSi7y_M75w1zMes8obsQ6BowzPzkuKb8Qot-yKiwoecbPcHkOdNBIQyjg
+
+
+// c603db15bd98f8543a94c042a36a8990ce9387b9
+
+
+// jsapi_ticket=HoagFKDcsGMVCIY2vOjf9pPaj_vKIQSi7y_M75w1zMes8obsQ6BowzPzkuKb8Qot-yKiwoecbPcHkOdNBIQyjg&noncestr=pko9P0LZfpMuvVTN&timestamp=1513827318&url=http://customer.jzzwlcm.com/index.html?seat_id=SE120&shop_id=SH21&customer_id=23&userid=809
+
+// jsapi_ticket=HoagFKDcsGMVCIY2vOjf9pPaj_vKIQSi7y_M75w1zMes8obsQ6BowzPzkuKb8Qot-yKiwoecbPcHkOdNBIQyjg&noncestr=pko9P0LZfpMuvVTN&timestamp=1513827318&url=http://customer.jzzwlcm.com/index.html?seat_id=SE120&shop_id=SH21&customer_id=23&userid=809
+
+
+    // $data['noncestr']     = 'pko9P0LZfpMuvVTN';
+    // $data['timestamp']    = 1513827318;
+    // $data['url']          = "http://customer.jzzwlcm.com/index.html?seat_id=SE120&shop_id=SH21&customer_id=23&userid=809";
+    // $data['jsapi_ticket'] = "HoagFKDcsGMVCIY2vOjf9pPaj_vKIQSi7y_M75w1zMes8obsQ6BowzPzkuKb8Qot-yKiwoecbPcHkOdNBIQyjg";
+    // $appid = \Wx\Cfg::APPID;  // 公众账号ID
+    // var_dump($data);
+    // $sign  = \Wx\Util::GetSha1Sign($data);  // 签名
+    // var_dump($sign);die;
+
+    // echo "\n";
+
+?>

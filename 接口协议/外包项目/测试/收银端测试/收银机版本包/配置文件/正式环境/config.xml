@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Config>
+    <Server>http://api.xinchihuo.com.cn/</Server>
+    <Socket>ws://srv.xinchihuo.com.cn:13010/websocket</Socket>
+</Config>
